@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="./include/header.jsp" %>
-<%@ include file="./include/nav.jsp" %>
+<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/nav.jsp" %>
 	<div class="frame login">
 		<form name="login frm">
 			<h2>비밀번호 찾기</h2>
@@ -20,4 +20,4 @@
 	</div>
 </body>
 </html>
-<%@ include file="./include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>

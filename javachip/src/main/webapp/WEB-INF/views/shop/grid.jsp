@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="./include/header.jsp" %>
+<%@ include file="../include/header.jsp" %>
 <!-- 메인 작성 영역 -->
     <!-- Hero Section Begin -->
     <section class="hero hero-normal">
@@ -146,4 +146,4 @@
     </section>
     <!-- Product Section End -->
 <!-- 메인 작성 영역 -->
-<%@ include file="./include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
