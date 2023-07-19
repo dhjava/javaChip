@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="./include/header.jsp" %>
-<%@ include file="./include/nav.jsp" %>
+<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/nav.jsp" %>
     <!-- 배너 섹션 시작 -->
     <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
@@ -63,4 +63,4 @@
         <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen src="https://www.google.com/maps/embed/v1/place?q=%EB%B0%B1%EC%A0%9C%EB%8C%80%EB%A1%9C%20572&key=AIzaSyAGJtR9Wd4Y-7OR6UldcKauosF0X6dZOXk"></iframe></iframe>
     </div>
     <!-- 지도 끝 -->
-<%@ include file="./include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>

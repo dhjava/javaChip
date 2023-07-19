@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file="./include/header.jsp" %>
-<%@ include file="./include/nav.jsp" %>
+<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/nav.jsp" %>
     <!-- 배너 섹션 시작 -->
     <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
         <div class="container">
@@ -28,4 +28,4 @@
 	</div>
 	<div style="float: left; width: 20%; height : 500px;"></div>
 </div>
-<%@ include file="./include/footer.jsp" %>
+<%@ include file="../include/footer.jsp" %>
