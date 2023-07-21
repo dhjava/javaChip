@@ -12,13 +12,13 @@
                             <span>상품목록</span>
                         </div>
                         <ul>
-                            <li><a href="shop-grid.jsp">원두</a></li>
-                            <li><a href="shop-grid.jsp">생두</a></li>
-                            <li><a href="shop-grid.jsp">드립백</a></li>
-                            <li><a href="shop-grid.jsp">캡슐</a></li>
-                            <li><a href="shop-grid.jsp">도매</a></li>
-                            <li><a href="shop-grid.jsp">커피용품</a></li>
-                            <li><a href="shop-grid.jsp">정기배송</a></li>
+                            <li><a href="shop/grid.do">원두</a></li>
+                            <li><a href="shop/grid.do">생두</a></li>
+                            <li><a href="shop/grid.do">드립백</a></li>
+                            <li><a href="shop/grid.do">캡슐</a></li>
+                            <li><a href="shop/grid.do">도매</a></li>
+                            <li><a href="shop/grid.do">커피용품</a></li>
+                            <li><a href="shop/grid.do">정기배송</a></li>
                         </ul>
                     </div>
                 </div>
@@ -67,37 +67,37 @@
                 <div class="categories__slider owl-carousel">
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-1.jpg">
-                            <h5><a href="shop-grid.jsp">원두</a></h5>
+                            <h5><a href="shop/grid.do">원두</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-2.jpg">
-                            <h5><a href="shop-grid.jsp">생두</a></h5>
+                            <h5><a href="shop/grid.do">생두</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-3.jpg">
-                            <h5><a href="shop-grid.jsp">드립백</a></h5>
+                            <h5><a href="shop/grid.do">드립백</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-4.jpg">
-                            <h5><a href="shop-grid.jsp">캡슐</a></h5>
+                            <h5><a href="shop/grid.do">캡슐</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop-grid.jsp">도매</a></h5>
+                            <h5><a href="shop/grid.do">도매</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop-grid.jsp">커피용품</a></h5>
+                            <h5><a href="shop/grid.do">커피용품</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop-grid.jsp#">정기배송</a></h5>
+                            <h5><a href="shop/grid.do">정기배송</a></h5>
                         </div>
                     </div>
                 </div>

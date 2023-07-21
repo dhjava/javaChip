@@ -13,13 +13,13 @@
                             <span>상품목록</span>
                         </div>
                         <ul>
-                            <li><a href="./shop-grid.jsp">원두</a></li>
-                            <li><a href="./shop-grid.jsp">생두</a></li>
-                            <li><a href="./shop-grid.jsp">드립백</a></li>
-                            <li><a href="./shop-grid.jsp">캡슐</a></li>
-                            <li><a href="./shop-grid.jsp">도매</a></li>
-                            <li><a href="./shop-grid.jsp">커피용품</a></li>
-                            <li><a href="./shop-grid.jsp">정기배송</a></li>
+                            <li><a href="grid.do">원두</a></li>
+                            <li><a href="grid.do">생두</a></li>
+                            <li><a href="grid.do">드립백</a></li>
+                            <li><a href="grid.do">캡슐</a></li>
+                            <li><a href="grid.do">도매</a></li>
+                            <li><a href="grid.do">커피용품</a></li>
+                            <li><a href="grid.do">정기배송</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,15 +51,15 @@
     </section>
     <!-- Hero Section End -->
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>상품명</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.jsp">홈</a>
-                            <a href="./shop-grid.jsp">항목</a>
+                            <a href="<%= request.getContextPath() %>">홈</a>
+                            <a href="grid.do">항목</a>
                             <span>상품명</span>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="img/product/details/product-details-1.jpg" alt="">
+                                src="<%= request.getContextPath() %>/resources/img/product/details/product-details-1.jpg" alt="">
                         </div>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                         <a href="#" class="primary-btn">장바구니에 추가</a>
-                        <a href="./mypage-cart.jsp" class="primary-btn" style="background-color:#DD5555">바로 구매</a>
+                        <a href="<%= request.getContextPath() %>/mypage/cart.do" class="primary-btn" style="background-color:#DD5555">바로 구매</a>
                         <ul>
                             <li><b>판매상태</b> <span>재고 있음</span></li>
                             <li><span style="float:left;"><b>옵션</b></span>
@@ -129,6 +129,10 @@
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
                                     aria-selected="false">후기 <span>(20)</span></a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                    aria-selected="false">QnA</a>
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
@@ -160,9 +164,9 @@
 									  <thead>
 									    <tr>
 									      <th scope="col">#</th>
-									      <th scope="col">First</th>
-									      <th scope="col">Last</th>
-									      <th scope="col">Handle</th>
+									      <th scope="col">이름</th>
+									      <th scope="col">내용</th>
+									      <th scope="col">작성일</th>
 									    </tr>
 									  </thead>
 									  <tbody>
@@ -170,18 +174,51 @@
 									      <th scope="row">1</th>
 									      <td>Mark</td>
 									      <td>Otto</td>
-									      <td>@mdo</td>
+									      <td>2023-07-21</td>
 									    </tr>
 									    <tr>
 									      <th scope="row">2</th>
 									      <td>Jacob</td>
 									      <td>Thornton</td>
-									      <td>@fat</td>
+									      <td>2023-07-21</td>
 									    </tr>
 									    <tr>
 									      <th scope="row">3</th>
 									      <td colspan="2">Larry the Bird</td>
-									      <td>@twitter</td>
+									      <td>2023-07-21</td>
+									    </tr>
+									  </tbody>
+									</table>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <table class="table table-hover">
+									  <thead>
+									    <tr>
+									      <th scope="col">#</th>
+									      <th scope="col">제목</th>
+									      <th scope="col">이름</th>
+									      <th scope="col">작성일</th>
+									    </tr>
+									  </thead>
+									  <tbody>
+									    <tr>
+									      <th scope="row">1</th>
+									      <td>Otto</td>
+									      <td>Mark</td>
+									      <td>2023-07-21</td>
+									    </tr>
+									    <tr>
+									      <th scope="row">2</th>
+									      <td>Thornton</td>
+									      <td>Jacob</td>
+									      <td>2023-07-21</td>
+									    </tr>
+									    <tr>
+									      <th scope="row">3</th>
+									      <td colspan="2">Larry the Bird</td>
+									      <td>2023-07-21</td>
 									    </tr>
 									  </tbody>
 									</table>
