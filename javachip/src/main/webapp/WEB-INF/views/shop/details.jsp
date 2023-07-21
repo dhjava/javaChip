@@ -163,32 +163,25 @@
                                     <table class="table table-hover">
 									  <thead>
 									    <tr>
-									      <th scope="col">#</th>
-									      <th scope="col">이름</th>
+									      <th scope="col" width="15%">작성자</th>
 									      <th scope="col">내용</th>
-									      <th scope="col">작성일</th>
+									      <th scope="col" width="15%">작성일</th>
 									    </tr>
 									  </thead>
 									  <tbody>
 									    <tr>
-									      <th scope="row">1</th>
 									      <td>Mark</td>
 									      <td>Otto</td>
 									      <td>2023-07-21</td>
 									    </tr>
 									    <tr>
-									      <th scope="row">2</th>
 									      <td>Jacob</td>
 									      <td>Thornton</td>
 									      <td>2023-07-21</td>
 									    </tr>
-									    <tr>
-									      <th scope="row">3</th>
-									      <td colspan="2">Larry the Bird</td>
-									      <td>2023-07-21</td>
-									    </tr>
 									  </tbody>
 									</table>
+									<button type="button" class="btn btn-dark">후기 등록</button>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
@@ -196,10 +189,10 @@
                                     <table class="table table-hover">
 									  <thead>
 									    <tr>
-									      <th scope="col">#</th>
+									      <th scope="col" width="5%">#</th>
 									      <th scope="col">제목</th>
-									      <th scope="col">이름</th>
-									      <th scope="col">작성일</th>
+									      <th scope="col" width="15%">작성자</th>
+									      <th scope="col" width="15%">작성일</th>
 									    </tr>
 									  </thead>
 									  <tbody>
@@ -215,13 +208,9 @@
 									      <td>Jacob</td>
 									      <td>2023-07-21</td>
 									    </tr>
-									    <tr>
-									      <th scope="row">3</th>
-									      <td colspan="2">Larry the Bird</td>
-									      <td>2023-07-21</td>
-									    </tr>
 									  </tbody>
 									</table>
+									<button type="button" class="btn btn-dark">Q&A 등록</button>
                                 </div>
                             </div>
                         </div>
