@@ -137,7 +137,7 @@
                                     <li><a href="<%=request.getContextPath() %>/mypage/regular.do">정기배송</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./mypage-main.jsp">고객센터</a>
+                            <li><a href="<%=request.getContextPath() %>/help/notice.do">고객센터</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="<%=request.getContextPath() %>/help/notice.do">공지사항</a></li>
                                     <li><a href="<%=request.getContextPath() %>/help/qna.do">Q&A</a></li>
