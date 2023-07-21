@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
+<%@ include file="../include/nav.jsp" %>
 <!-- 메인 작성 영역 -->
 <style>
 .material-icons {
@@ -137,55 +138,6 @@ div.profile.admin {
 </style>
 </head>
 <body>
-        <!-- Hero Section Begin -->
-    <section class="hero hero-normal">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>상품목록</span>
-                        </div>
-                        <ul>
-                            <li><a href="#">원두</a></li>
-                            <li><a href="#">생두</a></li>
-                            <li><a href="#">드립백</a></li>
-                            <li><a href="#">캡슐</a></li>
-                            <li><a href="#">도매</a></li>
-                            <li><a href="#">커피용품</a></li>
-                            <li><a href="#">정기배송</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    모든 항목
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="무엇이 필요하신가요?">
-                                <button type="submit" class="site-btn">검색</button>
-                            </form>
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>063) 123 - 4567</h5>
-                                <span>운영시간 09:00 ~ 18:00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-    
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
 		<div class="container">
@@ -209,7 +161,9 @@ div.profile.admin {
 		<div class="side admin">
 			<div class="blog__sidebar__item">
 				<h4>상품관리</h4>
-
+				<ul>
+				<li>상품 목록 조회</li>
+				</ul>
 			</div>
 			<div class="blog__sidebar__item">
 				<h4>회원관리</h4>
@@ -220,11 +174,17 @@ div.profile.admin {
 			</div>	
 			<div class="blog__sidebar__item">	
 				<h4>주문관리</h4>
+				<ul>
+				<li>주문 목록 조회</li>
+				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
 				<h4>게시글관리</h4>
+				<ul>
+				<li>공지사항 관리</li>
+				<li>QnA 목록 조회</li>
+				</ul>
 			</div>	
-	
 		</div>
 		<div class="main admin">
 			<div class="profile admin">
@@ -234,11 +194,47 @@ div.profile.admin {
 				<div>
 					<input class="btn mModify admin" type="button" onclick="location.href='#'" value="회원정보 수정">
 				</div>
-
 			</div>
-			<div class="btn inform admin">
-				기능 추가에 따라 화면 구현
-			</div>
+				<h4><b>상품관리</b></h4><br>
+				<table border="1" class="tableAdmin admin">
+					<tr>
+						<th>번호</th><th>상품명</th><th>재고수</th><th>상품상태</th>
+					</tr>
+					<tr>
+						<td>1</td><td>커피1</td><td>0</td><td>매진</td>
+					</tr>
+					<tr>
+						<td>2</td><td>커피1</td><td>0</td><td>매진</td>
+					</tr>
+					<tr>
+						<td>3</td><td>커피1</td><td>0</td><td>매진</td>
+					</tr>
+				</table>
+				<h4><b>QnA 답변대기</b></h4><br>
+				<table border="1" class="tableAdmin admin">
+					<tr>
+						<th>번호</th><th>제목</th><th>아이디</th><th>작성일</th>
+					</tr>
+					<tr>
+						<td>1</td><td><a href="#">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td>
+					</tr>
+				</table>
+				<h4><b>공지사항</b></h4><br>
+				<table border="1" class="tableAdmin admin">
+					<tr>
+						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>작성일</th>
+					</tr>
+					<tr>
+						<td><input type="checkbox"></td><td>1</td><td><a href="#">공지사항입니다.</a></td><td>2023-07-11</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox"></td><td>1</td><td><a href="#">공지사항입니다.</a></td><td>2023-07-11</td>
+					</tr>
+					<tr>
+						<td><input type="checkbox"></td><td>1</td><td><a href="#">공지사항입니다.</a></td><td>2023-07-11</td>
+					</tr>
+					<tr>
+				</table>
 		</div>
 	</div>
 	</section>
