@@ -159,29 +159,21 @@
                                     <table class="table table-hover">
 									  <thead>
 									    <tr>
-									      <th scope="col">#</th>
-									      <th scope="col">First</th>
-									      <th scope="col">Last</th>
-									      <th scope="col">Handle</th>
+									      <th scope="col">작성자</th>
+									      <th scope="col">내용</th>
+									      <th scope="col">작성일</th>
 									    </tr>
 									  </thead>
 									  <tbody>
 									    <tr>
-									      <th scope="row">1</th>
-									      <td>Mark</td>
-									      <td>Otto</td>
-									      <td>@mdo</td>
+									      <td>김영호</td>
+									      <td>상품 좋네요 감사합니다</td>
+									      <td>2023.07.19</td>
 									    </tr>
 									    <tr>
-									      <th scope="row">2</th>
 									      <td>Jacob</td>
-									      <td>Thornton</td>
-									      <td>@fat</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">3</th>
-									      <td colspan="2">Larry the Bird</td>
-									      <td>@twitter</td>
+									      <td>very nice!</td>
+									      <td>2023.07.20</td>
 									    </tr>
 									  </tbody>
 									</table>
