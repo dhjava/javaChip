@@ -2,16 +2,16 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>공지사항</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.jsp">Home</a>
+                            <a href="<%= request.getContextPath() %>/">Home</a>
                             <a href="#">고객센터</a>
-                            <a href="./help-notice.jsp">공지사항</a>
+                            <a href="<%= request.getContextPath() %>/notice.jsp">공지사항</a>
                         </div>
                     </div>
                 </div>
@@ -20,6 +20,9 @@
     </section>
 	<section class="board-box spad">
 	    <div class="container">
+	    	<div class="board-wButton" style="margin-bottom:20px;">
+		    	<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;">글 쓰기</button>
+		    </div>
 		    <table class ="table table-hover">
 		        <tr>
 		            <td scope="col" style="width:8%">번호</td>
@@ -99,24 +102,24 @@
 		            <td>1</td>
 		        </tr>
 		    </table>
-	    <div style="text-align:center;">
-	        ◀ 1 2 3 4 5 6 7 8 9 10 ▶
-	    </div><br>
-	    <div class="board-search" style="width:40%; margin:0 auto;">
-		    <form class="d-flex justify-content-center">
- 		        <div class="input-group mb-4">
-		          <select>
-		            <option value="title">제목</option>
-		            <option value="content">내용</option>
-		            <option value="tnc">제목+내용</option>
-		          </select>
-				  <input type="text" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
-				  <div class="input-group-append">
-				  <button type="submit" class="btn btn-secondary mb-4">검색하기</button>
-				  </div>
-				</div>
-		    </form>
-	    </div>
+		    <div style="text-align:center;">
+		        ◀ 1 2 3 4 5 6 7 8 9 10 ▶
+		    </div><br>
+		    <div class="board-search" style="width:40%; margin:0 auto;">
+			    <form class="d-flex justify-content-center">
+	 		        <div class="input-group mb-4">
+			          <select>
+			            <option value="title">제목</option>
+			            <option value="content">내용</option>
+			            <option value="tnc">제목+내용</option>
+			          </select>
+					  <input type="text" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+					  <div class="input-group-append">
+					  <button type="submit" class="btn btn-secondary mb-4">검색하기</button>
+					  </div>
+					</div>
+			    </form>
+		    </div>
 	    </div>
 	</section>
 <%@ include file="../include/footer.jsp" %>

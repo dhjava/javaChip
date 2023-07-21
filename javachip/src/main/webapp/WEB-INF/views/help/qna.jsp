@@ -2,16 +2,16 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>Q&A</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
+                            <a href="<%= request.getContextPath() %>/">Home</a>
                             <a href="#">고객센터</a>
-                            <a href="./help-qna.jsp">Q&A</a>
+                            <a href="<%= request.getContextPath() %>/qna.jsp">Q&A</a>
                         </div>
                     </div>
                 </div>
@@ -20,6 +20,9 @@
     </section>
 	<section class="board-box spad">
 	    <div class="container">
+	    	<div class="board-wButton" style="margin-bottom:20px;">
+		    	<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;">글 쓰기</button>
+		    </div>
 		    <table class ="table table-hover">
 		        <tr>
 		            <td scope="col" style="width:8%">번호</td>
