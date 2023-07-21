@@ -62,18 +62,18 @@
         <!-- 모바일 메뉴 -->
         <nav class="jc__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.jsp">Home</a></li>
+                <li class="active"><a href="<%=request.getContextPath() %>/">Home</a></li>
                 <li><a href="./shop-grid.jsp">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.jsp">Shop Details</a></li>
-                        <li><a href="./mypage-cart.jsp">Shoping Cart</a></li>
-                        <li><a href="./checkout.jsp">Check Out</a></li>
-                        <li><a href="./blog-details.jsp">Blog Details</a></li>
+                        <li><a href="<%=request.getContextPath() %>/shop/details.do">Shop Details</a></li>
+                        <li><a href="<%=request.getContextPath() %>/mypage/cart.do">Shoping Cart</a></li>
+                        <li><a href="<%=request.getContextPath() %>/shop/checkout.do">Check Out</a></li>
+                        <li><a href="#">Blog Details</a></li>
                     </ul>
                 </li>
-                <li><a href="./blog.jsp">Blog</a></li>
-                <li><a href="./contact.jsp">Contact</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="<%=request.getContextPath() %>/info/contact.do">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -108,8 +108,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
-                                <a href="./member-login.jsp">로그인</a>
-                                <a href="./member-joinSelect.jsp">회원가입</a>
+                                <a href="<%=request.getContextPath() %>/member/login.do">로그인</a>
+                                <a href="<%=request.getContextPath() %>/member/joinSelect.do">회원가입</a>
                             </div>
                         </div>
                     </div>
@@ -120,35 +120,34 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.jsp"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt=""></a>
+                        <a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="./index.jsp">Home</a></li>
-                            <li><a href="./shop-grid.jsp">쇼핑몰</a></li>
-                            <li><a href="./mypage-main.jsp">마이페이지</a>
+                            <li class="active"><a href="<%=request.getContextPath() %>/">Home</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">쇼핑몰</a></li>
+                            <li><a href="<%=request.getContextPath() %>/mypage/main.do">마이페이지</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.jsp">주문내역</a></li>
-                                    <li><a href="./mypage-main.jsp">회원정보수정</a></li>
-                                    <li><a href="./mypage-main.jsp">적립금</a></li>
-                                    <li><a href="./mypage-main.jsp">후기/QNA</a></li>
-                                    <li><a href="./mypage-regular.jsp">정기배송</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/shop/details.do">주문내역</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/mypage/main.do">회원정보수정</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/mypage/main.do">적립금</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/mypage/main.do">후기/QNA</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/mypage/regular.do">정기배송</a></li>
                                 </ul>
                             </li>
                             <li><a href="./mypage-main.jsp">고객센터</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./help-notice.jsp">공지사항</a></li>
-                                    <li><a href="./help-qna.jsp">Q&A</a></li>
-                                    <li><a href="./help-faq.jsp">자주 묻는 질문</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/help/notice.do">공지사항</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/help/qna.do">Q&A</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/help/faq.do">자주 묻는 질문</a></li>
                                 </ul>
                             </li>
-                            <li><a href="./mypage-main.jsp">회사 소개</a>
+                            <li><a href="<%=request.getContextPath() %>/info/intro.do">회사 소개</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./info-intro.jsp">회사 소개</a></li>
-                                    <li><a href="./info-part.jsp">판매 분야</a></li>
-                                    <li><a href="./info-contact.jsp">찾아오시는 길</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/info/intro.do">회사 소개</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/info/contact.do">찾아오시는 길</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -158,7 +157,7 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="./mypage-cart.jsp"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="<%=request.getContextPath() %>/mypage/cart.do"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
                     </div>
                 </div>

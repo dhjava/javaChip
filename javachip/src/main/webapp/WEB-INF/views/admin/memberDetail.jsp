@@ -7,40 +7,68 @@
 <title>MemberModify</title>
 </head>
 <body>
-	회원 정보
+	<h4><b>회원 정보</b></h4>
 	<table border="1">
 		<tr>
-			<td>
+			<th>
 				아이디
-			</td>
+			</th>
 			<td>
 				hong12
 			</td>
+			<th>
+				이름
+			</th>
 			<td>
-				회원 유형
+				홍길동
 			</td>
+		</tr>
+		<tr>
+			<th>
+				회원 유형
+			</th>
 			<td>
 				일반
 			</td>
-		</tr>
-		<tr>
-			<td>
+			<th>
 				회원 등급
-			</td>
+			</th>
 			<td>
 				5
 			</td>
-			<td>
-				상태
-			</td>
-			<td>
-				활동
+		</tr>
+
+		<tr>
+			<th rowspan="3">
+				주소
+			</th>
+			<th>
+				우편 번호
+			</th>
+			<td colspan="2">
+				000-000
 			</td>
 		</tr>
 		<tr>
-			<td>
-				누적 경고
+			<td colspan="3">
+				전라북도 전주시 ooo구 ooo동 ooo아파트
 			</td>
+		</tr>
+		<tr>
+			<td colspan="3">
+				000동000호
+			</td>
+		</tr>
+		<tr>	
+			<th>
+				상태
+			</th>
+			<td>
+				활동
+			</td>
+			<th>
+				누적 경고
+			</th>
 			<td>
 				0
 			</td>

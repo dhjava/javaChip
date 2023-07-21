@@ -2,6 +2,7 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <!-- 메인 작성 영역 -->
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <script>
 function openMemberDetail() {
 	window.open(
@@ -11,7 +12,6 @@ function openMemberDetail() {
 	);
 }
 </script>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -24,7 +24,7 @@ function openMemberDetail() {
 						<div class="breadcrumb__option">
 							<a href="./index.jsp">Home</a>
 							<a href="./index.jsp">관리자 페이지</a>
-							<span>회원관리</span>
+							<span>게시글 관리</span>
 						</div>
 					</div>
 				</div>
@@ -33,12 +33,14 @@ function openMemberDetail() {
 	</section>
 	<!-- Breadcrumb Section End -->
 	<!-- section -->
-	<section class="spad frame admin">
-	
+	<section class="spad admin">
+	<div class="frame admin">
 		<div class="side admin">
 			<div class="blog__sidebar__item">
 				<h4>상품관리</h4>
-
+				<ul>
+				<li>상품 목록 조회</li>
+				</ul>
 			</div>
 			<div class="blog__sidebar__item">
 				<h4>회원관리</h4>
@@ -49,47 +51,55 @@ function openMemberDetail() {
 			</div>	
 			<div class="blog__sidebar__item">	
 				<h4>주문관리</h4>
+				<ul>
+				<li>주문 목록 조회</li>
+				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
 				<h4>게시글관리</h4>
+				<ul>
+				<li>공지사항 관리</li>
+				<li>QnA 목록 조회</li>
+				</ul>
 			</div>	
-	
 		</div>
 		<div class="main admin">
-				<h4><b>회원 리스트</b></h4><br>
+				<h4><b>상품 목록 조회</b></h4><br>
 				<div>
 					<select>
 						<option>전체</option>
-						<option>일반</option>
-						<option>사업자</option>
+						<option>배송대기</option>
+						<option>배송완료</option>
 					</select>
 				</div>
 				<div class="search admin">
 					<select>
-						<option>아이디+이름</option>
-						<option>아이디</option>
-						<option>이름</option>
+						<option>구매자 아이디</option>
+						<option>상품평</option>
 					</select>
 					<input type="text"><input type="button" value="검색">
 				</div>
-				<table border="1" class="tableAdmin admin">
+				<table border="1" class="tableAdmin qna admin">
 					<tr>
-						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>아이디</th><th>등급</th><th>누적 경고</th><th>상태</th><th>상세</th>
+						<th><input type="checkbox"></th><th>번호</th><th>상품명</th><th>구매자 아이디</th><th>총 가격</th><th>총 구매수</th><th>주문날짜</th><th>상태</th>
 					</tr>
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td><td>1</td><td class="ctd">일반</td><td>hong12</td><td>5</td><td>0</td><td>활동</td><td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td><input type="checkbox"></td><td>1</td><td>커피1</td><td>hong12</td><td>000원</td><td>2</td><td>2023-07-21</td><td>배송완료</td>
 					</tr>
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td><td>2</td><td class="ctd">일반</td><td>gill12</td><td>5</td><td>0</td><td>활동</td><td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td><input type="checkbox"></td><td>2</td><td>커피1</td><td>hong12</td><td>000원</td><td>2</td><td>2023-07-21</td><td>배송완료</td>
 					</tr>
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td><td>3</td><td class="ctd">일반</td><td>dong12</td><td>5</td><td>0</td><td>활동</td><td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td><input type="checkbox"></td><td>3</td><td>커피1</td><td>hong12</td><td>000원</td><td>2</td><td>2023-07-21</td><td>배송완료</td>
 					</tr>
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td><td>4</td><td class="ctd">일반</td><td>hong22</td><td>5</td><td>0</td><td>활동</td><td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td><input type="checkbox"></td><td>4</td><td>커피1</td><td>hong12</td><td>000원</td><td>2</td><td>2023-07-21</td><td>배송완료</td>
 					</tr>
 				</table>
+				<div class="admin_pagination">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
+				<input type="button" value="선택 삭제">
 		</div>
+	</div>
 	</section>
 	<!-- Section End -->
 <%@ include file="../include/footer.jsp" %>
