@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
 <script>
 function openMemberDetail() {
@@ -11,7 +12,6 @@ function openMemberDetail() {
 	);
 }
 </script>
-<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -22,8 +22,8 @@ function openMemberDetail() {
 					<div class="breadcrumb__text">
 						<h2>회원관리</h2>
 						<div class="breadcrumb__option">
-							<a href="./index.jsp">Home</a>
-							<a href="./index.jsp">관리자 페이지</a>
+							<a href="./index.do">Home</a>
+							<a href="./index.do">관리자 페이지</a>
 							<span>회원관리</span>
 						</div>
 					</div>
