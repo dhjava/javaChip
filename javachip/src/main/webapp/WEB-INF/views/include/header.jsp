@@ -36,7 +36,7 @@
     <div class="jc__menu__overlay"></div>
     <div class="jc__menu__wrapper">
         <div class="jc__menu__logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
+            <a href="#"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt=""></a>
         </div>
         <div class="jc__menu__cart">
             <ul>
@@ -47,7 +47,7 @@
         </div>
         <div class="jc__menu__widget">
             <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
+                <img src="<%=request.getContextPath() %>/resources/img/language.png" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
