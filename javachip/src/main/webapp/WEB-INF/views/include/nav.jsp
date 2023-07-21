@@ -11,13 +11,13 @@
                             <span>상품목록</span>
                         </div>
                         <ul>
-                            <li><a href="#">원두</a></li>
-                            <li><a href="#">생두</a></li>
-                            <li><a href="#">드립백</a></li>
-                            <li><a href="#">캡슐</a></li>
-                            <li><a href="#">도매</a></li>
-                            <li><a href="#">커피용품</a></li>
-                            <li><a href="#">정기배송</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">원두</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">생두</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">드립백</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">캡슐</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">도매</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">커피용품</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">정기배송</a></li>
                         </ul>
                     </div>
                 </div>

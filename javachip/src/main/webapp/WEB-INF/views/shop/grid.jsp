@@ -13,13 +13,13 @@
                             <span>상품목록</span>
                         </div>
                         <ul>
-                            <li><a href="./shop-grid.jsp">원두</a></li>
-                            <li><a href="./shop-grid.jsp">생두</a></li>
-                            <li><a href="./shop-grid.jsp">드립백</a></li>
-                            <li><a href="./shop-grid.jsp">캡슐</a></li>
-                            <li><a href="./shop-grid.jsp">도매</a></li>
-                            <li><a href="./shop-grid.jsp">커피용품</a></li>
-                            <li><a href="./shop-grid.jsp">정기배송</a></li>
+                            <li><a href="grid.do">원두</a></li>
+                            <li><a href="grid.do">생두</a></li>
+                            <li><a href="grid.do">드립백</a></li>
+                            <li><a href="grid.do">캡슐</a></li>
+                            <li><a href="grid.do">도매</a></li>
+                            <li><a href="grid.do">커피용품</a></li>
+                            <li><a href="grid.do">정기배송</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,14 +51,14 @@
     </section>
     <!-- Hero Section End -->
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>쇼핑몰</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.jsp">홈</a>
+                            <a href="<%= request.getContextPath() %>">홈</a>
                             <span>쇼핑몰</span>
                         </div>
                     </div>
@@ -77,13 +77,13 @@
                         <div class="sidebar__item">
                             <h4>목록</h4>
                             <ul>
-                                <li><a href="./shop-grid.jsp">원두</a></li>
-                                <li><a href="./shop-grid.jsp">생두</a></li>
-                                <li><a href="./shop-grid.jsp">드립백</a></li>
-                                <li><a href="./shop-grid.jsp">캡슐</a></li>
-                                <li><a href="./shop-grid.jsp">도매</a></li>
-                                <li><a href="./shop-grid.jsp">커피용품</a></li>
-                                <li><a href="./shop-grid.jsp">정기배송</a></li>
+                                <li><a href="grid.do">원두</a></li>
+                                <li><a href="grid.do">생두</a></li>
+                                <li><a href="grid.do">드립백</a></li>
+                                <li><a href="grid.do">캡슐</a></li>
+                                <li><a href="grid.do">도매</a></li>
+                                <li><a href="grid.do">커피용품</a></li>
+                                <li><a href="grid.do">정기배송</a></li>
                             </ul>
                         </div>
                     </div>
@@ -117,15 +117,15 @@
                     %>
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
+                                <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/product/product-1.jpg">
                                     <ul class="product__item__pic__hover">
                                         <li><a href="#"><i class="fa fa-heart"></i></a></li>
                                         <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                        <li><a href="./mypage-cart.jsp"><i class="fa fa-shopping-cart"></i></a></li>
+                                        <li><a href="<%= request.getContextPath() %>/mypage/cart.do"><i class="fa fa-shopping-cart"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><a href="./shop-details.jsp">Crab Pool Security</a></h6>
+                                    <h6><a href="details.do">Crab Pool Security</a></h6>
                                     <h5>$30.00</h5>
                                 </div>
                             </div>
@@ -135,10 +135,10 @@
                     %>
                     </div>
                     <div class="product__pagination">
-                        <a href="./shop-grid.jsp">1</a>
-                        <a href="./shop-grid.jsp">2</a>
-                        <a href="./shop-grid.jsp">3</a>
-                        <a href="./shop-grid.jsp"><i class="fa fa-long-arrow-right"></i></a>
+                        <a href="grid.do">1</a>
+                        <a href="grid.do">2</a>
+                        <a href="grid.do">3</a>
+                        <a href="grid.do"><i class="fa fa-long-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
