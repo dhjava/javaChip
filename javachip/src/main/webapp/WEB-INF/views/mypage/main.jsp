@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/nav.jsp" %>
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -27,6 +28,18 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
 
 <style>
+@font-face {
+	font-family: 'Material Icons';
+	font-style: normal;
+	font-weight: 400;
+	src: url(path/to/MaterialIcons-Regular.eot); /* For IE6-8 */
+	src: local('Material Icons'),
+		local('MaterialIcons-Regular'),
+		url(path/to/MaterialIcons-Regular.woff2) format('woff2'),
+		url(path/to/MaterialIcons-Regular.woff) format('woff'),
+		url(path/to/MaterialIcons-Regular.ttf) format('truetype');
+}
+
 .material-icons {
 	font-family: 'Material Icons';
 	font-weight: normal;
@@ -75,10 +88,8 @@ div {
 .profile.mypage {
 	width: 750px;
 	padding: 30px 30px 30px;
-	
-	background-color: rgba( 0, 0, 0, 0.7 );
-	color: #ffffff;	
-	border: 1px solid #dcdcdc;
+/* 	background-color: rgba( 0, 0, 0, 0.2 ); */
+	border-bottom: 1px solid #dcdcdc;
 }
 /* 프로필 내용 */
 div.profile.mypage {
@@ -89,10 +100,6 @@ div.profile.mypage {
 }
 .mypage td {
 	text-align: right; 
-}
-.uName.mypage {
-	font-weight : bold;
-	font-size : 20px;
 }
 
 /* 마이페이지 사이드 */
@@ -144,7 +151,12 @@ div.profile.mypage {
 	border-radius: 20px;
 	border: 2px solid #7fad39;
 	background-color: transparent;
-	color: #ffffff;
+}
+/* 마이페이지 개인정보 간략 */
+.minInfo.mypage {
+	background-color: #ffffff;
+	padding: 10px;
+	border-left: 1px solid #dcdcdc;
 }
 
 .iCircle {
@@ -159,6 +171,7 @@ div.profile.mypage {
 	align-items : center;
 	
 }
+
 </style>
 </head>
 <body>
@@ -227,132 +240,6 @@ div.profile.mypage {
         </div>
     </div>
     <!-- jc End -->
-
-    <!-- Header Section Begin -->
-    <header class="header">
-        <div class="header__top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__top__left">
-                            <ul>
-                                <li>5만원 이상 무료 배송</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="./member-login.jsp">로그인</a>
-                                <a href="./member-join.jsp">회원가입</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="./index.jsp">Home</a></li>
-                            <li><a href="./shop-grid.jsp">쇼핑몰</a></li>
-                            <li><a href="./mypage-main.jsp">마이페이지</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.jsp">주문내역</a></li>
-                                    <li><a href="./mypage-main.jsp">회원정보수정</a></li>
-                                    <li><a href="./mypage-main.jsp">적립금</a></li>
-                                    <li><a href="./mypage-main.jsp">후기/QNA</a></li>
-                                    <li><a href="./mypage-regular.jsp">정기배송</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./mypage-main.jsp">고객센터</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./help-notice.jsp">공지사항</a></li>
-                                    <li><a href="./help-qna.jsp">Q&A</a></li>
-                                    <li><a href="./help-faq.jsp">자주 묻는 질문</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="./mypage-main.jsp">회사 소개</a>
-                                <ul class="header__menu__dropdown">
-                                    <li><a href="./info-intro.jsp">회사 소개</a></li>
-                                    <li><a href="./info-part.jsp">판매 분야</a></li>
-                                    <li><a href="./info-contact.jsp">찾아오시는 길</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-lg-3">
-                    <div class="header__cart">
-                        <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="./mypage-cart.jsp"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="jc__open">
-                <i class="fa fa-bars"></i>
-            </div>
-        </div>
-    </header>
-    <!-- Header Section End -->
-        <!-- Hero Section Begin -->
-    <section class="hero hero-normal">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="hero__categories">
-                        <div class="hero__categories__all">
-                            <i class="fa fa-bars"></i>
-                            <span>상품목록</span>
-                        </div>
-                        <ul>
-                            <li><a href="#">원두</a></li>
-                            <li><a href="#">생두</a></li>
-                            <li><a href="#">드립백</a></li>
-                            <li><a href="#">캡슐</a></li>
-                            <li><a href="#">도매</a></li>
-                            <li><a href="#">커피용품</a></li>
-                            <li><a href="#">정기배송</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="hero__search">
-                        <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    모든 항목
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="무엇이 필요하신가요?">
-                                <button type="submit" class="site-btn">검색</button>
-                            </form>
-                        </div>
-                        <div class="hero__search__phone">
-                            <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
-                            </div>
-                            <div class="hero__search__phone__text">
-                                <h5>063) 123 - 4567</h5>
-                                <span>운영시간 09:00 ~ 18:00</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Hero Section End -->
-    
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
 		<div class="container">
@@ -457,80 +344,4 @@ div.profile.mypage {
 	</div>
 </div>
 </section>
-    <!-- Footer Section Begin -->
-    <footer class="footer spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="footer__about">
-                        <div class="footer__about__logo">
-                            <a href="./index.html"><img src="img/logo.png" alt=""></a>
-                        </div>
-                        <ul>
-                            <li>주소 : 전북 전주시 덕진구 금암동 123-4</li>
-                            <li>전화번호: 063-123-4567</li>
-                            <li>Email: hello@colorlib.com</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6 offset-lg-1">
-                    <div class="footer__widget">
-                        <h6>공지사항</h6>
-                        <ul>
-                            <li><a href="#">About Us</a></li>
-                            <li><a href="#">About Our Shop</a></li>
-                            <li><a href="#">Secure Shopping</a></li>
-                            <li><a href="#">Delivery infomation</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Our Sitemap</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 offset-lg-1">
-                    <div class="footer__widget">
-                        <h6>계좌번호</h6>
-                        <ul>
-                            <li style="width:200px;">하나은행 123-456-7891011</li>
-                            <li>예금주 : 자바칩</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="footer__copyright">
-                        <div class="footer__copyright__text">
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                			<span>상호 : 자바칩프라페 </span>
-                			<span>대표자 : 자바칩</span>
-                			<span>전화 : 063-123-4567</span>
-                			<span>팩스 : 063-987-6543</span>
-                			<span>개인정보관리책임자 : <a href="#">자바칩(javachip0703@gmail.com)</a></span><br>
-                			<span>사업자등록 : 853-81-00169</span>
-                			<span>통신판매업신고 : 2021-전북전주-00289  </span>
-                			<span>주소 : 12345 전북 전주시 덕진구 금암동</span><br>
-                			<span>Copyright ©  <strong>자바칩프라페</strong>. All rights reserved.</span>
-  <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-  						</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
-
-    <!-- Js Plugins -->
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/bootstrap.bundle.js"></script>
-    <script src="js/jquery.nice-select.min.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/jquery.slicknav.js"></script>
-    <script src="js/mixitup.min.js"></script>
-    <script src="js/owl.carousel.min.js"></script>
-    <script src="js/main.js"></script>
-
-
-
-</body>
-
-</html>
+<%@ include file="../include/footer.jsp" %>

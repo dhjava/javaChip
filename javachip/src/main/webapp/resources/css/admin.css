@@ -21,11 +21,9 @@ div {
 /* 관리자 프로필 */
 .profile.admin {
 	width: 750px;
-	padding: 30px 30px 30px;
-	
-	background-color: rgba( 0, 0, 0, 0.7 );
-	color: #ffffff;	
-	border: 1px solid #dcdcdc;
+	padding: 46px 30px 46px;
+/* 	background-color: rgba( 0, 0, 0, 0.2 ); */
+	border-bottom: 1px solid #dcdcdc;
 }
 /* 프로필 내용 */
 div.profile.admin {
@@ -44,10 +42,6 @@ div.profile.admin {
 
 .admin td:not(.ctd) {
 	text-align: left; 
-}
-.uName.admin {
-	font-weight : bold;
-	font-size : 20px;
 }
 /* 관리자 사이드 */
 .side.admin {
@@ -95,7 +89,6 @@ div.profile.admin {
 	border-radius: 20px;
 	border: 2px solid #7fad39;
 	background-color: transparent;
-	color: #ffffff;
 }
 /* 아이콘 원형 */
 .iCircle {

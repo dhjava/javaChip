@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	
 	// 메인페이지
-	@RequestMapping(value = "/index.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 		
 		return "index";
