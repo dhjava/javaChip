@@ -6,11 +6,11 @@
 			<h2>회원가입</h2>
 			<div>
 				<br><br>
-				<a href="member-join.jsp" class="btn btn-primary btn-lg"> 일반 회원 가입</a>
+				<a href="<%=request.getContextPath() %>/member/join.do" class="btn btn-primary btn-lg"> 일반 회원 가입</a>
 			</div>
 			<br><br>
 			<div>
-				<a href="member-joinBiz.jsp" class="btn btn-danger btn-lg">사업자 회원 가입</a>
+				<a href="<%=request.getContextPath() %>/member/joinBiz.do" class="btn btn-danger btn-lg">사업자 회원 가입</a>
 			</div>
 		</form>
 	</div>
