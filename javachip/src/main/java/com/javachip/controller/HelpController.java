@@ -42,4 +42,13 @@ public class HelpController {
 		return "help/write";
 	}
 	
+	@RequestMapping(value="/nwrite.do")
+	public String nwrite() {
+		return "help/nwrite";
+	}
+	
+	@RequestMapping(value="/qnawrite.do")
+	public String qnawrite() {
+		return "help/qnawrite";
+	}
 }
