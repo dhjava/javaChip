@@ -13,13 +13,13 @@
                             <span>상품목록</span>
                         </div>
                         <ul>
-                            <li><a href="./shop-grid.jsp">원두</a></li>
-                            <li><a href="./shop-grid.jsp">생두</a></li>
-                            <li><a href="./shop-grid.jsp">드립백</a></li>
-                            <li><a href="./shop-grid.jsp">캡슐</a></li>
-                            <li><a href="./shop-grid.jsp">도매</a></li>
-                            <li><a href="./shop-grid.jsp">커피용품</a></li>
-                            <li><a href="./shop-grid.jsp">정기배송</a></li>
+                            <li><a href="<%= request.getContextPath() %>/shop/grid.do">원두</a></li>
+                            <li><a href="<%= request.getContextPath() %>/shop/grid.do">생두</a></li>
+                            <li><a href="<%= request.getContextPath() %>/shop/grid.do">드립백</a></li>
+                            <li><a href="<%= request.getContextPath() %>/shop/grid.do">캡슐</a></li>
+                            <li><a href="<%= request.getContextPath() %>/shop/grid.do">도매</a></li>
+                            <li><a href="<%= request.getContextPath() %>/shop/grid.do">커피용품</a></li>
+                            <li><a href="<%= request.getContextPath() %>/shop/grid.do">정기배송</a></li>
                         </ul>
                     </div>
                 </div>
@@ -52,15 +52,15 @@
     <!-- Hero Section End -->
 
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>적립 내역 조회</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.jsp">홈</a>
-                            <a href="./mypage-main.jsp">마이페이지</a>
+                            <a href="<%= request.getContextPath() %>/">홈</a>
+                            <a href="main.do">마이페이지</a>
                             <span>적립 내역 조회</span>
                         </div>
                     </div>

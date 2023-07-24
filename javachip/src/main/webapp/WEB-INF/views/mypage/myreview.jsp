@@ -2,15 +2,15 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
     <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+    <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
                         <h2>내 작성글</h2>
                         <div class="breadcrumb__option">
-                            <a href="./index.html">Home</a>
-                            <a href="#">마이페이지</a>
+                            <a href="<%= request.getContextPath() %>/">Home</a>
+                            <a href="main.do">마이페이지</a>
                             <span>내 작성글</span>
                         </div>
                     </div>
@@ -32,70 +32,70 @@
 		        </tr>
 		        <tr>
 		            <td scope="row">10</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김개똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">9</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김소똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">8</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김말똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">7</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김범똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">6</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김닭똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">5</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김매똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">4</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김왕똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">3</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김설사</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">2</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김새똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">1</td>
-		            <td><a href="shop-details.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
 		            <td>김킹똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>

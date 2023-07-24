@@ -184,7 +184,7 @@ div.profile.mypage {
     <div class="jc__menu__overlay"></div>
     <div class="jc__menu__wrapper">
         <div class="jc__menu__logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
+            <a href="#"><img src="<%= request.getContextPath() %>/resources/img/logo.png" alt=""></a>
         </div>
         <div class="jc__menu__cart">
             <ul>
@@ -195,7 +195,7 @@ div.profile.mypage {
         </div>
         <div class="jc__menu__widget">
             <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
+                <img src="<%= request.getContextPath() %>/resources/img/language.png" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
@@ -210,18 +210,18 @@ div.profile.mypage {
         <!-- 모바일 메뉴 -->
         <nav class="jc__menu__nav mobile-menu">
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li class="active"><a href="<%= request.getContextPath() %>/">Home</a></li>
+                <li><a href="<%= request.getContextPath() %>/shop/grid.do">Shop</a></li>
                 <li><a href="#">Pages</a>
                     <ul class="header__menu__dropdown">
-                        <li><a href="./shop-details.jsp">Shop Details</a></li>
-                        <li><a href="./mypage-cart.jsp">Shoping Cart</a></li>
-                        <li><a href="./checkout.html">Check Out</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
+                        <li><a href="<%= request.getContextPath() %>/shop/details.do">Shop Details</a></li>
+                        <li><a href="cart.do">Shoping Cart</a></li>
+                        <li><a href="<%= request.getContextPath() %>/shop/checkout.do">Check Out</a></li>
+                        <li><a href="#">Blog Details</a></li>
                     </ul>
                 </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="<%= request.getContextPath() %>/info/contact.do">Contact</a></li>
             </ul>
         </nav>
         <div id="mobile-menu-wrap"></div>
@@ -241,14 +241,14 @@ div.profile.mypage {
     </div>
     <!-- jc End -->
 	<!-- Breadcrumb Section Begin -->
-	<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="breadcrumb__text">
 						<h2>마이페이지</h2>
 						<div class="breadcrumb__option">
-							<a href="./index.html">Home</a>
+							<a href="<%= request.getContextPath() %>/">Home</a>
 							<span>마이페이지</span>
 						</div>
 					</div>
@@ -298,7 +298,7 @@ div.profile.mypage {
 				홍길동 님
 			</div>
 			<div>
-				<input class="btn mModify mypage" type="button" onclick="location.href='#'" value="회원정보 수정">
+				<input class="btn mModify mypage" type="button" onclick="location.href='myinfo.do'" value="회원정보 수정">
 			</div>
 			<div>
 				<table style="width:200px">
