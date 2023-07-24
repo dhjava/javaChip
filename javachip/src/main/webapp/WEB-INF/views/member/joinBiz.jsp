@@ -2,15 +2,15 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 	<!-- Breadcrumb Section Begin -->
-	<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="breadcrumb__text">
-						<h2>사업자회원</h2>
+						<h2>사업자 회원가입</h2>
 						<div class="breadcrumb__option">
-							<a href="./index.jsp">Home</a>
-							<a href="./member-join.jsp">회원가입 </a>
+							<a href="<%=request.getContextPath() %>index.do">Home</a>
+							<a href="<%=request.getContextPath() %>/member/join.do">회원가입 </a>
 							<span>사업자 회원가입</span>
 						</div>
 					</div>

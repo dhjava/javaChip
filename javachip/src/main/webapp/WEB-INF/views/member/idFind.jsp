@@ -12,8 +12,8 @@
 			<input class="login btn" type="submit" value="아이디찾기">
 			
 			<div class="main login">
-				<a href="./member-joinSelect.jsp">회원가입</a> |
-				<a href="./member-pwFind.jsp">비밀번호찾기</a>
+				<a href="<%=request.getContextPath() %>/member/joinSelect.do">회원가입</a> |
+				<a href="<%=request.getContextPath() %>/member/pwFind.do">비밀번호찾기</a>
 			</div>
 		</form>
 	</div>
