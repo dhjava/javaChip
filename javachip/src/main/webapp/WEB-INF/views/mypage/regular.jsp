@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <!-- 배너 세션 시작 -->
-<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg" style="background-image: url(&quot;img/breadcrumb.jpg&quot;);">
+<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg" style="background-image: url(&quot;img/breadcrumb.jpg&quot;);">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
                     <h2>Blog</h2>
                     <div class="breadcrumb__option">
-                        <a href="./index.jsp">Home</a>
-                        <span>Blog</span>
+                        <a href="<%= request.getContextPath() %>/">Home</a>
+                        <span>정기배송 관리</span>
                     </div>
                 </div>
             </div>
