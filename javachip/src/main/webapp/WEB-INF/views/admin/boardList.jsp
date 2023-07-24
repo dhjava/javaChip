@@ -22,8 +22,8 @@ function openMemberDetail() {
 					<div class="breadcrumb__text">
 						<h2>회원관리</h2>
 						<div class="breadcrumb__option">
-							<a href="./index.do">Home</a>
-							<a href="./index.do">관리자 페이지</a>
+							<a href="<%=request.getContextPath()%>/">Home</a>
+							<a href="<%=request.getContextPath()%>/admin/main.do">관리자 페이지</a>
 							<span>게시글 관리</span>
 						</div>
 					</div>
@@ -79,7 +79,7 @@ function openMemberDetail() {
 						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>작성일</th>
 					</tr>
 					<tr>
-						<td><input type="checkbox"></td><td>1</td><td><a href="#">공지사항입니다.</a></td><td>2023-07-11</td>
+						<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
 					</tr>
 					<tr>
 				</table>
