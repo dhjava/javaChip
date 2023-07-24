@@ -6,16 +6,16 @@
 	    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">관리자 페이지</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link active" href="./admin-member.jsp">회원 관리</a>
+	    <a class="nav-link active" href="<%=request.getContextPath()%>/admin/memberList.do">회원 관리</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="./admin-product.jsp">상품 등록</a>
+	    <a class="nav-link" href="<%=request.getContextPath()%>/admin/productList.do">상품 등록</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="./admin-order.jsp">주문 관리</a>
+	    <a class="nav-link" href="<%=request.getContextPath()%>/admin/delivery.do">주문 관리</a>
 	  </li>
 	  <li class="nav-item">
-	    <a class="nav-link" href="./admin-board.jsp">게시글 관리</a>
+	    <a class="nav-link" href="<%=request.getContextPath()%>/admin/boardList.do">게시글 관리</a>
 	  </li>
 	</ul>
     <!-- Product Details Section Begin -->

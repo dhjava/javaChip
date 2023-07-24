@@ -13,7 +13,7 @@
 					<div class="breadcrumb__text">
 						<h2>관리자</h2>
 						<div class="breadcrumb__option">
-							<a href="/index.do">Home</a>
+							<a href="<%=request.getContextPath() %>/">Home</a>
 							<span>관리자</span>
 						</div>
 					</div>
@@ -83,7 +83,7 @@
 						<th>번호</th><th>제목</th><th>아이디</th><th>작성일</th>
 					</tr>
 					<tr>
-						<td>1</td><td><a href="#">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td>
+						<td>1</td><td><a href="<%=request.getContextPath()%>/help/qna.do">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td>
 					</tr>
 				</table>
 				<h4><b>공지사항</b></h4><br>
@@ -92,7 +92,7 @@
 						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>작성일</th>
 					</tr>
 					<tr>
-						<td><input type="checkbox"></td><td>1</td><td><a href="#">공지사항입니다.</a></td><td>2023-07-11</td>
+						<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
 					</tr>
 					<tr>
 						<td><input type="checkbox"></td><td>1</td><td><a href="#">공지사항입니다.</a></td><td>2023-07-11</td>
