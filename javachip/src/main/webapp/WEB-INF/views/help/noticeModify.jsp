@@ -40,20 +40,9 @@ function helpSubmitFn() {
 	}
 	
 	if(submitFlag) {
-		$("form").submit();
+//		$("form").submit();
+		alert("제출");
 	}
-	
-}
-
-//게시글 취소 재확인 문구
-function helpResetFn() {
-	if( confirm("작성된 게시글을 취소하시겠습니까?") ) {
-		//true
-		location.href="notice.do";
-	}else {
-		// false
-		return;
-	}	
 }
 </script>
 	<!-- Breadcrumb Section Begin -->
@@ -65,8 +54,8 @@ function helpResetFn() {
 						<h2>공지사항 글 쓰기</h2>
 						<div class="breadcrumb__option">
 							<a href="<%= request.getContextPath() %>/">Home</a>
-				 		<a href="#">고객센터</a>
-							<span>공지사항 글 쓰기</span>
+							<a href="#">고객센터</a>
+							<span>공지사항 글 수정</span>
 						</div>
 					</div>
 				</div>
@@ -76,20 +65,20 @@ function helpResetFn() {
 	<section class="board-box spad">
 		<div class="container">
 			<div class="write-form">
-				<form action="noticeWrite.do" method="post">
+				<form action="noticeModify.do" method="post">
 					<div class="d-flex flex-column bd-highlight mb-3">
 						<div class="p-2 bd-highlight">
-							<h4><b>공지사항 글쓰기</b></h4>
+							<h4><b>공지사항 글 수정</b></h4>
 						</div>
 						<div class="p-2 bd-highlight">
 							<p>제목<p>
 							<input type="text" name="nTitle" id="nTitle" class="form-control" aria-label="subject" placeholder="제목을 입력하세요.">
 						</div>
 						<div class="p-2 bd-highlight">
-							<textarea class="form-control" name="nContents" id="nContents" rows="10"></textarea>
+							<textarea class="form-control" name="nContents" id="nContents" rows="10">공지사항 글 수정 페이지 입니다.</textarea>
 						</div>
 							<div class="p-2 bd-highlight" align="center">
-								<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="helpResetFn()">취소하기</button>
+								<button type="reset" class="btn btn-outline-secondary" style="margin-right:20px;">취소하기</button>
 								<button type="button" class="btn btn-dark" onclick="helpSubmitFn()">작성하기</button>
 						</div>
 					</div>

@@ -1,26 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
-    <!-- Breadcrumb Section Begin -->
-    <section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="breadcrumb__text">
-                        <h2>자주 묻는 질문</h2>
-                        <div class="breadcrumb__option">
-                            <a href="./index.jsp">Home</a>
-                            <a href="#">고객센터</a>
-                            <a href="./help-faq.jsp">자주 묻는 질문</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Breadcrumb Section End -->
-    <section class="board-box spad">
-    <div class="container">
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<div class="breadcrumb__text">
+						<h2>자주 묻는 질문</h2>
+						<div class="breadcrumb__option">
+							<a href="./index.jsp">Home</a>
+							<a href="#">고객센터</a>
+							<a href="./help-faq.jsp">자주 묻는 질문</a>
+						</div>
+					 </div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- Breadcrumb Section End -->
+	<section class="board-box spad">
+	<div class="container">
 		<div class="row">
 		  <div class="col-4">
 		    <div class="list-group" id="list-tab" role="tablist">

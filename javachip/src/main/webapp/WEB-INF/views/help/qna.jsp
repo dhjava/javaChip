@@ -3,7 +3,7 @@
 <%@ include file="../include/nav.jsp" %>
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
-        <div class="container">
+		<div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
@@ -33,70 +33,70 @@
 		        </tr>
 		        <tr>
 		            <td scope="row">10</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김개똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">9</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김소똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">8</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김말똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">7</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김범똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">6</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김닭똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">5</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김매똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">4</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김왕똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">3</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김설사</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">2</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김새똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">1</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
+		            <td><a href="qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김킹똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
