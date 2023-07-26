@@ -11,7 +11,7 @@
                         <div class="breadcrumb__option">
                             <a href="<%= request.getContextPath() %>/">Home</a>
                             <a href="#">고객센터</a>
-                            <a href="<%= request.getContextPath() %>/qna.jsp">Q&A</a>
+                            <span>Q&A</span>
                         </div>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
 	<section class="board-box spad">
 	    <div class="container">
 	    	<div class="board-wButton" style="margin-bottom:20px;">
-		    	<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;">글 쓰기</button>
+		    	<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="location.href='<%= request.getContextPath() %>/help/qnaWrite.do'">글 쓰기</button>
 		    </div>
 		    <table class ="table table-hover">
 		        <tr>
@@ -33,70 +33,70 @@
 		        </tr>
 		        <tr>
 		            <td scope="row">10</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김개똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">9</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김소똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">8</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김말똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">7</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김범똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">6</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김닭똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">5</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김매똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">4</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김왕똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">3</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김설사</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">2</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김새똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">1</td>
-		            <td><a href="help-qview.jsp">이거 어떻게 하나요?</td>
+		            <td><a href="<%= request.getContextPath() %>/help/qnaView.do">이거 어떻게 하나요?</a></td>
 		            <td>김킹똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>

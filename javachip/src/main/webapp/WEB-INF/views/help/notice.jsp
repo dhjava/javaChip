@@ -11,17 +11,17 @@
                         <div class="breadcrumb__option">
                             <a href="<%= request.getContextPath() %>/">Home</a>
                             <a href="#">고객센터</a>
-                            <a href="<%= request.getContextPath() %>/notice.jsp">공지사항</a>
+                            <a href="<%= request.getContextPath() %>/notice.do">공지사항</a>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+			</div>
+		</div>
+	</section>
 	<section class="board-box spad">
-	    <div class="container">
-	    	<div class="board-wButton" style="margin-bottom:20px;">
-		    	<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;">글 쓰기</button>
+		<div class="container">
+			<div class="board-wButton" style="margin-bottom:20px;">
+				<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="location.href='<%= request.getContextPath() %>/help/noticeWrite.do'">글 쓰기</button>
 		    </div>
 		    <table class ="table table-hover">
 		        <tr>
@@ -33,93 +33,93 @@
 		        </tr>
 		        <tr>
 		            <td scope="row">10</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김개똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">9</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김소똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">8</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김말똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">7</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김범똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">6</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김닭똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">5</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김매똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">4</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김왕똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">3</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김설사</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">2</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김새똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		        <tr>
 		            <td scope="row">1</td>
-		            <td><a href="help-nview.jsp">공지사항</td>
+		            <td><a href="<%= request.getContextPath() %>/help/noticeView.do">공지사항</a></td>
 		            <td>김킹똥</td>
 		            <td>2023.07.11</td>
 		            <td>1</td>
 		        </tr>
 		    </table>
-		    <div style="text-align:center;">
-		        ◀ 1 2 3 4 5 6 7 8 9 10 ▶
-		    </div><br>
-		    <div class="board-search" style="width:40%; margin:0 auto;">
-			    <form class="d-flex justify-content-center">
-	 		        <div class="input-group mb-4">
-			          <select>
-			            <option value="title">제목</option>
-			            <option value="content">내용</option>
-			            <option value="tnc">제목+내용</option>
-			          </select>
-					  <input type="text" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
-					  <div class="input-group-append">
-					  <button type="submit" class="btn btn-secondary mb-4">검색하기</button>
-					  </div>
+			<div style="text-align:center;">
+				◀ 1 2 3 4 5 6 7 8 9 10 ▶
+			</div><br>
+			<div class="board-search" style="width:40%; margin:0 auto;">
+				<form class="d-flex justify-content-center">
+	 				<div class="input-group mb-4">
+						<select>
+						<option value="title">제목</option>
+						<option value="content">내용</option>
+						<option value="tnc">제목+내용</option>
+						</select>
+						<input type="text" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+						<div class="input-group-append">
+						<button type="submit" class="btn btn-secondary mb-4">검색하기</button>
+						</div>
 					</div>
-			    </form>
-		    </div>
-	    </div>
+				</form>
+			</div>
+		</div>
 	</section>
 <%@ include file="../include/footer.jsp" %>
