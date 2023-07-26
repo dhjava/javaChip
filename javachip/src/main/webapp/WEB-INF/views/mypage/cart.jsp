@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 	<!-- 아임포트 결제 -->
+	<script src="<%=request.getContextPath() %>/resources/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
 	var IMP = window.IMP;
