@@ -38,22 +38,30 @@ function openMemberDetail() {
 		<div class="side admin">
 			<div class="blog__sidebar__item">
 				<h4>상품관리</h4>
-
+				<ul>
+				<li><a href="<%=request.getContextPath() %>/admin/productList.do">상품 목록 조회</a></li>
+				</ul>
 			</div>
 			<div class="blog__sidebar__item">
 				<h4>회원관리</h4>
 				<ul>
-				<li>회원조회</li>
+				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">회원조회</a></li>
 				<li>적립금 관리</li>
 				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
 				<h4>주문관리</h4>
+				<ul>
+				<li><a href="<%=request.getContextPath() %>/admin/deliveryList.do">주문 목록 조회</a></li>
+				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
 				<h4>게시글관리</h4>
+				<ul>
+				<li><a href="<%=request.getContextPath() %>/admin/boardList.do">공지사항 관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/admin/qnaList.do">QnA 목록 조회</a></li>
+				</ul>
 			</div>	
-	
 		</div>
 		<div class="main admin">
 				<h4><b>회원 리스트</b></h4><br>
@@ -77,16 +85,44 @@ function openMemberDetail() {
 						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>아이디</th><th>등급</th><th>누적 경고</th><th>상태</th><th>상세</th>
 					</tr>
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td><td>1</td><td class="ctd">일반</td><td>hong12</td><td>5</td><td>0</td><td>활동</td><td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td class="ctd"><input type="checkbox" ></td>
+						<td>1</td>
+						<td class="ctd">일반</td>
+						<td>hong12</td>
+						<td>5</td>
+						<td>0</td>
+						<td>활동</td>
+						<td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
 					</tr>
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td><td>2</td><td class="ctd">일반</td><td>gill12</td><td>5</td><td>0</td><td>활동</td><td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td class="ctd"><input type="checkbox" ></td>
+						<td>2</td>
+						<td class="ctd">일반</td>
+						<td>gill12</td>
+						<td>5</td>
+						<td>0</td>
+						<td>활동</td>
+						<td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
 					</tr>
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td><td>3</td><td class="ctd">일반</td><td>dong12</td><td>5</td><td>0</td><td>활동</td><td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td class="ctd"><input type="checkbox" ></td>
+						<td>3</td>
+						<td class="ctd">일반</td>
+						<td>dong12</td>
+						<td>5</td>
+						<td>0</td>
+						<td>활동</td>
+						<td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
 					</tr>
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td><td>4</td><td class="ctd">일반</td><td>hong22</td><td>5</td><td>0</td><td>활동</td><td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td class="ctd"><input type="checkbox" ></td>
+						<td>4</td>
+						<td class="ctd">일반</td>
+						<td>hong22</td
+						><td>5</td>
+						<td>0</td>
+						<td>활동</td>
+						<td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
 					</tr>
 				</table>
 		</div>
