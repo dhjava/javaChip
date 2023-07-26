@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value="/help")
@@ -24,7 +23,7 @@ public class HelpController {
 	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.GET)
 	public String qnaWrite(String qType, Model model) {
 			
-		// qType ÀÌ ¾øÀ» °æ¿ì qTypeÀº nQnA
+		// qType ì´ ì—†ì„ ê²½ìš° qTypeì€ nQnA
 		if(qType == null || qType.equals("")) {
 			qType = "n";
 		}
@@ -35,7 +34,7 @@ public class HelpController {
 			
 			return "help/qnaWrite";
 		}
-		// Àß¸øµÈ Å¸ÀÔÀÏ °æ¿ì qna ÆäÀÌÁö·Î
+		// ì˜ëª»ëœ íƒ€ì…ì¼ ê²½ìš° qna í˜ì´ì§€ë¡œ
 		return "help/qna";
 	}
 	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.POST)
@@ -50,8 +49,8 @@ public class HelpController {
 	@RequestMapping(value="/qnaModify.do", method = RequestMethod.GET)
 	public String qnaModify(String qType, Model model) {
 		
-		// qNo ¸¦ ¹Ş¾Æ¿Ã ¼ö ÀÖÀ» ¶§ boardVo·Î ¹Ş¾Æ¿À°í ´ÙÀ½ Ç×¸ñÀ» Á¦°Å start
-		// qType ÀÌ ¾øÀ» °æ¿ì qTypeÀº nQnA
+		// qNo ë¥¼ ë°›ì•„ì˜¬ ìˆ˜ ìˆì„ ë•Œ boardVoë¡œ ë°›ì•„ì˜¤ê³  ë‹¤ìŒ í•­ëª©ì„ ì œê±° start
+		// qType ì´ ì—†ì„ ê²½ìš° qTypeì€ nQnA
 		if(qType == null || qType.equals("")) {
 			qType = "n";
 		}
@@ -62,9 +61,9 @@ public class HelpController {
 			
 			return "help/qnaModify";
 		}
-		// Àß¸øµÈ Å¸ÀÔÀÏ °æ¿ì qna ÆäÀÌÁö·Î
+		// ì˜ëª»ëœ íƒ€ì…ì¼ ê²½ìš° qna í˜ì´ì§€ë¡œ
 		return "help/qna";
-		//board ¸¦ ¹Ş¾Æ¿Ã ¼ö ÀÖÀ» ¶§ boardVo·Î ¹Ş¾Æ¿À°í ´ÙÀ½ Ç×¸ñÀ» Á¦°Å end
+		//board ë¥¼ ë°›ì•„ì˜¬ ìˆ˜ ìˆì„ ë•Œ boardVoë¡œ ë°›ì•„ì˜¤ê³  ë‹¤ìŒ í•­ëª©ì„ ì œê±° end
 		
 	}
 	@RequestMapping(value="/qnaModify.do", method = RequestMethod.POST)
