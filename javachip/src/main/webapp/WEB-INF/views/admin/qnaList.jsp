@@ -34,37 +34,38 @@ function openMemberDetail() {
 	<!-- Breadcrumb Section End -->
 	<!-- section -->
 	<section class="spad admin">
-	<div class="frame admin">
+	<div style="height:700px;">
+	<div class="frame admin" style="float:left; width:30%;">
 		<div class="side admin">
 			<div class="blog__sidebar__item">
 				<h4>상품관리</h4>
 				<ul>
-				<li>상품 목록 조회</li>
+				<li><a href="<%=request.getContextPath() %>/admin/productList.do">상품 목록 조회</a></li>
 				</ul>
 			</div>
 			<div class="blog__sidebar__item">
 				<h4>회원관리</h4>
 				<ul>
-				<li>회원조회</li>
+				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">회원조회</a></li>
 				<li>적립금 관리</li>
 				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
 				<h4>주문관리</h4>
 				<ul>
-				<li>주문 목록 조회</li>
+				<li><a href="<%=request.getContextPath() %>/admin/deliveryList.do">주문 목록 조회</a></li>
 				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
 				<h4>게시글관리</h4>
 				<ul>
-				<li>공지사항 관리</li>
-				<li>QnA 목록 조회</li>
+				<li><a href="<%=request.getContextPath() %>/admin/boardList.do">공지사항 관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/admin/qnaList.do">QnA 목록 조회</a></li>
 				</ul>
 			</div>	
 		</div>
 		</div>
-		<div class="main admin">
+		<div class="main admin" style="float:left; width:50%;">
 				<h4><b>QnA 목록 조회</b></h4><br>
 				<div>
 					<select>
@@ -101,6 +102,7 @@ function openMemberDetail() {
 				<div class="admin_pagination">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 				<input type="button" value="선택 삭제">
 		</div>
+		<div style="float:left; width:19%;"></div>
 	</div>
 	</section>
 	<!-- Section End -->
