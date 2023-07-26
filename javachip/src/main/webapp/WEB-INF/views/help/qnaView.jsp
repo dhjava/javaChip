@@ -2,6 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<script>
+	function qnaDelFn() {
+		document.delFrm.submit();
+	}
+</script>
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
@@ -12,7 +17,7 @@
                         <div class="breadcrumb__option">
                             <a href="<%= request.getContextPath() %>/">Home</a>
                             <a href="#">고객센터</a>
-                            <a href="<%= request.getContextPath() %>/help/notice.do">QnA</a>
+                            <a href="qna.do">QnA</a>
                         </div>
                     </div>
                 </div>
@@ -20,8 +25,8 @@
         </div>
     </section>
 	<section class="board-box spad">
-	    <div class="container">
-	    	<h4>글 보기</h4>
+		<div class="container">
+			<h4>QnA 글 보기</h4>
 		    <table class="table" style="margin-top:40px; margin-bottom:50px; font-size:11pt;">
 			    <tr>
 			      <td style="width:12%">제목</td>
@@ -179,23 +184,27 @@
  “이 눈깔! 이 눈깔! 왜 나를 바루 보지 못하고 천정만 바라보느냐, 응”
 하는 말끝엔 목이 메이었다. 그러자 산 사람의 눈에서 떨어진 닭똥 같은 눈물이 죽은 이의 뻣뻣한 얼굴을 어룽어룽 적시었다. 문득 김첨지는 미친 듯이 제 얼굴을 죽은 이의 얼굴에 한데 비벼대며 중얼거렸다. 
  “설렁탕을 사다 놓았는데 왜 먹지를 못하니, 왜 먹지를 못하니……괴상하게도 오늘은 운수가 좋더니만……”  끝.</td>
-			    </tr>
-			    <tr>
-			      <td colspan="3"><button type="button" class="btn btn-secondary" style="margin-right:15px;">목록으로</button>
-			      <button type="button" class="btn btn-outline-primary" style="margin-right:15px;">수정하기</button>
-			      <button type="button" class="btn btn-outline-danger">삭제하기</button></td>
-			    </tr>
+				</tr>
+				<tr>
+					<td colspan="3"><button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qna.do'">목록으로</button>
+						<button type="button" class="btn btn-outline-primary" style="margin-right:15px;" onclick="location.href='qnaModify.do'">수정하기</button>
+						<button type="button" class="btn btn-outline-danger" onclick="qnaDelFn();">삭제하기</button>
+						<form name="delFrm" method="post" action="noticeDelete.do">
+							<input type="hidden" name="qNo" value="">
+						</form>
+					</td>
+				</tr>
 			</table>
 			<table class="table table-striped" style="margin-top:50px;">
-			    <tr>
-			      <th scope="row" style="width:12%">▲이전글</th>
-			      <td>사업자 회원들께 공지드립니다.</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">▼다음글</th>
-			      <td>안녕하세요</td>
-			    </tr>
+				<tr>
+					<th scope="row" style="width:12%">▲이전글</th>
+					<td>사업자 회원들께 공지드립니다.</td>
+				</tr>
+				<tr>
+					<th scope="row">▼다음글</th>
+					<td>안녕하세요</td>
+				</tr>
 			</table>
-	    </div>
+		</div>
 	</section>
 <%@ include file="../include/footer.jsp" %>

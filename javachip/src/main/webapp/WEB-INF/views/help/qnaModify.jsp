@@ -111,16 +111,6 @@ function openSelectProducnFn() {
 	);
 }
 
-// 게시글 취소 재확인 문구
-function helpResetFn() {
-	if( confirm("작성된 게시글을 취소하시겠습니까?") ) {
-		//true
-		location.href="qna.do";
-	}else {
-		// false
-		return;
-	}	
-}
 </script>
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
@@ -128,11 +118,11 @@ function helpResetFn() {
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="breadcrumb__text">
-						<h2>글 쓰기</h2>
+						<h2>QnA 글 수정</h2>
 						<div class="breadcrumb__option">
 							<a href="<%= request.getContextPath() %>/">Home</a>
 							<a href="#">고객센터</a>
-							<span>QnA 글 쓰기</span>
+							<span>QnA 글 수정</span>
 						</div>
 					</div>
 				</div>
@@ -142,10 +132,10 @@ function helpResetFn() {
 	<section class="board-box spad">
 		<div class="container">
 			<div class="write-form">
-				<form action="qnaWrite.do" method="post">
+				<form action="qnaModify.do" method="post">
 					<div class="d-flex flex-column bd-highlight mb-3">
 						<div class="p-2 bd-highlight">
-							<h4><b>Qna 글쓰기</b></h4>
+							<h4><b>Qna 글 수정</b></h4>
 						</div>
 						<div class="p-2 bd-highlight">
 							<p>구분<p>
@@ -174,7 +164,7 @@ function helpResetFn() {
 						<input type="text" name="qTitle" id="qTitle" class="form-control" aria-label="subject" placeholder="제목을 입력하세요.">
 					</div>
 					<div class="p-2 bd-highlight">
-						<textarea class="form-control" name="qContents" id="qContents" rows="10"></textarea>
+						<textarea class="form-control" name="qContents" id="qContents" rows="10">글쓰기 수정페이지 입니다.</textarea>
 					</div>
 						<div class="p-2 bd-highlight">
 							<div class="input-group mb-1">
@@ -185,7 +175,7 @@ function helpResetFn() {
 							</div>
 						</div>
 						<div class="p-2 bd-highlight" align="center">
-							<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="helpResetFn">취소하기</button>
+							<button type="reset" class="btn btn-outline-secondary" style="margin-right:20px;">취소하기</button>
 							<button type="button" class="btn btn-dark" onclick="helpSubmitFn()">작성하기</button>
 						</div>
 					</div>
