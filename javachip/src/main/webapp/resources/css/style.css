@@ -1985,7 +1985,7 @@ ol {
 	margin-bottom: 25px;
 }
 
-.shoping__discount form input {
+.shoping__discount input {
 	width: 255px;
 	height: 46px;
 	border: 1px solid #cccccc;
@@ -1996,11 +1996,11 @@ ol {
 	margin-right: 15px;
 }
 
-.shoping__discount form input::placeholder {
+.shoping__discount input::placeholder {
 	color: #b2b2b2;
 }
 
-.shoping__discount form button {
+.shoping__discount button {
 	padding: 15px 30px 11px;
 	font-size: 12px;
 	letter-spacing: 4px;
@@ -2921,7 +2921,7 @@ ol {
 	.product__details__tab .nav-tabs:after {
 		width: 265px;
 	}
-	.shoping__discount form input {
+	.shoping__discount input {
 		width: 240px;
 	}
 }
@@ -3212,7 +3212,7 @@ ol {
 	.shoping__cart__table {
 		overflow-y: auto;
 	}
-	.shoping__discount form input {
+	.shoping__discount input {
 		margin-bottom: 15px;
 	}
 	.blog__details__author {
@@ -3445,7 +3445,7 @@ ol {
 	.product__details__tab .nav-tabs li {
 		margin-right: 15px;
 	}
-	.shoping__discount form input {
+	.shoping__discount input {
 		width: 100%;
 	}
 	.checkout__order {
