@@ -1,6 +1,6 @@
 package com.javachip.vo;
 
-public class MemberVO {
+public class UserVO {
 	private int uNo;
 	private String uId;
 	private String uPw;
