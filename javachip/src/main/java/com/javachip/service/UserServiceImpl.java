@@ -1,30 +1,30 @@
 package com.javachip.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import com.javachip.dao.UserDAO;
 import com.javachip.vo.UserVO;
 
-@Service
+@Repository
 public class UserServiceImpl implements UserService {
 
 	@Autowired
-	private UserDAO memberDAO;
+	private UserDAO userDAO;
 	
 	@Override
 	public UserVO selectUserByLogin(UserVO vo) {
 		
-		return memberDAO.selectMemberByLogin(vo);
+		return userDAO.selectMemberByLogin(vo);
 	}
 
 	@Override
 	public int selectCntById(String id) {
-		return memberDAO.selectCntById(id);
+		return userDAO.selectCntById(id);
 	}
 
 	@Override
 	public int insert(UserVO vo) {
-		return memberDAO.insert(vo);
+		return userDAO.insert(vo);
 	}
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN"
+            "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+   <typeAliases>
+        <typeAlias type="com.javachip.vo.CartVO" alias="CartVO"/>
+        <typeAlias type="com.javachip.vo.UserVO" alias="UserVO"/>
+        <typeAlias type="com.javachip.vo.MileageVO" alias="MileageVO"/>
+        <typeAlias type="com.javachip.vo.Order_VO" alias="Order_VO"/>
+        <typeAlias type="com.javachip.vo.PattachVO" alias="PattachVO"/>
+        <typeAlias type="com.javachip.vo.RefundVO" alias="RefundVO"/>
+    </typeAliases>
+
+</configuration>
