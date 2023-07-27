@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="com.javachip.mapper.UserMapper">
+	
+	<select id="selectUserByLogin" resultType="userVO" parameterType="userVO">
+		SELECT uId
+		     , uName
+		     , grade
+		  FROM usertb
+		 WHERE id = #{id}
+		   AND password = #{password}
+	</select>
+	<!-- 
+		dao에서 sqlSession객체의 
+		selectOne 메소드를 호출하면 되고
+		그의 결과 타입은 int 이다.
+	 -->
+	<select id="selectCntById" 
+	     parameterType="String" 
+	     resultType="int">
+		select count(id)
+		  from usertb
+		 where id = #{id}
+	</select>
+	
+	<insert id = "insert" parameterType="userVO">
+		INSERT INTO usertb(
+			 id
+			,password
+			,name
+			,gender
+			,addr
+			,phone
+			,age
+			,grade
+		)values(
+			 #{id}
+			,#{password}
+			,#{name}
+			,#{gender}
+			,#{addr}
+			,#{phone}
+			,#{age}
+			,'C'
+		)
+	</insert>
+</mapper>

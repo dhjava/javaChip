@@ -2,7 +2,7 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 	<div class="frame login">
-		<form name="login frm">
+		<form name="login frm" action="login.do" method="post">
 			<h2>Login</h2>
 			<div class="main login">
 				<br>
