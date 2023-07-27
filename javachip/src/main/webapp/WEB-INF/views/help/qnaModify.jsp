@@ -73,7 +73,7 @@ function selectQTypeFn(){
 	if ( $("#qType").val() == "pQna" ) {
 		/* 상품 select start*/
 		htmlTag += "<p>문의 상품<p>";
-		htmlTag += "<select name='pNo' id='pNo' class='board-type nice-select'>";
+		htmlTag += "<select name='pNo' id='pNo' class='board-type nice-select' onchange='selectPNoFn();'>";
 		/* 상품 option start */
 		htmlTag += "<option ";
 		htmlTag += "value = '" + 0 + "'>";
@@ -100,7 +100,35 @@ function selectQTypeFn(){
 		return $("#addQnaSelect").html(htmlTag);
 }
 
+function selectPNoFn(){	
+	
+	var htmlTag = "";	
+	// 상품 QnA일때,
+	if ( $("#qType").val() == "pQna" ) {
+		
+		// qNo가 선택되지 않았을 때,
+		if ( $("#qNo").val() == "0" ) {
+			
+		}else {
+		// qNo가 선택되었을 때,
+			htmlTag += "<div class='pContainer pInfo'>"
+			htmlTag += "<div class='img pInfo'>"
+			htmlTag += " 상품 이미지"
+			htmlTag += "</div>"
+			htmlTag += "<div>"
+			htmlTag += " 상품 명 : " + $("#pNo").val();
+			htmlTag += "</div>"
+			htmlTag += "</div>"
+		}
+	// 상품 QnA가 아닐 때
+	}else{
+		
+	}
+		return $("#pInfo").html(htmlTag);
+}
+
 window.onload = selectQTypeFn;
+window.onload = selectPNoFn;
 
 // qna select 창
 function openSelectProducnFn() {
@@ -109,6 +137,17 @@ function openSelectProducnFn() {
 	"상품 선택",
 	"width=500, height=300, top=50, left=50, scrollbars=yes"
 	);
+}
+
+// 게시글 취소 재확인 문구
+function helpResetFn() {
+	if( confirm("작성된 게시글을 취소하시겠습니까?") ) {
+		//true
+		location.href="qna.do";
+	}else {
+		// false
+		return;
+	}	
 }
 
 </script>
@@ -152,12 +191,8 @@ function openSelectProducnFn() {
 							</select>
 						</div>
 						<div class="p-2 bd-highlight" id="addQnaSelect">
-							<p>문의 상품<p>
-							<select name="pNo" id="pNo" class="board-type nice-select">
-								<option value = "0">===== 상품 선택=====</option>
-								<option value = "1">커피1</option>
-								<option value = "2">커피2</option>
-							</select>
+						</div>
+						<div class="p-2 bd-highlight" id="pInfo">
 						</div>
 					<div class="p-2 bd-highlight">
 						<p>제목<p>

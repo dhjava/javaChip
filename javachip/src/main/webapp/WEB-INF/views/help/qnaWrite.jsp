@@ -2,6 +2,24 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <style>
+.pContainer.pInfo {
+	display: flex;
+	border: 1px solid #ced4da;
+	border-radius: 0.25rem;
+}
+.img.pInfo {
+	margin: 10px;
+	width: 100px;
+	height: 100px;
+	border: 1px solid #ced4da;
+}
+.pContainer.pInfo > div {
+	/* div 안 중앙 정렬 */
+	display : flex;
+	justify-content : center;
+	align-items : center;
+}
+
 select {
 	color :#6f6f6f;
 }
@@ -73,7 +91,7 @@ function selectQTypeFn(){
 	if ( $("#qType").val() == "pQna" ) {
 		/* 상품 select start*/
 		htmlTag += "<p>문의 상품<p>";
-		htmlTag += "<select name='pNo' id='pNo' class='board-type nice-select'>";
+		htmlTag += "<select name='pNo' id='pNo' class='board-type nice-select' onchange='selectPNoFn();'>";
 		/* 상품 option start */
 		htmlTag += "<option ";
 		htmlTag += "value = '" + 0 + "'>";
@@ -100,7 +118,35 @@ function selectQTypeFn(){
 		return $("#addQnaSelect").html(htmlTag);
 }
 
+function selectPNoFn(){	
+	
+	var htmlTag = "";	
+	// 상품 QnA일때,
+	if ( $("#qType").val() == "pQna" ) {
+		
+		// qNo가 선택되지 않았을 때,
+		if ( $("#qNo").val() == "0" ) {
+			
+		}else {
+		// qNo가 선택되었을 때,
+			htmlTag += "<div class='pContainer pInfo'>"
+			htmlTag += "<div class='img pInfo'>"
+			htmlTag += " 상품 이미지"
+			htmlTag += "</div>"
+			htmlTag += "<div>"
+			htmlTag += " 상품 명 : " + $("#pNo").val();
+			htmlTag += "</div>"
+			htmlTag += "</div>"
+		}
+	// 상품 QnA가 아닐 때
+	}else{
+		
+	}
+		return $("#pInfo").html(htmlTag);
+}
+
 window.onload = selectQTypeFn;
+window.onload = selectPNoFn;
 
 // qna select 창
 function openSelectProducnFn() {
@@ -121,6 +167,7 @@ function helpResetFn() {
 		return;
 	}	
 }
+
 </script>
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
@@ -162,12 +209,8 @@ function helpResetFn() {
 							</select>
 						</div>
 						<div class="p-2 bd-highlight" id="addQnaSelect">
-							<p>문의 상품<p>
-							<select name="pNo" id="pNo" class="board-type nice-select">
-								<option value = "0">===== 상품 선택=====</option>
-								<option value = "1">커피1</option>
-								<option value = "2">커피2</option>
-							</select>
+						</div>
+						<div class="p-2 bd-highlight" id="pInfo">
 						</div>
 					<div class="p-2 bd-highlight">
 						<p>제목<p>
