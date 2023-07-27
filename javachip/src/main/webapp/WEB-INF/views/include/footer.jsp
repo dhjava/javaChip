@@ -63,7 +63,13 @@
         </div>
     </footer>
     <!-- Footer Section End -->
-
 </body>
-
+	<!-- Js Plugins -->
+    <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/jquery.nice-select.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/jquery-ui.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/jquery.slicknav.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/mixitup.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/owl.carousel.min.js"></script>
+    <script src="<%=request.getContextPath() %>/resources/js/main.js"></script>
 </html>
