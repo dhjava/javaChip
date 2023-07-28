@@ -8,10 +8,10 @@
 	<select id="selectUserByLogin" resultType="userVO" parameterType="userVO">
 		SELECT uId
 		     , uName
-		     , grade
-		  FROM usertb
-		 WHERE id = #{id}
-		   AND password = #{password}
+		     , uStatus
+		  FROM user
+		 WHERE uId = #{uId}
+		   AND uPw = #{uPw}
 	</select>
 	<!-- 
 		dao에서 sqlSession객체의 
@@ -21,30 +21,64 @@
 	<select id="selectCntById" 
 	     parameterType="String" 
 	     resultType="int">
-		select count(id)
-		  from usertb
-		 where id = #{id}
+		select count(uId)
+		  from user
+		 where uId = #{uId}
 	</select>
 	
 	<insert id = "insert" parameterType="userVO">
-		INSERT INTO usertb(
-			 id
-			,password
-			,name
-			,gender
-			,addr
-			,phone
-			,age
-			,grade
+		INSERT INTO user(
+			 uId
+			,uPw
+			,uName
+			,uJoin
+			,uRetire
+			,uPhone
+			,uStatus
+			,uBisno
+			,uAdd
+			,uMail
+			,uAlertNum
 		)values(
-			 #{id}
-			,#{password}
-			,#{name}
-			,#{gender}
-			,#{addr}
-			,#{phone}
-			,#{age}
-			,'C'
+			 #{uId}
+			,#{uPw}
+			,#{uName}
+			,#{uJoin}
+			,"N"
+			,#{uPhone}
+			,"N"
+			,""
+			,#{uAdd}
+			,#{uMail}
+			,#{uAlertNum}
+		)
+	</insert>
+	
+	<insert id = "insertBiz" parameterType="userVO">
+		INSERT INTO user(
+			 uId
+			,uPw
+			,uName
+			,uJoin
+			,uRetire
+			,uPhone
+			,uStatus
+			,uBisno
+			,uAdd
+			,uMail
+			,uAlertNum
+		)values(
+			 #{uId}
+			,#{uPw}
+			,#{uName}
+			,#{uJoin}
+			,#{uRetire}
+			,#{uPhone}
+			,#{uStatus}
+			,#{uBisno}
+			,#{uAdd}
+			,#{uMail}
+			,#{uAlertNum}
 		)
 	</insert>
 </mapper>

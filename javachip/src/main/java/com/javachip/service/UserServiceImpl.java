@@ -27,4 +27,9 @@ public class UserServiceImpl implements UserService {
 	public int insert(UserVO vo) {
 		return userDAO.insert(vo);
 	}
+	
+	@Override
+	public int insertBiz(UserVO vo) {
+		return userDAO.insert(vo);
+	}
 }

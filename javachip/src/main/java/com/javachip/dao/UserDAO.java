@@ -12,7 +12,7 @@ public class UserDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private static final String namespace = "com.javachip.mapper.userMapper";
+	private static final String namespace = "com.javachip.mapper.UserMapper";
 	
 	public UserVO selectMemberByLogin(UserVO vo) {
 		return sqlSession.selectOne(namespace+".selectUserByLogin", vo);
@@ -24,5 +24,9 @@ public class UserDAO {
 	
 	public int insert(UserVO vo) {
 		return sqlSession.insert(namespace+".insert", vo);
+	}
+	
+	public int insertBiz(UserVO vo) {
+		return sqlSession.insert(namespace+".insertBiz", vo);
 	}
 }

@@ -19,50 +19,31 @@
 		</div>
 	</section>
 	<!-- Breadcrumb Section End -->
+<script src="<%=request.getContextPath() %>/resources/js/member.js"></script>
 <section class="join spad">
         <div class="container">
             <div class="join__form">
                 <h4>일반 회원가입</h4>
-                <form action="#">
+                <form action="join.do" method="post">
                     <div class="join__input">
                     	<p>아이디<span>*</span></p>
-                        	<input type="text" class="join__input__short">
+                        	<input type="text" class="join__input__short" name="uId">
                         	<button type="button" class="btn btn-outline-secondary">중복 체크</button>
                     	<p>비밀번호<span>*</span></p>
-                        	<input type="password" class="join__input__short">
+                        	<input type="password" class="join__input__short" name="uPw">
                         <p>비밀번호 확인<span>*</span></p>
-                        	<input type="password" class="join__input__short">
+                        	<input type="password" class="join__input__short" name="uPwc">
                         <p>성명<span>*</span></p>
-                        	<input type="text" class="join__input__short">
+                        	<input type="text" class="join__input__short" name="uName">
                         <p>주소<span>*</span></p>
-	                        <input type="text" placeholder="우편번호" class="join__input__short">
+	                        <input type="text" placeholder="우편번호" class="join__input__short" name="uAddNum">
 	                        <button type="button" class="btn btn-outline-secondary">우편번호</button>
-	                        <input type="text" placeholder="주소" class="join__input__add">
-	                        <input type="text" placeholder="나머지 주소" class="join__input__add">
+	                        <input type="text" placeholder="주소" class="join__input__add" name="uAdd1">
+	                        <input type="text" placeholder="나머지 주소" class="join__input__add" name="uAdd2">
                         <p>전화번호<span>*</span></p>
-	                        <select class="joinNum">
-								<option value="010" selected>
-								010
-								</option>
-								<option value="011">
-								011
-								</option>
-								<option value="016">
-								016
-								</option>
-								<option value="017">
-								017
-								</option>
-								<option value="018">
-								018
-								</option>
-								<option  value="019">
-								019
-								</option>
-							</select>
-							- <input class="joinNum" type="text"> - <input  class="joinNum" type="text">
+							<input class="join__input__short" type="text" name="uPhone" id="uPhone">
                         <p>이메일<span>*</span></p>
-                        	<input type="text" class="join__input__email">
+                        	<input type="text" class="join__input__email" name="uMail">
                    	</div>
                    	<hr>
                     <div class="join__agree">
