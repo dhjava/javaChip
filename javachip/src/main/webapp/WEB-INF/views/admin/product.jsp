@@ -1,27 +1,60 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
-	<ul class="nav justify-content-center">
-	  <li class="nav-item">
-	    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">관리자 페이지</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link active" href="<%=request.getContextPath()%>/admin/memberList.do">회원 관리</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" href="<%=request.getContextPath()%>/admin/productList.do">상품 등록</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" href="<%=request.getContextPath()%>/admin/delivery.do">주문 관리</a>
-	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link" href="<%=request.getContextPath()%>/admin/boardList.do">게시글 관리</a>
-	  </li>
-	</ul>
-    <!-- Product Details Section Begin -->
-    <section class="board-box spad">
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
+<!-- 메인 작성 영역 -->
+
+</head>
+<body>
+	<!-- Breadcrumb Section Begin -->
+	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
             <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>관리자 페이지</h2>
+                        <div class="breadcrumb__option">
+                            <a href="<%= request.getContextPath() %>/">Home</a>
+                            	<span>상품상세관리</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	<!-- Breadcrumb Section End -->
+	<!-- section -->
+	<section class="spad frame admin">
+	
+		<div class="side admin">
+			<div class="blog__sidebar__item">
+				<h4>상품관리</h4>
+				<ul>
+				<li><a href="<%=request.getContextPath() %>/admin/productList.do">상품 목록 조회</a></li>
+				</ul>
+			</div>
+			<div class="blog__sidebar__item">
+				<h4>회원관리</h4>
+				<ul>
+				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">회원조회</a></li>
+				</ul>
+			</div>	
+			<div class="blog__sidebar__item">	
+				<h4>주문관리</h4>
+				<ul>
+				<li><a href="<%=request.getContextPath() %>/admin/deliveryList.do">주문 목록 조회</a></li>
+				</ul>
+			</div>	
+			<div class="blog__sidebar__item">	
+				<h4>게시글관리</h4>
+				<ul>
+				<li><a href="<%=request.getContextPath() %>/admin/boardList.do">공지사항 관리</a></li>
+				<li><a href="<%=request.getContextPath() %>/admin/qnaList.do">QnA 목록 조회</a></li>
+				</ul>
+			</div>	
+		</div>
+		<div class="main admin">
+				<div class="row">
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
@@ -62,7 +95,6 @@
                 </div>
             </div>
         </div>
-    </section>
-    <!-- Product Details Section End -->
-<!-- 메인 작성 영역 -->
+	</section>
+	<!-- Section End -->
 <%@ include file="../include/footer.jsp" %>

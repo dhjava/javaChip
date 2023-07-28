@@ -3,39 +3,29 @@
 <%@ include file="../include/nav.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
-<script>
-function openMemberDetail() {
-	window.open(
-		"admin-memberDetail.jsp",
-		"회원관리",
-		"width=500, height=300, top=50, left=50, scrollbars=yes"
-	);
-}
-</script>
+
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
-	<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="breadcrumb__text">
-						<h2>회원관리</h2>
-						<div class="breadcrumb__option">
-							<a href="<%=request.getContextPath()%>/">Home</a>
-							<a href="<%=request.getContextPath()%>/admin/main.do">관리자 페이지</a>
-							<span>게시글 관리</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>관리자 페이지</h2>
+                        <div class="breadcrumb__option">
+                            <a href="<%= request.getContextPath() %>/">Home</a>
+                            	<span>공지사항관리</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 	<!-- Breadcrumb Section End -->
 	<!-- section -->
 	<section class="spad admin">
-	<div style="height:700px;">
-	<div class="frame admin" style="float:left; width:30%;">
+	<div class="frame admin">
 		<div class="side admin">
 			<div class="blog__sidebar__item">
 				<h4>상품관리</h4>
@@ -47,7 +37,6 @@ function openMemberDetail() {
 				<h4>회원관리</h4>
 				<ul>
 				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">회원조회</a></li>
-				<li>적립금 관리</li>
 				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
@@ -64,8 +53,7 @@ function openMemberDetail() {
 				</ul>
 			</div>	
 		</div>
-	</div>
-		<div class="main admin" style="float:left; width:50%;">
+		<div class="main admin" style="float:left; width:75%;">
 				<h4><b>공지사항 관리</b></h4><br>
 				<div class="search admin">
 					<select>
@@ -83,11 +71,18 @@ function openMemberDetail() {
 							<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
 						</tr>
 						<tr>
+							<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
+						</tr>
 					</table>
 				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 				<input type="button" value="선택 삭제">
 		</div>
-		<div style="float:left; width:19%;"></div>
 	</div>
 	</section>
 	<!-- Section End -->
