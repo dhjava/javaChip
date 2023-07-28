@@ -3,7 +3,6 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 	<!-- 아임포트 결제 -->
-	<script src="<%=request.getContextPath() %>/resources/js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
 		var IMP = window.IMP;
@@ -113,8 +112,8 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="#" class="primary-btn cart-btn">계속 쇼핑하기</a>
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                        <a href="<%= request.getContextPath() %>/shop/grid.do" class="primary-btn cart-btn">계속 쇼핑하기</a>
+                        <a href="javascript:location.reload()" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                             장바구니 업데이트</a>
                     </div>
                 </div>
@@ -133,8 +132,8 @@
                         <h5>장바구니 총합</h5>
                         <ul>
                             <li>판매가 <span>$110</span></li>
-                            <li>할인 <span id="discount">-$54.98</span></li>
-                            <li>총액 <span>$400</span></li>
+                            <li>할인 <span id="discount"></span></li>
+                            <li>총액 <span>$110</span></li>
                         </ul>
                         <a href="javascript:requestPay()" class="primary-btn" style="color:white;">결제하기</a>
                     </div>
