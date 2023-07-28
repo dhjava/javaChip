@@ -3,34 +3,25 @@
 <%@ include file="../include/nav.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
-<script>
-function openMemberDetail() {
-	window.open(
-		"admin-memberDetail.jsp",
-		"회원관리",
-		"width=500, height=300, top=50, left=50, scrollbars=yes"
-	);
-}
-</script>
+
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
-	<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="breadcrumb__text">
-						<h2>회원관리</h2>
-						<div class="breadcrumb__option">
-							<a href="<%=request.getContextPath() %>/">Home</a>
-							<a href="<%=request.getContextPath()%>/admin/main.do">관리자 페이지</a>
-							<span>회원관리</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>관리자 페이지</h2>
+                        <div class="breadcrumb__option">
+                            <a href="<%= request.getContextPath() %>/">Home</a>
+                            	<span>회원관리</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 	<!-- Breadcrumb Section End -->
 	<!-- section -->
 	<section class="spad frame admin">
@@ -46,7 +37,6 @@ function openMemberDetail() {
 				<h4>회원관리</h4>
 				<ul>
 				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">회원조회</a></li>
-				<li>적립금 관리</li>
 				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
@@ -92,7 +82,9 @@ function openMemberDetail() {
 						<td>5</td>
 						<td>0</td>
 						<td>활동</td>
-						<td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do">
+						<input type="button" value="상세" onclick="openMemberDetail()"></a>
+						</td>
 					</tr>
 					<tr>
 						<td class="ctd"><input type="checkbox" ></td>
@@ -102,7 +94,8 @@ function openMemberDetail() {
 						<td>5</td>
 						<td>0</td>
 						<td>활동</td>
-						<td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do">
+						<input type="button" value="상세" onclick="openMemberDetail()"></a>
 					</tr>
 					<tr>
 						<td class="ctd"><input type="checkbox" ></td>
@@ -112,7 +105,9 @@ function openMemberDetail() {
 						<td>5</td>
 						<td>0</td>
 						<td>활동</td>
-						<td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do">
+						<input type="button" value="상세" onclick="openMemberDetail()"></a>
+						</td>
 					</tr>
 					<tr>
 						<td class="ctd"><input type="checkbox" ></td>
@@ -122,7 +117,9 @@ function openMemberDetail() {
 						><td>5</td>
 						<td>0</td>
 						<td>활동</td>
-						<td class="ctd"><input type="button" value="상세" onclick="openMemberDetail()"></td>
+						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do">
+						<input type="button" value="상세" onclick="openMemberDetail()"></a>
+						</td>
 					</tr>
 				</table>
 		</div>
