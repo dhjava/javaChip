@@ -76,6 +76,11 @@ public class HelpController {
 		return "redirect:qna.do";
 	}
 	
+	@RequestMapping(value="/productSelect.do", method = RequestMethod.GET)
+	public String productSelecte() {
+		return "help/productSelect";
+	}
+	
 	//notice
 	@RequestMapping(value="/notice.do", method = RequestMethod.GET)
 	public String notice() {
