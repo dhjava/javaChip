@@ -76,13 +76,7 @@
 				회원 유형
 			</th>
 			<td>
-				${vo.Status}
-			</td>
-			<th>
-				회원 등급
-			</th>
-			<td>
-				5
+				${vo.uStatus }
 			</td>
 		</tr>
 		<tr>
@@ -98,7 +92,7 @@
 		</tr>
 		<tr>
 			<td colspan="3">
-				전라북도 전주시 ooo구 ooo동 ooo아파트
+				${vo.uAdd }
 			</td>
 		</tr>
 		<tr>
@@ -108,16 +102,16 @@
 		</tr>
 		<tr>	
 			<th>
-				상태
+				탈퇴여부
 			</th>
 			<td>
-				활동
+				${vo.uRetire }
 			</td>
 			<th>
 				누적 경고
 			</th>
 			<td>
-				0
+				${vo.uAlertNum }
 			</td>
 		</tr>
 	</table>

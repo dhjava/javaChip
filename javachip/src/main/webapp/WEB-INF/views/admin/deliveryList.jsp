@@ -85,7 +85,7 @@
 						<td><input type="checkbox"></td><td>4</td><td>커피1</td><td>hong12</td><td>000원</td><td>2</td><td>2023-07-21</td><td>배송완료</td>
 					</tr>
 				</table>
-				<div class="admin_pagination">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
+				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 				<input type="button" value="선택 삭제">
 		</div>
 	</div>

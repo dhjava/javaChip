@@ -105,7 +105,7 @@
 					</tr>
 
 				</table>
-				<div class="admin_pagination">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
+				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 				<input type="button" value="선택 삭제">
 		</div>
 	</div>
