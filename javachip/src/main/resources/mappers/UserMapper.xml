@@ -81,4 +81,26 @@
 			,#{uAlertNum}
 		)
 	</insert>
+	<!-- 관리자 회원 전체 목록 -->
+	<select id="selectUserByAdmin" resultType="userVO" parameterType="AdminSearchVO">
+		SELECT uNo,uId,uName,uJoin,uRetire,uPhone,uStatus,uBisno,uAdd,uMail,uAlertNum FROM user
+		<if test='AdminSearchUserType != null and AdminSearchUserType.equals("N")'>
+			WHERE uStatus = #{AdminSearchUserType}
+		</if>
+		<if test='AdminSearchUserType != null and AdminSearchUserType.equals("B")'>
+			WHERE uStatus = #{AdminSearchUserType}
+		</if>
+		<if test='AdminSearchId != null and AdminSearchId.equals("uId")'>
+			WHERE uId like concat('%', #{AdminSearchIdValue}, '%')
+		</if>
+		<if test='AdminSearchId != null and AdminSearchId.equals("uName")'>
+			WHERE uName like concat('%', #{AdminSearchIdValue}, '%')
+		</if>
+	</select>
+	
+	<!-- 관리자 회원 세부 목록 -->
+	<select id="selectUserOneByuNoByAdmin" resultType="userVO" parameterType="int">
+		SELECT uNo,uId,uName,uJoin,uRetire,uPhone,uStatus,uBisno,uAdd,uMail,uAlertNum FROM user
+			where uNo = #{uNo}
+	</select>
 </mapper>
