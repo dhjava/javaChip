@@ -1,174 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
-<style>
-.pContainer.pInfo {
-	display: flex;
-	border: 1px solid #ced4da;
-	border-radius: 0.25rem;
-}
-.img.pInfo {
-	margin: 10px;
-	width: 100px;
-	height: 100px;
-	border: 1px solid #ced4da;
-}
-.pContainer.pInfo > div {
-	/* div 안 중앙 정렬 */
-	display : flex;
-	justify-content : center;
-	align-items : center;
-}
 
-select {
-	color :#6f6f6f;
-}
-</style>
-<script>
-/* help */
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/qna.css" type="text/css"/>
 
-var checkTitleFlag = false;
-var checkPNoFlag = false;
-var checkContentsFlag = false;
-var submitFlag = false;
+<script src="<%=request.getContextPath() %>/resources/js/qna.js"></script>
 
-// help qna write submit
-function helpSubmitFn() {
-	
-	// QnA 제목이 입력되지 않았을 때
-	if($("#qTitle").val() == "") {
-			checkTitleFlag = false;
-			alert("제목을 입력해주세요.");
-			$("#qTitle").focus();
-			
-			return;
-		}else
-	// QnA 내용이 입력되지 않았을 때
-	if($("#qContents").val() == "") {
-			checkContentsFlag = false;
-			alert("내용을 입력해주세요.");
-			$("#qContents").focus();
-			
-			return;
-		}else
-	// QnA 제목과 내용이 있을경우
-	{
-		checkTitleFlag = true;
-		checkContentsFlag = true;
-	}
-	
-	// 상품 QnA가 선택되고, 상품이 선택되지 않았을 때	
-	if( $("#qType").val() == "pQna" ) {
-		
-			if($("#pNo").val() == 0) {
-				checkPNoFlag = false;
-				alert("질문하실 상품을 선택해주세요.");
-				 $("#pNo").focus();
-			}else {
-			// 상품QnA가 선택되고, 상품이 선택되었을 경우
-				checkPNoFlag = true;
-			}
-	}else {
-	// 일반 QnA일때	
-		checkPNoFlag = true;
-	
-	}
-	// Flag확인하고 submit
-	if(checkTitleFlag && checkPNoFlag && checkContentsFlag){
-		submitFlag = true;
-	}
-	
-	if(submitFlag) {
-		$("form").submit();
-	}
-}
-
-// help qna Type select
-function selectQTypeFn(){	
-	
-	var htmlTag = "";	
-	
-	if ( $("#qType").val() == "pQna" ) {
-		/* 상품 select start*/
-		htmlTag += "<p>문의 상품<p>";
-		htmlTag += "<select name='pNo' id='pNo' class='board-type nice-select' onchange='selectPNoFn();'>";
-		/* 상품 option start */
-		htmlTag += "<option ";
-		htmlTag += "value = '" + 0 + "'>";
-		htmlTag += "=====상품 선택=====";
-		htmlTag += "</option>";
-		/* 상품 option end */
-		/* 상품 option start */
-		htmlTag += "<option ";
-		htmlTag += "value = '" + 1 + "'>";
-		htmlTag += "커피1";
-		htmlTag += "</option>";
-		/* 상품 option end */
-		/* 상품 option start */
-		htmlTag += "<option ";
-		htmlTag += "value = '" + 2 + "'>";
-		htmlTag += "커피2";
-		htmlTag += "</option>";
-		/* 상품 option end */
-		htmlTag += "</select>";
-		/* 상품 select end */
-	}else{
-		return $("#addQnaSelect").html("");
-	}
-		return $("#addQnaSelect").html(htmlTag);
-}
-
-function selectPNoFn(){	
-	
-	var htmlTag = "";	
-	// 상품 QnA일때,
-	if ( $("#qType").val() == "pQna" ) {
-		
-		// qNo가 선택되지 않았을 때,
-		if ( $("#qNo").val() == "0" ) {
-			
-		}else {
-		// qNo가 선택되었을 때,
-			htmlTag += "<div class='pContainer pInfo'>"
-			htmlTag += "<div class='img pInfo'>"
-			htmlTag += " 상품 이미지"
-			htmlTag += "</div>"
-			htmlTag += "<div>"
-			htmlTag += " 상품 명 : " + $("#pNo").val();
-			htmlTag += "</div>"
-			htmlTag += "</div>"
-		}
-	// 상품 QnA가 아닐 때
-	}else{
-		
-	}
-		return $("#pInfo").html(htmlTag);
-}
-
-window.onload = selectQTypeFn;
-window.onload = selectPNoFn;
-
-// qna select 창
-function openSelectProducnFn() {
-	window.open(
-	"productList.jsp",
-	"상품 선택",
-	"width=500, height=300, top=50, left=50, scrollbars=yes"
-	);
-}
-
-// 게시글 취소 재확인 문구
-function helpResetFn() {
-	if( confirm("작성된 게시글을 취소하시겠습니까?") ) {
-		//true
-		location.href="qna.do";
-	}else {
-		// false
-		return;
-	}	
-}
-
-</script>
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
 		<div class="container">
@@ -196,7 +33,7 @@ function helpResetFn() {
 						</div>
 						<div class="p-2 bd-highlight">
 							<p>구분<p>
-							<select name="qType" id="qType" class="board-type"  onchange="selectQTypeFn();">
+							<select name="qType" id="qType" class="board-type" onchange="selectQTypeFn();">
 								<option value="nQna"
 								<c:if test="${ qType eq 'n'}"> selected</c:if>
 								>일반 Q&amp;A</option>
@@ -233,6 +70,76 @@ function helpResetFn() {
 						</div>
 					</div>
 				</form>
+			</div>
+		</div>
+		<div id="pSelectContainer" class="modalHidden">
+			<div class="pSelectBox">
+				<div class="p-2 bd-highlight">
+					<h4><b>상품 목록</b></h4>
+				</div>
+				<div class="pSelectContent">
+					<div class="board-search" style="width:70%; float: left">
+						<form class="d-flex justify-content-center">
+			 				<div class="input-group">
+								<select>
+									<option value="title">카테고리</option>
+									<option value="bean">원두</option>
+									<option value="gift-set">상품</option>
+								</select>
+								<input type="text" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-secondary mb-4">검색하기</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="p-2 bd-highlight">
+					<table class="table table-hover pSelectTable">
+						<tr>
+							<th>번호</th>
+							<th colspan="2" align="center">상품</th>
+							<th>선택</th>
+						</tr>
+						<tr>
+							<td style="width : 15%">1</td>
+							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
+							<td style="width : 40%; text-align: left">커피 1</td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피 1"></td>
+						</tr>
+						<tr>
+							<td style="width : 10%">2</td>
+							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
+							<td style="width : 45%; text-align: left">커피 2</td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피 2"></td>
+						</tr>
+						<tr>
+							<td style="width : 10%">3</td>
+							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
+							<td style="width : 45%; text-align: left">커피 3</td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피 3"></td>
+						</tr>
+						<tr>
+							<td style="width : 10%">4</td>
+							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
+							<td style="width : 45%; text-align: left">커피 4</td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피 4"></td>
+						</tr>
+						<tr>
+							<td style="width : 10%">5</td>
+							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
+							<td style="width : 45%; text-align: left">커피 5</td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피5"></td>
+						</tr>
+					</table>
+					</div>
+				</div>
+				<div style="text-align:center;">
+					◀ 1 2 3 4 5 6 7 8 9 10 ▶
+				</div><br>
+				<div class="p-2 bd-highlight" align="center">
+					<button class="btn btn-dark" type="button" style="margin-right:20px;" onclick="sendPnoFn();">등록</button>
+					<button class="btn btn-outline-secondary" type="button" onclick="closeSelectBoxFn();">취소</button>
+				</div>
 			</div>
 		</div>
 	</section>
