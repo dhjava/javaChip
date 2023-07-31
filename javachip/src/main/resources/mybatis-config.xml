@@ -10,6 +10,8 @@
         <typeAlias type="com.javachip.vo.Order_VO" alias="Order_VO"/>
         <typeAlias type="com.javachip.vo.PattachVO" alias="PattachVO"/>
         <typeAlias type="com.javachip.vo.RefundVO" alias="RefundVO"/>
+        <typeAlias type="com.javachip.vo.NoticeVO" alias="NoticeVO"/>
+        <typeAlias type="com.javachip.vo.QnaVO" alias="QnaVO"/>
     </typeAliases>
 
 </configuration>

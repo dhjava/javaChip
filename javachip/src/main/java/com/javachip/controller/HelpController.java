@@ -1,13 +1,23 @@
 package com.javachip.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.javachip.service.HelpService;
+import com.javachip.vo.NoticeVO;
+import com.javachip.vo.UserVO;
+
 @Controller
 @RequestMapping(value="/help")
 public class HelpController {
+	
+	@Autowired HelpService helpService;
 	
 	// faq
 	@RequestMapping(value="/faq.do", method = RequestMethod.GET)
@@ -92,10 +102,24 @@ public class HelpController {
 	}
 	
 	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
-	public String noticeWriteAction() {
+	public String noticeWriteAction(NoticeVO noticeVO, HttpServletRequest req) {
 		
-		return "redirect:noticeView.do";
+		HttpSession session = req.getSession();
+				
+		// login 기능 활성화 시 추후 작성
+		// UserVO loginVO = (UserVO)session.getAttribute("login");
+		int uNo = 1;	// 임시 uNo
+		
+		noticeVO.setuNo(uNo);
+		
+		int result = helpService.insertNotice(noticeVO);
+		
+		System.out.println(noticeVO.toString());
+		
+		return "redirect:noticeView.do";	// 추후 주소 변경
 	}
+	
+	
 	@RequestMapping(value="/noticeView.do", method = RequestMethod.GET)
 	public String noticeView() {
 		return "help/noticeView";
