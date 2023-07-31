@@ -6,8 +6,8 @@
 			<h2>Login</h2>
 			<div class="main login">
 				<br>
-				<input type="text" id="uId" placeholder="아이디"><br>
-				<input type="password" id="uPw"  placeholder="비밀번호"><br>
+				<input type="text" name="uId" placeholder="아이디"><br>
+				<input type="password" name="uPw"  placeholder="비밀번호"><br>
 			</div>
 			<input class="login btn" type="submit" value="로그인">
 			

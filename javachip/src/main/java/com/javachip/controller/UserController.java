@@ -22,7 +22,7 @@ public class UserController {
 	@Autowired
 	private UserService us;
 	
-	@RequestMapping(value="/login.do")
+	@RequestMapping(value="/login.do",method=RequestMethod.GET)
 	public String login() {
 		return "member/login";
 	}
@@ -53,19 +53,29 @@ public class UserController {
 		pw.flush();
 	}
 	
-	@RequestMapping(value="/idFind.do")
-	public String idfind() {
-		return "member/idFind";
-	}
-	
-	@RequestMapping(value="/join.do")
-	public String join() {
-		return "member/join";
-	}
-	
-	@RequestMapping(value="/joinBiz.do")
-	public String joinBiz() {
-		return "member/joinBiz";
+	@RequestMapping(value="/logout.do")
+	public void logout(HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+		
+		try {
+			HttpSession session = req.getSession();
+			session.invalidate();
+			session.setAttribute("key", null);
+			pw.append("<script>alert('로그아웃 되었습니다.');"
+						+"location.href='"
+					    +req.getContextPath()+"/';</script>");
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			pw.append("<script>alert('로그아웃시 예외가 발생했습니다.');"
+					+"location.href='"
+				    +req.getContextPath()+"/';</script>");
+		}
+		
+		pw.flush();
+		
 	}
 	
 	@RequestMapping(value="/joinSelect.do")
@@ -73,6 +83,47 @@ public class UserController {
 		return "member/joinSelect";
 	}
 	
+	@RequestMapping(value="/join.do",method=RequestMethod.GET)
+	public String join() {
+		return "member/join";
+	}
+	
+	@RequestMapping(value="/join.do",method=RequestMethod.POST)
+	public String join(UserVO vo) {
+		int result = us.insert(vo);
+		
+		if(result>0) {
+			System.out.println("회원가입 성공");
+		}else {
+			System.out.println("회원가입 실패");
+		}
+		
+		return "redirect:login.do";
+	}
+	
+	@RequestMapping(value="/joinBiz.do",method=RequestMethod.GET)
+	public String joinBiz() {
+		return "member/joinBiz";
+	}
+	
+	@RequestMapping(value="/joinBiz.do",method=RequestMethod.POST)
+	public String joinBiz(UserVO vo) {
+		int result = us.insertBiz(vo);
+		
+		if(result>0) {
+			System.out.println("회원가입 성공");
+		}else {
+			System.out.println("회원가입 실패");
+		}
+		
+		return "redirect:login.do";
+	}
+
+	
+	@RequestMapping(value="/idFind.do")
+	public String idfind() {
+		return "member/idFind";
+	}
 	
 	@RequestMapping(value="/pwFind.do")
 	public String pwFind() {

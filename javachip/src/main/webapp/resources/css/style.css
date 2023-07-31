@@ -3488,15 +3488,6 @@ ol {
 	width: 120px;
 }
 
-.joinNum {
-	width: 10%;
-	height: 46px;
-	margin-bottom:20px;
-	font-size:16px;
-}
-.joinNum option {
-	text-align: center;
-}
 
 .address:not(.joinNum) {
 	width: 300px;

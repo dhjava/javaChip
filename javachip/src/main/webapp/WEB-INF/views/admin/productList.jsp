@@ -3,34 +3,25 @@
 <%@ include file="../include/nav.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
-<script>
-function openMemberDetail() {
-	window.open(
-		"admin-memberDetail.jsp",
-		"회원관리",
-		"width=500, height=300, top=50, left=50, scrollbars=yes"
-	);
-}
-</script>
+
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
-	<section class="breadcrumb-section set-bg" data-setbg="img/breadcrumb.jpg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<div class="breadcrumb__text">
-						<h2>회원관리</h2>
-						<div class="breadcrumb__option">
-							<a href="<%=request.getContextPath() %>/">Home</a>
-							<a href="<%=request.getContextPath()%>/admin/main.do">관리자 페이지</a>
-							<span>게시글 관리</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>관리자 페이지</h2>
+                        <div class="breadcrumb__option">
+                            <a href="<%= request.getContextPath() %>/">Home</a>
+                            	<span>상품관리</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 	<!-- Breadcrumb Section End -->
 	<!-- section -->
 	<section class="spad admin">
@@ -46,7 +37,6 @@ function openMemberDetail() {
 				<h4>회원관리</h4>
 				<ul>
 				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">회원조회</a></li>
-				<li>적립금 관리</li>
 				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
@@ -65,17 +55,10 @@ function openMemberDetail() {
 		</div>
 		<div class="main admin">
 				<h4><b>상품 목록 조회</b></h4><br>
-				<div>
-					<select>
-						<option>전체</option>
-						<option>커피</option>
-						<option>기타</option>
-					</select>
-				</div>
 				<div class="search admin">
 					<select>
 						<option>상품번호</option>
-						<option>상품이름</option>
+						<option>상품명</option>
 					</select>
 					<input type="text"><input type="button" value="검색">
 				</div>
@@ -84,7 +67,10 @@ function openMemberDetail() {
 						<th><input type="checkbox"></th><th>번호</th><th>상품구분</th><th>상품명</th><th>가격</th><th>재고수</th><th>상품상태</th>
 					</tr>
 					<tr>
-						<td><input type="checkbox"></td><td>1</td><td>커피</td><td><a href="./product-insert.jsp">커피1</a></td><td>000원</td><td>0</td>
+						<td><input type="checkbox"></td><td>1</td>
+						<td>커피</td>
+						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피1</a></td>
+						<td>000원</td><td>0</td>
 						<td>
 							<select>
 								<option>판매중</option>
@@ -94,7 +80,9 @@ function openMemberDetail() {
 						</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox"></td><td>1</td><td>커피</td><td><a href="./product-insert.jsp">커피2</a></td><td>000원</td><td>0</td>
+						<td><input type="checkbox"></td><td>1</td><td>커피</td>
+						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피2</a></td>
+						<td>000원</td><td>0</td>
 						<td>
 							<select>
 								<option>판매중</option>
@@ -104,7 +92,9 @@ function openMemberDetail() {
 						</td>
 					</tr>
 					<tr>
-						<td><input type="checkbox"></td><td>1</td><td>커피</td><td><a href="./product-insert.jsp">커피3</a></td><td>000원</td><td>0</td>
+						<td><input type="checkbox"></td><td>1</td><td>커피</td>
+						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피3</a></td>
+						<td>000원</td><td>0</td>
 						<td>
 							<select>
 								<option>판매중</option>
