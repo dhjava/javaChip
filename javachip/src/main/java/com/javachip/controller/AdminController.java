@@ -1,22 +1,34 @@
 package com.javachip.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.javachip.service.UserService;
+import com.javachip.vo.AdminSearchVO;
+import com.javachip.vo.UserVO;
 
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController 
 {
+	@Autowired
+	private UserService us;
+	
 	@RequestMapping(value="/boardList.do")
 	public String boardList()
 	{
 		return "admin/boardList";
 	}
 	
-	@RequestMapping(value="/delivery.do")
+	@RequestMapping(value="/deliveryList.do")
 	public String delivery()
 	{
-		return "admin/delivery";
+		return "admin/deliveryList";
 	}
 	
 	@RequestMapping(value="/main.do")
@@ -26,14 +38,18 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/memberDetail.do")
-	public String memberDetail()
+	public String memberDetail(int uNo, Model model)
 	{
+		UserVO vo = us.selectUserOneByuNoByAdmin(uNo);
+		model.addAttribute("vo", vo);
 		return "admin/memberDetail";
 	}
 	
 	@RequestMapping(value="/memberList.do")
-	public String memberList()
+	public String memberList(Model model, AdminSearchVO AdminSearchVO)
 	{
+		List<UserVO> list = us.list(AdminSearchVO);
+		model.addAttribute("list", list);
 		return "admin/memberList";
 	}
 	

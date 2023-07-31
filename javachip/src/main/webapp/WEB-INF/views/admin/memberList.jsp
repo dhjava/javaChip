@@ -2,6 +2,7 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- 메인 작성 영역 -->
 
 </head>
@@ -55,73 +56,47 @@
 		</div>
 		<div class="main admin">
 				<h4><b>회원 리스트</b></h4><br>
+				<form action="memberList.do" method="post">
 				<div>
-					<select>
-						<option>전체</option>
-						<option>일반</option>
-						<option>사업자</option>
+					<select name="AdminSearchUserType">
+						<option value="N" 
+						<c:if test="${param.AdminSearchUserType eq 'N'}">selected</c:if>>일반</option>
+						<option value="B" 
+						<c:if test="${param.AdminSearchUserType eq 'B'}">selected</c:if>>사업자</option>
 					</select>
+					<button>검색</button>
 				</div>
+				</form>
+				<form action="memberList.do" method="post">
 				<div class="search admin">
-					<select>
-						<option>아이디+이름</option>
-						<option>아이디</option>
-						<option>이름</option>
+					<select name="AdminSearchId">
+						<option value="uId"
+						<c:if test="${param.AdminSearchId eq 'uId'}">selected</c:if>>아이디</option>
+						<option value="uName"
+						<c:if test="${param.AdminSearchId eq 'uName'}">selected</c:if>>이름</option>
 					</select>
-					<input type="text"><input type="button" value="검색">
+					<input type="text" name="AdminSearchIdValue" value="${param.AdminSearchIdValue}">
+					<button>검색</button>
 				</div>
+				</form>
 				<table border="1" class="tableAdmin admin">
 					<tr>
-						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>아이디</th><th>등급</th><th>누적 경고</th><th>상태</th><th>상세</th>
+						<th>번호</th><th>아이디</th><th>이름</th><th>가입일</th><th>누적 경고</th><th>상세</th>
 					</tr>
+					<c:forEach items="${list }" var="User">
 					<tr>
-						<td class="ctd"><input type="checkbox" ></td>
-						<td>1</td>
-						<td class="ctd">일반</td>
-						<td>hong12</td>
-						<td>5</td>
-						<td>0</td>
-						<td>활동</td>
-						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do">
+						<td>${User.uNo }</td>
+						<td>${User.uId }</td>
+						<td>${User.uName }</td>
+						<td>${User.uJoin }</td>
+						<td>${User.uAlertNum }</td>
+						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do?uNo=${User.uNo}">
 						<input type="button" value="상세" onclick="openMemberDetail()"></a>
 						</td>
 					</tr>
-					<tr>
-						<td class="ctd"><input type="checkbox" ></td>
-						<td>2</td>
-						<td class="ctd">일반</td>
-						<td>gill12</td>
-						<td>5</td>
-						<td>0</td>
-						<td>활동</td>
-						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do">
-						<input type="button" value="상세" onclick="openMemberDetail()"></a>
-					</tr>
-					<tr>
-						<td class="ctd"><input type="checkbox" ></td>
-						<td>3</td>
-						<td class="ctd">일반</td>
-						<td>dong12</td>
-						<td>5</td>
-						<td>0</td>
-						<td>활동</td>
-						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do">
-						<input type="button" value="상세" onclick="openMemberDetail()"></a>
-						</td>
-					</tr>
-					<tr>
-						<td class="ctd"><input type="checkbox" ></td>
-						<td>4</td>
-						<td class="ctd">일반</td>
-						<td>hong22</td
-						><td>5</td>
-						<td>0</td>
-						<td>활동</td>
-						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do">
-						<input type="button" value="상세" onclick="openMemberDetail()"></a>
-						</td>
-					</tr>
+					</c:forEach>
 				</table>
+				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 		</div>
 	</section>
 	<!-- Section End -->

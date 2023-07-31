@@ -3,7 +3,7 @@
 <%@ include file="../include/nav.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -62,13 +62,13 @@
 				아이디
 			</th>
 			<td>
-				hong12
+				${vo.uId}
 			</td>
 			<th>
 				이름
 			</th>
 			<td>
-				홍길동
+				${vo.uName}
 			</td>
 		</tr>
 		<tr>
@@ -76,7 +76,7 @@
 				회원 유형
 			</th>
 			<td>
-				일반
+				${vo.Status}
 			</td>
 			<th>
 				회원 등급
