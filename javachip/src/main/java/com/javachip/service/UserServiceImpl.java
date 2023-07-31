@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserVO> list(AdminSearchVO AdminSearchVO) 	//°ü¸®ÀÚ¿ë ÀüÃ¼ À¯Àú ¸®½ºÆ®
+	public List<UserVO> list(AdminSearchVO AdminSearchVO) 	//ê´€ë¦¬ììš© ì „ì²´ ìœ ì € ë¦¬ìŠ¤íŠ¸
 	{
 		return userDAO.list(AdminSearchVO);
 	}

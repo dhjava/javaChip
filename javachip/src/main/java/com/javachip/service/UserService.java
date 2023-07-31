@@ -14,6 +14,6 @@ public interface UserService {
 	int insert(UserVO vo);
 	int insertBiz(UserVO vo);
 	
-	List<UserVO>list(AdminSearchVO AdminSearchVO);	//°ü¸®ÀÚ¿ë ÀüÃ¼ À¯Àú ¸®½ºÆ®
+	List<UserVO>list(AdminSearchVO AdminSearchVO);	//ê´€ë¦¬ììš© ì „ì²´ ìœ ì € ë¦¬ìŠ¤íŠ¸
 	UserVO selectUserOneByuNoByAdmin(int uNo);
 }

@@ -33,12 +33,12 @@ public class UserDAO {
 		return sqlSession.insert(namespace+".insertBiz", vo);
 	}
 	
-	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//°ü¸®ÀÚ¿ë ÀüÃ¼ È¸¿ø ¸ñ·Ï
+	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//ê´€ë¦¬ììš© ì „ì²´ íšŒì› ëª©ë¡
 	{
 		return sqlSession.selectList(namespace+".selectUserByAdmin", AdminSearchVO);
 	}
 	
-	public UserVO selectUserOneByuNoByAdmin(int uNo)		//°ü¸®ÀÚ¿ë ¼¼ºÎ È¸¿ø Á¤º¸
+	public UserVO selectUserOneByuNoByAdmin(int uNo)		//ê´€ë¦¬ììš© ì„¸ë¶€ íšŒì› ì •ë³´
 	{
 		return sqlSession.selectOne(namespace+".selectUserOneByuNoByAdmin", uNo);
 	}
