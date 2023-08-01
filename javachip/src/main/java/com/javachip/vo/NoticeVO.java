@@ -7,6 +7,8 @@ public class NoticeVO {
 	private String nContents;
 	private String nDate;
 	
+	private String uName;
+	
 	// getter
 	public int getnNo() {
 		return nNo;
@@ -24,6 +26,11 @@ public class NoticeVO {
 		return nDate;
 	}
 	
+	// getter 추가
+	public String getuName() {
+		return uName;
+	}
+
 	// setter
 	public void setnNo(int nNo) {
 		this.nNo = nNo;
@@ -41,12 +48,16 @@ public class NoticeVO {
 		this.nDate = nDate;
 	}
 	
+	// setter 추가
+	public void setuName(String uName) {
+		this.uName = uName;
+	}
+	
 	// toString
 	@Override
 	public String toString() {
 		return "NoticeVO [nNo=" + nNo + ", uNo=" + uNo + ", nTitle=" + nTitle + ", nContents=" + nContents + ", nDate="
-				+ nDate + "]";
+				+ nDate + ", uName=" + uName + "]";
 	}
-	
 	
 }
