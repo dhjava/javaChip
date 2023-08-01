@@ -14,6 +14,7 @@ public interface UserService {
 	int insert(UserVO vo);
 	int insertBiz(UserVO vo);
 	
-	List<UserVO>list(AdminSearchVO AdminSearchVO);	//관리자용 전체 유저 리스트
-	UserVO selectUserOneByuNoByAdmin(int uNo);
+	List<UserVO>list(AdminSearchVO AdminSearchVO);	//관리자 전체 회원 목록(검색기능추가)
+	UserVO selectUserOneByuNoByAdmin(int uNo);		//관리자 세부 회원 목록
+	int UserTotal(AdminSearchVO AdminSearchVO);		//관리자 전체 회원수 (페이징 기능)
 }
