@@ -1,5 +1,7 @@
 package com.javachip.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -28,6 +30,7 @@ public class HelpController {
 	//qna
 	@RequestMapping(value="/qna.do", method = RequestMethod.GET)
 	public String qna() {
+		
 		return "help/qna";
 	}
 	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.GET)
@@ -54,28 +57,10 @@ public class HelpController {
 	}
 	@RequestMapping(value="/qnaView.do", method = RequestMethod.GET)
 	public String qnaView() {
+		
 		return "help/qnaView";
 	}
-	@RequestMapping(value="/qnaModify.do", method = RequestMethod.GET)
-	public String qnaModify(String qType, Model model) {
-		
-		// qNo 를 받아올 수 있을 때 boardVo로 받아오고 다음 항목을 제거 start
-		// qType 이 없을 경우 qType은 nQnA
-		if(qType == null || qType.equals("")) {
-			qType = "n";
-		}
-		
-		model.addAttribute("qType", qType);
-		
-		if(qType == "n" || qType == "p") {
-			
-			return "help/qnaModify";
-		}
-		// 잘못된 타입일 경우 qna 페이지로
-		return "help/qna";
-		//board 를 받아올 수 있을 때 boardVo로 받아오고 다음 항목을 제거 end
-		
-	}
+	
 	@RequestMapping(value="/qnaModify.do", method = RequestMethod.POST)
 	public String qnaModifyAction() {
 		return "redirect:qnaView.do";
@@ -93,7 +78,12 @@ public class HelpController {
 	
 	//notice
 	@RequestMapping(value="/notice.do", method = RequestMethod.GET)
-	public String notice() {
+	public String notice(Model model, NoticeVO noticeVO) {
+		
+		List<NoticeVO> list = helpService.selectNoticeAll(noticeVO);
+		
+		model.addAttribute("list",list);
+		
 		return "help/notice";
 	}
 	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.GET)
@@ -114,14 +104,16 @@ public class HelpController {
 		
 		int result = helpService.insertNotice(noticeVO);
 		
-		System.out.println(noticeVO.toString());
-		
 		return "redirect:noticeView.do";	// 추후 주소 변경
 	}
 	
-	
 	@RequestMapping(value="/noticeView.do", method = RequestMethod.GET)
-	public String noticeView() {
+	public String noticeView(int nNo, Model model) {
+		
+		NoticeVO vo = helpService.selectOneByNno(nNo);
+		
+		model.addAttribute("vo", vo);
+		
 		return "help/noticeView";
 	}
 	@RequestMapping(value="/noticeModify.do", method = RequestMethod.GET)

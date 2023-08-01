@@ -12,6 +12,8 @@ public class QnaVO {
 	private int qlevel;
 	private int originqno;
 	
+	private String uName;
+	
 	// getter
 	public int getqNo() {
 		return qNo;
@@ -40,7 +42,10 @@ public class QnaVO {
 	public int getOriginqno() {
 		return originqno;
 	}
-	
+	public String getuName() {
+		return uName;
+	}
+
 	// setter
 	public void setqNo(int qNo) {
 		this.qNo = qNo;
@@ -69,17 +74,14 @@ public class QnaVO {
 	public void setOriginqno(int originqno) {
 		this.originqno = originqno;
 	}
-	
+	public void setuName(String uName) {
+		this.uName = uName;
+	}
 	// toString
 	@Override
 	public String toString() {
 		return "QnaVO [qNo=" + qNo + ", qTitle=" + qTitle + ", qContents=" + qContents + ", uNo=" + uNo + ", qDate="
 				+ qDate + ", qType=" + qType + ", pNo=" + pNo + ", qlevel=" + qlevel + ", originqno=" + originqno
-				+ ", getqNo()=" + getqNo() + ", getqTitle()=" + getqTitle() + ", getqContents()=" + getqContents()
-				+ ", getuNo()=" + getuNo() + ", getqDate()=" + getqDate() + ", getqType()=" + getqType() + ", getpNo()="
-				+ getpNo() + ", getQlevel()=" + getQlevel() + ", getOriginqno()=" + getOriginqno() + ", getClass()="
-				+ getClass() + ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+				+ ", uName=" + uName + "]";
 	}
-	
-	
 }
