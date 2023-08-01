@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javachip.mapper.order_Mapper">
+
+	<!-- 사용자의 주문 조회 -->
+	<select id="selectUserOrder" parameterType="int" resultType="Order_VO">
+		SELECT *
+		  FROM order_
+		 WHERE uNo = #{uNo}
+	</select>
+	
+	<!-- 주문 -->
+	<insert id="insertOrder" parameterType="Order_VO">
+		INSERT INTO
+		order_ (
+			 uNo
+			,cNo
+			,oName
+			,oAdd
+			,oPhone
+			,oTrackNo
+			,oTotalPrice
+			,oPay
+			,oStatus
+		) VALUES (
+			 #{uNo}
+			,#{cNo}
+			,#{oName}
+			,#{oAdd}
+			,#{oPhone}
+			,0
+			,#{oTotalPrice}
+			,#{oPay}
+			,'O'
+		)
+	</insert>
+	
+	<!-- 수령인 정보 수정 -->
+	<update id="updateOrderReceiver" parameterType="Order_VO">
+		UPDATE order_
+		   SET oName = #{oName}
+		     , oAdd = #{oAdd}
+		     , oPhone = #{oPhone}
+		 WHERE oNo = #{oNo}
+		   AND uNo = #{uNo}
+	</update>
+	
+	<!-- 관리자의 모든 주문 조회 -->
+	<select id="selectOrderForAdmin" resultType="Order_VO">
+		SELECT *
+		  FROM order_
+	</select>
+	
+	<!-- 주문 상태 업데이트 : 취소, 반품 등등 관리자 권한 -->
+	<update id="updateOrderStatus" parameterType="Order_VO">
+		UPDATE order_
+		   SET oStatus = #{oStatus}
+		 WHERE oNo = #{oNo}
+	</update>
+</mapper>
