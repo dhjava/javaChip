@@ -66,7 +66,7 @@ function helpResetFn() {
 						<div class="breadcrumb__option">
 							<a href="<%= request.getContextPath() %>/">Home</a>
 				 		<a href="#">고객센터</a>
-							<span>공지사항 글 쓰기</span>
+							<span>공지사항</span>
 						</div>
 					</div>
 				</div>
@@ -79,7 +79,7 @@ function helpResetFn() {
 				<form action="noticeWrite.do" method="post">
 					<div class="d-flex flex-column bd-highlight mb-3">
 						<div class="p-2 bd-highlight">
-							<h4><b>공지사항 글쓰기</b></h4>
+							<h4><b>글쓰기</b></h4>
 						</div>
 						<div class="p-2 bd-highlight">
 							<p>제목<p>
