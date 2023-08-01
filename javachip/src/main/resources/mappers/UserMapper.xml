@@ -43,14 +43,14 @@
 			 #{uId}
 			,#{uPw}
 			,#{uName}
-			,#{uJoin}
+			,NOW()
 			,"N"
 			,#{uPhone}
 			,"N"
 			,""
 			,#{uAdd}
 			,#{uMail}
-			,#{uAlertNum}
+			,"0"
 		)
 	</insert>
 	
@@ -71,14 +71,14 @@
 			 #{uId}
 			,#{uPw}
 			,#{uName}
-			,#{uJoin}
-			,#{uRetire}
+			,NOW()
+			,"N"
 			,#{uPhone}
-			,#{uStatus}
+			,"B"
 			,#{uBisno}
 			,#{uAdd}
 			,#{uMail}
-			,#{uAlertNum}
+			,"0"
 		)
 	</insert>
 	<!-- 관리자 회원 전체 목록 -->

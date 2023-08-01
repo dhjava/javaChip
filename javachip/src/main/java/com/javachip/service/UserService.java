@@ -10,7 +10,7 @@ import com.javachip.vo.UserVO;
 @Service
 public interface UserService {
 	UserVO selectUserByLogin(UserVO vo);
-	int selectCntById(String id);
+	int selectCntById(String uId);
 	int insert(UserVO vo);
 	int insertBiz(UserVO vo);
 	
