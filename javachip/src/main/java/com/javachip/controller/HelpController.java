@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.javachip.service.HelpService;
 import com.javachip.vo.NoticeVO;
+import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
 
 @Controller
@@ -78,11 +79,15 @@ public class HelpController {
 	
 	//notice
 	@RequestMapping(value="/notice.do", method = RequestMethod.GET)
-	public String notice(Model model, NoticeVO noticeVO) {
+	public String notice(Model model, SearchVO searchVO) {
 		
-		List<NoticeVO> list = helpService.selectNoticeAll(noticeVO);
+		List<NoticeVO> list = helpService.selectNoticeList(searchVO);
 		
+		System.out.println("searchType : " + searchVO.getSearchType());
+		System.out.println("searchValue : " + searchVO.getSearchValue());
+
 		model.addAttribute("list",list);
+		
 		
 		return "help/notice";
 	}
@@ -110,9 +115,9 @@ public class HelpController {
 	@RequestMapping(value="/noticeView.do", method = RequestMethod.GET)
 	public String noticeView(int nNo, Model model) {
 		
-		NoticeVO vo = helpService.selectOneByNno(nNo);
+		NoticeVO noticeVO = helpService.selectOneByNno(nNo);
 		
-		model.addAttribute("vo", vo);
+		model.addAttribute("noticeVO", noticeVO);
 		
 		return "help/noticeView";
 	}

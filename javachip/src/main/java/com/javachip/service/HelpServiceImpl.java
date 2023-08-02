@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.javachip.dao.HelpDAO;
 import com.javachip.vo.NoticeVO;
+import com.javachip.vo.SearchVO;
 
 @Service
 public class HelpServiceImpl implements HelpService {
@@ -21,9 +22,9 @@ public class HelpServiceImpl implements HelpService {
 	}
 
 	@Override
-	public List<NoticeVO> selectNoticeAll(NoticeVO noticeVO) {
+	public List<NoticeVO> selectNoticeList(SearchVO searchVO) {
 		
-		return helpDAO.selectNoticeList();
+		return helpDAO.selectNoticeList(searchVO);
 	}
 	
 	@Override

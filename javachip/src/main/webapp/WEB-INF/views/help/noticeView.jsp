@@ -31,14 +31,14 @@
 			<table class="table" style="margin-top:40px; margin-bottom:50px; font-size:11pt;">
 				<tr>
 					<td style="width:12%">제목</td>
-					<td colspan="2">${vo.nTitle}</td>
+					<td colspan="2">${noticeVO.nTitle}</td>
 				</tr>
 				<tr>
 					<td>작성자</td>
-					<td colspan="2">${vo.uName}</td>
+					<td colspan="2">${noticeVO.uName}</td>
 				</tr>
 				
-				<fmt:parseDate value="${vo.nDate}" pattern="yyyy-MM-dd HH:mm:ss" var="dateStr"/>
+				<fmt:parseDate value="${noticeVO.nDate}" pattern="yyyy-MM-dd HH:mm:ss" var="dateStr"/>
  				<fmt:formatDate value="${dateStr}" pattern="yyyy.MM.dd HH:mm:ss" var="boardDate"/>
  				
 				<tr style="color:gray; font-size:10pt;">
@@ -46,7 +46,7 @@
 				</tr>
 				<tr>
 					<td colspan="3" style="white-space:pre-line;">
-						${vo.nContents}
+						${noticeVO.nContents}
 					</td>
 			    </tr>
 			    <tr>
@@ -54,7 +54,7 @@
 						<button type="button" class="btn btn-outline-primary" style="margin-right:15px;" onclick="location.href='noticeModify.do'">수정하기</button>
 						<button type="button" class="btn btn-outline-danger" onclick="noticeDelFn();">삭제하기</button>
 						<form name="delFrm" method="post" action="qnaDelete.do">
-							<input type="hidden" name="nNo" value="${vo.nNo}">
+							<input type="hidden" name="nNo" value="${noticeVO.nNo}">
 						</form>
 			      </td>
 			    </tr>

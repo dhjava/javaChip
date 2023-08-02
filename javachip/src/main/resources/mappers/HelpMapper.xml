@@ -11,11 +11,22 @@
 		VALUES(#{uNo},#{nTitle},#{nContents})
 	</select>
 	
-	<select id="selectNoticeAll" resultType="noticeVO">
+	<select id="selectNoticeAll" resultType="noticeVO" parameterType="searchVO">
 		SELECT * , 
 		( SELECT uName from User where uNo = Notice.uNo ) as uName
 		FROM Notice
-		WHERE uNo=1 
+		WHERE uNo=1
+		<if test='searchType != null and searchType.equals("title")'>
+			AND nTitle like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("content")'>
+			AND nContents like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("tnc")'>
+			AND nTitle like concat('%',#{searchValue},'%')
+			
+			AND nContents like concat('%',#{searchValue},'%')
+		</if>
 		ORDER BY nNo DESC
 	</select>
 	

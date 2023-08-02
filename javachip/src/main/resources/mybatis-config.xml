@@ -13,6 +13,7 @@
         <typeAlias type="com.javachip.vo.NoticeVO" alias="NoticeVO"/>
         <typeAlias type="com.javachip.vo.QnaVO" alias="QnaVO"/>
         <typeAlias type="com.javachip.vo.AdminSearchVO" alias="AdminSearchVO"/> <!-- 관리자 검색용VO -->
+        <typeAlias type="com.javachip.vo.SearchVO" alias="SearchVO"/>
     </typeAliases>
 
 </configuration>
