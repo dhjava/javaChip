@@ -23,7 +23,7 @@
         <div class="container">
             <div class="join__form">
                 <h4>사업자 회원가입</h4>
-                <form action="#">
+                <form action="joinBiz.do" method="post" onsubmit="return checks()">
                     <div class="join__input">
                     	<p>아이디<span>*</span>&nbsp;&nbsp;<span style="font-size:10pt; color:silver;">영문, 숫자 최소 4자에서 최대 16자</span></p>
                         	<input type="text" class="join__input__short" id="uId" name="uId" onblur="checkFn(this)">
@@ -46,16 +46,24 @@
 							<input class="join__input__short" type="text" name="uPhone" id="uPhone" onblur="checkFn(this)">
 							<div class="msg"></div>
                         <p>이메일<span>*</span></p>
-                        	<input type="text" class="join__input__email">
+                        	<input type="text" class="join__input__email" name="uMail" id="uMail" onblur="checkFn(this)">
+                        	<div class="msg"></div>
+                        <p>상호명(법인명)<span>*</span></p>
+                        	<input type="text" class="join__input__short" id="uBisname" name="uBisname" onblur="checkFn(this)">
+                        	<div class="msg"></div>
                         <p>사업자 등록 번호<span>*</span></p>
-                        <input type="text" class="join__input__short" name="uBisno" id="uBisno" >
-                        <button type="button" class="btn btn-outline-secondary">사업자 번호 인증</button>
+                        <input type="text" class="join__input__short" name="uBisno" id="uBisno" onblur="checkFn(this)">
+                        <button type="button" class="btn btn-outline-secondary" onclick="checkBrn()">사업자 번호 인증</button>
+                        <div id="checkBrnMessage"></div>
+                   		<p>※ 사업자 회원은 커피 판매점 등 관련 업종만 가입 가능하며 사업자등록증 및 신분증(주민등록증/운전면허증/여권 등) 사본을 메일로 제출해야 가입이 완료됩니다.</p>
+                   		<p>메일 주소 : javachip0703@gmail.com</p>
                    	</div>
+                   	
                    	<hr>
                     <div class="join__agree">
 						<h5>약관 동의</h5>
-						<p>회원가입 약관에 모두 동의합니다.&nbsp;&nbsp;<input type="checkbox" value="agree_all"></p>
-						<p>이용약관 동의(필수)&nbsp;&nbsp;<input type="checkbox" value="agree_terms"></p>
+						<p>회원가입 약관에 모두 동의합니다.&nbsp;&nbsp;<input type="checkbox" id="agree_all" name="agree_all" value="agree_all"></p>
+						<p>이용약관 동의(필수)&nbsp;&nbsp;<input type="checkbox" name="agree_chk" value="agree_terms"></p>
 						<textarea class="tou" readonly>
 제1조(목적) 이 약관은 자바칩프라페(전자상거래 사업자)가 운영하는 자바칩(이하 “몰”이라 한다)에서 제공하는 인터넷 관련 서비스(이하 “서비스”라 한다)를 이용함에 있어 사이버 몰과 이용자의 권리 의무 및 책임사항을 규정함을 목적으로 합니다.
 ※「PC통신, 무선 등을 이용하는 전자상거래에 대해서도 그 성질에 반하지 않는한 이 약관을 준용합니다.」
@@ -192,7 +200,7 @@
 ① “몰”과 이용자 간에 발생한 전자상거래 분쟁에 관한 소송은 제소 당시의 이용자의 주소에 의하고, 주소가 없는 경우에는 거소를 관할하는 지방법원의 전속관할로 합니다. 다만, 제소 당시 이용자의 주소 또는 거소가 분명하지 않거나 외국 거주자의 경우에는 민사소송법상의 관할법원에 제기합니다.
 ② “몰”과 이용자 간에 제기된 전자상거래 소송에는 한국법을 적용합니다.
 						</textarea>
-						<p>개인정보 수집 및 이용 동의(필수)&nbsp;&nbsp;<input type="checkbox" value="agree_info"></p>
+						<p>개인정보 수집 및 이용 동의(필수)&nbsp;&nbsp;<input type="checkbox" name= "agree_chk" value="agree_info"></p>
 						<textarea class="tou" readonly>
 1. 수집하는 개인정보
 (1) 회사는 최초 회원 가입시 원활한 고객상담, 서비스 제공을 위해 아래와 같은 최소한의 개인정보를 필수항목으로 수집하고 있습니다.
@@ -263,8 +271,8 @@
                 </form>
             </div>
         </div>
-        <script src="<%=request.getContextPath() %>/resources/js/member.js"></script>
-		<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-		<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
     </section>
+	<script src="<%=request.getContextPath() %>/resources/js/memberBiz.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 <%@ include file="../include/footer.jsp" %>

@@ -128,8 +128,13 @@ public class UserController {
 		return result+"";
 	}
 	
-	@RequestMapping(value="/idFind.do")
+	@RequestMapping(value="/idFind.do",method=RequestMethod.GET)
 	public String idfind() {
+		return "member/idFind";
+	}
+	
+	@RequestMapping(value="/idFind.do",method=RequestMethod.POST)
+	public String idfind(UserVO vo) {
 		return "member/idFind";
 	}
 	
