@@ -5,18 +5,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class AdminPageMaker 
 {
-		//¾îµå¹Î ÆäÀÌÂ¡
-		//ÇÏ´Ü¿¡ ÆäÀÌÁö ³×ºñ°ÔÀÌ¼ÇÀ» »ç¿ëÇÒ¶§ ÇÊ¿äÇÑ º¯¼öµé ¸ð¾Æ³õÀº°÷
-		private int displayPageNum = 10;    // ÆäÀÌÁö ¸ñ·Ï¿¡ ³ª¿­ÇÒ ÆäÀÌÁö ¹øÈ£ °¹¼ö	
-		private int startPage;			// ÆäÀÌÁö ¸ñ·Ï¿¡ ½ÃÀÛ¹øÈ£	
-		private int endPage;            //ÆäÀÌÁö ¸ñ·Ï¿¡ ³¡¹øÈ£
+		//ì–´ë“œë¯¼ íŽ˜ì´ì§€ ë©”ì´ì»¤
+		//í•˜ë‹¨ì— íŽ˜ì´ì§€ ë„¤ë¹„ê²Œì´ì…˜ì„ ì‚¬ìš©í• ë•Œ í•„ìš”í•œ ë³€ìˆ˜ë“¤ ëª¨ì•„ë†“ì€ê³³
+		private int displayPageNum = 10;    // íŽ˜ì´ì§€ ëª©ë¡ì— ë‚˜ì—´í•  íŽ˜ì´ì§€ ë²ˆí˜¸ ê°¯ìˆ˜
+		private int startPage;			// íŽ˜ì´ì§€ ëª©ë¡ì— ì‹œìž‘ë²ˆí˜¸	
+		private int endPage;            //íŽ˜ì´ì§€ ëª©ë¡ì— ëë²ˆí˜¸
 		
-		private int totalCount;          //ÀüÃ¼ ±Û °¹¼ö
+		private int totalCount;          //ì „ì²´ ê¸€ ê°¯ìˆ˜
 		
-		private boolean prev;     //ÀÌÀü¹öÆ° °ª (true/false)
-		private boolean next;	//´ÙÀ½¹öÆ° °ª
+		private boolean prev;     //ì´ì „ë²„íŠ¼ ê°’ (true/false)
+		private boolean next;	//ë‹¤ìŒë²„íŠ¼ ê°’
 		
-		private AdminSearchVO AdminSearchVO;   //ÆäÀÌÁö°ªÀÌ µé¾îÀÖ´Â °´Ã¼
+		private AdminSearchVO AdminSearchVO;   //íŽ˜ì´ì§€ê°’ì´ ë“¤ì–´ìžˆëŠ” ê°ì²´
 		
 		public int getDisplayPageNum() {
 			return displayPageNum;
@@ -51,24 +51,24 @@ public class AdminPageMaker
 			calcData();   
 		}
 
-		//ÀüÃ¼ ±Û°¹¼ö¸¦ °¡Áö°í¿Í¼­  ½ÃÀÛÆäÀÌÁö ¹øÈ£¿Í ³¡ÆäÀÌÁö ¹øÈ£ ¹× ÀÌÀü ´ÙÀ½¹öÆ° »ý¼º½Ã ÇÊ¿äÇÑ ¸Þ¼Òµå
+		//ì „ì²´ ê¸€ê°¯ìˆ˜ë¥¼ ê°€ì§€ê³ ì™€ì„œ  ì‹œìž‘íŽ˜ì´ì§€ ë²ˆí˜¸ì™€ ëíŽ˜ì´ì§€ ë²ˆí˜¸ ë° ì´ì „ ë‹¤ìŒë²„íŠ¼ ìƒì„±ì‹œ í•„ìš”í•œ ë©”ì†Œë“œ
 		private void calcData() {
-			//Ã³À½ 10¹øÀ¸·Î ¼¼ÆÃ	
+			//ì²˜ìŒ 10ë²ˆìœ¼ë¡œ ì„¸íŒ…
 			endPage = (int)(Math.ceil(AdminSearchVO.getPage()/(double)displayPageNum) * displayPageNum);
-			//Ã³À½1¹øÀ¸·Î ¼ÂÆÃ 
+			//ì²˜ìŒ1ë²ˆìœ¼ë¡œ ì…‹íŒ… 
 			startPage = (endPage-displayPageNum)+1;   
 			
-			//½ÇÁ¦ °¹¼ö¿¡ µû¸¥ ÆäÀÌÁöÀÇ  endPage¸¦ »Ì´Â´Ù
+			//ì‹¤ì œ ê°¯ìˆ˜ì— ë”°ë¥¸ íŽ˜ì´ì§€ì˜  endPageë¥¼ ë½‘ëŠ”ë‹¤
 			int tempEndPage = (int)(Math.ceil(totalCount/(double)AdminSearchVO.getPerPageNum()));
 			
-			//10°³·Î Á¤ÀÇÇÑ endPage°¡ ½ÇÁ¦ ÆäÀÌÁö ¹øÈ£º¸´Ù Å©´Ù¸é ½ÇÁ¦¹øÈ£ÆäÀÌÁö¸¦ ³¡ÆäÀÌÁö·Î ¾´´Ù 
+			//10ê°œë¡œ ì •ì˜í•œ endPageê°€ ì‹¤ì œ íŽ˜ì´ì§€ ë²ˆí˜¸ë³´ë‹¤ í¬ë‹¤ë©´ ì‹¤ì œë²ˆí˜¸íŽ˜ì´ì§€ë¥¼ ëíŽ˜ì´ì§€ë¡œ ì“´ë‹¤ 
 			if (endPage > tempEndPage) {
 				endPage = tempEndPage;
 			}
 			
-			// ½ÃÀÛÆäÀÌÁö°¡ 1¹øÀÌ¸é ÀÌÀü ¹øÈ£´Â ÇÊ¿ä¾øÀ¸´Ï±î ÀÌÀü¹öÆ° ¾Èº¸¿©ÁØ´Ù ±×·¡¼­ false°ª 
+			// ì‹œìž‘íŽ˜ì´ì§€ê°€ 1ë²ˆì´ë©´ ì´ì „ ë²ˆí˜¸ëŠ” í•„ìš”ì—†ìœ¼ë‹ˆê¹Œ ì´ì „ë²„íŠ¼ ì•ˆë³´ì—¬ì¤€ë‹¤ ê·¸ëž˜ì„œ falseê°’ 
 			prev = (startPage ==1 ? false : true);
-			// ³¡ÆäÀÌÁöÀÇ ÃÑ°³¼ö°¡ ÀüÃ¼ °³¼öº¸´Ù ÀÛÀ¸¸é ´ÙÀ½¹öÆ°Àº ¾Èº¸¿©ÁÖ°í  ÀüÃ¼°¹¼ö°¡ ´õ Å©¸é  ´ÙÀ½¹öÆ° º¸¿©ÁØ´Ù 
+			// ëíŽ˜ì´ì§€ì˜ ì´ê°œìˆ˜ê°€ ì „ì²´ ê°œìˆ˜ë³´ë‹¤ ìž‘ìœ¼ë©´ ë‹¤ìŒë²„íŠ¼ì€ ì•ˆë³´ì—¬ì£¼ê³   ì „ì²´ê°¯ìˆ˜ê°€ ë” í¬ë©´  ë‹¤ìŒë²„íŠ¼ ë³´ì—¬ì¤€ë‹¤ 
 			next = (endPage*AdminSearchVO.getPerPageNum() >= totalCount ? false :true);
 			
 		}
