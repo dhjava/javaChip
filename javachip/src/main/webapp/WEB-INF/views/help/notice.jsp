@@ -32,7 +32,7 @@
 					<td scope="col" style="width:17%">날짜</td>
 				</tr>
 				<fmt:formatDate value="<%=new java.util.Date()%>" type="DATE" pattern="yyyy.MM.dd" var="nowDate"/>
-
+				
 				<c:forEach items="${list}" var="notice" varStatus="status">
 				<fmt:parseDate value="${notice.nDate}" pattern="yyyy-MM-dd HH:mm:ss" var="dateStr"/>
  				<fmt:formatDate value="${dateStr}" pattern="yyyy.MM.dd" var="boardDate"/>
