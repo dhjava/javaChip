@@ -56,17 +56,17 @@
 				</c:forEach>
 			</table>
 			<div style="text-align:center;">
-				◀ 1 2 3 4 5 6 7 8 9 10 ▶
+				<a>◀</a> 1 2 3 4 5 6 7 8 9 10 ▶
 			</div><br>
 			<div class="board-search" style="width:40%; margin:0 auto;">
-				<form class="d-flex justify-content-center">
+				<form class="d-flex justify-content-center" action="notice.do" method="get">
 	 				<div class="input-group mb-4">
-						<select>
-						<option value="title">제목</option>
-						<option value="content">내용</option>
-						<option value="tnc">제목+내용</option>
+						<select name="searchType">
+							<option value="title" <c:if test="${param.searchType eq 'title'}">selected</c:if>>제목</option>
+							<option value="content" <c:if test="${param.searchType eq 'content'}">selected</c:if>>내용</option>
+							<option value="tnc" <c:if test="${param.searchType eq 'tnc'}">selected</c:if>>제목+내용</option>
 						</select>
-						<input type="text" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+						<input type="text" name="SearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" value="${param.searchValue}">
 						<div class="input-group-append">
 						<button type="submit" class="btn btn-secondary mb-4">검색하기</button>
 						</div>
