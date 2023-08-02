@@ -21,8 +21,8 @@ public class UserDAO {
 		return sqlSession.selectOne(namespace+".selectUserByLogin", vo);
 	}
 	
-	public int selectCntById(String id) {
-		return sqlSession.selectOne(namespace+".selectCntById", id);
+	public int selectCntById(String uId) {
+		return sqlSession.selectOne(namespace+".selectCntById", uId);
 	}
 	
 	public int insert(UserVO vo) {
