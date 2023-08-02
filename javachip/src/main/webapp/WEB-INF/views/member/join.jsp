@@ -19,9 +19,6 @@
 		</div>
 	</section>
 	<!-- Breadcrumb Section End -->
-<script src="<%=request.getContextPath() %>/resources/js/member.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 <section class="join spad">
         <div class="container">
             <div class="join__form">
@@ -265,4 +262,7 @@
             </div>
         </div>
     </section>
+    <script src="<%=request.getContextPath() %>/resources/js/member.js"></script>
+	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 <%@ include file="../include/footer.jsp" %>
