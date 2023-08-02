@@ -1,10 +1,7 @@
 package com.javachip.controller;
 
-<<<<<<< HEAD
-=======
 import java.util.List;
 
->>>>>>> branch 'main' of https://github.com/reachless12/javaChip.git
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -27,7 +24,6 @@ public class HelpController {
 	
 	@Autowired
 	private HelpService helpService;
-	@Autowired HelpService helpService;
 	
 	// faq
 	@RequestMapping(value="/faq.do", method = RequestMethod.GET)
@@ -102,33 +98,8 @@ public class HelpController {
 	
 	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
 	
-	public String noticeWriteAction(NoticeVO noticeVO,HttpServletRequest req) {
-		
-		// String으로 값을 받음.
-		HttpSession session = req.getSession();
-		
-		// login한 계정의 type이 관리자인지 확인
-		// !! - 추가 - !!
-		
-		
-		// 공지사항 글쓰기
-		// !!-- 추후 세션에서 uNO를 로그인 값 받아옴. --!!
-		
-		//UserVO loginVO = (UserVO)session.getAttribute("login");
-		
-		// if(loginVO == null || 관리자가 아닐때) {
-		// return "redirect:notice.do";
-		// }
-		
-		int uNo = 1;
-		
-		noticeVO.setuNo(uNo);
-		
-		int result = helpService.insertNotice(noticeVO);
-		
-		System.out.println(noticeVO.toString());
-
 	public String noticeWriteAction(NoticeVO noticeVO, HttpServletRequest req) {
+
 		
 		HttpSession session = req.getSession();
 				
