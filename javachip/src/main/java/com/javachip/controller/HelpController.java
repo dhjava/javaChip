@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.javachip.service.HelpService;
 import com.javachip.vo.NoticeVO;
+
 import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
+
 
 @Controller
 @RequestMapping(value="/help")
 public class HelpController {
 	
-	@Autowired HelpService helpService;
+	@Autowired
+	private HelpService helpService;
 	
 	// faq
 	@RequestMapping(value="/faq.do", method = RequestMethod.GET)
@@ -94,7 +97,9 @@ public class HelpController {
 	}
 	
 	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
+	
 	public String noticeWriteAction(NoticeVO noticeVO, HttpServletRequest req) {
+
 		
 		HttpSession session = req.getSession();
 				
