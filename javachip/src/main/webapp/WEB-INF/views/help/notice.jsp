@@ -56,7 +56,7 @@
 				</c:forEach>
 			</table>
 			<div style="text-align:center;">
-				◀ 1 2 3 4 5 6 7 8 9 10 ▶
+				<a>◀</a> 1 2 3 4 5 6 7 8 9 10 ▶
 			</div><br>
 			<div class="board-search" style="width:40%; margin:0 auto;">
 				<form class="d-flex justify-content-center" action="notice.do" method="get">

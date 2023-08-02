@@ -82,9 +82,6 @@ public class HelpController {
 	public String notice(Model model, SearchVO searchVO) {
 		
 		List<NoticeVO> list = helpService.selectNoticeList(searchVO);
-		
-		System.out.println("searchType : " + searchVO.getSearchType());
-		System.out.println("searchValue : " + searchVO.getSearchValue());
 
 		model.addAttribute("list",list);
 		

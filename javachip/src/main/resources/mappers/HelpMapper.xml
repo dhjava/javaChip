@@ -15,7 +15,7 @@
 		SELECT * , 
 		( SELECT uName from User where uNo = Notice.uNo ) as uName
 		FROM Notice
-		WHERE uNo=1
+		WHERE delYN = 'N'
 		<if test='searchType != null and searchType.equals("title")'>
 			AND nTitle like concat('%',#{searchValue},'%')
 		</if>
@@ -34,7 +34,9 @@
 		SELECT * , 
 		( SELECT uName from User where uNo = Notice.uNo ) as uName 
 		FROM Notice
-		WHERE nNo = #{nNo}
+		WHERE delYN = 'N'
+		AND nNo = #{nNo}
 	</select>
+	
 	
 </mapper>
