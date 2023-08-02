@@ -37,19 +37,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserVO> list(AdminSearchVO AdminSearchVO) 	//°ü¸®ÀÚ ÀüÃ¼ È¸¿ø ¸ñ·Ï(°Ë»ö±â´ÉÃß°¡)
+	public List<UserVO> list(AdminSearchVO AdminSearchVO) 	//ê´€ë¦¬ì ì „ì²´ íšŒì› ëª©ë¡(ê²€ìƒ‰ê¸°ëŠ¥ì¶”ê°€)
 	{
 		return userDAO.list(AdminSearchVO);
 	}
 
 	@Override
-	public UserVO selectUserOneByuNoByAdmin(int uNo)		//°ü¸®ÀÚ ¼¼ºÎ È¸¿ø ¸ñ·Ï
+	public UserVO selectUserOneByuNoByAdmin(int uNo)		//ê´€ë¦¬ì ì„¸ë¶€ íšŒì› ëª©ë¡
 	{
 		return userDAO.selectUserOneByuNoByAdmin(uNo);
 	}
 
 	@Override
-	public int UserTotal(AdminSearchVO AdminSearchVO)		//°ü¸®ÀÚ ÀüÃ¼ È¸¿ø¼ö (ÆäÀÌÂ¡ ±â´É)
+	public int UserTotal(AdminSearchVO AdminSearchVO)		//ê´€ë¦¬ì ì „ì²´ íšŒì›ìˆ˜ (í˜ì´ì§• ê¸°ëŠ¥)
 	{
 		
 		return userDAO.UserTotal(AdminSearchVO);

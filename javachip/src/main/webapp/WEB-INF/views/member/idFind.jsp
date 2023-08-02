@@ -2,15 +2,15 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 	<div class="frame login">
-		<form name="login frm">
+		<form name="login frm" action="idFind.do" method="post" onsubmit="return checks()">
 			<h2>아이디 찾기</h2>
 			<div class="main login">
 				<br>
 				<input type="text" placeholder="이름"><br>
+				<input type="text" placeholder="전화번호"><br>
 				<input type="text" placeholder="이메일"><br>
 			</div>
 			<input class="login btn" type="submit" value="아이디찾기">
-			
 			<div class="main login">
 				<a href="<%=request.getContextPath() %>/member/joinSelect.do">회원가입</a> |
 				<a href="<%=request.getContextPath() %>/member/pwFind.do">비밀번호찾기</a>
