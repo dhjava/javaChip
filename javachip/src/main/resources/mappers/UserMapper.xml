@@ -43,14 +43,14 @@
 			 #{uId}
 			,#{uPw}
 			,#{uName}
-			,NOW()
+			,#{uJoin}
 			,"N"
 			,#{uPhone}
 			,"N"
 			,""
 			,#{uAdd}
 			,#{uMail}
-			,"0"
+			,#{uAlertNum}
 		)
 	</insert>
 	
@@ -71,19 +71,18 @@
 			 #{uId}
 			,#{uPw}
 			,#{uName}
-			,NOW()
-			,"N"
+			,#{uJoin}
+			,#{uRetire}
 			,#{uPhone}
-			,"B"
+			,#{uStatus}
 			,#{uBisno}
 			,#{uAdd}
 			,#{uMail}
-			,"0"
+			,#{uAlertNum}
 		)
 	</insert>
-	<!-- 관리자 회원 전체 목록 -->
-	<select id="selectUserByAdmin" resultType="userVO" parameterType="AdminSearchVO">
-		SELECT uNo,uId,uName,uJoin,uRetire,uPhone,uStatus,uBisno,uAdd,uMail,uAlertNum FROM user
+	<!-- 관리자 회원 조건 검색 참조 -->
+	<sql id="AdminUserSearch">
 		<if test='AdminSearchUserType != null and AdminSearchUserType.equals("N")'>
 			WHERE uStatus = #{AdminSearchUserType}
 		</if>
@@ -96,11 +95,23 @@
 		<if test='AdminSearchId != null and AdminSearchId.equals("uName")'>
 			WHERE uName like concat('%', #{AdminSearchIdValue}, '%')
 		</if>
+	</sql>
+	<!-- 관리자 회원 전체 목록 -->
+	<select id="selectUserByAdmin" resultType="userVO" parameterType="AdminSearchVO">
+		SELECT uNo,uId,uName,uJoin,uRetire,uPhone,uStatus,uBisno,uAdd,uMail,uAlertNum FROM user
+		<include refid="AdminUserSearch" />
+		order by uNo asc limit #{sNum},#{perPageNum}
 	</select>
 	
 	<!-- 관리자 회원 세부 목록 -->
 	<select id="selectUserOneByuNoByAdmin" resultType="userVO" parameterType="int">
 		SELECT uNo,uId,uName,uJoin,uRetire,uPhone,uStatus,uBisno,uAdd,uMail,uAlertNum FROM user
 			where uNo = #{uNo}
+	</select>
+	
+	
+	<select id="UserTotal" resultType="int">
+		select count(*) as cnt from user
+		<include refid="AdminUserSearch" />
 	</select>
 </mapper>
