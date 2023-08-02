@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.javachip.service.UserService;
+import com.javachip.vo.AdminPageMaker;
 import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.UserVO;
 
@@ -18,6 +19,9 @@ public class AdminController
 {
 	@Autowired
 	private UserService us;
+	
+	@Autowired
+	private AdminPageMaker pm;
 	
 	@RequestMapping(value="/boardList.do")
 	public String boardList()
@@ -48,8 +52,13 @@ public class AdminController
 	@RequestMapping(value="/memberList.do")
 	public String memberList(Model model, AdminSearchVO AdminSearchVO)
 	{
+		int cnt = us.UserTotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setTotalCount(cnt);
+		
 		List<UserVO> list = us.list(AdminSearchVO);
 		model.addAttribute("list", list);
+		model.addAttribute("pm", pm);
 		return "admin/memberList";
 	}
 	

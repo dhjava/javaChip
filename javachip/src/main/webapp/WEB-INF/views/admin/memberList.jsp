@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import ="com.javachip.vo.*" %> 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <!-- 메인 작성 영역 -->
 
 </head>
@@ -96,7 +98,27 @@
 					</tr>
 					</c:forEach>
 				</table>
-				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
+<%-- 				<div class="admin_pagination" style="text-align:center;">
+				
+<% String param ="AdminSearchUserType="+pm.getAdminSearchVO().getAdminSearchUserType()+"&keyword="+pm.encoding(pm.getScri().getKeyword());
+if (pm.isPrev()){ %>
+<a href="<%=request.getContextPath()%>/board/boardList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>
+<%
+}
+%>
+
+<% 
+for(int i = pm.getStartPage();i<=pm.getEndPage();i++) {
+%>
+<a href="<%=request.getContextPath()%>/board/boardList.do?page=<%=i%>&<%=param%>"><%=i %></a>
+<%	
+}
+%>
+
+<%if(pm.isNext()&&pm.getEndPage()>0 ){ %>
+<a href="<%=request.getContextPath()%>/board/boardList.do?page=<%=pm.getEndPage()+1%>&<%=param%>">▶</a>
+<% } %>
+</div> --%>
 		</div>
 	</section>
 	<!-- Section End -->
