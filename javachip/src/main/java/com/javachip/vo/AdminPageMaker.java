@@ -96,8 +96,4 @@ public class AdminPageMaker
 		public void setAdminSearchVO(AdminSearchVO adminSearchVO) {
 			AdminSearchVO = adminSearchVO;
 		}
-
-		
-
-		
 }
