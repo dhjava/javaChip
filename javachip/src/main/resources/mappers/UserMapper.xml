@@ -6,9 +6,7 @@
 <mapper namespace="com.javachip.mapper.UserMapper">
 	
 	<select id="selectUserByLogin" resultType="userVO" parameterType="userVO">
-		SELECT uId
-		     , uName
-		     , uStatus
+		SELECT *
 		  FROM user
 		 WHERE uId = #{uId}
 		   AND uPw = #{uPw}
@@ -81,6 +79,16 @@
 			,#{uAlertNum}
 		)
 	</insert>
+	
+	<select id="selectUserByIdFind" resultType="userVO" parameterType="userVO">
+		SELECT uId
+		     , uName
+		  FROM user
+		 WHERE uId = #{uId}
+		   AND uMail = #{uMail}
+		   AND uPhone = #{uPhone}
+	</select>
+	
 	<!-- 관리자 회원 조건 검색 참조 -->
 	<sql id="AdminUserSearch">
 		<if test='AdminSearchUserType != null and AdminSearchUserType.equals("N")'>

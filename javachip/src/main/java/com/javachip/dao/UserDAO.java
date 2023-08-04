@@ -33,6 +33,10 @@ public class UserDAO {
 		return sqlSession.insert(namespace+".insertBiz", vo);
 	}
 	
+	public UserVO selectMemberByIdFind(UserVO vo) {
+		return sqlSession.selectOne(namespace+".selectUserByIdFind", vo);
+	}
+	
 	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//관리자 전체 회원관리(검색기능추가)
 	{
 		return sqlSession.selectList(namespace+".selectUserByAdmin", AdminSearchVO);

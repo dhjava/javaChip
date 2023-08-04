@@ -129,13 +129,39 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/idFind.do",method=RequestMethod.GET)
-	public String idfind() {
+	public String idFind() {
 		return "member/idFind";
 	}
 	
 	@RequestMapping(value="/idFind.do",method=RequestMethod.POST)
-	public String idfind(UserVO vo) {
-		return "member/idFind";
+	public void idFind(UserVO vo,HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		HttpSession session = req.getSession();
+		
+		UserVO findVO = us.selectUserByIdFind(vo);
+		
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+		
+		if(findVO != null) {
+			//login할 회원이 데이터베이스에 존재
+			System.out.println("ID 찾기 성공");
+			
+			session.setAttribute("idFind", findVO);
+			pw.append("location.href='"+req.getContextPath()+"/member/idFindResult.do';</script>");
+			
+		}else {
+			//login할 회원이 데이터베이스에 존재 X
+			System.out.println("ID 찾기 실패");
+			pw.append("<script>alert('존재하지 않는 ID입니다.');location.href='"+req.getContextPath()+"/member/idFind.do';</script>");
+		}
+		
+		pw.flush();
+	}
+	
+	@RequestMapping(value="/idFindResult.do",method=RequestMethod.GET)
+	public String idFindResult() {
+		return "member/idFindResult";
 	}
 	
 	@RequestMapping(value="/pwFind.do")
