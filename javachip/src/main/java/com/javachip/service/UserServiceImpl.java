@@ -37,6 +37,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	public UserVO selectUserByIdFind(UserVO vo) {
+		
+		return userDAO.selectMemberByIdFind(vo);
+	}
+	
+	@Override
 	public List<UserVO> list(AdminSearchVO AdminSearchVO) 	//관리자 전체 회원 목록(검색기능추가)
 	{
 		return userDAO.list(AdminSearchVO);

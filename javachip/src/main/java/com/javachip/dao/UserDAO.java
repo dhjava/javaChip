@@ -32,8 +32,9 @@ public class UserDAO {
 	public int insertBiz(UserVO vo) {
 		return sqlSession.insert(namespace+".insertBiz", vo);
 	}
-	
+
 	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//관리자 전체 일반회원관리(검색기능추가)
+
 	{
 		return sqlSession.selectList(namespace+".selectUserByAdmin", AdminSearchVO);
 	}

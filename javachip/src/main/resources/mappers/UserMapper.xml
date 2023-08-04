@@ -6,9 +6,7 @@
 <mapper namespace="com.javachip.mapper.UserMapper">
 	
 	<select id="selectUserByLogin" resultType="userVO" parameterType="userVO">
-		SELECT uId
-		     , uName
-		     , uStatus
+		SELECT *
 		  FROM user
 		 WHERE uId = #{uId}
 		   AND uPw = #{uPw}
