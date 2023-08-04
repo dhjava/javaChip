@@ -79,6 +79,14 @@
 			,#{uAlertNum}
 		)
 	</insert>
+	
+	<select id="idFind" resultType="userVO" parameterType="userVO">
+		SELECT uId
+		  FROM user
+		 WHERE uName = #{uName}
+		   AND uMail = #{uMail}
+	</select>
+	
 	<!-- 관리자 일반회원 공통조건 검색 참조 -->
 	<sql id="findUser">
 		<if test='AdminSearchId != null and AdminSearchId.equals("uId")'>

@@ -13,7 +13,7 @@ public interface UserService {
 	int selectCntById(String uId);
 	int insert(UserVO vo);
 	int insertBiz(UserVO vo);
-	UserVO selectUserByIdFind(UserVO vo);
+	UserVO idFind(UserVO vo);
 	
 	List<UserVO>list(AdminSearchVO AdminSearchVO);	//관리자 전체 회원 목록(검색기능추가)
 	UserVO selectUserOneByuNoByAdmin(int uNo);		//관리자 세부 회원 목록

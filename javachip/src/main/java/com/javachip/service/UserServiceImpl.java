@@ -37,9 +37,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserVO selectUserByIdFind(UserVO vo) {
+	public UserVO idFind(UserVO vo) {
 		
-		return userDAO.selectMemberByIdFind(vo);
+		return userDAO.idFind(vo);
 	}
 	
 	@Override
