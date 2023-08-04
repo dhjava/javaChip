@@ -40,15 +40,7 @@ public class AdminController
 	{
 		return "admin/main";
 	}
-	
-	@RequestMapping(value="/memberDetail.do")
-	public String memberDetail(int uNo, Model model)
-	{
-		UserVO vo = us.selectUserOneByuNoByAdmin(uNo);
-		model.addAttribute("vo", vo);
-		return "admin/memberDetail";
-	}
-	
+
 	@RequestMapping(value="/memberList.do")
 	public String memberList(Model model, AdminSearchVO AdminSearchVO)
 	{
@@ -75,6 +67,14 @@ public class AdminController
 		return "admin/memberList";
 	}
 	
+	@RequestMapping(value="/memberDetail.do")
+	public String memberDetail(int uNo, Model model)
+	{
+		UserVO vo = us.selectUserOneByuNoByAdmin(uNo);
+		model.addAttribute("vo", vo);
+		return "admin/memberDetail";
+	}
+	
 	@RequestMapping(value="/bizmemberList.do")
 	public String bizmemberList(Model model, AdminSearchVO AdminSearchVO)
 	{
@@ -93,6 +93,44 @@ public class AdminController
 		return "admin/bizmemberList";
 	}
 	
+	@RequestMapping(value="/bizmemberDetail.do")
+	public String bizmemberDetail(int uNo, Model model)
+	{
+		UserVO bisvo = us.selectBizUserOneByuNoByAdmin(uNo);
+		model.addAttribute("vo", bisvo);
+		return "admin/bizmemberDetail";
+	}
+	
+	@RequestMapping(value="/blackList.do")
+	public String blackList(Model model, AdminSearchVO AdminSearchVO)
+	{
+		int cnt = us.blacklistTotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setTotalCount(cnt);
+		
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		List<UserVO> blacklist = us.blacklist(AdminSearchVO);
+		model.addAttribute("list", blacklist);
+		model.addAttribute("pm", pm);
+		
+		return "admin/blackList";
+	}
+	
+	@RequestMapping(value="/blacklistDetail.do")
+	public String blacklistDetail(int uNo, Model model)
+	{
+		UserVO blacklist = us.selectBlacklistOneByuNoByAdmin(uNo);
+		model.addAttribute("vo", blacklist);
+		return "admin/blacklistDetail";
+	}
+	
 	@RequestMapping(value="/product.do")
 	public String product()
 	{
@@ -109,13 +147,5 @@ public class AdminController
 	public String qnaList()
 	{
 		return "admin/qnaList";
-	}
-	
-	
-	
-	@RequestMapping(value="/blackList.do")
-	public String blackList()
-	{
-		return "admin/blackList";
 	}
 }

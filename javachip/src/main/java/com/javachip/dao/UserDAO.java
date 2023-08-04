@@ -37,6 +37,8 @@ public class UserDAO {
 		return sqlSession.selectOne(namespace+".idFind", vo);
 	}
 	
+	
+	//admin용========================================================
 	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//관리자 전체 일반회원관리(검색기능추가)
 
 	{
@@ -60,10 +62,32 @@ public class UserDAO {
 		return sqlSession.selectList(namespace+".selectBizUserByAdmin", AdminSearchVO);
 	}
 	
-	public int BizUserTotal(AdminSearchVO AdminSearchVO)
+	public int BizUserTotal(AdminSearchVO AdminSearchVO)		//관리자 전체 사업자 회원 수(페이징)
 	{
 		int value = 0;
 		value = sqlSession.selectOne(namespace+".BizUserTotal", AdminSearchVO);
 		return value;
+	}
+	
+	public UserVO selectBizUserOneByuNoByAdmin(int uNo)		//관리자 사업자회원 세부목록 관리
+	{
+		return sqlSession.selectOne(namespace+".selectBizUserOneByuNoByAdmin", uNo);
+	}
+	
+	public List<UserVO> blacklist(AdminSearchVO AdminSearchVO)		//관리자 블랙리스트 전체 목록(경고횟수많은수부터)
+	{
+		return sqlSession.selectList(namespace+".selectBlakListByAdmin", AdminSearchVO);
+	}
+	
+	public int blacklistTotal(AdminSearchVO AdminSearchVO)		//블랙리스트 총 수 (페이징)
+	{
+		int value = 0;
+		value = sqlSession.selectOne(namespace+".BlacklistTotal", AdminSearchVO);
+		return value;
+	}
+	
+	public UserVO selectBlacklistOneByuNoByAdmin(int uNo)
+	{
+		return sqlSession.selectOne(namespace+".selectBlacklistOneByuNoByAdmin", uNo);
 	}
 }

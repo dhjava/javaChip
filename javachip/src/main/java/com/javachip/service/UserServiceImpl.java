@@ -42,6 +42,8 @@ public class UserServiceImpl implements UserService {
 		return userDAO.idFind(vo);
 	}
 	
+	
+	//admin용========================================================
 	@Override
 	public List<UserVO> list(AdminSearchVO AdminSearchVO) 	//관리자 전체 회원 목록(검색기능추가)
 	{
@@ -62,12 +64,39 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<UserVO> BizList(AdminSearchVO AdminSearchVO) {
+	public List<UserVO> BizList(AdminSearchVO AdminSearchVO)		//관리자 전체 사업자 목록(검색기능추가)
+	{
 		return userDAO.Bizlist(AdminSearchVO);
 	}
 
 	@Override
-	public int BizUserTotal(AdminSearchVO AdminSearchVO) {
+	public int BizUserTotal(AdminSearchVO AdminSearchVO) 		//관리자 전체 사업자유저 회원수(페이징기능)
+	{
 		return userDAO.BizUserTotal(AdminSearchVO);
 	}
+
+	@Override
+	public UserVO selectBizUserOneByuNoByAdmin(int uNo) 		//관리자 사업자회원 세부 목록
+	{
+		return userDAO.selectBizUserOneByuNoByAdmin(uNo);
+	}
+
+	@Override
+	public List<UserVO> blacklist(AdminSearchVO AdminSearchVO) 		//관리자 블랙리스트 전체 목록(검색기능추가)
+	{
+		return userDAO.blacklist(AdminSearchVO);
+	}
+
+	@Override
+	public int blacklistTotal(AdminSearchVO AdminSearchVO) 		//블랙리스트 총 수(페이징)
+	{
+		return userDAO.blacklistTotal(AdminSearchVO);
+	}
+
+	@Override
+	public UserVO selectBlacklistOneByuNoByAdmin(int uNo) 		//블랙리스트 회원 세부 관리
+	{
+		return userDAO.selectBlacklistOneByuNoByAdmin(uNo);
+	}
+
 }

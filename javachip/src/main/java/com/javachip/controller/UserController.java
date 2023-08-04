@@ -138,7 +138,7 @@ public class UserController {
 		
 		HttpSession session = req.getSession();
 		
-		UserVO findVO = us.selectUserByIdFind(vo);
+		UserVO findVO = us.idFind(vo);
 		
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = res.getWriter();
