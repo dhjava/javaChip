@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import ="com.javachip.vo.*" %> 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <!-- 메인 작성 영역 -->
 
 </head>
@@ -15,7 +18,7 @@
                         <h2>관리자 페이지</h2>
                         <div class="breadcrumb__option">
                             <a href="<%= request.getContextPath() %>/">Home</a>
-                            	<span>상품관리</span>
+                            	<span>블랙리스트관리</span>
                         </div>
                     </div>
                 </div>
@@ -24,8 +27,8 @@
     </section>
 	<!-- Breadcrumb Section End -->
 	<!-- section -->
-	<section class="spad admin">
-	<div class="frame admin">
+	<section class="spad frame admin">
+	
 		<div class="side admin">
 			<div class="blog__sidebar__item">
 				<h4>상품관리</h4>
@@ -58,61 +61,63 @@
 			</div>	
 		</div>
 		<div class="main admin">
-				<h4><b>상품 목록 조회</b></h4><br>
+				<h4><b>일반회원 리스트</b></h4><br>
+				<!-- 검색기능 추가 -->
+				<form action="memberList.do" method="post">
 				<div class="search admin">
-					<select>
-						<option>상품번호</option>
-						<option>상품명</option>
+				<span>
+					<select name="AdminSearchId">
+						<option value="uId"
+						<c:if test="${param.AdminSearchId eq 'uId'}">selected</c:if>>아이디</option>
+						<option value="uName"
+						<c:if test="${param.AdminSearchId eq 'uName'}">selected</c:if>>이름</option>
 					</select>
-					<input type="text"><input type="button" value="검색">
+					<input type="text" name="AdminSearchIdValue" value="${param.AdminSearchIdValue}">
+					<button>검색</button>
+				</span>
 				</div>
-				<table border="1" class="tableAdmin qna admin">
+				</form>
+				<table border="1" class="tableAdmin admin">
 					<tr>
-						<th><input type="checkbox"></th><th>번호</th><th>상품구분</th><th>상품명</th><th>가격</th><th>재고수</th><th>상품상태</th>
+						<th>번호</th><th>아이디</th><th>이름</th><th>가입일</th><th>누적 경고</th><th>상세</th>
 					</tr>
+					<!-- 유저 목록 반복문 -->
+					<c:forEach items="${list }" var="User">
 					<tr>
-						<td><input type="checkbox"></td><td>1</td>
-						<td>커피</td>
-						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피1</a></td>
-						<td>000원</td><td>0</td>
-						<td>
-							<select>
-								<option>판매중</option>
-								<option>매진</option>
-								<option>판매중지</option>
-							</select>
+						<td>${User.uNo }</td>
+						<td>${User.uId }</td>
+						<td>${User.uName }</td>
+						<td>${User.uJoin }</td>
+						<td>${User.uAlertNum }</td>
+						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do?uNo=${User.uNo}">
+						<input type="button" value="상세" onclick="openMemberDetail()"></a>
 						</td>
 					</tr>
-					<tr>
-						<td><input type="checkbox"></td><td>1</td><td>커피</td>
-						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피2</a></td>
-						<td>000원</td><td>0</td>
-						<td>
-							<select>
-								<option>판매중</option>
-								<option>매진</option>
-								<option>판매중지</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td><td>1</td><td>커피</td>
-						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피3</a></td>
-						<td>000원</td><td>0</td>
-						<td>
-							<select>
-								<option>판매중</option>
-								<option>매진</option>
-								<option>판매중지</option>
-							</select>
-						</td>
-					</tr>
-
+					</c:forEach>
 				</table>
-				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
-				<input type="button" value="선택 삭제">
-		</div>
-	</div>
+ 				<div class="admin_pagination" style="text-align:center;">
+ <%
+String param = "AdminSearchId="+pm.getAdminSearchVO().getAdminSearchId()+"&AdminSearchIdValue="+pm.encoding(pm.getAdminSearchVO().getAdminSearchIdValue());
+if (pm.isPrev()){ %>
+<a href="<%=request.getContextPath()%>/admin/memberList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>
+<%
+}
+%>
+
+<% 
+for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++) 
+{
+%>
+<a href="<%=request.getContextPath()%>/admin/memberList.do?page=<%=i%>&<%=param%>"><%=i %></a>
+<%	
+}
+%>
+
+<%if(pm.isNext() && pm.getEndPage() > 0 ){ %>
+<a href="<%=request.getContextPath()%>/admin/memberList.do?page=<%=pm.getEndPage()+1%>&<%=param%>">▶</a>
+<% } %>
+</div>
+</div>
 	</section>
 	<!-- Section End -->
 <%@ include file="../include/footer.jsp" %>

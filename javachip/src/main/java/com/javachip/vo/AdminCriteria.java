@@ -1,16 +1,16 @@
 package com.javachip.vo;
 
-//¾îµå¹Î ÆäÀÌÂ¡
+//ì–´ë“œë¯¼ í˜ì´ì§•
 public class AdminCriteria 
 {
 	
-	private int page;    //ÆäÀÌÁö¹øÈ£¸¦ ´ã´Â º¯¼ö	
+	private int page;    //í˜ì´ì§€ë²ˆí˜¸ë¥¼ ë‹´ëŠ” ë³€ìˆ˜
 	
-	private int perPageNum;  //±Û¸ñ·Ï°¹¼ö
+	private int perPageNum;  //ê¸€ëª©ë¡ê°¯ìˆ˜
 	
-	private int sNum;    // Äõ¸® ½ÃÀÛ ¹øÈ£
+	private int sNum;    // ì¿¼ë¦¬ ì‹œì‘ ë²ˆí˜¸
 	
-	// »ı¼ºÀÚ°¡ »ı¼ºµÉ¶§ ¸â¹öº¯¼ö ÃÊ±âÈ­ °ªÀ» ³Ö´Â´Ù
+	// ìƒì„±ìê°€ ìƒì„±ë ë•Œ ë©¤ë²„ë³€ìˆ˜ ì´ˆê¸°í™” ê°’ì„ ë„£ëŠ”ë‹¤
 	public AdminCriteria() 
 	{
 		this.page = 1;

@@ -56,6 +56,19 @@ public class AdminController
 		pm.setAdminSearchVO(AdminSearchVO);
 		pm.setTotalCount(cnt);
 		
+		System.out.println("test===");
+		System.out.println(AdminSearchVO.getPage());
+		System.out.println("sNum : "+AdminSearchVO.getsNum());
+		System.out.println("perPageNum : "+AdminSearchVO.getPerPageNum());
+		System.out.println(pm.getTotalCount());
+		
+		// 다음 페이지인 경우
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		
+		System.out.println("after sNum : "+AdminSearchVO.getsNum());
 		List<UserVO> list = us.list(AdminSearchVO);
 		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);
@@ -80,5 +93,15 @@ public class AdminController
 		return "admin/qnaList";
 	}
 	
+	@RequestMapping(value="/bizmemberList.do")
+	public String bizmemberList()
+	{
+		return "admin/bizmemberList";
+	}
 	
+	@RequestMapping(value="/blackList.do")
+	public String blackList()
+	{
+		return "admin/blackList";
+	}
 }

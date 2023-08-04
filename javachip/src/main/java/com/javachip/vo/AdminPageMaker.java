@@ -1,5 +1,8 @@
 package com.javachip.vo;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.springframework.stereotype.Component;
 
 @Component
@@ -95,5 +98,18 @@ public class AdminPageMaker
 
 		public void setAdminSearchVO(AdminSearchVO adminSearchVO) {
 			AdminSearchVO = adminSearchVO;
+		}
+		
+		public String encoding(String AdminSearchIdValue) {
+			String str = "";
+			
+		try {
+			if(AdminSearchIdValue != null ) {
+				str = URLEncoder.encode(AdminSearchIdValue, "UTF-8");
+			}
+		} catch (UnsupportedEncodingException e) {		
+			e.printStackTrace();
+		}		
+			return str;
 		}
 }

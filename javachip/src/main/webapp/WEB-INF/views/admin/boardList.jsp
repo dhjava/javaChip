@@ -36,7 +36,10 @@
 			<div class="blog__sidebar__item">
 				<h4>회원관리</h4>
 				<ul>
-				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">회원조회</a></li>
+				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">일반회원조회</a>
+					<a href="<%=request.getContextPath() %>/admin/bizmemberList.do">관리자회원조회</a>
+					<a href="<%=request.getContextPath() %>/admin/blackList.do">블랙리스트조회</a>
+				</li>
 				</ul>
 			</div>	
 			<div class="blog__sidebar__item">	
