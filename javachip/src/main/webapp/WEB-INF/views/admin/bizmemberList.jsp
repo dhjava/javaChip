@@ -61,7 +61,7 @@
 			</div>	
 		</div>
 		<div class="main admin">
-				<h4><b>일반회원 리스트</b></h4><br>
+				<h4><b>사업자회원 리스트</b></h4><br>
 				<!-- 검색기능 추가 -->
 				<form action="bizmemberList.do" method="post">
 				<div class="search admin">
@@ -89,7 +89,7 @@
 						<td>${BizUser.uName }</td>
 						<td>${BizUser.uJoin }</td>
 						<td>${BizUser.uAlertNum }</td>
-						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do?uNo=${User.uNo}">
+						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/bizmemberDetail.do?uNo=${BizUser.uNo}">
 						<input type="button" value="상세" onclick="openMemberDetail()"></a>
 						</td>
 					</tr>

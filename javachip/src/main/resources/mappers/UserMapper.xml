@@ -97,6 +97,8 @@
 		   AND uMail = #{uMail}
 	</select>
 	
+	
+<!-- ===============================관리자용 sql 쿼리 모음================================ -->
 	<!-- 관리자 일반회원 공통조건 검색 참조 -->
 	<sql id="findUser">
 		<if test='AdminSearchId != null and AdminSearchId.equals("uId")'>
@@ -122,10 +124,33 @@
 		order by uNo asc limit #{sNum},#{perPageNum}
 	</select>
 	
+	<!-- 블랙리스트회원 전체 목록 -->
+	<select id="selectBlakListByAdmin" resultType="userVO" parameterType="AdminSearchVO">
+		SELECT * FROM user
+		where uAlertNum > 0
+		<include refid="findUser" />
+		order by uAlertNum desc limit #{sNum},#{perPageNum}
+	</select>
+	
 	<!-- 관리자 일반회원 세부 목록 -->
 	<select id="selectUserOneByuNoByAdmin" resultType="userVO" parameterType="int">
-		SELECT uNo,uId,uName,uJoin,uRetire,uPhone,uStatus,uBisno,uAdd,uMail,uAlertNum FROM user
-			where uNo = #{uNo} and uStatus ='N'
+		SELECT * FROM user
+		where uStatus = 'N'
+		and uNo = #{uNo}
+	</select>
+	
+	<!-- 관리자 사업자회원 세부 목록 -->
+	<select id="selectBizUserOneByuNoByAdmin" resultType="userVO" parameterType="int">
+		SELECT * FROM user
+		where uStatus = 'B'
+		and uNo = #{uNo}
+	</select>
+	
+	<!-- 관리자 블랙리스트 세부 목록 -->
+	<select id="selectBlacklistOneByuNoByAdmin" resultType="userVO" parameterType="int">
+		SELECT * FROM user
+		where uAlertNum > 0
+		and uNo = #{uNo}
 	</select>
 	
 	<!-- 관리자 페이징 일반유저 전체 갯수 -->
@@ -138,5 +163,11 @@
 	<select id="BizUserTotal" resultType="int">
 		select count(*) as cnt from user
 		where uStatus = 'B'
+	</select>
+	
+		<!-- 관리자 페이징 사업자유저 전체 갯수 -->
+	<select id="BlacklistTotal" resultType="int">
+		select count(*) as cnt from user
+		where uAlertNum > 0
 	</select>
 </mapper>
