@@ -6,7 +6,17 @@
 <mapper namespace="com.javachip.mapper.UserMapper">
 	
 	<select id="selectUserByLogin" resultType="userVO" parameterType="userVO">
-		SELECT *
+		SELECT uId
+			,uPw
+			,uName
+			,uJoin
+			,uRetire
+			,uPhone
+			,uStatus
+			,uBisno
+			,uAdd
+			,uMail
+			,uAlertNum
 		  FROM user
 		 WHERE uId = #{uId}
 		   AND uPw = #{uPw}
@@ -41,7 +51,7 @@
 			 #{uId}
 			,#{uPw}
 			,#{uName}
-			,#{uJoin}
+			,NOW()
 			,"N"
 			,#{uPhone}
 			,"N"

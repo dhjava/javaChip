@@ -111,9 +111,19 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             <div class="header__top__right__social">
+                                <c:if test="${empty login}">
                                 <a href="<%=request.getContextPath() %>/member/login.do">로그인</a>
                                 <a href="<%=request.getContextPath() %>/member/joinSelect.do">회원가입</a>
                                 <a href="<%=request.getContextPath() %>/admin/main.do">관리자페이지</a>
+								</c:if>
+									
+								<c:if test="${ not empty login}">
+								${login.uName}님 환영합니다!&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="<%=request.getContextPath()%>/member/logout.do">로그아웃</a>
+									<c:if test="${login.uStatus eq 'A'}">
+									<a href="<%=request.getContextPath() %>/admin/main.do">관리자페이지</a>
+									</c:if>
+								</c:if>
                             </div>
                         </div>
                     </div>
