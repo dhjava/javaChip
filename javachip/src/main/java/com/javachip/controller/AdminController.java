@@ -56,10 +56,41 @@ public class AdminController
 		pm.setAdminSearchVO(AdminSearchVO);
 		pm.setTotalCount(cnt);
 		
+		System.out.println("test===");
+		System.out.println(AdminSearchVO.getPage());
+		System.out.println("sNum : "+AdminSearchVO.getsNum());
+		System.out.println("perPageNum : "+AdminSearchVO.getPerPageNum());
+		System.out.println(pm.getTotalCount());
+		
+		// 다음 페이지인 경우
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		
+		System.out.println("after sNum : "+AdminSearchVO.getsNum());
 		List<UserVO> list = us.list(AdminSearchVO);
 		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);
 		return "admin/memberList";
+	}
+	
+	@RequestMapping(value="/bizmemberList.do")
+	public String bizmemberList(Model model, AdminSearchVO AdminSearchVO)
+	{
+		int cnt = us.BizUserTotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setTotalCount(cnt);
+		
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		List<UserVO> Bizlist = us.BizList(AdminSearchVO);
+		model.addAttribute("list", Bizlist);
+		model.addAttribute("pm", pm);
+		
+		return "admin/bizmemberList";
 	}
 	
 	@RequestMapping(value="/product.do")
@@ -81,4 +112,10 @@ public class AdminController
 	}
 	
 	
+	
+	@RequestMapping(value="/blackList.do")
+	public String blackList()
+	{
+		return "admin/blackList";
+	}
 }
