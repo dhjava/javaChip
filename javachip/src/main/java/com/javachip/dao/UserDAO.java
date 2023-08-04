@@ -33,20 +33,32 @@ public class UserDAO {
 		return sqlSession.insert(namespace+".insertBiz", vo);
 	}
 	
-	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//관리자 전체 회원관리(검색기능추가)
+	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//관리자 전체 일반회원관리(검색기능추가)
 	{
 		return sqlSession.selectList(namespace+".selectUserByAdmin", AdminSearchVO);
 	}
 	
-	public UserVO selectUserOneByuNoByAdmin(int uNo)		//관리자 세부 회원관리
+	public UserVO selectUserOneByuNoByAdmin(int uNo)		//관리자 세부 일반회원관리
 	{
 		return sqlSession.selectOne(namespace+".selectUserOneByuNoByAdmin", uNo);
 	}
 	
-	public int UserTotal(AdminSearchVO AdminSearchVO)		//관리자 전체 회원관리(페이징기능의 전체 유저수)
+	public int UserTotal(AdminSearchVO AdminSearchVO)		//관리자 전체 일반회원관리(페이징기능의 전체 유저수)
 	{
 		int value = 0;
 		value = sqlSession.selectOne(namespace+".UserTotal", AdminSearchVO);
+		return value;
+	}
+	
+	public List<UserVO> Bizlist(AdminSearchVO AdminSearchVO)		//관리자 전체 사업자회원 관리(검색기능추가)
+	{
+		return sqlSession.selectList(namespace+".selectBizUserByAdmin", AdminSearchVO);
+	}
+	
+	public int BizUserTotal(AdminSearchVO AdminSearchVO)
+	{
+		int value = 0;
+		value = sqlSession.selectOne(namespace+".BizUserTotal", AdminSearchVO);
 		return value;
 	}
 }

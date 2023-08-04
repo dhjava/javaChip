@@ -75,6 +75,24 @@ public class AdminController
 		return "admin/memberList";
 	}
 	
+	@RequestMapping(value="/bizmemberList.do")
+	public String bizmemberList(Model model, AdminSearchVO AdminSearchVO)
+	{
+		int cnt = us.BizUserTotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setTotalCount(cnt);
+		
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		List<UserVO> Bizlist = us.BizList(AdminSearchVO);
+		model.addAttribute("list", Bizlist);
+		model.addAttribute("pm", pm);
+		
+		return "admin/bizmemberList";
+	}
+	
 	@RequestMapping(value="/product.do")
 	public String product()
 	{
@@ -93,11 +111,7 @@ public class AdminController
 		return "admin/qnaList";
 	}
 	
-	@RequestMapping(value="/bizmemberList.do")
-	public String bizmemberList()
-	{
-		return "admin/bizmemberList";
-	}
+	
 	
 	@RequestMapping(value="/blackList.do")
 	public String blackList()

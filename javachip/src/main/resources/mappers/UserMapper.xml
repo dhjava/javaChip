@@ -81,20 +81,28 @@
 			,#{uAlertNum}
 		)
 	</insert>
-	<!-- 관리자 일반회원 조건 검색 참조 -->
-	<sql id="AdminUserSearch">
-		
-	</sql>
-	<!-- 관리자 일반회원 전체 목록 -->
-	<select id="selectUserByAdmin" resultType="userVO" parameterType="AdminSearchVO">
-		SELECT * FROM user
-		where uStatus ='N'
+	<!-- 관리자 일반회원 공통조건 검색 참조 -->
+	<sql id="findUser">
 		<if test='AdminSearchId != null and AdminSearchId.equals("uId")'>
 		and uId like concat('%', #{AdminSearchIdValue}, '%') 
 		</if>
 		<if test='AdminSearchId != null and AdminSearchId.equals("uName")'>
 		and uName like concat('%', #{AdminSearchIdValue}, '%')
 		</if>
+	</sql>
+	<!-- 관리자 일반회원 전체 목록 -->
+	<select id="selectUserByAdmin" resultType="userVO" parameterType="AdminSearchVO">
+		SELECT * FROM user
+		where uStatus ='N'
+		<include refid="findUser" />
+		order by uNo asc limit #{sNum},#{perPageNum}
+	</select>
+	
+	<!-- 관리자 사업자회원 전체 목록 -->
+	<select id="selectBizUserByAdmin" resultType="userVO" parameterType="AdminSearchVO">
+		SELECT * FROM user
+		where uStatus ='B'
+		<include refid="findUser" />
 		order by uNo asc limit #{sNum},#{perPageNum}
 	</select>
 	
@@ -104,9 +112,15 @@
 			where uNo = #{uNo} and uStatus ='N'
 	</select>
 	
-	<!-- 관리자 페이징 유저 전체 갯수 -->
+	<!-- 관리자 페이징 일반유저 전체 갯수 -->
 	<select id="UserTotal" resultType="int">
 		select count(*) as cnt from user
-		<include refid="AdminUserSearch" />
+		where uStatus = 'N'
+	</select>
+	
+	<!-- 관리자 페이징 사업자유저 전체 갯수 -->
+	<select id="BizUserTotal" resultType="int">
+		select count(*) as cnt from user
+		where uStatus = 'B'
 	</select>
 </mapper>

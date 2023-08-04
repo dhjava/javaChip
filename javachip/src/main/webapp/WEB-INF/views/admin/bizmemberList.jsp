@@ -63,7 +63,7 @@
 		<div class="main admin">
 				<h4><b>일반회원 리스트</b></h4><br>
 				<!-- 검색기능 추가 -->
-				<form action="memberList.do" method="post">
+				<form action="bizmemberList.do" method="post">
 				<div class="search admin">
 				<span>
 					<select name="AdminSearchId">
@@ -82,13 +82,13 @@
 						<th>번호</th><th>아이디</th><th>이름</th><th>가입일</th><th>누적 경고</th><th>상세</th>
 					</tr>
 					<!-- 유저 목록 반복문 -->
-					<c:forEach items="${list }" var="User">
+					<c:forEach items="${list }" var="BizUser">
 					<tr>
-						<td>${User.uNo }</td>
-						<td>${User.uId }</td>
-						<td>${User.uName }</td>
-						<td>${User.uJoin }</td>
-						<td>${User.uAlertNum }</td>
+						<td>${BizUser.uNo }</td>
+						<td>${BizUser.uId }</td>
+						<td>${BizUser.uName }</td>
+						<td>${BizUser.uJoin }</td>
+						<td>${BizUser.uAlertNum }</td>
 						<td class="ctd"><a href="<%=request.getContextPath() %>/admin/memberDetail.do?uNo=${User.uNo}">
 						<input type="button" value="상세" onclick="openMemberDetail()"></a>
 						</td>
@@ -99,7 +99,7 @@
  <%
 String param = "AdminSearchId="+pm.getAdminSearchVO().getAdminSearchId()+"&AdminSearchIdValue="+pm.encoding(pm.getAdminSearchVO().getAdminSearchIdValue());
 if (pm.isPrev()){ %>
-<a href="<%=request.getContextPath()%>/admin/memberList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>
+<a href="<%=request.getContextPath()%>/admin/bizmemberList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>
 <%
 }
 %>
@@ -108,13 +108,13 @@ if (pm.isPrev()){ %>
 for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++) 
 {
 %>
-<a href="<%=request.getContextPath()%>/admin/memberList.do?page=<%=i%>&<%=param%>"><%=i %></a>
+<a href="<%=request.getContextPath()%>/admin/bizmemberList.do?page=<%=i%>&<%=param%>"><%=i %></a>
 <%	
 }
 %>
 
 <%if(pm.isNext() && pm.getEndPage() > 0 ){ %>
-<a href="<%=request.getContextPath()%>/admin/memberList.do?page=<%=pm.getEndPage()+1%>&<%=param%>">▶</a>
+<a href="<%=request.getContextPath()%>/admin/bizmemberList.do?page=<%=pm.getEndPage()+1%>&<%=param%>">▶</a>
 <% } %>
 </div>
 </div>

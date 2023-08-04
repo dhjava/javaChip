@@ -54,4 +54,14 @@ public class UserServiceImpl implements UserService {
 		
 		return userDAO.UserTotal(AdminSearchVO);
 	}
+
+	@Override
+	public List<UserVO> BizList(AdminSearchVO AdminSearchVO) {
+		return userDAO.Bizlist(AdminSearchVO);
+	}
+
+	@Override
+	public int BizUserTotal(AdminSearchVO AdminSearchVO) {
+		return userDAO.BizUserTotal(AdminSearchVO);
+	}
 }
