@@ -2,50 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
-	<!-- 아임포트 결제 -->
-	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<%@ page import="java.util.List" %>
+<%@ page import="com.javachip.vo.CartVO" %>
 	<script>
-		var IMP = window.IMP;
-		IMP.init("imp06473501"); // 예: imp00000000
-		
-	    function requestPay() {
-	      // IMP.request_pay(param, callback) 결제창 호출
-	      IMP.request_pay({ // param
-	          pg: "html5_inicis",
-	          pay_method: "card",
-	          merchant_uid: "javachip_"+new Date().getTime(),
-	          name: "자바칩 프라페",
-	          amount: 1,
-	          buyer_email: "gildong@gmail.com",
-	          buyer_name: "홍길동",
-	          buyer_tel: "010-1234-1234",
-	          buyer_addr: "전주시 덕진구 금암동",
-	          buyer_postcode: "12345"
-	      }, function (rsp) { // callback
-	          if (rsp.success) {
-	              // 결제 성공 시 로직
-	              // 결제 내용 DB로 보내기 (pNo, uNo, cCount)
-	              alert("결제 성공");
-	              $("#cart").submit();
-	          } else {
-	              // 결제 실패 시 로직
-	              alert("결제 실패. 잠시 후 다시 시도해주세요");
-	          }
-	      });
-	    }
-		
 		function usePointFn() {
 			// 최대치 설정 필요 (총 금액 + 사용 가능한 적립금)
 			var point = $("#usePoint").val();
 			if(point == "" || point < 1) {
 				$("#discount").empty();
+				$("#point").attr("value", 0)
 			}else {
 				$("#discount").text("-$"+point);
+				$("#point").attr("value", point);
 			}
+		}
+		
+		
+		function doCheckoutFn() {
+			$("#cart").submit();
 		}
 	</script>
 <!-- 메인 작성 영역 -->
-    <form id="cart" method="post" action="cart.do">
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
@@ -66,6 +43,7 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Shoping Cart Section Begin -->
+    <form id="cart" method="post" action="cart.do">
     <section class="shoping-cart spad">
         <div class="container">
             <div class="row">
@@ -122,7 +100,9 @@
                         <div class="shoping__discount">
                             <h5>적립금 사용</h5>
                             <span>회원님의 사용 가능한 적립금 : 100$</span><hr>
-                            <input type="number" name="usePoint" id="usePoint" placeholder="사용할 적립금액을 입력해주세요">
+                            <input type="text" name="usePoint" id="usePoint"
+                            	placeholder="사용할 적립금액을 입력해주세요" onchange="this.value=this.value.replace(/[^0-9]/g,'');">
+                            <input type="hidden" name="point" id="point">
                             <button type="button" class="site-btn" onclick="usePointFn()">적용하기</button>
                         </div>
                     </div>
@@ -132,10 +112,13 @@
                         <h5>장바구니 총합</h5>
                         <ul>
                             <li>판매가 <span>$110</span></li>
-                            <li>할인 <span id="discount"></span></li>
+                            <li>할인 
+                            	<span id="discount">
+                            	</span>
+                            </li>
                             <li>총액 <span>$110</span></li>
                         </ul>
-                        <a href="javascript:requestPay()" class="primary-btn" style="color:white;">결제하기</a>
+                        <a href="javascript:doCheckoutFn()" class="primary-btn" style="color:white;">구매하기</a>
                     </div>
                 </div>
             </div>

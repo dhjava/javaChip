@@ -17,7 +17,6 @@
 		INSERT INTO
 		order_ (
 			 uNo
-			,cNo
 			,oName
 			,oAdd
 			,oPhone
@@ -27,7 +26,6 @@
 			,oStatus
 		) VALUES (
 			 #{uNo}
-			,#{cNo}
 			,#{oName}
 			,#{oAdd}
 			,#{oPhone}

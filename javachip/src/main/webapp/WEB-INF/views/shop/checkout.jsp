@@ -2,7 +2,38 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
-
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+	<script>
+		var IMP = window.IMP;
+		IMP.init("imp06473501"); // 예: imp00000000
+		
+	    function requestPay() {
+	      // IMP.request_pay(param, callback) 결제창 호출
+	      IMP.request_pay({ // param
+	          pg: "html5_inicis",
+	          pay_method: "card",
+	          merchant_uid: "javachip_"+new Date().getTime(),
+	          name: "자바칩 프라페",
+	          amount: 1,
+	          buyer_email: "gildong@gmail.com",
+	          buyer_name: "홍길동",
+	          buyer_tel: "010-1234-1234",
+	          buyer_addr: "전주시 덕진구 금암동",
+	          buyer_postcode: "12345"
+	      }, function (rsp) { // callback
+	          if (rsp.success) {
+	              // 결제 성공 시 로직
+	              // 결제 내용 DB로 보내기 (order_테이블, 기존 장바구니는 cStatus 'O'로 변경)
+	              alert("결제 성공");
+	              $("#cart").submit();
+	          } else {
+	              // 결제 실패 시 로직
+	              alert("결제 실패. 잠시 후 다시 시도해주세요");
+	          }
+	      });
+	    }
+	</script>
+	
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
         <div class="container">
