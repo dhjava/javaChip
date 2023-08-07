@@ -25,8 +25,8 @@ public class CartDAO {
 	public int addCart(CartVO cartVO) {
 		return sqlSession.insert(namespace+".addCart", cartVO);
 	}
-	public int deleteOneCart(CartVO cartVO) {
-		return sqlSession.delete(namespace+".deleteOneCart", cartVO);
+	public int deleteOneCart(int cNo) {
+		return sqlSession.delete(namespace+".deleteOneCart", cNo);
 	}
 	public int deleteAllCart(int uNo) {
 		return sqlSession.delete(namespace+".deleteAllCart", uNo);

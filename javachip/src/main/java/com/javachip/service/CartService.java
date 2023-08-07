@@ -11,7 +11,7 @@ public interface CartService {
 	List<CartVO> selectCartByUno(int uNo);
 	int totalPrice(int uNo);
 	int addCart(CartVO cartVO);
-	int deleteOneCart(CartVO cartVO);
+	int deleteOneCart(int cNo);
 	int deleteAllCart(int uNo);
 	int updateCart(CartVO cartVO);
 }
