@@ -99,4 +99,16 @@ public class UserServiceImpl implements UserService {
 		return userDAO.selectBlacklistOneByuNoByAdmin(uNo);
 	}
 
+	@Override
+	public int stopUser(UserVO vo) 
+	{
+		return userDAO.stopUser(vo);
+	}
+
+	@Override
+	public int CancleStopUser(UserVO vo) 
+	{
+		return userDAO.CancleStopUser(vo);
+	}
+
 }

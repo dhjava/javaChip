@@ -90,4 +90,14 @@ public class UserDAO {
 	{
 		return sqlSession.selectOne(namespace+".selectBlacklistOneByuNoByAdmin", uNo);
 	}
+	
+	public int stopUser(UserVO vo)
+	{
+		return sqlSession.update(namespace+".stopUser", vo);
+	}
+	
+	public int CancleStopUser(UserVO vo)
+	{
+		return sqlSession.update(namespace+".CancleStopUser", vo);
+	}
 }

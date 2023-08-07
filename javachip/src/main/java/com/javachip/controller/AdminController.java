@@ -131,6 +131,22 @@ public class AdminController
 		return "admin/blacklistDetail";
 	}
 	
+	@RequestMapping(value="/stopUser.do")
+	public String stopUser(int uNo, Model model)
+	{
+		UserVO vo = us.selectUserOneByuNoByAdmin(uNo);
+		model.addAttribute("vo",vo);
+		return "redirect:memberDetail.do?uNo="+vo.getuNo();
+	}
+	
+	@RequestMapping(value="/CancleStopUser.do")
+	public String CancleStopUser(int uNo, Model model)
+	{
+		UserVO vo = us.selectUserOneByuNoByAdmin(uNo);
+		model.addAttribute("vo", vo);
+		return "redirect:memberDetail.do?uNo="+vo.getuNo();
+	}
+	
 	@RequestMapping(value="/product.do")
 	public String product()
 	{

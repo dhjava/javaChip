@@ -173,4 +173,18 @@
 		where uAlertNum > 0
 		<include refid="findUser" />
 	</select>
+	
+	<!-- 일반회원정지 -->
+	<update id="stopUser" parameterType="UserVO">
+		update user
+		set uAlertNum = uAlertNum + 1
+		where uNo = #{uNo}
+	</update>
+	
+	<!-- 정지해제 -->
+	<update id="CancleStopUser" parameterType="UserVO">
+		update user
+		set uAlertNum = uAlertNum - 1
+		where uNo = #{uNo}
+	</update>
 </mapper>

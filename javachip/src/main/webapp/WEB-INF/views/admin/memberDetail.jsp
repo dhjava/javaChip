@@ -4,6 +4,36 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="<%= request.getContextPath()%>/js/jquery-3.6.3.min.js"></script>
+<script>
+	function stopUser()
+	{
+		$.ajax
+		({
+			url : "stopUser.do",
+			type : "post",
+			data : "uNo="+uNo,
+			success : function(data)
+			{
+				alert("정지되었습니다.");
+			}
+		});
+	}
+	
+	function CancleStopUser()
+	{
+		$.ajax
+		({
+			url : "CancleStopUser.do",
+			type: "post",
+			data : "uNo="+uNo,
+			susccess : function(data)
+			{
+				alert("정지해제되었습니다.");
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -58,7 +88,10 @@
 		</div>
 		<div class="main admin">
 		<br>
-				<h4><b>회원 상세 정보</b></h4>
+				<h4><b>일반 회원 상세 정보</b></h4><br>
+				<button onclick="stopUser()">정지</button>&nbsp;
+				<button onclick="CancleStopUser()">정지해제</button>
+				<br>
 				<br>
 	<table border="1" style="width:99%;">
 		<tr>
