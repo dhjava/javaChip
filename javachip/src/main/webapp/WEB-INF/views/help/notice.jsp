@@ -12,7 +12,7 @@
 						<div class="breadcrumb__option">
 							<a href="<%= request.getContextPath() %>/">Home</a>
 							<a href="#">고객센터</a>
-							<a href="/notice.do">공지사항</a>
+							<span>공지사항</span>
 						</div>
 					</div>
 				</div>

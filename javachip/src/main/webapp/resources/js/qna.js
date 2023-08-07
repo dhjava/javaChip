@@ -6,8 +6,7 @@ var checkContentsFlag = false;
 var submitFlag = false;
 
 // help qna write submit
-function helpSubmitFn() {
-	
+function qnaSubmitFn() {
 	// QnA 제목이 입력되지 않았을 때
 	if($("#qTitle").val() == "") {
 			checkTitleFlag = false;
@@ -31,7 +30,7 @@ function helpSubmitFn() {
 	}
 	
 	// 상품 QnA가 선택되고, 상품이 선택되지 않았을 때	
-	if( $("#qType").val() == "pQna" ) {
+	if( $("#qType").val() == "P" ) {
 		
 			if($("#pNo").val() == 0) {
 				checkPNoFlag = false;
@@ -51,20 +50,21 @@ function helpSubmitFn() {
 		submitFlag = true;
 	}
 	
+	
 	if(submitFlag) {
 		// 선택 불가한 select 값 form에 전송하기위해 disabled 값 제거
+		
 		$("#pNo").prop('disabled',false);
 		// 제출
-		$("form").submit();
+		$("#submitFrm").submit();
 	}
 }
 
 // help qna Type select
-function selectQTypeFn(){	
-	
+function selectQTypeFn(){
 	var htmlTag = "";	
 	
-	if ( $("#qType").val() == "pQna" ) {
+	if ( $("#qType option:selected").val() == "P" ) {
 		/* 상품 select start*/
 		htmlTag += "<p>문의 상품<p>";
 		htmlTag += "<div class='pNoSelectWrap'>";
@@ -84,40 +84,44 @@ function selectQTypeFn(){
 		htmlTag += "</div>";
 		
 	}else{
-		return $("#addQnaSelect").html("");
+		htmlTag = "";
+		
+		$("#pInfo").html(htmlTag);
+		
 	}
 		return $("#addQnaSelect").html(htmlTag);
 }
 
 function selectPNoFn(){	
-	
+	alert("작동확인5");
 	var htmlTag = "";	
 	// 상품 QnA일때,
-	if ( $("#qType").val() == "pQna" ) {
-		
+	if ( $("#qType option:selected").val() == "P" ) {
 		// pNo가 선택되지 않았을 때,
-		if ( $("#pNo").val() == "" ) {
-			
+		if ( $("#pNo").val() == null ) {
+			htmlTag = "";
 		}else {
-		// qNo가 선택되었을 때,
+		// pNo가 선택되었을 때,
 			htmlTag += "<div class='pContainer pInfo'>"
 			htmlTag += "<div class='img pInfo'>"
 			htmlTag += " 상품 이미지"
 			htmlTag += "</div>"
 			htmlTag += "<div>"
-			htmlTag += " 상품 명 : " + $("#pNo").val();
+			htmlTag += " 상품 명 : " + $("#pNo").index( $("#pNo option:selected") );
 			htmlTag += "</div>"
 			htmlTag += "</div>"
 		}
 	// 상품 QnA가 아닐 때
 	}else{
-		
+		htmlTag = "";
 	}
 		return $("#pInfo").html(htmlTag);
 }
 
 window.onload = selectQTypeFn;
-window.onload = selectPNoFn;
+
+window.addEventListener('load', 'selectPNoFn;');
+
 
 // wrap css 이벤트
 function pNoSelectWrapInFn(){

@@ -48,27 +48,33 @@
 					<td colspan="3" style="white-space:pre-line;">
 						${noticeVO.nContents}
 					</td>
-			    </tr>
-			    <tr>
-			      <td colspan="3"><button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='notice.do'">목록으로</button>
+				</tr>
+				<tr>
+					<td colspan="3"><button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='notice.do'">목록으로</button>
 						<button type="button" class="btn btn-outline-primary" style="margin-right:15px;" onclick="location.href='noticeModify.do'">수정하기</button>
 						<button type="button" class="btn btn-outline-danger" onclick="noticeDelFn();">삭제하기</button>
-						<form name="delFrm" method="post" action="qnaDelete.do">
+						<form name="delFrm" method="post" action="noticeDelete.do">
 							<input type="hidden" name="nNo" value="${noticeVO.nNo}">
 						</form>
-			      </td>
-			    </tr>
+					</td>
+				</tr>
 			</table>
-			<table class="table table-striped">
-			    <tr>
-			      <th scope="row" style="width:12%">▲이전글</th>
-			      <td>사업자 회원들께 공지드립니다.</td>
-			    </tr>
-			    <tr>
-			      <th scope="row">▼다음글</th>
-			      <td>안녕하세요</td>
-			    </tr>
+			<table class="table table-striped" style="margin-top:50px;">
+				<c:forEach var="nearNotice" items="${nearNoticeList}">
+				<c:if test="${nearNotice.nNo > noticeVO.nNo}">
+					<tr>
+						<th scope="row" style="width:12%">▲다음글</th>
+						<td><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
+					</tr>
+				</c:if>
+				<c:if test="${nearNotice.nNo < noticeVO.nNo}">
+					<tr>
+						<th scope="row">▼이전글</th>
+						<td><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
+					</tr>
+				</c:if>
+				</c:forEach>
 			</table>
-	    </div>
+		</div>
 	</section>
 <%@ include file="../include/footer.jsp" %>

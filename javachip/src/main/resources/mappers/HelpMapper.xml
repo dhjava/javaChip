@@ -4,12 +4,16 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.javachip.mapper.helpMapper">
-
-	<select id="insertNotice" parameterType="noticeVO">
+	<!-- 공지사항 -->
+	<insert id="insertNotice" parameterType="noticeVO">
 		INSERT INTO Notice 
 		(uNo, nTitle, nContents)
 		VALUES(#{uNo},#{nTitle},#{nContents})
-	</select>
+		<selectKey order="AFTER" keyProperty="nNo" resultType="int">
+			SELECT MAX(nNo) as nNo 
+			FROM Notice
+		</selectKey>
+	</insert>
 	
 	<select id="selectNoticeAll" resultType="noticeVO" parameterType="searchVO">
 		SELECT * , 
@@ -24,7 +28,6 @@
 		</if>
 		<if test='searchType != null and searchType.equals("tnc")'>
 			AND nTitle like concat('%',#{searchValue},'%')
-			
 			AND nContents like concat('%',#{searchValue},'%')
 		</if>
 		ORDER BY nNo DESC
@@ -38,5 +41,102 @@
 		AND nNo = #{nNo}
 	</select>
 	
+	<select id="selectNearNno" resultType="noticeVO" parameterType="int">
+		SELECT nNo,nTitle from Notice
+		WHERE ( nNo = IFNULL((SELECT MIN(nNo) FROM Notice WHERE nNo &gt; #{nNo} AND delYN = 'N'),0) 
+		OR nNo = IFNULL((SELECT MAX(nNo) FROM Notice WHERE nNo &lt; #{nNo} AND delYN = 'N'),0)
+		)ORDER BY nNo DESC
+	</select>
 	
+	<update id="deleteNotice" parameterType="int">
+		UPDATE Notice 
+		SET delYN = 'Y'
+		WHERE nNo = #{nNo}
+	</update>
+	<!-- QnA -->
+	<insert id="insertQnA" parameterType="qnaVO">
+		INSERT INTO QnA 
+		(uNo, qTitle, qContents, qType, pNo, qlevel) 
+		VALUES(#{uNo},#{qTitle},#{qContents},#{qType},#{pNo},0)
+		
+		<selectKey resultType="int" keyProperty="qNo" order="AFTER">
+			SELECT max(qNo) as qNo 
+			FROM QnA
+		</selectKey>
+	</insert>
+	
+	<update id="updateOriginQno" parameterType="integer">
+		UPDATE QnA set originqno = #{qNo} 
+		WHERE qNo = #{qNo}
+	</update>
+	
+	<select id="selectQnaAll" resultType="qnaVO" parameterType="searchVO">
+		SELECT * 
+		<!-- masking uName 선택 -->
+		, (SELECT
+			CONCAT 
+			( SUBSTRING(uName,1,1),RPAD('',CHAR_LENGTH(uName)-1,'*') )
+			FROM User 
+			WHERE uNo=qna.uNo
+		)AS uName
+		
+		<!-- Name if문에 관리자 타입 조건걸기 위해 uStatus 선택 -->
+		,(
+		SELECT uStatus 
+		FROM User 
+		WHERE uNo = Qna.uNo 
+		) AS uStatus
+		FROM QnA
+		WHERE delYN = 'N'
+		<if test='searchType != null and searchType.equals("title")'>
+			AND qTitle like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("content")'>
+			AND qContents like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("tnc")'>
+			AND qTitle like concat('%',#{searchValue},'%')
+			AND qContents like concat('%',#{searchValue},'%')
+		</if>
+		ORDER BY qNo DESC
+	</select>
+	
+	<select id="selectOneByQno" resultType="QnaVO" parameterType="int">
+		SELECT * 
+		<!-- masking uName 선택 -->
+		, (SELECT
+			CONCAT 
+			( SUBSTRING(uName,1,1),RPAD('',CHAR_LENGTH(uName)-1,'*') )
+			FROM User 
+			WHERE uNo=qna.uNo
+		)AS uName
+		<!-- Name if문에 관리자 타입 조건걸기 위해 uStatus 선택 -->
+		,(
+		SELECT uStatus 
+		FROM User 
+		WHERE uNo = Qna.uNo 
+		) AS uStatus
+		FROM Qna
+		WHERE delYN = 'N'
+		AND qNo = #{qNo}
+	</select>
+	
+	<select id="selectNearQno" resultType="QnaVO" parameterType="int">
+		SELECT qNo,qTitle from Qna
+		WHERE ( qNo = IFNULL((SELECT MIN(qNo) FROM Qna WHERE qNo &gt; #{qNo} AND delYN = 'N'),0) 
+		OR qNo = IFNULL((SELECT MAX(qNo) FROM Qna WHERE qNo &lt; #{qNo} AND delYN = 'N'),0)
+		)ORDER BY qNo DESC
+	</select>
+	
+	<update id="deleteQna" parameterType="int">
+		UPDATE Qna 
+		SET delYN = 'Y'
+		WHERE qNo = #{qNo}
+	</update>
+	<!-- 관리자 로그인 확인 -->
+	<select id="checkStatusAdmin" parameterType="int" resultType="int">
+		SELECT count(*) as cnt FROM User 
+		WHERE uNo = #{uNo} 
+		AND uStatu = 'A'
+	</select>
 </mapper>

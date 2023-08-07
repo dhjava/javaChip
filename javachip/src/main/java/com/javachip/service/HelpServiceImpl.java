@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.javachip.dao.HelpDAO;
 import com.javachip.vo.NoticeVO;
+import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
 
 @Service
@@ -33,5 +34,48 @@ public class HelpServiceImpl implements HelpService {
 		return helpDAO.selectOneByNno(nNo);
 	}
 	
+	@Override
+	public List<NoticeVO> selectNearNno(int nNo) {
+		
+		return helpDAO.selectNearNno(nNo);
+	}
 	
+	@Override
+	public int deleteNotice(int nNo) {
+		
+		return helpDAO.deleteNotice(nNo);
+	}
+
+	@Override
+	public int insertQnA(QnaVO vo) {
+		
+		int result = helpDAO.insertQnA(vo);
+		helpDAO.updateQno(vo.getqNo());
+		
+		return result;
+	}
+
+	@Override
+	public List<QnaVO> selectQnaList(SearchVO searchVO) {
+		
+		return helpDAO.selectQnaList(searchVO);
+	}
+
+	@Override
+	public QnaVO selectOneByQno(int qNo) {
+		
+		return helpDAO.selectOneByQno(qNo);
+	}
+
+	@Override
+	public List<QnaVO> selectNearQno(int qNo) {
+		
+		return helpDAO.selectNearQno(qNo);
+	}
+	
+	@Override
+	public int deleteQna(int qNo) {
+		
+		return helpDAO.deleteQna(qNo);
+	}
 }

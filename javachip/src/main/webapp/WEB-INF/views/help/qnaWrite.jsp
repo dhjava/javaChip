@@ -26,7 +26,7 @@
 	<section class="board-box spad">
 		<div class="container">
 			<div class="write-form">
-				<form action="qnaWrite.do" method="post">
+				<form id="submitFrm" action="qnaWrite.do" method="post">
 					<div class="d-flex flex-column bd-highlight mb-3">
 						<div class="p-2 bd-highlight">
 							<h4><b>Qna 글쓰기</b></h4>
@@ -34,12 +34,12 @@
 						<div class="p-2 bd-highlight">
 							<p>구분<p>
 							<select name="qType" id="qType" class="board-type" onchange="selectQTypeFn();">
-								<option value="nQna"
-								<c:if test="${ qType eq 'n'}"> selected</c:if>
+								<option value="N"
+								<c:if test="${ qType eq 'N'}"> selected</c:if>
 								>일반 Q&amp;A</option>
 								
-								<option value="pQna"
-								<c:if test="${ qType eq 'p'}"> selected</c:if>
+								<option value="P"
+								<c:if test="${ qType eq 'P'}"> selected</c:if>
 								>상품 Q&amp;A
 								
 								</option>
@@ -66,7 +66,7 @@
 						</div>
 						<div class="p-2 bd-highlight" align="center">
 							<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="helpResetFn">취소하기</button>
-							<button type="button" class="btn btn-dark" onclick="helpSubmitFn()">작성하기</button>
+							<button type="button" class="btn btn-dark" onclick="qnaSubmitFn();">작성하기</button>
 						</div>
 					</div>
 				</form>
@@ -79,7 +79,7 @@
 				</div>
 				<div class="pSelectContent">
 					<div class="board-search" style="width:70%; float: left">
-						<form class="d-flex justify-content-center">
+						<form id="searchFrm" class="d-flex justify-content-center">
 			 				<div class="input-group">
 								<select>
 									<option value="title">카테고리</option>
@@ -93,7 +93,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="p-2 bd-highlight">
+					<div class="p-2 bd-highlight ">
 					<table class="table table-hover pSelectTable">
 						<tr>
 							<th>번호</th>
@@ -104,31 +104,31 @@
 							<td style="width : 15%">1</td>
 							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
 							<td style="width : 40%; text-align: left">커피 1</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피 1"></td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="1"></td>
 						</tr>
 						<tr>
 							<td style="width : 10%">2</td>
 							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
 							<td style="width : 45%; text-align: left">커피 2</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피 2"></td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="2"></td>
 						</tr>
 						<tr>
 							<td style="width : 10%">3</td>
 							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
 							<td style="width : 45%; text-align: left">커피 3</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피 3"></td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="3"></td>
 						</tr>
 						<tr>
 							<td style="width : 10%">4</td>
 							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
 							<td style="width : 45%; text-align: left">커피 4</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피 4"></td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="4"></td>
 						</tr>
 						<tr>
 							<td style="width : 10%">5</td>
 							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
 							<td style="width : 45%; text-align: left">커피 5</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="커피5"></td>
+							<td style="width : 20%"><input name="pNoRadio" type="radio" value="5"></td>
 						</tr>
 					</table>
 					</div>
