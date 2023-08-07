@@ -8,11 +8,13 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javachip.service.CartService;
+import com.javachip.service.MileageService;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.UserVO;
 
@@ -22,40 +24,69 @@ public class MypageController {
 	
 	@Autowired
 	private CartService cs;
+	@Autowired
+	private MileageService ms;
+	
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession();
+		// 로그인 여부 확인
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO==null) {
 			return "redirect:/member/login.do";
 		}
 		System.out.println("loginVO::"+loginVO);
-		int uNo = loginVO.getuNo();
+		
+		// 장바구니 조회
+		int uNo = 1;
 		System.out.println("uNo::"+uNo);
 		List<CartVO> cartList = cs.selectCartByUno(uNo);
-		int totalPrice = cs.totalPrice(uNo);
-		System.out.println(totalPrice);
+		System.out.println(cartList);
+		// 상품 정보 조회
 		
+		
+		// 모델로 전달
 		model.addAttribute("cartList", cartList);
-		model.addAttribute("totalPrice", totalPrice);
 		return "mypage/cart";
 	}
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.POST)
 	public String cart(
 			HttpServletRequest req
+		,	RedirectAttributes ra
 		,	Model model
-		,	String point) {
+		) {
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO==null) {
 			return "redirect:/member/login.do";
 		}
-		System.out.println(point);
-		model.addAttribute("point", point);
+		String[] cartList = req.getParameterValues("chkCart");
+		model.addAttribute(cartList);
 		return "redirect:/shop/checkout.do";
 	}
+	
+	// ajax start
+	
+	@RequestMapping(value="/updateCount.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int updateCount(int cNo, int cCount) {
+		System.out.println("cNo::"+cNo);
+		System.out.println("cCount::"+cCount);
+		CartVO cv = new CartVO();
+		cv.setcNo(cNo);
+		cv.setcCount(cCount);
+		return cs.updateCart(cv);
+	}
+	
+	@RequestMapping(value="/deleteCart.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int deleteCart(int cNo) {
+		return cs.deleteOneCart(cNo);
+	}
+	
+	// ajax end
 	
 	@RequestMapping(value="/goodbye.do")
 	public String goodbye() {

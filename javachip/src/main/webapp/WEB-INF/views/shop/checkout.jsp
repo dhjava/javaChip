@@ -2,6 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.javachip.vo.CartVO" %>
+<%
+	// List<CartVO> cartList = (List<CartVO>) request.getAttribute("cartList");
+	// int totalPrice = (int) request.getAttribute("totalPrice");
+	// int point = (int) request.getAttribute("point");
+%>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
 		var IMP = window.IMP;
@@ -25,13 +32,27 @@
 	              // 결제 성공 시 로직
 	              // 결제 내용 DB로 보내기 (order_테이블, 기존 장바구니는 cStatus 'O'로 변경)
 	              alert("결제 성공");
-	              $("#cart").submit();
+	              $("#checkoutFrm").submit();
 	          } else {
 	              // 결제 실패 시 로직
 	              alert("결제 실패. 잠시 후 다시 시도해주세요");
 	          }
 	      });
+	      
 	    }
+		
+	    function usePointFn() {
+			// 최대치 설정 필요 (총 금액 + 사용 가능한 적립금)
+			var point = $("#usePoint").val();
+			if(point == "" || point < 1) {
+				$("#usePoint").attr("value", 0);
+				$("#discount").empty();
+				$("#point").attr("value", 0);
+			}else {
+				$("#discount").text("-"+point+"원");
+				$("#point").attr("value", point);
+			}
+		}
 	</script>
 	
     <!-- Breadcrumb Section Begin -->
@@ -57,37 +78,37 @@
         <div class="container">
             <div class="checkout__form">
                 <h4>배송 정보 입력</h4>
-                <form action="#">
+                <form name="checkoutFrm" id="checkoutFrm" method="post" action="checkout.do">
                     <div class="row">
-                    	<div class="col-lg-8">
+                    	<div class="col-lg-7">
                     	<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox"></p>
-	                    	<div class="col-lg-8 col-md-6">
+	                    	<div class="col-lg-10 col-md-6">
 	                            <div class="row">
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>성명<span>*</span></p>
-	                                        <input type="text">
+	                                        <input type="text" name="oName" id="oName">
 	                                    </div>
 	                                </div>
 	                            </div>
 	                            <div class="checkout__input">
 	                                <p>주소<span>*</span></p>
-	                                <input type="text" placeholder="우편번호" class="checkout__input__add" style="width:150px;">
+	                                <input type="text" id="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;">
 	                                <button type="button" class="btn btn-outline-primary">우편번호</button>
-	                                <input type="text" placeholder="주소" class="checkout__input__add">
-	                                <input type="text" placeholder="나머지 주소" class="checkout__input__add">
+	                                <input type="text" id="oAdd2" placeholder="주소" class="checkout__input__add">
+	                                <input type="text" id="oAdd3" placeholder="나머지 주소" class="checkout__input__add">
 	                            </div>
 	                            <div class="row">
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>전화번호<span>*</span></p>
-	                                        <input type="text">
+	                                        <input type="text" name="oPhone" id="oPhone">
 	                                    </div>
 	                                </div>
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>이메일<span>*</span></p>
-	                                        <input type="text">
+	                                        <input type="text" name="oMail" id="oMail">
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -98,17 +119,31 @@
 	                            </div>
 	                        </div>
                     	</div>
-                        <div class="col-lg-4 col-md-6">
+                        <div class="col-lg-5 col-md-6">
+                    		<!-- 마일리지 시작 -->
+		                    <div class="shoping__continue">
+		                        <div class="shoping__discount"  style="margin:45px 0;">
+		                            <h5>적립금 사용</h5>
+		                            <span>회원님의 사용 가능한 적립금 : 100$</span><hr>
+		                            <input type="text" name="usePoint" id="usePoint"
+		                            	placeholder="사용할 적립금액을 입력해주세요" onchange="this.value=this.value.replace(/[^0-9]/g,'');">
+		                            <input type="hidden" name="point" id="point">
+		                            <button type="button" class="site-btn" onclick="usePointFn()">적용하기</button>
+		                        </div>
+		                    </div>
+                    		<!-- 마일리지 끝 -->
                             <div class="checkout__order">
                                 <h4>주문 명세서</h4>
                                 <div class="checkout__order__products">제품 <span>가격</span></div>
                                 <ul>
-                                    <li>케냐산 원두 <span>25,000원</span></li>
-                                    <li>ABC 생두 <span>77,777원</span></li>
-                                    <li>네스카페 돌체 구스토 <span>120,000원</span></li>
+                                    <li>네스카페 돌체 구스토 <span>120000원</span></li>
+                                    <li>할인 <span id="discount" style="color:#DD2222;"></span></li>
                                 </ul>
-                                <div class="checkout__order__total">총 가격 <span>222,777원</span></div>
-                                <button type="submit" class="site-btn">주문하기</button>
+                                <div class="checkout__order__total">
+                                	총 가격 <span id="total">120000원</span>
+                                </div>
+                                <button class="site-btn">주문하기</button>
+                                <!-- <button type="button" class="site-btn" onclick="">주문하기</button> -->
                             </div>
                         </div>
                     </div>
