@@ -157,17 +157,20 @@
 	<select id="UserTotal" resultType="int">
 		select count(*) as cnt from user
 		where uStatus = 'N'
+		<include refid="findUser" />
 	</select>
 	
 	<!-- 관리자 페이징 사업자유저 전체 갯수 -->
 	<select id="BizUserTotal" resultType="int">
 		select count(*) as cnt from user
 		where uStatus = 'B'
+		<include refid="findUser" />
 	</select>
 	
 		<!-- 관리자 페이징 사업자유저 전체 갯수 -->
 	<select id="BlacklistTotal" resultType="int">
 		select count(*) as cnt from user
 		where uAlertNum > 0
+		<include refid="findUser" />
 	</select>
 </mapper>
