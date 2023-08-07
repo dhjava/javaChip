@@ -13,6 +13,8 @@ public class QnaVO {
 	private int originqno;
 	
 	private String uName;
+	private String pName;
+	private String uStatus;
 	
 	// getter
 	public int getqNo() {
@@ -45,7 +47,13 @@ public class QnaVO {
 	public String getuName() {
 		return uName;
 	}
-
+	public String getpName() {
+		return pName;
+	}
+	
+	public String getuStatus() {
+		return uStatus;
+	}
 	// setter
 	public void setqNo(int qNo) {
 		this.qNo = qNo;
@@ -77,11 +85,19 @@ public class QnaVO {
 	public void setuName(String uName) {
 		this.uName = uName;
 	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+	public void setuStatus(String uStatus) {
+		this.uStatus = uStatus;
+	}
 	// toString
 	@Override
 	public String toString() {
 		return "QnaVO [qNo=" + qNo + ", qTitle=" + qTitle + ", qContents=" + qContents + ", uNo=" + uNo + ", qDate="
 				+ qDate + ", qType=" + qType + ", pNo=" + pNo + ", qlevel=" + qlevel + ", originqno=" + originqno
-				+ ", uName=" + uName + "]";
+				+ ", uName=" + uName + ", pName=" + pName + ", uStatus=" + uStatus + "]";
 	}
+	
+	
 }
