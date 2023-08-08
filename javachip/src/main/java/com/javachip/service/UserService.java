@@ -14,6 +14,7 @@ public interface UserService {
 	int insert(UserVO vo);
 	int insertBiz(UserVO vo);
 	UserVO idFind(UserVO vo);
+	UserVO pwFind(UserVO vo);
 	
 	
 	//admin용========================================================

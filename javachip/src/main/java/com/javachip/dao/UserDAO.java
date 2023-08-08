@@ -37,6 +37,10 @@ public class UserDAO {
 		return sqlSession.selectOne(namespace+".idFind", vo);
 	}
 	
+	public UserVO pwFind(UserVO vo) {
+		return sqlSession.selectOne(namespace+".pwFind", vo);
+	}
+	
 	
 	//admin용========================================================
 	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//관리자 전체 일반회원관리(검색기능추가)
