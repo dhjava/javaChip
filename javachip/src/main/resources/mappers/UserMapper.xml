@@ -6,7 +6,8 @@
 <mapper namespace="com.javachip.mapper.UserMapper">
 	
 	<select id="selectUserByLogin" resultType="userVO" parameterType="userVO">
-		SELECT uId
+		SELECT uNo
+			,uId
 			,uPw
 			,uName
 			,uJoin
@@ -21,6 +22,7 @@
 		 WHERE uId = #{uId}
 		   AND uPw = #{uPw}
 	</select>
+	
 	<!-- 
 		dao에서 sqlSession객체의 
 		selectOne 메소드를 호출하면 되고
@@ -94,6 +96,14 @@
 		SELECT uId
 		  FROM user
 		 WHERE uName = #{uName}
+		   AND uMail = #{uMail}
+	</select>
+	
+	<select id="pwFind" resultType="userVO" parameterType="userVO">
+		SELECT uPw
+		  FROM user
+		 WHERE uId = #{uId}
+		   AND uName = #{uName}
 		   AND uMail = #{uMail}
 	</select>
 	

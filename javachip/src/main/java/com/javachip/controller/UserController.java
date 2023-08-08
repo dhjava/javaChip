@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -63,7 +64,6 @@ public class UserController {
 		try {
 			HttpSession session = req.getSession();
 			session.invalidate();
-			session.setAttribute("key", null);
 			pw.append("<script>alert('로그아웃 되었습니다.');"
 						+"location.href='"
 					    +req.getContextPath()+"/';</script>");
@@ -134,38 +134,41 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/idFind.do",method=RequestMethod.POST)
-	public void idFind(UserVO vo,HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public String idFind(UserVO vo,Model model) throws IOException {
 		
-		HttpSession session = req.getSession();
+		UserVO user = us.idFind(vo);
 		
-		UserVO findVO = us.idFind(vo);
-		
-		res.setContentType("text/html;charset=UTF-8");
-		PrintWriter pw = res.getWriter();
-		
-		if(findVO != null) {
-			//login할 회원이 데이터베이스에 존재
-			System.out.println("ID 찾기 성공");
-			
-			session.setAttribute("idFind", findVO);
-			pw.append("location.href='"+req.getContextPath()+"/member/idFindResult.do';</script>");
-			
-		}else {
-			//login할 회원이 데이터베이스에 존재 X
-			System.out.println("ID 찾기 실패");
-			pw.append("<script>alert('존재하지 않는 ID입니다.');location.href='"+req.getContextPath()+"/member/idFind.do';</script>");
+		if(user != null) { 
+			model.addAttribute("check", 0);
+			model.addAttribute("uId", user.getuId());
+			System.out.println("아이디 확인 O");
+		} else { 
+			model.addAttribute("check", 1);
+			System.out.println("아이디 확인 X");
 		}
 		
-		pw.flush();
+		return "member/idFind";
 	}
 	
-	@RequestMapping(value="/idFindResult.do",method=RequestMethod.GET)
-	public String idFindResult() {
-		return "member/idFindResult";
-	}
-	
-	@RequestMapping(value="/pwFind.do")
+	@RequestMapping(value="/pwFind.do",method=RequestMethod.GET)
 	public String pwFind() {
+		return "member/pwFind";
+	}
+	
+	@RequestMapping(value="/pwFind.do",method=RequestMethod.POST)
+	public String pwFind(UserVO vo,Model model) throws IOException {
+		
+		UserVO user = us.pwFind(vo);
+		
+		if(user != null) { 
+			model.addAttribute("check", 0);
+			model.addAttribute("uPw", user.getuPw());
+			System.out.println("비밀번호 확인 O");
+		} else { 
+			model.addAttribute("check", 1);
+			System.out.println("비밀번호 확인 X");
+		}
+		
 		return "member/pwFind";
 	}
 	

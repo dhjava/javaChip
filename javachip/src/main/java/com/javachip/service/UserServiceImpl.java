@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService {
 		return userDAO.idFind(vo);
 	}
 	
+	@Override
+	public UserVO pwFind(UserVO vo) {
+		
+		return userDAO.pwFind(vo);
+	}
+	
 	
 	//admin용========================================================
 	@Override

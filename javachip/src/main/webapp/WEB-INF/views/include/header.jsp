@@ -145,7 +145,7 @@
                             <li><a href="<%=request.getContextPath() %>/mypage/main.do">마이페이지</a>
                                 <ul class="header__menu__dropdown">
                                     <li><a href="<%=request.getContextPath() %>/shop/details.do">주문내역</a></li>
-                                    <li><a href="<%=request.getContextPath() %>/mypage/main.do">회원정보수정</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/mypage/myinfo.do">회원정보수정</a></li>
                                     <li><a href="<%=request.getContextPath() %>/mypage/main.do">적립금</a></li>
                                     <li><a href="<%=request.getContextPath() %>/mypage/main.do">후기/QNA</a></li>
                                     <li><a href="<%=request.getContextPath() %>/mypage/regular.do">정기배송</a></li>
