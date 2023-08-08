@@ -5,6 +5,34 @@
 <!-- 메인 작성 영역 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script src="<%= request.getContextPath()%>/js/jquery-3.6.3.min.js"></script>
+<script>
+	function AlertUser()
+	{
+		$.ajax
+		({
+			url : "AlertUser.do",
+			type : "POST",
+			data: "uNo="+$("#uNo").text(),
+			success : function(data)
+			{
+				
+				if(data > 0)
+				{
+					alert("신고횟수 1회 추가되었습니다.");
+				}
+				else
+				{
+					alert("업데이트 실패")
+				}
+			},
+			error : function(data)
+			{
+				alert("그냥 실패!");
+			}
+		});
+	}
+
+</script>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -61,8 +89,7 @@
 		<br>
 				<h4><b>블랙리스트 정보</b></h4>
 				<br>
-				<button>정지</button>&nbsp;
-				<button>정지해제</button>
+				<button onclick="AlertUser()">경고</button>&nbsp;
 				<br>
 				<br>
 	<table border="1" style="width:99%;">
@@ -86,6 +113,12 @@
 			</th>
 			<td>
 				${vo.uStatus }
+			</td>
+			<th>
+				유저번호
+			</th>
+			<td id="uNo">
+				${vo.uNo }
 			</td>
 		</tr>
 		<tr>
@@ -120,7 +153,7 @@
 				누적 경고
 			</th>
 			<td>
-				${vo.uAlertNum }
+				${vo.uStatus }
 			</td>
 		</tr>
 	</table>

@@ -184,8 +184,8 @@
 		<include refid="findUser" />
 	</select>
 	
-	<!-- 일반회원정지 -->
-	<update id="stopUser" parameterType="UserVO">
+	<!-- 일반회원경고횟수추가 -->
+	<update id="stopUser" parameterType="int">
 		update user
 		set uAlertNum = uAlertNum + 1
 		where uNo = #{uNo}

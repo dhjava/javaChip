@@ -36,8 +36,9 @@
 			<div class="blog__sidebar__item">
 				<h4>회원관리</h4>
 				<ul>
-				<li><a href="<%=request.getContextPath() %>/admin/memberList.do">일반회원조회</a>
-					<a href="<%=request.getContextPath() %>/admin/bizmemberList.do">관리자회원조회</a>
+				<li>
+					<a href="<%=request.getContextPath() %>/admin/memberList.do">일반회원조회</a><br>
+					<a href="<%=request.getContextPath() %>/admin/bizmemberList.do">관리자회원조회</a><br>
 					<a href="<%=request.getContextPath() %>/admin/blackList.do">블랙리스트조회</a>
 				</li>
 				</ul>
@@ -59,29 +60,32 @@
 		<div class="main admin" style="float:left; width:75%;">
 				<h4><b>공지사항 관리</b></h4><br>
 				<div class="search admin">
-					<select>
-						<option>제목</option>
-						<option>아이디</option>
-						<option>제목+아이디</option>
-					</select>
-					<input type="text"><input type="button" value="검색">
+					<form class="d-flex justify-content-center" action="boardList.do" method="get">
+	 				<div class="input-group mb-4">
+						<select name="searchType">
+							<option value="title" <c:if test="${param.searchType eq 'title'}">selected</c:if>>제목</option>
+							<option value="content" <c:if test="${param.searchType eq 'content'}">selected</c:if>>내용</option>
+							<option value="tnc" <c:if test="${param.searchType eq 'tnc'}">selected</c:if>>제목+내용</option>
+						</select>
+						<input type="text" name="SearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" value="${param.searchValue}">
+						<div class="input-group-append">
+						<button type="submit" class="btn btn-secondary mb-4">검색</button>
+						</div>
+					</div>
+				</form>
 				</div>
 					<table border="1" class="tableAdmin admin">
 						<tr>
 							<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>작성일</th>
 						</tr>
-						<tr>
-							<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
-						</tr>
-						<tr>
-							<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
-						</tr>
-						<tr>
-							<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
-						</tr>
-						<tr>
-							<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/notice.do">공지사항입니다.</a></td><td>2023-07-11</td>
-						</tr>
+						<c:forEach items="${list }" var="Notice">
+					<tr>
+						<td><input type="checkbox"></td>
+						<td>${Notice.nNo }</td>
+						<td><a href="<%=request.getContextPath() %>/help/noticeView.do?nNo=${Notice.nNo}">${Notice.nTitle }</a></td>
+						<td>${Notice.nDate }</td>
+					</tr>
+					</c:forEach>
 					</table>
 				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 				<input type="button" value="선택 삭제">

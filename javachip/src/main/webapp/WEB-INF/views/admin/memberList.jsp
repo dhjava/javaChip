@@ -73,7 +73,7 @@
 						<c:if test="${param.AdminSearchId eq 'uName'}">selected</c:if>>이름</option>
 					</select>
 					<input type="text" name="AdminSearchIdValue" value="${param.AdminSearchIdValue}">
-					<button>검색</button>
+					<button type="submit" class="btn btn-secondary mb-4">검색</button>
 				</span>
 				</div>
 				</form>
