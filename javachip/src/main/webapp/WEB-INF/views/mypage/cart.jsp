@@ -6,6 +6,7 @@
 <%@ page import="com.javachip.vo.CartVO" %>
 <%
 	List<CartVO> cartList = (List<CartVO>)request.getAttribute("cartList");
+	int uNo = (int)request.getAttribute("uNo");
 %>
 	<script>
 		function doCheckoutFn() {
@@ -29,9 +30,30 @@
 		
 		function chkAll() {
 			$("input[name=chkCart]").prop("checked", true);
+			$("#sumSelAll").text($("#sumAll").text());
 		}
 		
-		
+		function delAll() {
+			if(confirm("장바구니를 비우시겠습니까?")) {
+				$.ajax({
+					url:"deleteAllCart.do",
+					type:"post",
+					data:"uNo="+<%= uNo %>,
+					success:function(data) {
+						if(data>0) {
+							alert("장바구니를 비웠습니다.");
+							$("tbody").html('<tr><td colspan="5">장바구니가 비어있습니다.</td></tr>');
+							$("#sumAll").html('');
+						}else {
+							alert("비울 상품이 없거나 잘못된 요청입니다.");
+						}
+					},
+					error:function(){
+						alert("예외발생!");
+					}
+				});
+			}
+		};
 		
 		$(document).ready(function(){
 			var sum = 0;
@@ -86,6 +108,18 @@
 						alert("예외발생!");
 					}
 				});
+			});
+			
+
+			$("input[name=chkCart]").change(function() {
+				var selSum = 0;
+				$("#sumSelAll").text(selSum);
+				$("input[name=chkCart]").each(function() {
+					if($(this).is(":checked") == true) {
+						selSum += parseInt($(this).parents("tr").find(".shoping__cart__total").text());
+					}
+				});
+				$("#sumSelAll").text(selSum+"원");
 			});
 		});
 	</script>
@@ -143,12 +177,13 @@
 		                                        <h5>${cart.pName}</h5>
 		                                    </td>
 		                                    <td class="shoping__cart__price">
-		                                    	${cart.pPrice}
+		                                    	${cart.pPrice}원
 		                                    </td>
 		                                    <td class="shoping__cart__quantity">
 		                                        <div class="quantity">
 		                                            <div class="pro-qty">
-		                                                <input type="text" name="cCount" value="${cart.cCount}">
+		                                                <input type="text" name="cCount" value="${cart.cCount}"
+		                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
 		                                            </div>
 		                                        </div>
 		                                    </td>
@@ -171,7 +206,7 @@
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="javascript:chkAll()" class="primary-btn cart-btn"><span class="icon_check"></span>모두 선택하기</a>
-                        <a href="" class="primary-btn cart-btn cart-btn-right">
+                        <a href="javascript:delAll()" class="primary-btn cart-btn cart-btn-right">
                         	<span class="icon_trash"></span>
                         	모두 비우기
                         </a>
@@ -181,8 +216,8 @@
                     <div class="shoping__checkout">
                         <h5>장바구니 총합</h5>
                         <ul>
-                            <li></li>
-                            <li><span id="sumAll">$110</span></li>
+                            <li>선택한 상품<span id="sumSelAll">0원</span></li>
+                            <li>전체<span id="sumAll">0원</span></li>
                         </ul>
                         <a href="javascript:doCheckoutFn()" class="primary-btn" style="color:white;">구매하기</a>
                     </div>

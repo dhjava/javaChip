@@ -48,6 +48,7 @@ public class MypageController {
 		
 		// 모델로 전달
 		model.addAttribute("cartList", cartList);
+		model.addAttribute("uNo", uNo);
 		return "mypage/cart";
 	}
 	
@@ -70,7 +71,6 @@ public class MypageController {
 	}
 	
 	// ajax start
-	
 	@RequestMapping(value="/updateCount.do", method=RequestMethod.POST)
 	@ResponseBody
 	public int updateCount(int cNo, int cCount) {
@@ -88,6 +88,11 @@ public class MypageController {
 		return cs.deleteOneCart(cNo);
 	}
 	
+	@RequestMapping(value="/deleteAllCart.do", method=RequestMethod.POST)
+	@ResponseBody
+	public int deleteAllCart(int uNo) {
+		return cs.deleteAllCart(uNo);
+	}
 	// ajax end
 	
 	@RequestMapping(value="/goodbye.do")
