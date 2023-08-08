@@ -112,4 +112,17 @@ public class AdminPageMaker
 		}		
 			return str;
 		}
+		
+		public String encoding2(String searchValue) {
+			String str = "";
+			
+		try {
+			if(searchValue != null ) {
+				str = URLEncoder.encode(searchValue, "UTF-8");
+			}
+		} catch (UnsupportedEncodingException e) {		
+			e.printStackTrace();
+		}		
+			return str;
+		}
 }

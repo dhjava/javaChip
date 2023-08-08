@@ -96,7 +96,7 @@
 					</c:forEach>
 				</table>
  				<div class="admin_pagination" style="text-align:center;">
- <%
+<%
 String param = "AdminSearchId="+pm.getAdminSearchVO().getAdminSearchId()+"&AdminSearchIdValue="+pm.encoding(pm.getAdminSearchVO().getAdminSearchIdValue());
 if (pm.isPrev()){ %>
 <a href="<%=request.getContextPath()%>/admin/memberList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>

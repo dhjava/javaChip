@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.NoticeVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
@@ -58,5 +59,18 @@ public class HelpDAO {
 	
 	public int deleteQna(int qNo) {
 		return sqlSession.update("com.javachip.mapper.helpMapper.deleteQna", qNo);
+	}
+	
+	//관리자용 공지사항 페이징 구현을 위한 메소드
+	public List<NoticeVO> selectNoticeByAdmin (AdminSearchVO AdminSearchVO) 
+	{
+		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectNoticeByAdmin",AdminSearchVO);
+	}
+	//관리자용 공지사항 페이징 구현을 위한 메소드(전체 공지사항 수)
+	public int NoticeTotal(AdminSearchVO AdminSearchVO)		
+	{
+		int value = 0;
+		value = sqlSession.selectOne("com.javachip.mapper.helpMapper.NoticeTotal", AdminSearchVO);
+		return value;
 	}
 }

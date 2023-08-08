@@ -139,4 +139,36 @@
 		WHERE uNo = #{uNo} 
 		AND uStatu = 'A'
 	</select>
+	
+	<!-- 관리자 공지사항 페이징 공지사항 전체 갯수 -->
+	<select id="NoticeTotal" resultType="int">
+		select count(*) as cnt from notice
+		where 1=1
+		<if test='searchType != null and searchType.equals("title")'>
+			AND nTitle like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("content")'>
+			AND nContents like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("tnc")'>
+			AND nTitle like concat('%',#{searchValue},'%')
+			AND nContents like concat('%',#{searchValue},'%')
+		</if>
+	</select>
+	<!-- 관리자 공지사항 페이징 전체목록 -->
+	<select id="selectNoticeByAdmin" resultType="noticeVO" parameterType="AdminSearchVO">
+		SELECT * FROM notice
+		where 1=1
+		<if test='searchType != null and searchType.equals("title")'>
+			AND nTitle like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("content")'>
+			AND nContents like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("tnc")'>
+			AND nTitle like concat('%',#{searchValue},'%')
+			AND nContents like concat('%',#{searchValue},'%')
+		</if>
+		order by uNo asc limit #{sNum},#{perPageNum}
+	</select>
 </mapper>

@@ -36,11 +36,26 @@ public class AdminController
 	private HelpService hs;
 	
 	@RequestMapping(value="/boardList.do")
-	public String boardList(SearchVO searchVO, Model model, HttpServletRequest req)
+	public String boardList(Model model, AdminSearchVO AdminSearchVO)
 	{
-		List<NoticeVO> list = hs.selectNoticeList(searchVO);
+		int cnt = hs.NoticeTotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setTotalCount(cnt);
+		System.out.println("test===");
+		System.out.println(AdminSearchVO.getPage());
+		System.out.println("sNum : "+AdminSearchVO.getsNum());
+		System.out.println("perPageNum : "+AdminSearchVO.getPerPageNum());
+		System.out.println(pm.getTotalCount());
+		
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		
+		List<NoticeVO> nlist = hs.selectNoticeByAdmin(AdminSearchVO);
 
-		model.addAttribute("list",list);
+		model.addAttribute("list", nlist);
+		model.addAttribute("pm", pm);
 		
 		return "admin/boardList";
 	}
@@ -64,11 +79,11 @@ public class AdminController
 		pm.setAdminSearchVO(AdminSearchVO);
 		pm.setTotalCount(cnt);
 		
-		System.out.println("test===");
-		System.out.println(AdminSearchVO.getPage());
-		System.out.println("sNum : "+AdminSearchVO.getsNum());
-		System.out.println("perPageNum : "+AdminSearchVO.getPerPageNum());
-		System.out.println(pm.getTotalCount());
+//		System.out.println("test===");
+//		System.out.println(AdminSearchVO.getPage());
+//		System.out.println("sNum : "+AdminSearchVO.getsNum());
+//		System.out.println("perPageNum : "+AdminSearchVO.getPerPageNum());
+//		System.out.println(pm.getTotalCount());
 		
 		// 다음 페이지인 경우
 		if(AdminSearchVO.getPage() > 1) 
@@ -76,7 +91,7 @@ public class AdminController
 			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
 		}
 		
-		System.out.println("after sNum : "+AdminSearchVO.getsNum());
+//		System.out.println("after sNum : "+AdminSearchVO.getsNum());
 		List<UserVO> list = us.list(AdminSearchVO);
 		model.addAttribute("list", list);
 		model.addAttribute("pm", pm);

@@ -2,6 +2,7 @@ package com.javachip.service;
 
 import java.util.List;
 
+import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.NoticeVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
@@ -27,4 +28,8 @@ public interface HelpService {
 	List<QnaVO> selectNearQno(int qNo);
 	
 	int deleteQna(int qNo);
+	
+	//관리자용 공지사항 페이징 구현을 위한 메소드
+	List<NoticeVO> selectNoticeByAdmin(AdminSearchVO AdminSearchVO);
+	int NoticeTotal(AdminSearchVO AdminSearchVO);		//관리자 전체 공지사항수(페이징기능)
 }
