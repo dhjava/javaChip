@@ -34,4 +34,10 @@ public class CartDAO {
 	public int updateCart(CartVO cartVO) {
 		return sqlSession.update(namespace+".updateCart", cartVO);
 	}
+	public int checkDupCart(CartVO cartVO) {
+		return sqlSession.selectOne(namespace+".checkDupCart", cartVO);
+	}
+	public CartVO selectCartForOrder(int cNo) {
+		return sqlSession.selectOne(namespace+".selectCartForOrder", cNo);
+	}
 }

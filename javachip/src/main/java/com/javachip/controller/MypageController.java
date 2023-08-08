@@ -54,16 +54,18 @@ public class MypageController {
 	@RequestMapping(value="/cart.do", method=RequestMethod.POST)
 	public String cart(
 			HttpServletRequest req
-		,	RedirectAttributes ra
-		,	Model model
+		,	RedirectAttributes rttr
 		) {
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO==null) {
 			return "redirect:/member/login.do";
 		}
-		String[] cartList = req.getParameterValues("chkCart");
-		model.addAttribute(cartList);
+		String[] selCartList = req.getParameterValues("chkCart");
+		for(String items : selCartList) {
+			System.out.println("selCart::"+items);
+		}
+		rttr.addFlashAttribute(selCartList);
 		return "redirect:/shop/checkout.do";
 	}
 	

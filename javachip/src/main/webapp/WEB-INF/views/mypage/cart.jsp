@@ -5,10 +5,25 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.javachip.vo.CartVO" %>
 <%
-	List<CartVO> cartlist = (List<CartVO>)request.getAttribute("cartList");
+	List<CartVO> cartList = (List<CartVO>)request.getAttribute("cartList");
 %>
 	<script>
 		function doCheckoutFn() {
+			var orderCart = [];
+			$("input[name=chkCart]").each(function() {
+				if($(this).is(":checked") == false) {
+					
+				}else {
+					var chk = $(this).val();
+					orderCart.push(chk);
+				}
+			});
+			console.log(orderCart);
+			if(orderCart.length == 0) {
+				alert("구매하고자 상품을 선택해 주세요.");
+				return;
+			}
+			console.log($("input[name=chkCart]"))
 			$("#cart").submit();
 		}
 		
@@ -16,11 +31,22 @@
 			$("input[name=chkCart]").prop("checked", true);
 		}
 		
+		
+		
 		$(document).ready(function(){
+			var sum = 0;
+			$(".shoping__cart__total").each(function(i, e) {
+				sum += parseInt($(e).text());
+			});
+			$("#sumAll").text(sum+"원");
+			
 			$("input[name=cCount]").change(function() {
 				var obj = $(this);
 				var cNo = obj.parents("tr").find("input[name=chkCart]").val();
 				var cCount = obj.parents("tr").find("input[name=cCount]").val();
+				var input = obj.parents("tr").find(".shoping__cart__total");
+				var price = obj.parents("tr").find(".shoping__cart__price").text();
+				var cal = parseInt(cCount)*parseInt(price);
 				$.ajax({
 					url:"updateCount.do",
 					type:"post",
@@ -28,6 +54,13 @@
 					success:function(data) {
 						if(data > 0) {
 							console.log(data+" success");
+							input.html(cal+"원");
+							
+							sum = 0;
+							$(".shoping__cart__total").each(function(i, e) {
+								sum += parseInt($(e).text());
+							});
+							$("#sumAll").text(sum+"원");
 						}
 					},
 					error:function(){
@@ -83,7 +116,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__table">
-                        <table>
+                        <table id="cartTable">
                             <thead>
                                 <tr>
                                     <th width="50px"></th>
@@ -107,10 +140,10 @@
 		                                	<td><input type="checkbox" name="chkCart" value="${cart.cNo}"></td>
 		                                    <td class="shoping__cart__item">
 		                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
-		                                        <h5>${cart.pNo} 상품 VO 필요</h5>
+		                                        <h5>${cart.pName}</h5>
 		                                    </td>
 		                                    <td class="shoping__cart__price">
-		                                    	개별 가격도 상품 VO 필요
+		                                    	${cart.pPrice}
 		                                    </td>
 		                                    <td class="shoping__cart__quantity">
 		                                        <div class="quantity">
@@ -119,8 +152,8 @@
 		                                            </div>
 		                                        </div>
 		                                    </td>
-		                                    <td class="shoping__cart__total" name="cartTotal">
-		                                        10000
+		                                    <td class="shoping__cart__total">
+		                                        ${cart.cCount * cart.pPrice}원
 		                                    </td>
 		                                    <td class="shoping__cart__item__close">
 		                                        <span class="icon_close"></span>
@@ -148,8 +181,8 @@
                     <div class="shoping__checkout">
                         <h5>장바구니 총합</h5>
                         <ul>
-                            <li>판매가 <span>$110</span></li>
-                            <li>총액 <span>$110</span></li>
+                            <li></li>
+                            <li><span id="sumAll">$110</span></li>
                         </ul>
                         <a href="javascript:doCheckoutFn()" class="primary-btn" style="color:white;">구매하기</a>
                     </div>

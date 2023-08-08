@@ -38,4 +38,12 @@ public class CartServiceImpl implements CartService {
 	public int updateCart(CartVO cartVO) {
 		return cartDAO.updateCart(cartVO);
 	}
+	@Override
+	public int checkDupCart(CartVO cartVO) {
+		return cartDAO.checkDupCart(cartVO);
+	}
+	@Override
+	public CartVO selectCartForOrder(int cNo) {
+		return cartDAO.selectCartForOrder(cNo);
+	}
 }
