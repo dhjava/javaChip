@@ -106,9 +106,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int stopUser(UserVO vo) 
+	public int stopUser(int uNo) 
 	{
-		return userDAO.stopUser(vo);
+		return userDAO.stopUser(uNo);
 	}
 
 	@Override

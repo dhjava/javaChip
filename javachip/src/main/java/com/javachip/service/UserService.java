@@ -27,6 +27,6 @@ public interface UserService {
 	List<UserVO> blacklist(AdminSearchVO AdminSearchVO);	//관리자 블랙리스트 전체 목록 정지당한횟수 많은순으로 정렬(검색기능추가)
 	int blacklistTotal(AdminSearchVO AdminSearchVO);		//블랙리스트 전체 회원수(페이징기능)
 	UserVO selectBlacklistOneByuNoByAdmin(int uNo);			//블랙리스트 세부 페이지
-	int stopUser(UserVO vo);		//회원 경고횟수 +1
+	int stopUser(int uNo);		//회원 경고횟수 +1
 	int CancleStopUser(UserVO vo);		//회원 경고횟수 -1
 }

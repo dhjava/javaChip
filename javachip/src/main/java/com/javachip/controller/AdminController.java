@@ -1,16 +1,25 @@
 package com.javachip.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.javachip.service.HelpService;
 import com.javachip.service.UserService;
 import com.javachip.vo.AdminPageMaker;
 import com.javachip.vo.AdminSearchVO;
+import com.javachip.vo.NoticeVO;
+import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
 
 @Controller
@@ -23,9 +32,16 @@ public class AdminController
 	@Autowired
 	private AdminPageMaker pm;
 	
+	@Autowired
+	private HelpService hs;
+	
 	@RequestMapping(value="/boardList.do")
-	public String boardList()
+	public String boardList(SearchVO searchVO, Model model, HttpServletRequest req)
 	{
+		List<NoticeVO> list = hs.selectNoticeList(searchVO);
+
+		model.addAttribute("list",list);
+		
 		return "admin/boardList";
 	}
 	
@@ -131,20 +147,13 @@ public class AdminController
 		return "admin/blacklistDetail";
 	}
 	
-	@RequestMapping(value="/stopUser.do")
-	public String stopUser(int uNo, Model model)
+	@ResponseBody
+	@RequestMapping(value="/AlertUser.do")
+	public String AlertUser(int uNo)
 	{
-		UserVO vo = us.selectUserOneByuNoByAdmin(uNo);
-		model.addAttribute("vo",vo);
-		return "redirect:memberDetail.do?uNo="+vo.getuNo();
-	}
-	
-	@RequestMapping(value="/CancleStopUser.do")
-	public String CancleStopUser(int uNo, Model model)
-	{
-		UserVO vo = us.selectUserOneByuNoByAdmin(uNo);
-		model.addAttribute("vo", vo);
-		return "redirect:memberDetail.do?uNo="+vo.getuNo();
+		int result = 0;
+		result = us.stopUser(uNo);
+		return result+"";
 	}
 	
 	@RequestMapping(value="/product.do")

@@ -3,36 +3,35 @@
 <%@ include file="../include/nav.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script src="<%= request.getContextPath()%>/js/jquery-3.6.3.min.js"></script>
 <script>
-	function stopUser()
+	function AlertUser()
 	{
 		$.ajax
 		({
-			url : "stopUser.do",
-			type : "post",
-			data : "uNo="+uNo,
+			url : "AlertUser.do",
+			type : "POST",
+			data: "uNo="+$("#uNo").text(),
 			success : function(data)
 			{
-				alert("정지되었습니다.");
-			}
-		});
-	}
-	
-	function CancleStopUser()
-	{
-		$.ajax
-		({
-			url : "CancleStopUser.do",
-			type: "post",
-			data : "uNo="+uNo,
-			susccess : function(data)
+				
+				if(data > 0)
+				{
+					alert("신고횟수 1회 추가되었습니다.");
+				}
+				else
+				{
+					alert("업데이트 실패")
+				}
+			},
+			error : function(data)
 			{
-				alert("정지해제되었습니다.");
+				alert("그냥 실패!");
 			}
 		});
 	}
+
 </script>
 </head>
 <body>
@@ -89,8 +88,7 @@
 		<div class="main admin">
 		<br>
 				<h4><b>일반 회원 상세 정보</b></h4><br>
-				<button onclick="stopUser()">정지</button>&nbsp;
-				<button onclick="CancleStopUser()">정지해제</button>
+				<button onclick="AlertUser()">경고</button>&nbsp;
 				<br>
 				<br>
 	<table border="1" style="width:99%;">
@@ -114,6 +112,12 @@
 			</th>
 			<td>
 				${vo.uStatus }
+			</td>
+			<th>
+				유저번호
+			</th>
+			<td id="uNo">
+				${vo.uNo }
 			</td>
 		</tr>
 		<tr>
