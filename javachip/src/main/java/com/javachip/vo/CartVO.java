@@ -6,11 +6,15 @@ public class CartVO {
 	private int uNo;
 	private int cCount;
 	
+	// 외래키
+	private String pName;
+	private int pPrice;
+	
 	@Override
 	public String toString() {
-		return "CartVO [cNo=" + cNo + ", pNo=" + pNo + ", uNo=" + uNo + ", cCount=" + cCount + "]";
+		return "CartVO [cNo=" + cNo + ", pNo=" + pNo + ", uNo=" + uNo + ", cCount=" + cCount + ", pName=" + pName
+				+ ", pPrice=" + pPrice + "]";
 	}
-	
 	public int getcNo() {
 		return cNo;
 	}
@@ -34,5 +38,17 @@ public class CartVO {
 	}
 	public void setcCount(int cCount) {
 		this.cCount = cCount;
+	}
+	public String getpName() {
+		return pName;
+	}
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+	public int getpPrice() {
+		return pPrice;
+	}
+	public void setpPrice(int pPrice) {
+		this.pPrice = pPrice;
 	}
 }

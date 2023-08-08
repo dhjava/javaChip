@@ -5,9 +5,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.javachip.vo.CartVO" %>
 <%
-	// List<CartVO> cartList = (List<CartVO>) request.getAttribute("cartList");
-	// int totalPrice = (int) request.getAttribute("totalPrice");
-	// int point = (int) request.getAttribute("point");
+	String[] selCartList = (String[])request.getAttribute("selCartList");
 %>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
@@ -38,7 +36,6 @@
 	              alert("결제 실패. 잠시 후 다시 시도해주세요");
 	          }
 	      });
-	      
 	    }
 		
 	    function usePointFn() {
