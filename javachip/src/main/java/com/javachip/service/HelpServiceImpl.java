@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.javachip.dao.HelpDAO;
+import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.NoticeVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
@@ -77,5 +78,19 @@ public class HelpServiceImpl implements HelpService {
 	public int deleteQna(int qNo) {
 		
 		return helpDAO.deleteQna(qNo);
+	}
+
+	//관리자용 notice 페이징을 위한 메소드
+	@Override
+	public List<NoticeVO> selectNoticeByAdmin(AdminSearchVO AdminSearchVO) 
+	{
+		return helpDAO.selectNoticeByAdmin(AdminSearchVO);
+	}
+
+	//관리자 전체공지사항 수(페이징)
+	@Override
+	public int NoticeTotal(AdminSearchVO AdminSearchVO) 
+	{
+		return helpDAO.NoticeTotal(AdminSearchVO);
 	}
 }

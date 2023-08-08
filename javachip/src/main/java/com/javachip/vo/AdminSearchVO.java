@@ -8,7 +8,7 @@ public class AdminSearchVO extends AdminCriteria
 	private String searchType;			//관리자 공지사항 검색
 	private String searchValue;			//관리자 공지사항 검색
 	
-	
+	//=================================유저검색
 	public String getAdminSearchUserType() {
 		return AdminSearchUserType;
 	}
@@ -28,6 +28,7 @@ public class AdminSearchVO extends AdminCriteria
 		AdminSearchIdValue = adminSearchIdValue;
 	}
 	
+	//=================================공지사항 검색
 	public String getSearchType() {
 		return searchType;
 	}
