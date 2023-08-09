@@ -7,7 +7,61 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 
 <!-- 메인 작성 영역 -->
-
+<script type="text/javascript">
+/*	$(function(){
+		var chkObj = document.getElementsByName("RowCheck");
+		var rowCnt = chkObj.length;
+		
+		$("input[name='allCheck']").click(function(){
+			var chk_listArr = $("input[name='RowCheck']");
+			for(var i = 0; i < chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+		$("input[name='RowCheck']").click(function(){
+			if($("input[name='RowCheck']:checked").length == rowCnt){
+				$("input[name='allCheck']")[0].checked = true;
+			}
+			else{
+				$("input[name='allCheck']")[0].checked = false;
+			}
+		});
+	});
+	
+	function deleteValue(){
+		var valueArr = new Array();
+		var list = $("input[name='RowCheck']");
+		for(var i = 0; i < list.length; i++){
+			if(list[i].checked){
+				valueArr.push(list[i.value]);
+			}
+		}
+		if(valueArr.length == 0){
+			alert("선택된 글이 없습니다.");
+		}
+		else{
+			var chk = confirm("정말 삭제하시겠습니까?");
+			$.ajax({
+				url : "boarddelete.do",
+				type : "POST",
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(jdata){
+					if(jdata = 1){
+						alert("삭제성공");
+						location.replace("boardList")
+					}
+					else{
+						alert("삭제실패");
+					}
+				}
+			});
+		}
+	}
+*/
+</script>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -80,16 +134,40 @@
 				</div>
 					<table border="1" class="tableAdmin admin">
 						<tr>
-							<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>작성일</th>
+							<th>
+								<div class="allCheck">
+								<input type="checkbox" name="allCheck" id="allCheck" />
+								<label for="allCheck">모두 선택</label>
+								<script>
+								$("#allCheck").click(function(){
+									var chk = $("#allCheck").prop("checked");
+									if(chk) {
+										$(".chBox").prop("checked", true);
+									}else{
+										$(".chBox").prop("checked", false);
+									}
+								});
+								</script> 
+								</div>
+							</th>
+							<th>번호</th><th>제목</th><th>작성일</th>
 						</tr>
 						<c:forEach items="${list }" var="Notice">
-					<tr>
-						<td><input type="checkbox"></td>
+						<tr>
+						<td>
+							<input type="checkbox" name="chBox" class="chBox"
+							data-nNo="${Notice.nNo }" value="${Notice.nNo }">
+							<script>
+							$(".chBox").click(function(){
+								$("#allCheck").prop("checked", false);
+							});
+							</script>
+						</td>
 						<td>${Notice.nNo }</td>
 						<td><a href="<%=request.getContextPath() %>/help/noticeView.do?nNo=${Notice.nNo}">${Notice.nTitle }</a></td>
 						<td>${Notice.nDate }</td>
-					</tr>
-					</c:forEach>
+						</tr>
+						</c:forEach>
 					</table>
 				<div class="admin_pagination" style="text-align:center;">
 <%
@@ -115,8 +193,66 @@ for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++)
 }
 %>
 </div>
-<input type="button" value="선택 삭제">
-		</div>
+<br>
+<!-- <input type="button" value="선택 삭제" onclick="deleteValue();"> -->
+<div class="delBtn">
+	<button type="button" class="selectDelete_btn">선택 삭제</button>
+	<script>
+	$(".selectDelete_btn").click(function(){
+		var confirm_val = confirm("정말 삭제하시겠습니까?");
+
+		if(confirm_val) {
+			var checkArr = new Array();
+			
+			$("input[class='chBox']:checked").each(function(){
+			checkArr.push($(this).attr("data-nNo"));
+		});
+	
+			$.ajax({
+				url : "boardDelete.do",
+				type : "post",
+				data : { chbox : checkArr },
+				success : function(result){
+					if(result == 1){
+						location.href = "boardList.do";
+					}else{
+						alert("삭제실패");
+					}
+				}
+			});
+		}
+	});
+</script>
+</div>
+<br>
+<div class="delete">
+	<button type="button" class="delete_btn" data-nNo="${Notice.nNo }">삭제</button>
+	<script>
+	$(".delete_${cartList.cartNum}_btn").click(function(){
+		var confirm_val = confirm("정말 삭제하시겠습니까?");
+
+		if(confirm_val) {
+			var checkArr = new Array();
+
+			checkArr.push($(this).attr("data-nNo"));
+
+			$.ajax({
+				url : "boardDelete.do",
+				type : "post",
+				data : { chbox : checkArr },
+				success : function(result){
+					if(result == 1) {
+						location.href = "boardList.do";
+					} else {
+						alert("삭제 실패");
+					}
+				}
+			});
+		} 
+	});
+</script>
+</div>
+	</div>
 	</div>
 	</section>
 	<!-- Section End -->
