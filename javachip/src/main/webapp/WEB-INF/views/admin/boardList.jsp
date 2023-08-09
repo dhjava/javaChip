@@ -2,6 +2,7 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <%@ page import ="com.javachip.vo.*" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 

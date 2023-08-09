@@ -7,6 +7,7 @@ public class AdminSearchVO extends AdminCriteria
 	public String AdminSearchIdValue;	//관리자가 회원/아이디 이름으로 입력할 변수
 	private String searchType;			//관리자 공지사항 검색
 	private String searchValue;			//관리자 공지사항 검색
+	private String searchType_qna;		//관리자 Qna 검색
 	
 	//=================================유저검색
 	public String getAdminSearchUserType() {
@@ -40,5 +41,17 @@ public class AdminSearchVO extends AdminCriteria
 	}
 	public void setSearchValue(String searchValue) {
 		this.searchValue = searchValue;
+	}
+		
+	//=================================qna 검색
+	
+	public String getSearchType_qna()
+	{
+		return searchType_qna;
+	}
+	
+	public void setSearchType_qna(String searchType_qna)
+	{
+		this.searchType_qna = searchType_qna;
 	}
 }

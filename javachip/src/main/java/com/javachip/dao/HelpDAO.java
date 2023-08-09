@@ -61,7 +61,9 @@ public class HelpDAO {
 		return sqlSession.update("com.javachip.mapper.helpMapper.deleteQna", qNo);
 	}
 	
-	//관리자용 공지사항 페이징 구현을 위한 메소드
+	
+	//====================================관리자 메소드====================================
+	//관리자용 공지사항 검색/페이징 전체 리스트를 위한 메소드
 	public List<NoticeVO> selectNoticeByAdmin (AdminSearchVO AdminSearchVO) 
 	{
 		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectNoticeByAdmin",AdminSearchVO);
@@ -71,6 +73,20 @@ public class HelpDAO {
 	{
 		int value = 0;
 		value = sqlSession.selectOne("com.javachip.mapper.helpMapper.NoticeTotal", AdminSearchVO);
+		return value;
+	}
+	
+	//관리자용 QnA 검색/페이징 전체 리스트를 위한 메소드
+	public List<QnaVO> selectQnAByAdmin(AdminSearchVO AdminSearchVO)
+	{
+		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectQnAByAdmin", AdminSearchVO);
+	}
+	
+	//관리자용 QnA 페이징 구현을 위한 메소드(전체 QnA수)
+	public int QnATotal(AdminSearchVO AdminSearchVO)
+	{
+		int value = 0;
+		value = sqlSession.selectOne("com.javachip.mapper.helpMapper.QnATotal", AdminSearchVO);
 		return value;
 	}
 }

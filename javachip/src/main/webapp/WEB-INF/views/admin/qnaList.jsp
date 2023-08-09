@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import ="com.javachip.vo.*" %> 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <!-- 메인 작성 영역 -->
 
 </head>
@@ -59,40 +63,67 @@
 		</div>
 		<div class="main admin" style="float:left; width:75%;">
 				<h4><b>QnA 목록 조회</b></h4><br>
-				<div>
-					<select>
-						<option>전체</option>
-						<option>답변대기</option>
-						<option>답변완료</option>
-					</select>
-				</div>
 				<div class="search admin">
-					<select>
-						<option>제목</option>
-						<option>아이디</option>
-						<option>제목+아이디</option>
-					</select>
-					<input type="text"><input type="button" value="검색">
+					<form class="d-flex justify-content-center">
+ 						<div class="input-group mb-4">
+							<select name="searchType_qna">
+								<option value="complete" <c:if test="${param.searchType_qna eq 'complete'}">selected</c:if>>답변완료</option>
+								<option value="wait" <c:if test="${param.searchType eq 'wait'}">selected</c:if>>답변대기</option>
+							</select>
+							&nbsp;&nbsp;<div class="input-group-append">
+							<button type="submit" class="btn btn-secondary mb-4">검색</button>
+							</div>
+						</div>
+					</form>
 				</div>
 				<table border="1" class="tableAdmin qna admin">
 					<tr>
-						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>아이디</th><th>작성일</th><th>상태</th>
+						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>작성일</th><th>상태</th>
 					</tr>
+					<c:forEach items="${list}" var="qna">
 					<tr>
-						<td><input type="checkbox"></td><td>1</td><td><a href="<%=request.getContextPath()%>/help/qna.do">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td><td>답변완료</td>
+						
+						<td><input type="checkbox"></td>
+						<td>${qna.qNo }</td>
+						<td><a href="<%=request.getContextPath()%>/help/qnaView.do?qNo=${qna.qNo}">${qna.qTitle }</a></td>
+						<td>
+						${qna.qDate }
+						</td>
+						<td>
+						<c:if test="${qna.qlevel ne 0 }">
+						답변완료
+						</c:if>
+						<c:if test="${qna.qlevel eq 0 }">
+						답변대기
+						</c:if></td>
 					</tr>
-					<tr>
-						<td><input type="checkbox"></td><td>2</td><td><a href="<%=request.getContextPath()%>/help/qna.do">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td><td>답변완료</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td><td>3</td><td><a href="<%=request.getContextPath()%>/help/qna.do">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td><td>답변완료</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td><td>4</td><td><a href="<%=request.getContextPath()%>/help/qna.do">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td><td>답변완료</td>
-					</tr>
+					</c:forEach>
 				</table>
-				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
-				<input type="button" value="선택 삭제">
+				<div class="admin_pagination" style="text-align:center;">
+<%
+String param = "searchType_qna="+pm.getAdminSearchVO().getSearchType_qna();
+if (pm.isPrev()){ %>
+<a href="<%=request.getContextPath()%>/admin/qnaList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>
+<%
+}
+%>
+
+<% 
+for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++) 
+{
+%>
+<a href="<%=request.getContextPath()%>/admin/qnaList.do?page=<%=i%>&<%=param%>"><%=i %></a>
+<%	
+}
+%>
+
+<%if(pm.isNext() && pm.getEndPage() > 0 ){ %>
+<a href="<%=request.getContextPath()%>/admin/qnaList.do?page=<%=pm.getEndPage()+1%>&<%=param%>">▶</a>
+<%
+}
+%>
+	</div>
+	<input type="button" value="선택 삭제">
 		</div>
 	</div>
 	</section>
