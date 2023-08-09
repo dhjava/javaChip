@@ -6,12 +6,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javachip.service.HelpService;
@@ -179,6 +181,31 @@ public class AdminController
 		int result = 0;
 		result = us.stopUser(uNo);
 		return result+"";
+	}
+	@ResponseBody
+	@RequestMapping(value="/boardDelete.do")
+	public int boardDelete(HttpSession session,
+			@RequestParam(value = "chbox[]") List<String> chArr, NoticeVO NoticeVO)
+	{
+		NoticeVO notice = (NoticeVO)session.getAttribute("notice");
+		int result = 0;
+		int nNo = 0;
+		
+		for(String i : chArr) {
+			nNo = Integer.parseInt(i);
+			NoticeVO.setnNo(nNo);
+			hs.deleteNoticeByAdmin(NoticeVO);
+		}
+		result = 1;
+		return result;
+		
+/*		String[] BoardMsg = request.getParameterValues("valueArr");
+		int size = BoardMsg.length;
+		for(int i = 0; i < size; i++)
+		{
+			hs.deleteNotice(BoardMsg);
+		}
+*/
 	}
 	
 	@RequestMapping(value="/product.do")
