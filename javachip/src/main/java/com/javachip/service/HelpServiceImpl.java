@@ -80,6 +80,8 @@ public class HelpServiceImpl implements HelpService {
 		return helpDAO.deleteQna(qNo);
 	}
 
+	
+	//====================================관리자 메소드====================================
 	//관리자용 notice 페이징을 위한 메소드
 	@Override
 	public List<NoticeVO> selectNoticeByAdmin(AdminSearchVO AdminSearchVO) 
@@ -92,5 +94,19 @@ public class HelpServiceImpl implements HelpService {
 	public int NoticeTotal(AdminSearchVO AdminSearchVO) 
 	{
 		return helpDAO.NoticeTotal(AdminSearchVO);
+	}
+
+	//관리자용 QnA 검색/페이징 전체 리스트를 위한 메소드
+	@Override
+	public List<QnaVO> selectQnAByAdmin(AdminSearchVO AdminSearchVO) 
+	{
+		return helpDAO.selectQnAByAdmin(AdminSearchVO);
+	}
+
+	//관리자용 전체 Qna수(페이징기능)
+	@Override
+	public int QnATotal(AdminSearchVO AdminSearchVO) 
+	{
+		return helpDAO.QnATotal(AdminSearchVO);
 	}
 }

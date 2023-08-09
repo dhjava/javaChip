@@ -140,7 +140,9 @@
 		AND uStatu = 'A'
 	</select>
 	
-	<!-- 관리자 공지사항 페이징 공지사항 전체 갯수 -->
+	
+	<!-- =============================관리자용 sql쿼리문 모음======================================== -->
+	<!-- 관리자 공지사항 검색/페이징 공지사항 전체 갯수 -->
 	<select id="NoticeTotal" resultType="int">
 		select count(*) as cnt from notice
 		where 1=1
@@ -155,6 +157,7 @@
 			AND nContents like concat('%',#{searchValue},'%')
 		</if>
 	</select>
+	
 	<!-- 관리자 공지사항 페이징 전체목록 -->
 	<select id="selectNoticeByAdmin" resultType="noticeVO" parameterType="AdminSearchVO">
 		SELECT * FROM notice
@@ -170,5 +173,30 @@
 			AND nContents like concat('%',#{searchValue},'%')
 		</if>
 		order by uNo asc limit #{sNum},#{perPageNum}
+	</select>
+	
+	<!-- 관리자 QnA 검색/페이징 전체 목록 -->
+	<select id="selectQnAByAdmin" resultType="QnaVO" parameterType="AdminSearchVO">
+		SELECT * FROM qna
+		where 1 = 1
+		<if test='searchType_qna != null and searchType_qna.equals("complete")'>
+			AND qlevel > 0
+		</if>
+		<if test='searchType_qna != null and searchType_qna.equals("wait")'>
+			AND qlevel = 0
+		</if>
+		order by uNo asc limit #{sNum},#{perPageNum}
+	</select>
+	
+	<!-- 관리자 QnA 검색/페이징 공지사항 전체 갯수 -->
+	<select id="QnATotal" resultType="int">
+		select count(*) as cnt from qna
+		where 1=1
+		<if test='searchType_qna != null and searchType_qna.equals("complete")'>
+			AND qlevel > 0
+		</if>
+		<if test='searchType_qna != null and searchType_qna.equals("wait")'>
+			AND qlevel = 0
+		</if>
 	</select>
 </mapper>

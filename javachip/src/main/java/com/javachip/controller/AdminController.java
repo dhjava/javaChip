@@ -16,11 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javachip.service.HelpService;
 import com.javachip.service.UserService;
-import com.javachip.vo.AdminPageMaker;
-import com.javachip.vo.AdminSearchVO;
-import com.javachip.vo.NoticeVO;
-import com.javachip.vo.SearchVO;
-import com.javachip.vo.UserVO;
+import com.javachip.vo.*;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -35,17 +31,31 @@ public class AdminController
 	@Autowired
 	private HelpService hs;
 	
+	@RequestMapping(value="/qnaList.do")
+	public String qnaList(Model model, AdminSearchVO AdminSearchVO)
+	{
+		int cnt = hs.QnATotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setTotalCount(cnt);
+		
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		
+		List<QnaVO> qlist = hs.selectQnAByAdmin(AdminSearchVO);
+		model.addAttribute("list", qlist);
+		model.addAttribute("pm", pm);
+		
+		return "admin/qnaList";
+	}
+	
 	@RequestMapping(value="/boardList.do")
 	public String boardList(Model model, AdminSearchVO AdminSearchVO)
 	{
 		int cnt = hs.NoticeTotal(AdminSearchVO);
 		pm.setAdminSearchVO(AdminSearchVO);
 		pm.setTotalCount(cnt);
-		System.out.println("test===");
-		System.out.println(AdminSearchVO.getPage());
-		System.out.println("sNum : "+AdminSearchVO.getsNum());
-		System.out.println("perPageNum : "+AdminSearchVO.getPerPageNum());
-		System.out.println(pm.getTotalCount());
 		
 		if(AdminSearchVO.getPage() > 1) 
 		{
@@ -181,11 +191,5 @@ public class AdminController
 	public String productList()
 	{
 		return "admin/productList";
-	}
-	
-	@RequestMapping(value="/qnaList.do")
-	public String qnaList()
-	{
-		return "admin/qnaList";
 	}
 }
