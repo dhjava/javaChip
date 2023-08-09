@@ -1,6 +1,8 @@
 package com.javachip.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
@@ -40,8 +43,12 @@ public class ShopController {
 		return "shop/details";
 	}
 	
+	@SuppressWarnings("null")
 	@RequestMapping(value="/checkout.do", method=RequestMethod.GET)
-	public String checkout(HttpServletRequest req, Model model
+	public String checkout(
+			HttpServletRequest req
+		,	Model model
+		,	String[] selCartList
 			) {
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
@@ -49,21 +56,28 @@ public class ShopController {
 			return "redirect:/member/login.do";
 		}
 		
-		// 장바구니 조회
 		int uNo = 1;
 		System.out.println("uNo::"+uNo);
-		List<CartVO> cartList = cs.selectCartByUno(uNo);
-		int totalPrice = cs.totalPrice(uNo);
-		System.out.println("totalPrice::"+totalPrice);
 		
 		// 마일리지 조회
 		int totalMileage = ms.selectTotalMileage(uNo);
 		System.out.println("totalMileage::"+totalMileage);
 		
+		// 선택한 장바구니 모두 조회
+		
+		List<CartVO> orderList = new ArrayList<CartVO>();
+		for(String items : selCartList) {
+			System.out.println(items);
+			int cNo = Integer.parseInt(items);
+			System.out.println(cNo);
+			CartVO order = cs.selectCartForOrder(cNo);
+			System.out.println(order);
+			orderList.add(order);
+		}
+		
 		// 모델로 전달
 		model.addAttribute("totalMileage", totalMileage);
-		model.addAttribute("cartList", cartList);
-		model.addAttribute("totalPrice", totalPrice);
+		model.addAttribute("orderList", orderList);
 		
 		return "shop/checkout";
 	}

@@ -66,7 +66,7 @@ public class MypageController {
 		for(String items : selCartList) {
 			System.out.println("selCart::"+items);
 		}
-		rttr.addFlashAttribute(selCartList);
+		rttr.addAttribute("selCartList", selCartList);
 		return "redirect:/shop/checkout.do";
 	}
 	
