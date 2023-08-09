@@ -150,26 +150,26 @@ public class UserController {
 		return "member/idFind";
 	}
 	
-	@RequestMapping(value="/pwFind.do",method=RequestMethod.GET)
-	public String pwFind() {
-		return "member/pwFind";
+	@RequestMapping(value="/pwFind" , method=RequestMethod.GET)
+	public String findPwView() throws Exception{
+		return"/member/pwFind";
 	}
+		
+	@RequestMapping(value="/pwFind", method=RequestMethod.POST)
+	public String findPw(UserVO userVO,Model model) throws Exception{
+		logger.info("uPw"+userVO.getuId());
+		
+		if(memberService.findPwCheck(memberVO)==0) {
+			logger.info("memberPWCheck");
+			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
+			
+			return "/member/findPwView";
+		}else {
 	
-	@RequestMapping(value="/pwFind.do",method=RequestMethod.POST)
-	public String pwFind(UserVO vo,Model model) throws IOException {
+		memberService.findPw(memberVO.getMemberEmail(),memberVO.getMemberId());
+		model.addAttribute("member", memberVO.getMemberEmail());
 		
-		UserVO user = us.pwFind(vo);
-		
-		if(user != null) { 
-			model.addAttribute("check", 0);
-			model.addAttribute("uPw", user.getuPw());
-			System.out.println("비밀번호 확인 O");
-		} else { 
-			model.addAttribute("check", 1);
-			System.out.println("비밀번호 확인 X");
+		return"/member/findPw";
 		}
-		
-		return "member/pwFind";
 	}
-	
 }

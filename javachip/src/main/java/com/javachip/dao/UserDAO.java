@@ -1,6 +1,8 @@
 package com.javachip.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,18 @@ public class UserDAO {
 		return sqlSession.selectOne(namespace+".pwFind", vo);
 	}
 	
+	public int pwFindCheck(UserVO vo)throws Exception{
+	return sqlSession.selectOne(namespace+".findPwCheck", vo);	
+	}
+
+	public int pwFind(String uMail,String uId,String uName,String uPw)throws Exception{
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("uMail", uMail);
+		map.put("uId", uId);
+		map.put("uName", uName);
+		map.put("uPw", uPw);
+		return sqlSession.update(namespace+".pwFind", map);
+	}
 	
 	//admin용========================================================
 	public List<UserVO> list(AdminSearchVO AdminSearchVO)	//관리자 전체 일반회원관리(검색기능추가)

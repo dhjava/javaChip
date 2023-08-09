@@ -2,10 +2,13 @@ package com.javachip.service;
 
 import java.util.List;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javachip.dao.UserDAO;
+import com.javachip.util.MailUtils;
+import com.javachip.util.tempKey;
 import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.UserVO;
 
@@ -43,9 +46,28 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public UserVO pwFind(UserVO vo) {
-		
-		return userDAO.pwFind(vo);
+	public int pwFindCheck(UserVO userVO)throws Exception{
+		return userDAO.pwFindCheck(userVO);
+	}
+    
+    @Override
+	public void pwFind(String uMail,String uId,String uName)throws Exception{
+		String userKey = new tempKey().getKey(8,false);
+		String uPw = BCrypt.hashpw(userKey,BCrypt.gensalt());
+		userDAO.pwFind(uMail,uId,uName,uPw);
+		MailUtils sendMail = new MailUtils(mailSender);
+			sendMail.setSubject("[JAVACHIP 임시 비밀번호 입니다.]"); //메일제목
+			sendMail.setText(
+					"<h1>임시비밀번호 발급</h1>" +
+							"<br/>"+uId+"님 "+
+							"<br/>비밀번호 찾기를 통한 임시 비밀번호입니다."+
+							"<br/>임시비밀번호 :   <h2>"+userKey+"</h2>"+
+							"<br/>로그인 후 비밀번호 변경을 해주세요."+
+							"<a href='http://localhost:8080/user/loginView"+
+							">로그인 페이지</a>");
+			sendMail.setFrom("[보낼이메일]", "ICEWATER");
+			sendMail.setTo(uMail);
+			sendMail.send();
 	}
 	
 	

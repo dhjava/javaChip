@@ -100,13 +100,20 @@
 	</select>
 	
 	<select id="pwFind" resultType="userVO" parameterType="userVO">
-		SELECT uPw
-		  FROM user
-		 WHERE uId = #{uId}
+		UPDATE user
+		   SET uPw = #{uPw}
+		 WHERE uMail = #{uMail} 
+		   AND uId = #{uId}
 		   AND uName = #{uName}
-		   AND uMail = #{uMail}
 	</select>
 	
+	<select id="pwFindCheck" resultType="int">
+		SELECT count(*)
+		  FROM user
+		 WHERE uMail = #{uMail}
+		   AND uId = #{uId}
+		   AND uName = #{uName}
+	</select>
 	
 <!-- ===============================관리자용 sql 쿼리 모음================================ -->
 	<!-- 관리자 일반회원 공통조건 검색 참조 -->
