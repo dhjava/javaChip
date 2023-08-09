@@ -3,9 +3,11 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.javachip.vo.CartVO" %>
 <%
-	String[] selCartList = (String[])request.getAttribute("selCartList");
+	List<CartVO> orderList = (List<CartVO>)request.getAttribute("orderList");
+	int totalMileage = (int)request.getAttribute("totalMileage");
 %>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
@@ -38,17 +40,42 @@
 	      });
 	    }
 		
+		var sum = 0;
+		$(document).ready(function() {
+			var discount = $("#point").val();
+			$(".calPrice").each(function(i, e) {
+				sum += parseInt($(e).text());
+			});
+			$("#total").text(sum+"원");
+		});
+		
 	    function usePointFn() {
 			// 최대치 설정 필요 (총 금액 + 사용 가능한 적립금)
-			var point = $("#usePoint").val();
+			var point = parseInt($("#usePoint").val());
+			var maxPoint = parseInt($("#maxPoint").val());
+			console.log(maxPoint);
 			if(point == "" || point < 1) {
 				$("#usePoint").attr("value", 0);
 				$("#discount").empty();
 				$("#point").attr("value", 0);
+			}else if(point > maxPoint) {
+				alert("사용 가능한 포인트를 초과하였습니다.");
+				$("#usePoint").attr("value", maxPoint);
+				$("#discount").text("-"+maxPoint+"원");
+				$("#point").attr("value", maxPoint);
+				sum = parseInt(sum)-maxPoint;
+			}else if(point > parseInt(sum)) {
+				alert("결제하려는 금액보다 더 많은 포인트를 사용하실 수 없습니다.");
+				$("#usePoint").attr("value", sum);
+				$("#discount").text("-"+sum+"원");
+				$("#point").attr("value", sum);
+				sum = 0;
 			}else {
 				$("#discount").text("-"+point+"원");
 				$("#point").attr("value", point);
+				sum = parseInt(sum)-point;
 			}
+			$("#total").text(sum+"원");
 		}
 	</script>
 	
@@ -84,28 +111,28 @@
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>성명<span>*</span></p>
-	                                        <input type="text" name="oName" id="oName">
+	                                        <input type="text" name="oName" id="oName" required>
 	                                    </div>
 	                                </div>
 	                            </div>
 	                            <div class="checkout__input">
 	                                <p>주소<span>*</span></p>
-	                                <input type="text" id="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;">
+	                                <input type="text" id="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" required>
 	                                <button type="button" class="btn btn-outline-primary">우편번호</button>
-	                                <input type="text" id="oAdd2" placeholder="주소" class="checkout__input__add">
-	                                <input type="text" id="oAdd3" placeholder="나머지 주소" class="checkout__input__add">
+	                                <input type="text" id="oAdd2" placeholder="주소" class="checkout__input__add" required>
+	                                <input type="text" id="oAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
 	                            </div>
 	                            <div class="row">
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>전화번호<span>*</span></p>
-	                                        <input type="text" name="oPhone" id="oPhone">
+	                                        <input type="text" name="oPhone" id="oPhone" required>
 	                                    </div>
 	                                </div>
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>이메일<span>*</span></p>
-	                                        <input type="text" name="oMail" id="oMail">
+	                                        <input type="text" name="oMail" id="oMail" required>
 	                                    </div>
 	                                </div>
 	                            </div>
@@ -121,7 +148,9 @@
 		                    <div class="shoping__continue">
 		                        <div class="shoping__discount"  style="margin:45px 0;">
 		                            <h5>적립금 사용</h5>
-		                            <span>회원님의 사용 가능한 적립금 : 100$</span><hr>
+		                            <span>회원님의 사용 가능한 적립금 : ${totalMileage} 포인트</span>
+		                            <input type="hidden" id="maxPoint" value="${totalMileage}">
+		                            <hr>
 		                            <input type="text" name="usePoint" id="usePoint"
 		                            	placeholder="사용할 적립금액을 입력해주세요" onchange="this.value=this.value.replace(/[^0-9]/g,'');">
 		                            <input type="hidden" name="point" id="point">
@@ -133,11 +162,13 @@
                                 <h4>주문 명세서</h4>
                                 <div class="checkout__order__products">제품 <span>가격</span></div>
                                 <ul>
-                                    <li>네스카페 돌체 구스토 <span>120000원</span></li>
-                                    <li>할인 <span id="discount" style="color:#DD2222;"></span></li>
+                                	<c:forEach items="${orderList}" var="cart">
+	                                    <li>${cart.pName}<span class="calPrice">${cart.pPrice*cart.cCount}원</span></li>
+                                	</c:forEach>
+	                                <li>할인 <span id="discount" style="color:#DD2222;">0원</span></li>
                                 </ul>
                                 <div class="checkout__order__total">
-                                	총 가격 <span id="total">120000원</span>
+                                	총 가격 <span id="total">0원</span>
                                 </div>
                                 <button class="site-btn">주문하기</button>
                                 <!-- <button type="button" class="site-btn" onclick="">주문하기</button> -->
