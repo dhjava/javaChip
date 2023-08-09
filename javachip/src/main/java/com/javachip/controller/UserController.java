@@ -159,17 +159,17 @@ public class UserController {
 	public String findPw(UserVO userVO,Model model) throws Exception{
 		logger.info("uPw"+userVO.getuId());
 		
-		if(memberService.findPwCheck(memberVO)==0) {
-			logger.info("memberPWCheck");
+		if(us.pwFindCheck(userVO)==0) {
+			logger.info("uPwCheck");
 			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
 			
 			return "/member/findPwView";
 		}else {
 	
-		memberService.findPw(memberVO.getMemberEmail(),memberVO.getMemberId());
-		model.addAttribute("member", memberVO.getMemberEmail());
+		us.pwFind(userVO.getuMail(),userVO.getuId(),userVO.getuName());
+		model.addAttribute("user", userVO.getuMail());
 		
-		return"/member/findPw";
+		return"/member/pwFind";
 		}
 	}
 }

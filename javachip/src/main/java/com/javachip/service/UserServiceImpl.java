@@ -53,8 +53,8 @@ public class UserServiceImpl implements UserService {
     @Override
 	public void pwFind(String uMail,String uId,String uName)throws Exception{
 		String userKey = new tempKey().getKey(8,false);
-		String uPw = BCrypt.hashpw(userKey,BCrypt.gensalt());
-		userDAO.pwFind(uMail,uId,uName,uPw);
+		String userPw = BCrypt.hashpw(userKey,BCrypt.gensalt());
+		userDAO.pwFind(uMail,uId,uName,userPw);
 		MailUtils sendMail = new MailUtils(mailSender);
 			sendMail.setSubject("[JAVACHIP 임시 비밀번호 입니다.]"); //메일제목
 			sendMail.setText(
