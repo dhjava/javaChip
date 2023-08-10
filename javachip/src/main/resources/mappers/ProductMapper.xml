@@ -4,5 +4,76 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.javachip.mapper.productMapper">
+	<!-- 전체 상품 조회 -->
+	<select id="selectAllProduct" resultType="ProductVO" parameterType="SearchVO">
+		SELECT *
+		  FROM product
+		 WHERE 1=1
+		<if test='searchType != null and searchType.equals("pName")'>
+		   AND title like concat('%', #{searchValue}, '%')
+		</if>
+		<if test='searchType != null and searchType.equals("pType")'>
+		   AND pType = #{searchValue}
+		</if>
+	</select>
 	
+	<!-- 상품 조회 -->
+	<select id="selectOneProduct" resultType="ProductVO" parameterType="int">
+		SELECT *
+		  FROM product
+		 WHERE pNo = #{pNo}
+	</select>
+	
+	<!-- 상품 신규 등록 -->
+	<insert id="insertProduct" parameterType="ProductVO">
+		INSERT INTO
+		product (
+			 pType
+			,pName
+			,pPrice
+			,pInput
+			,pOutput
+			,pStock
+		) VALUES (
+			 #{pType}
+			,#{pName}
+			,#{pPrice}
+			,#{pInput}
+			,0
+			,#{pInput}
+		)
+	</insert>
+	
+	<!-- 상품 입고 -->
+	<update id="inputProduct" parameterType="ProductVO">
+		UPDATE product
+		   SET pInput = #{pInput}
+		     , pStock = pStock+#{pInput}
+		 WHERE pNo = #{pNo}
+	</update>
+	
+	<!-- 상품 판매량 - pStock이 0보다 작아지지 않도록 유효성 체크 필요 -->
+	<update id="outputProduct" parameterType="ProductVO">
+		UPDATE product
+		   SET pOutput = #{pOutput}
+		     , pStock = pStock-#{pOutput}
+		 WHERE pNo = #{pNo}
+	</update>
+	
+	<!-- 상품 정보 수정 -->
+	<update id="updateProduct" parameterType="ProductVO">
+		UPDATE product
+		   SET pType = #{pType}
+		     , pName = #{pName}
+		     , pPrice = #{pPrice}
+		     , pDate = now()
+		 WHERE pNo = #{pNo}
+	</update>
+		
+	<!-- 상품 삭제 -->
+	<delete id="deleteProduct" parameterType="int">
+		DELETE
+		  FROM product
+		 WHERE pNo = #{pNo}
+	</delete>
 </mapper>

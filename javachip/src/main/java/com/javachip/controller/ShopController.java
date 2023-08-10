@@ -43,7 +43,6 @@ public class ShopController {
 		return "shop/details";
 	}
 	
-	@SuppressWarnings("null")
 	@RequestMapping(value="/checkout.do", method=RequestMethod.GET)
 	public String checkout(
 			HttpServletRequest req
@@ -85,9 +84,9 @@ public class ShopController {
 	public String checkout(
 			HttpServletRequest req
 		,	String oName
-		,	String oAdd
 		,	String oPhone
-		,	int point
+		,	String oMail
+		,	String point
 		,	Model model
 			) {
 		HttpSession session = req.getSession();
@@ -97,17 +96,18 @@ public class ShopController {
 		}
 		int uNo = 1;
 		// 사용할 적립금(마일리지)
+		int usePoint = Integer.parseInt(point);
 		System.out.println(point);
-		if(point != 0) {
+		if(usePoint != 0) {
 			session.setAttribute("point", point);
-			if(point > ms.selectTotalMileage(uNo))
+			if(usePoint > ms.selectTotalMileage(uNo))
 			{
 				System.out.println("using point error");
 				return "redirect:/";
 			}
 			MileageVO mv = new MileageVO();
 			mv.setuNo(uNo);
-			mv.setmMinus(point);
+			mv.setmMinus(usePoint);
 			mv.setmNote("상품 결제");
 			ms.minusMileage(mv);
 			System.out.println("using point::"+point);
@@ -118,7 +118,7 @@ public class ShopController {
 		ov.setuNo(loginVO.getuNo());
 		ov.setoTotalPrice(totalPrice);
 		ov.setoName(oName);
-		ov.setoAdd(oAdd);
+		// ov.setoAdd(oAdd);
 		ov.setoPhone(oPhone);
 		ov.setoPay("C");
 		System.out.println(ov);

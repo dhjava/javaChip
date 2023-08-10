@@ -11,38 +11,9 @@
 %>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
-		var IMP = window.IMP;
-		IMP.init("imp06473501"); // 예: imp00000000
-		
-	    function requestPay() {
-	      // IMP.request_pay(param, callback) 결제창 호출
-	      IMP.request_pay({ // param
-	          pg: "html5_inicis",
-	          pay_method: "card",
-	          merchant_uid: "javachip_"+new Date().getTime(),
-	          name: "자바칩 프라페",
-	          amount: 1,
-	          buyer_email: "gildong@gmail.com",
-	          buyer_name: "홍길동",
-	          buyer_tel: "010-1234-1234",
-	          buyer_addr: "전주시 덕진구 금암동",
-	          buyer_postcode: "12345"
-	      }, function (rsp) { // callback
-	          if (rsp.success) {
-	              // 결제 성공 시 로직
-	              // 결제 내용 DB로 보내기 (order_테이블, 기존 장바구니는 cStatus 'O'로 변경)
-	              alert("결제 성공");
-	              $("#checkoutFrm").submit();
-	          } else {
-	              // 결제 실패 시 로직
-	              alert("결제 실패. 잠시 후 다시 시도해주세요");
-	          }
-	      });
-	    }
-		
 		var sum = 0;
 		$(document).ready(function() {
-			var discount = $("#point").val();
+			$("#point").attr("value", "0");
 			$(".calPrice").each(function(i, e) {
 				sum += parseInt($(e).text());
 			});
@@ -77,6 +48,38 @@
 			}
 			$("#total").text(sum+"원");
 		}
+	    
+		var IMP = window.IMP;
+		IMP.init("imp06473501"); // 예: imp00000000
+		
+	    function requestPay() {
+	      // IMP.request_pay(param, callback) 결제창 호출
+	      IMP.request_pay({ // param
+	          pg: "html5_inicis",
+	          pay_method: "card",
+	          merchant_uid: "javachip_"+new Date().getTime(),
+	          name: "자바칩 프라페",
+	          amount: 1,
+	          buyer_email: "gildong@gmail.com",
+	          buyer_name: "홍길동",
+	          buyer_tel: "010-1234-1234",
+	          buyer_addr: "전주시 덕진구 금암동",
+	          buyer_postcode: "12345"
+	      }, function (rsp) { // callback
+	          if (rsp.success) {
+	              // 결제 성공 시 로직
+	              // 결제 내용 DB로 보내기 (order_테이블, 기존 장바구니는 cStatus 'O'로 변경)
+	              alert("결제 성공");
+	              $("#usePoint").attr("disabled","disabled");
+	              $("#checkoutFrm").submit();
+	          } else {
+	              // 결제 실패 시 로직
+	              alert("결제 실패. 잠시 후 다시 시도해주세요");
+	              $("#usePoint").attr("disabled","disabled");
+	              $("#checkoutFrm").submit();
+	          }
+	      });
+	    }
 	</script>
 	
     <!-- Breadcrumb Section Begin -->
@@ -98,11 +101,11 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Checkout Section Begin -->
+    <form name="checkoutFrm" id="checkoutFrm" method="post" action="checkout.do">
     <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
                 <h4>배송 정보 입력</h4>
-                <form name="checkoutFrm" id="checkoutFrm" method="post" action="checkout.do">
                     <div class="row">
                     	<div class="col-lg-7">
                     	<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox"></p>
@@ -151,7 +154,7 @@
 		                            <span>회원님의 사용 가능한 적립금 : ${totalMileage} 포인트</span>
 		                            <input type="hidden" id="maxPoint" value="${totalMileage}">
 		                            <hr>
-		                            <input type="text" name="usePoint" id="usePoint"
+		                            <input type="text" id="usePoint"
 		                            	placeholder="사용할 적립금액을 입력해주세요" onchange="this.value=this.value.replace(/[^0-9]/g,'');">
 		                            <input type="hidden" name="point" id="point">
 		                            <button type="button" class="site-btn" onclick="usePointFn()">적용하기</button>
@@ -170,14 +173,13 @@
                                 <div class="checkout__order__total">
                                 	총 가격 <span id="total">0원</span>
                                 </div>
-                                <button class="site-btn">주문하기</button>
-                                <!-- <button type="button" class="site-btn" onclick="">주문하기</button> -->
+                                <button type="button" class="site-btn" onclick="requestPay()">주문하기</button>
                             </div>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </section>
+    </form>
     <!-- Checkout Section End -->
 <%@ include file="../include/footer.jsp" %>
