@@ -36,7 +36,6 @@ public interface HelpService {
 	int totalQna(SearchVO searchVO);
 	
 	
-	
 	//====================================관리자 메소드====================================
 	//관리자용 공지사항 페이징 구현을 위한 메소드
 	List<NoticeVO> selectNoticeByAdmin(AdminSearchVO AdminSearchVO);
@@ -45,4 +44,6 @@ public interface HelpService {
 	List<QnaVO> selectQnAByAdmin(AdminSearchVO AdminSearchVO);
 	//관리자용 전체 Qna수(페이징기능)
 	int QnATotal(AdminSearchVO AdminSearchVO);
+	//관리자 공지사항 삭제
+		public void deleteNoticeByAdmin(NoticeVO NoticeVO);
 }
