@@ -65,7 +65,7 @@
     <!-- Footer Section End -->
 </body>
 	<!-- Js Plugins -->
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<!-- <script src="http://code.jquery.com/jquery-latest.min.js"></script> -->
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.nice-select.min.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery-ui.min.js"></script>

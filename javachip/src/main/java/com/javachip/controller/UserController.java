@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.javachip.service.MailSendService;
 import com.javachip.service.UserService;
 import com.javachip.vo.UserVO;
 
@@ -23,6 +25,11 @@ public class UserController {
 	
 	@Autowired
 	private UserService us;
+	
+
+	// 이메일 서비스 불러오기
+	@Autowired
+	private MailSendService mailService;
 	
 	@RequestMapping(value="/login.do",method=RequestMethod.GET)
 	public String login() {
@@ -150,17 +157,15 @@ public class UserController {
 		return "member/idFind";
 	}
 	
-	@RequestMapping(value="/pwFind" , method=RequestMethod.GET)
+	@RequestMapping(value="/pwFind")
 	public String findPwView() throws Exception{
 		return"/member/pwFind";
 	}
 		
 	@RequestMapping(value="/pwFind", method=RequestMethod.POST)
 	public String findPw(UserVO userVO,Model model) throws Exception{
-		logger.info("uPw"+userVO.getuId());
 		
 		if(us.pwFindCheck(userVO)==0) {
-			logger.info("uPwCheck");
 			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
 			
 			return "/member/findPwView";
@@ -171,5 +176,13 @@ public class UserController {
 		
 		return"/member/pwFind";
 		}
+	}
+	@ResponseBody
+	@RequestMapping(value="/emailAuth")
+	public String emailAuth( @RequestParam(value= "uId_email",  required=false) String uId_email) {
+		
+		System.out.println("이메일 인증 요청 들어옴");
+		System.out.println("emailAuth="+uId_email);
+		return mailService.joinmail(uId_email);
 	}
 }

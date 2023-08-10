@@ -14,8 +14,7 @@ public interface UserService {
 	int insert(UserVO vo);
 	int insertBiz(UserVO vo);
 	UserVO idFind(UserVO vo);
-	public void pwFind(String mMail,String mId,String uName)throws Exception;
-	public int pwFindCheck(UserVO userVO)throws Exception;
+	UserVO pwFind(UserVO vo);
 	
 	//admin용========================================================
 	List<UserVO>list(AdminSearchVO AdminSearchVO);	//관리자 전체 회원 목록(검색기능추가)
