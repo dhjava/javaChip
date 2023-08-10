@@ -132,4 +132,11 @@ public class HelpServiceImpl implements HelpService {
 	{
 		return helpDAO.QnATotal(AdminSearchVO);
 	}
+	
+	//관리자 공지사항 삭제
+	@Override
+	public void deleteNoticeByAdmin(NoticeVO NoticeVO) 
+	{
+		helpDAO.deleteNoticeByAdmin(NoticeVO);
+	}
 }
