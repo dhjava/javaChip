@@ -226,4 +226,12 @@
 			AND qlevel = 0
 		</if>
 	</select>
+	
+	<!-- 관리자 공지사항 선택삭제 -->
+	<update id="deleteNoticeByAdmin">
+		UPDATE Notice 
+		SET delYN = 'Y'
+		WHERE nNo = #{nNo}
+	</update>
+	
 </mapper>
