@@ -183,7 +183,7 @@
 		                                        <div class="quantity">
 		                                            <div class="pro-qty">
 		                                                <input type="text" name="cCount" value="${cart.cCount}"
-		                                                oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+		                                                oninput="this.value=this.value.replace(/[^0-9]/g,'');">
 		                                            </div>
 		                                        </div>
 		                                    </td>

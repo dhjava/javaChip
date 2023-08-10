@@ -42,6 +42,10 @@
 			,0
 			,#{pInput}
 		)
+		<selectKey order="AFTER" keyProperty="pNo" resultType="int">
+			SELECT MAX(pNo)
+			  FROM product
+		</selectKey>
 	</insert>
 	
 	<!-- 상품 입고 -->
