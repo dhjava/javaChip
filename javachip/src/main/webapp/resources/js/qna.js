@@ -93,7 +93,6 @@ function selectQTypeFn(){
 }
 
 function selectPNoFn(){	
-	alert("작동확인5");
 	var htmlTag = "";	
 	// 상품 QnA일때,
 	if ( $("#qType option:selected").val() == "P" ) {
@@ -174,3 +173,8 @@ function sendPnoFn() {
 	// 모달 닫기	
 		closeSelectBoxFn();
 }
+
+
+function qnaDelFn() {
+		document.delFrm.submit();
+	}

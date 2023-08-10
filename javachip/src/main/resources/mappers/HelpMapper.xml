@@ -4,6 +4,31 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.javachip.mapper.helpMapper">
+	<!-- Search -->
+	<sql id="qSearch">
+		<if test='searchType != null and searchType.equals("title")'>
+				AND qTitle like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("content")'>
+			AND qContents like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("tnc")'>
+			AND qTitle like concat('%',#{searchValue},'%')
+			AND qContents like concat('%',#{searchValue},'%')
+		</if>
+	</sql>
+	<sql id="nSearch">
+		<if test='searchType != null and searchType.equals("title")'>
+			AND nTitle like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("content")'>
+			AND nContents like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("tnc")'>
+			AND nTitle like concat('%',#{searchValue},'%')
+			AND nContents like concat('%',#{searchValue},'%')
+		</if>
+	</sql>
 	<!-- 공지사항 -->
 	<insert id="insertNotice" parameterType="noticeVO">
 		INSERT INTO Notice 
@@ -20,16 +45,7 @@
 		( SELECT uName from User where uNo = Notice.uNo ) as uName
 		FROM Notice
 		WHERE delYN = 'N'
-		<if test='searchType != null and searchType.equals("title")'>
-			AND nTitle like concat('%',#{searchValue},'%')
-		</if>
-		<if test='searchType != null and searchType.equals("content")'>
-			AND nContents like concat('%',#{searchValue},'%')
-		</if>
-		<if test='searchType != null and searchType.equals("tnc")'>
-			AND nTitle like concat('%',#{searchValue},'%')
-			AND nContents like concat('%',#{searchValue},'%')
-		</if>
+		<include refid ="nSearch"/>
 		ORDER BY nNo DESC
 	</select>
 	
@@ -48,13 +64,24 @@
 		)ORDER BY nNo DESC
 	</select>
 	
+	<update id="modifyNotice" parameterType="noticeVO">
+		UPDATE Notice
+		SET uNo = #{uNo}, nTitle = #{nTitle}, nContents = #{nContents}
+		WHERE nNo = #{nNo}
+	</update>
+	
 	<update id="deleteNotice" parameterType="int">
 		UPDATE Notice 
 		SET delYN = 'Y'
 		WHERE nNo = #{nNo}
 	</update>
+	<select id="totalNotice" resultType="int">
+		SELECT COUNT(*) AS cnt FROM Notice
+		WHERE delYN='N'
+		<include refid="nSearch" />
+	</select>
 	<!-- QnA -->
-	<insert id="insertQnA" parameterType="qnaVO">
+	<insert id="insertQna" parameterType="qnaVO">
 		INSERT INTO QnA 
 		(uNo, qTitle, qContents, qType, pNo, qlevel) 
 		VALUES(#{uNo},#{qTitle},#{qContents},#{qType},#{pNo},0)
@@ -88,17 +115,9 @@
 		) AS uStatus
 		FROM QnA
 		WHERE delYN = 'N'
-		<if test='searchType != null and searchType.equals("title")'>
-			AND qTitle like concat('%',#{searchValue},'%')
-		</if>
-		<if test='searchType != null and searchType.equals("content")'>
-			AND qContents like concat('%',#{searchValue},'%')
-		</if>
-		<if test='searchType != null and searchType.equals("tnc")'>
-			AND qTitle like concat('%',#{searchValue},'%')
-			AND qContents like concat('%',#{searchValue},'%')
-		</if>
-		ORDER BY qNo DESC
+		<include refid ="qSearch"/>
+		ORDER BY originqno DESC, qlevel ASC
+		LIMIT #{startNum},#{perPageNum}
 	</select>
 	
 	<select id="selectOneByQno" resultType="QnaVO" parameterType="int">
@@ -133,12 +152,20 @@
 		SET delYN = 'Y'
 		WHERE qNo = #{qNo}
 	</update>
+	
+	<select id="totalQna" resultType="int">
+		SELECT COUNT(*) AS cnt FROM Qna
+		WHERE delYN='N'
+		<include refid="qSearch" />
+	</select>
+	
 	<!-- 관리자 로그인 확인 -->
 	<select id="checkStatusAdmin" parameterType="int" resultType="int">
 		SELECT count(*) as cnt FROM User 
 		WHERE uNo = #{uNo} 
 		AND uStatu = 'A'
 	</select>
+
 	
 	
 	<!-- =============================관리자용 sql쿼리문 모음======================================== -->
@@ -199,11 +226,4 @@
 			AND qlevel = 0
 		</if>
 	</select>
-	
-	<!-- 관리자 공지사항 선택삭제 -->
-	<update id="deleteNoticeByAdmin">
-		UPDATE Notice 
-		SET delYN = 'Y'
-		WHERE nNo = #{nNo}
-	</update>
 </mapper>

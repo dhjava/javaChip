@@ -26,6 +26,8 @@ public class HelpServiceImpl implements HelpService {
 	@Override
 	public List<NoticeVO> selectNoticeList(SearchVO searchVO) {
 		
+		searchVO.setStartNum( (searchVO.getPage()-1)*searchVO.getPerPageNum() );	// 이전번호의 게시글 만큼 건너뜀.
+		
 		return helpDAO.selectNoticeList(searchVO);
 	}
 	
@@ -46,11 +48,23 @@ public class HelpServiceImpl implements HelpService {
 		
 		return helpDAO.deleteNotice(nNo);
 	}
-
+	
 	@Override
-	public int insertQnA(QnaVO vo) {
+	public int modifyNotice(NoticeVO vo) {
 		
-		int result = helpDAO.insertQnA(vo);
+		return helpDAO.modifyNotice(vo);
+	}
+	
+	@Override
+	public int totalNotice(SearchVO searchVO) {
+		
+		return helpDAO.totalNotice(searchVO);
+	}
+	
+	@Override
+	public int insertQna(QnaVO vo) {
+		
+		int result = helpDAO.insertQna(vo);
 		helpDAO.updateQno(vo.getqNo());
 		
 		return result;
@@ -58,6 +72,8 @@ public class HelpServiceImpl implements HelpService {
 
 	@Override
 	public List<QnaVO> selectQnaList(SearchVO searchVO) {
+		
+		searchVO.setStartNum( (searchVO.getPage()-1)*searchVO.getPerPageNum() );	// 이전번호의 게시글 만큼 건너뜀.
 		
 		return helpDAO.selectQnaList(searchVO);
 	}
@@ -79,6 +95,13 @@ public class HelpServiceImpl implements HelpService {
 		
 		return helpDAO.deleteQna(qNo);
 	}
+	
+	@Override
+	public int totalQna(SearchVO searchVO) {
+		
+		return helpDAO.totalQna(searchVO);
+	}
+
 
 	
 	//====================================관리자 메소드====================================
@@ -109,12 +132,4 @@ public class HelpServiceImpl implements HelpService {
 	{
 		return helpDAO.QnATotal(AdminSearchVO);
 	}
-
-	//관리자 공지사항 삭제
-	@Override
-	public void deleteNoticeByAdmin(NoticeVO NoticeVO) 
-	{
-		helpDAO.deleteNoticeByAdmin(NoticeVO);
-	}
-
 }

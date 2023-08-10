@@ -38,7 +38,7 @@
  				<fmt:formatDate value="${dateStr}" pattern="yyyy.MM.dd" var="boardDate"/>
 				<fmt:formatDate value="${dateStr}" pattern="HH:mm" var="boardDateTime"/>
 				<tr>
-					<td scope="row">${status.count}</td>
+					<td scope="row">${pm.seqNo-status.index}</td>
 					<td><a href="qnaView.do?qNo=${qna.qNo}">${qna.qTitle}</a></td>
 					<td>
 						<c:if test="${qna.uStatus eq 'A'}">	
@@ -62,8 +62,34 @@
 				</c:forEach>
 			</table>
 		<div style="text-align:center;">
-			◀ 1 2 3 4 5 6 7 8 9 10 ▶
-		</div><br>
+				<jsp:useBean id="pageMaker" class="com.javachip.vo.PageMaker"/>
+				<c:if test="${pageMaker.isPrev()}">
+					<a href="qna.do?page=${pm.startPage-1}
+					<c:if test="${not empty param.searchValue}">
+					&${param.searchType}&${param.searchValue}
+					</c:if>
+					">◀</a>
+				</c:if>
+				<c:if test="${pm.startPage != 0}">
+					<c:forEach var="cnt" begin="${pm.startPage}" end="${ pm.endPage}">
+						<a href="qna.do?page=${cnt}
+						<c:if test="${not empty param.searchValue}">
+						&${param.searchType}&${param.searchValue}
+						</c:if>
+						">${cnt}</a>&nbsp;
+					</c:forEach>
+				</c:if>
+				<c:if test="${pm.startPage == 0}">
+					1
+				</c:if>
+				<c:if test="${pageMaker.isNext() && pm.endPage>0}">	
+					<a href="qna.do?page=${pm.endPage()+1}
+					<c:if test="${not empty param.searchValue}">
+					&${param.searchType}&${param.searchValue}
+					</c:if>
+					">▶</a>
+				</c:if>
+			</div><br>
 		<div class="board-search" style="width:40%; margin:0 auto;">
 			<form class="d-flex justify-content-center">
  				<div class="input-group mb-4">
@@ -72,7 +98,7 @@
 						<option value="content" <c:if test="${param.searchType eq 'content'}">selected</c:if>>내용</option>
 						<option value="tnc" <c:if test="${param.searchType eq 'tnc'}">selected</c:if>>제목+내용</option>
 					</select>
-					<input type="text" name="SearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" value="${param.searchValue}">
+					<input type="text" name="SearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" size="30" value="${param.searchValue}">
 					<div class="input-group-append">
 					<button type="submit" class="btn btn-secondary mb-4">검색하기</button>
 				</div>

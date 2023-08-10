@@ -1,6 +1,6 @@
 package com.javachip.vo;
 
-public class SearchVO {
+public class SearchVO extends PageVO{
 	private String searchType;
 	private String searchValue;
 	
