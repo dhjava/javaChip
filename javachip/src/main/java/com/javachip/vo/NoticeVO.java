@@ -26,7 +26,7 @@ public class NoticeVO {
 		return nDate;
 	}
 	
-	// getter Ãß°¡
+	// getter ì¶”ê°€
 	public String getuName() {
 		return uName;
 	}
@@ -48,7 +48,7 @@ public class NoticeVO {
 		this.nDate = nDate;
 	}
 	
-	// setter Ãß°¡
+	// setter ì¶”ê°€
 	public void setuName(String uName) {
 		this.uName = uName;
 	}

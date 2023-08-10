@@ -19,7 +19,11 @@ public interface HelpService {
 	
 	int deleteNotice(int nNo);
 	
-	int insertQnA(QnaVO vo);
+	int modifyNotice(NoticeVO vo);
+	
+	int totalNotice(SearchVO searchVO);
+	
+	int insertQna(QnaVO vo);
 	
 	List<QnaVO> selectQnaList(SearchVO searchVO);
 	
@@ -28,6 +32,8 @@ public interface HelpService {
 	List<QnaVO> selectNearQno(int qNo);
 	
 	int deleteQna(int qNo);
+	
+	int totalQna(SearchVO searchVO);
 	
 	
 	
@@ -39,6 +45,4 @@ public interface HelpService {
 	List<QnaVO> selectQnAByAdmin(AdminSearchVO AdminSearchVO);
 	//관리자용 전체 Qna수(페이징기능)
 	int QnATotal(AdminSearchVO AdminSearchVO);
-	//관리자 공지사항 삭제
-	public void deleteNoticeByAdmin(NoticeVO NoticeVO);
 }

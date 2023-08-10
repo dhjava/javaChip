@@ -22,7 +22,9 @@
 	<section class="board-box spad">
 		<div class="container">
 			<div class="board-wButton" style="margin-bottom:20px;">
-				<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="location.href='<%= request.getContextPath() %>/help/noticeWrite.do'">글 쓰기</button>
+				<c:if test="${login.uStatus eq 'A'}">
+					<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="location.href='<%= request.getContextPath() %>/help/noticeWrite.do'">글 쓰기</button>
+				</c:if>
 			</div>
 			<table class ="table table-hover">
 				<tr>
@@ -39,7 +41,7 @@
 				<fmt:formatDate value="${dateStr}" pattern="HH:mm" var="boardDateTime"/>
 				
 				<tr>
-					<td scope="row">${status.count}</td>
+					<td scope="row">${pm.seqNo-status.index}</td>
 					<td><a href="noticeView.do?nNo=${notice.nNo}">${notice.nTitle}</a></td>
 					<td>${notice.uName}</td>
 					<td>
@@ -56,7 +58,33 @@
 				</c:forEach>
 			</table>
 			<div style="text-align:center;">
-				<a>◀</a> 1 2 3 4 5 6 7 8 9 10 ▶
+				<jsp:useBean id="pageMaker" class="com.javachip.vo.PageMaker"/>
+				<c:if test="${pageMaker.isPrev()}">
+					<a href="notice.do?page=${pm.startPage-1}
+					<c:if test="${not empty param.searchValue}">
+						&${param.searchType}&${param.searchValue}
+					</c:if>
+					">◀</a>
+				</c:if>
+				<c:if test="${pm.startPage != 0}">
+					<c:forEach var="cnt" begin="${pm.startPage}" end="${pm.endPage}">
+						<a href="notice.do?page=${cnt}
+						<c:if test="${not empty param.searchValue}">
+							&${param.searchType}&${param.searchValue}
+						</c:if>
+						">${cnt}</a>&nbsp;
+					</c:forEach>
+				</c:if>
+				<c:if test="${pm.startPage == 0}">
+					1
+				</c:if>
+				<c:if test="${pageMaker.isNext() && pm.endPage>0}">	
+					<a href="notice.do?page=${pm.endPage()+1}
+					<c:if test="${not empty param.searchValue}">
+						&${param.searchType}&${param.searchValue}
+					</c:if>
+					">▶</a>
+				</c:if>
 			</div><br>
 			<div class="board-search" style="width:40%; margin:0 auto;">
 				<form class="d-flex justify-content-center" action="notice.do" method="get">
