@@ -101,8 +101,6 @@ public class HelpServiceImpl implements HelpService {
 		
 		return helpDAO.totalQna(searchVO);
 	}
-
-
 	
 	//====================================관리자 메소드====================================
 	//관리자용 notice 페이징을 위한 메소드

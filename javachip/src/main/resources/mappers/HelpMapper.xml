@@ -233,4 +233,5 @@
 		SET delYN = 'Y'
 		WHERE nNo = #{nNo}
 	</update>
+	
 </mapper>
