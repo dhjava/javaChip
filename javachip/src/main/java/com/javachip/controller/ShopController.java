@@ -2,7 +2,6 @@ package com.javachip.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
@@ -55,7 +53,7 @@ public class ShopController {
 			return "redirect:/member/login.do";
 		}
 		
-		int uNo = 1;
+		int uNo = loginVO.getuNo();
 		System.out.println("uNo::"+uNo);
 		
 		// 마일리지 조회
@@ -94,7 +92,7 @@ public class ShopController {
 		if(loginVO==null) {
 			return "redirect:/member/login.do";
 		}
-		int uNo = 1;
+		int uNo = loginVO.getuNo();
 		// 사용할 적립금(마일리지)
 		int usePoint = Integer.parseInt(point);
 		System.out.println(point);

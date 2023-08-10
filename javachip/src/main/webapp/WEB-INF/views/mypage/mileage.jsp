@@ -2,6 +2,11 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.javachip.vo.MileageVO" %>
+<%
+	List<MileageVO> mileageList = (List<MileageVO>)request.getAttribute("mileageList");
+%>
 <!-- 메인 작성 영역 -->
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
@@ -31,37 +36,44 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th class="shoping__product">구매정보 (클릭 시 상세 정보 조회)</th>
-                                    <th>결제금액</th>
-                                    <th>주문일자</th>
+                                    <th>적립/사용</th>
+                                    <th class="shoping__product">적립/사용내역</th>
                                     <th>적립금액</th>
-                                    <th>상세조회</th>
+                                    <th>날짜</th>
                                 </tr>
                             </thead>
                             <tbody>
-                            <%
-                            for(int i=0; i<5; i++) {
-                            %>
+                            <c:forEach items="${mileageList}" var="mileage">
                                 <tr>
-                                    <td class="shoping__cart__item">
-                                        <h5><a href="./mypage-hdetail.jsp">주문 번호(장바구니 번호)</a></h5>
-                                    </td>
-                                    <td class="shoping__cart__price">
-                                        $55.00
-                                    </td>
+                                    <c:choose>
+	                                    <c:when test="${mileage.mPlus > 0 and mileage.mMinus eq 0}">
+		                                    <td class="shoping__cart__price" style="width:16%;">
+		                                    	적립
+		                                    </td>
+		                                    <td class="shoping__cart__item">
+		                                        <h5>${mileage.mNote}</h5>
+		                                    </td>
+		                                    <td class="shoping__cart__price">
+		                                        ${mileage.mPlus} P
+		                                    </td>
+	                                    </c:when>
+	                                    <c:otherwise>
+		                                    <td class="shoping__cart__price" style="width:12%;">
+		                                    	사용
+		                                    </td>
+		                                    <td class="shoping__cart__item">
+		                                        <h5>${mileage.mNote}</h5>
+		                                    </td>
+		                                    <td class="shoping__cart__price">
+		                                        ${mileage.mMinus} P
+		                                    </td>
+	                                    </c:otherwise>
+                                    </c:choose>
                                     <td class="shoping__cart__total">
-                                        2023-07-11
-                                    </td>
-                                    <td class="shoping__cart__price" style="width:8%;">
-                                    	55 P
-                                    </td>
-                                    <td class="shoping__cart__quantity" style="width:8%;">
-                                    	<input type="button" value="조회" onclick="location.href='shop-details.jsp'">
+                                        ${mileage.mDate}
                                     </td>
                                 </tr>
-                            <%
-                            }
-                            %>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>

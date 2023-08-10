@@ -155,7 +155,7 @@
 		                            <input type="hidden" id="maxPoint" value="${totalMileage}">
 		                            <hr>
 		                            <input type="text" id="usePoint"
-		                            	placeholder="사용할 적립금액을 입력해주세요" onchange="this.value=this.value.replace(/[^0-9]/g,'');">
+		                            	placeholder="사용할 적립금액을 입력해주세요" oninput="this.value=this.value.replace(/[^0-9]/g,'');">
 		                            <input type="hidden" name="point" id="point">
 		                            <button type="button" class="site-btn" onclick="usePointFn()">적용하기</button>
 		                        </div>
