@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
 import com.javachip.vo.CartVO;
+import com.javachip.vo.MileageVO;
 import com.javachip.vo.UserVO;
 
 @Controller
@@ -26,7 +27,6 @@ public class MypageController {
 	private CartService cs;
 	@Autowired
 	private MileageService ms;
-	
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpServletRequest req, Model model) {
@@ -39,7 +39,7 @@ public class MypageController {
 		System.out.println("loginVO::"+loginVO);
 		
 		// 장바구니 조회
-		int uNo = 1;
+		int uNo = loginVO.getuNo();
 		System.out.println("uNo::"+uNo);
 		List<CartVO> cartList = cs.selectCartByUno(uNo);
 		System.out.println(cartList);
@@ -116,7 +116,20 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/mileage.do")
-	public String mileage() {
+	public String mileage(
+			HttpServletRequest req
+		,	Model model
+		) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		List<MileageVO> mileageList = ms.selectAllMileage(uNo);
+		
+		model.addAttribute("mileageList", mileageList);
+		
 		return "mypage/mileage";
 	}
 	

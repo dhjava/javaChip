@@ -26,7 +26,7 @@
 					<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="location.href='<%= request.getContextPath() %>/help/noticeWrite.do'">글 쓰기</button>
 				</c:if>
 			</div>
-			<table class ="table table-hover">
+			<table class ="table table-hover" style="table-layout:fixed;">
 				<tr>
 					<td scope="col" style="width:10%">번호</td>
 					<td scope="col" style="width:56%">제목</td>
@@ -42,7 +42,7 @@
 				
 				<tr>
 					<td scope="row">${pm.seqNo-status.index}</td>
-					<td><a href="noticeView.do?nNo=${notice.nNo}">${notice.nTitle}</a></td>
+					<td class="boardElipsis"><a href="noticeView.do?nNo=${notice.nNo}">${notice.nTitle}</a></td>
 					<td>${notice.uName}</td>
 					<td>
 						<c:choose>
@@ -101,6 +101,11 @@
 					</div>
 				</form>
 			</div>
+		</div>
+		<div>
+			<a href="<%= request.getContextPath() %>/notGet">post만 가능 405</a>
+			<a href="<%= request.getContextPath() %>/exception">예외 500</a>
+			<a href="<%= request.getContextPath() %>/notExist">없는페이지 400</a>
 		</div>
 	</section>
 <%@ include file="../include/footer.jsp" %>

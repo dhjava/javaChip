@@ -17,12 +17,12 @@ public class HelpDAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	public int insertNotice(NoticeVO vo) {
-		return sqlSession.insert("com.javachip.mapper.helpMapper.insertNotice", vo);
+	public int insertNotice(NoticeVO noticeVO) {
+		return sqlSession.insert("com.javachip.mapper.helpMapper.insertNotice", noticeVO);
 	}
 	
-	public List<NoticeVO> selectNoticeList (SearchVO vo) {
-		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectNoticeAll",vo);
+	public List<NoticeVO> selectNoticeList (SearchVO searchVO) {
+		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectNoticeAll",searchVO);
 	}
 	
 	public NoticeVO selectOneByNno(int nNo) {
@@ -37,15 +37,15 @@ public class HelpDAO {
 		return sqlSession.update("com.javachip.mapper.helpMapper.deleteNotice", nNo);
 	}
 	
-	public int modifyNotice(NoticeVO vo) {
-		return sqlSession.update("com.javachip.mapper.helpMapper.modifyNotice",vo);
+	public int modifyNotice(NoticeVO noticeVO) {
+		return sqlSession.update("com.javachip.mapper.helpMapper.modifyNotice",noticeVO);
 	}
 	public int totalNotice(SearchVO searchVO) {
 		return sqlSession.selectOne("com.javachip.mapper.helpMapper.totalNotice", searchVO);
 	}
 	
-	public int insertQna(QnaVO vo) {
-		return sqlSession.insert("com.javachip.mapper.helpMapper.insertQna", vo);
+	public int insertQna(QnaVO qnaVO) {
+		return sqlSession.insert("com.javachip.mapper.helpMapper.insertQna", qnaVO);
 	}
 	
 	public int updateQno(int qNo) {
@@ -71,8 +71,10 @@ public class HelpDAO {
 	public int totalQna(SearchVO searchVO) {
 		return sqlSession.selectOne("com.javachip.mapper.helpMapper.totalQna", searchVO);
 	}
-
 	
+	public int AnswerQna(QnaVO qnaVO) {
+		return sqlSession.insert("com.javachip.mapper.helpMapper.answerQna", qnaVO);
+	}
 	
 	//====================================관리자 메소드====================================
 	//관리자용 공지사항 검색/페이징 전체 리스트를 위한 메소드

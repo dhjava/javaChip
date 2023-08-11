@@ -141,7 +141,7 @@
 	</select>
 	
 	<select id="selectNearQno" resultType="QnaVO" parameterType="int">
-		SELECT qNo,qTitle from Qna
+		SELECT qNo,qTitle,qlevel from Qna
 		WHERE ( qNo = IFNULL((SELECT MIN(qNo) FROM Qna WHERE qNo &gt; #{qNo} AND delYN = 'N'),0) 
 		OR qNo = IFNULL((SELECT MAX(qNo) FROM Qna WHERE qNo &lt; #{qNo} AND delYN = 'N'),0)
 		)ORDER BY qNo DESC
@@ -159,16 +159,20 @@
 		<include refid="qSearch" />
 	</select>
 	
+	<insert id="answerQna" parameterType="qnaVO">
+		INSERT INTO Qna
+		(originqno,qlevel,uNo, qTitle, qContents, qType)
+		VALUES(#{originqno},#{qlevel}+1,#{uNo},#{qTitle},#{qContents},#{qType})
+	</insert>
+	
+	<!-- =============================관리자용 sql쿼리문 모음======================================== -->
 	<!-- 관리자 로그인 확인 -->
 	<select id="checkStatusAdmin" parameterType="int" resultType="int">
 		SELECT count(*) as cnt FROM User 
 		WHERE uNo = #{uNo} 
 		AND uStatu = 'A'
 	</select>
-
 	
-	
-	<!-- =============================관리자용 sql쿼리문 모음======================================== -->
 	<!-- 관리자 공지사항 검색/페이징 공지사항 전체 갯수 -->
 	<select id="NoticeTotal" resultType="int">
 		select count(*) as cnt from notice

@@ -9,7 +9,7 @@ import com.javachip.vo.SearchVO;
 
 public interface HelpService {
 	
-	int insertNotice(NoticeVO vo);
+	int insertNotice(NoticeVO noticeVO);
 
 	List<NoticeVO> selectNoticeList(SearchVO searchVO);
 	
@@ -19,11 +19,11 @@ public interface HelpService {
 	
 	int deleteNotice(int nNo);
 	
-	int modifyNotice(NoticeVO vo);
+	int modifyNotice(NoticeVO noticeVO);
 	
 	int totalNotice(SearchVO searchVO);
 	
-	int insertQna(QnaVO vo);
+	int insertQna(QnaVO qnaVO);
 	
 	List<QnaVO> selectQnaList(SearchVO searchVO);
 	
@@ -35,6 +35,8 @@ public interface HelpService {
 	
 	int totalQna(SearchVO searchVO);
 	
+	int AnswerQna(QnaVO qnaVO);
+	
 	
 	//====================================관리자 메소드====================================
 	//관리자용 공지사항 페이징 구현을 위한 메소드
@@ -45,5 +47,5 @@ public interface HelpService {
 	//관리자용 전체 Qna수(페이징기능)
 	int QnATotal(AdminSearchVO AdminSearchVO);
 	//관리자 공지사항 삭제
-		public void deleteNoticeByAdmin(NoticeVO NoticeVO);
+	public void deleteNoticeByAdmin(NoticeVO NoticeVO);
 }

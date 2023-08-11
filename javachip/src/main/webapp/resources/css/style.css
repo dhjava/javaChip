@@ -3606,6 +3606,13 @@ section.join.spad {
 	color:black;
 }
 
+/* 게시판 말줄임 */
+.boardElipsis {
+	text-overflow:ellipsis;
+	white-space:nowrap;
+	overflow:hidden;
+}
+
 /* 마이페이지 */
 .shoping-cart a{
 	color:gray;

@@ -2,6 +2,9 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<script src="<%=request.getContextPath() %>/resources/js/notice.js"></script>
+
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
 		<div class="container">
@@ -44,27 +47,30 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="3"><button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='notice.do'">목록으로</button>
+					<td colspan="3">
+						<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='notice.do'">목록으로</button>
+					<c:if test="${login.uNo eq noticeVO.uNo}">
 						<button type="button" class="btn btn-outline-primary" style="margin-right:15px;" onclick="location.href='noticeModify.do?nNo=${noticeVO.nNo}'">수정하기</button>
 						<button type="button" class="btn btn-outline-danger" onclick="noticeDelFn();">삭제하기</button>
+					</c:if>
 						<form name="delFrm" method="post" action="noticeDelete.do">
 							<input type="hidden" name="nNo" value="${noticeVO.nNo}">
 						</form>
 					</td>
 				</tr>
 			</table>
-			<table class="table table-striped" style="margin-top:50px;">
+			<table class="table table-striped" style="margin-top:50px;table-layout:fixed;">
 				<c:forEach var="nearNotice" items="${nearNoticeList}">
 				<c:if test="${nearNotice.nNo > noticeVO.nNo}">
 					<tr>
 						<th scope="row" style="width:12%">▲다음글</th>
-						<td><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
+						<td class="boardElipsis"><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
 					</tr>
 				</c:if>
 				<c:if test="${nearNotice.nNo < noticeVO.nNo}">
 					<tr>
 						<th scope="row">▼이전글</th>
-						<td><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
+						<td class="boardElipsis"><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
 					</tr>
 				</c:if>
 				</c:forEach>
