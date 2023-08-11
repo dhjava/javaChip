@@ -10,6 +10,7 @@ import com.javachip.vo.SearchVO;
 @Service
 public interface ProductService {
 	List<ProductVO> selectAllProduct(SearchVO searchVO);
+	List<ProductVO> selectProductType(String pType);
 	ProductVO selectOneProduct(int pNo);
 	int insertProduct(ProductVO productVO);
 	int inputProduct(ProductVO productVO);

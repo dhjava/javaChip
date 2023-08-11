@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
 import com.javachip.service.Order_Service;
+import com.javachip.service.ProductService;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.MileageVO;
 import com.javachip.vo.Order_VO;
+import com.javachip.vo.ProductVO;
+import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
 
 @Controller
@@ -30,9 +33,25 @@ public class ShopController {
 	private Order_Service os;
 	@Autowired
 	private MileageService ms;
+	@Autowired
+	private ProductService ps;
 	
 	@RequestMapping(value="/grid.do")
-	public String grid() {
+	public String grid(
+			HttpServletRequest req
+		,	Model model
+		,	SearchVO searchVO
+		) {
+			/*
+			 * List<ProductVO> productList = null;
+			 * String pType = req.getParameter("pType");
+			 * if(pType.equals("") || pType==null) {
+			 * 	productList =
+			 * 	ps.selectAllProduct(searchVO);
+			 * }else {
+			 * 	productList = ps.selectProductType(pType);
+			 * } model.addAttribute("productList",productList);
+			 */
 		return "shop/grid";
 	}
 	
@@ -85,6 +104,7 @@ public class ShopController {
 		,	String oPhone
 		,	String oMail
 		,	String point
+		,	String total
 		,	Model model
 			) {
 		HttpSession session = req.getSession();
@@ -111,10 +131,10 @@ public class ShopController {
 			System.out.println("using point::"+point);
 		}
 				
-		int totalPrice = 0;
+		int oTotalPrice = Integer.parseInt(total);
 		Order_VO ov = new Order_VO();
 		ov.setuNo(loginVO.getuNo());
-		ov.setoTotalPrice(totalPrice);
+		ov.setoTotalPrice(oTotalPrice);
 		ov.setoName(oName);
 		// ov.setoAdd(oAdd);
 		ov.setoPhone(oPhone);
@@ -122,12 +142,17 @@ public class ShopController {
 		System.out.println(ov);
 		int result = os.insertOrder(ov);
 		if(result > 0) {
+			MileageVO insertMV = new MileageVO();
+			insertMV.setuNo(uNo);
+			double addMileage = oTotalPrice*0.05;
+			insertMV.setmPlus((int)addMileage);
+			insertMV.setmNote("상품 결제를 통한 적립");
+			ms.plusMileage(insertMV);
 			System.out.println("주문 성공");
 		}else {
 			System.out.println("주문 에러");
 			return "shop/checkout";
 		}
-		
 		return "redirect:/";
 	}
 	
