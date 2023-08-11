@@ -30,13 +30,13 @@
                         <div class="sidebar__item">
                             <h4>목록</h4>
                             <ul>
-                                <li><a href="grid.do">원두</a></li>
-                                <li><a href="grid.do">생두</a></li>
-                                <li><a href="grid.do">드립백</a></li>
-                                <li><a href="grid.do">캡슐</a></li>
-                                <li><a href="grid.do">도매</a></li>
-                                <li><a href="grid.do">커피용품</a></li>
-                                <li><a href="grid.do">정기배송</a></li>
+                                <li><a href="grid.do?pType=1">원두</a></li>
+                                <li><a href="grid.do?pType=2">생두</a></li>
+                                <li><a href="grid.do?pType=3">드립백</a></li>
+                                <li><a href="grid.do?pType=4">캡슐</a></li>
+                                <li><a href="grid.do?pType=5">도매</a></li>
+                                <li><a href="grid.do?pType=6">커피용품</a></li>
+                                <li><a href="grid.do?pType=R">정기배송</a></li>
                             </ul>
                         </div>
                     </div>
@@ -48,10 +48,10 @@
                             <div class="col-lg-4 col-md-5">
                                 <div class="filter__sort">
                                     <span>정렬</span>
-                                    <select>
-                                        <option value="0">신상품순</option>
-                                        <option value="0">인기순</option>
-                                        <option value="0">가격순</option>
+                                    <select name="searchType">
+                                        <option value="new">신상품순</option>
+                                        <option value="pop">인기순</option>
+                                        <option value="price">가격순</option>
                                     </select>
                                 </div>
                             </div>
