@@ -7,6 +7,66 @@
 
 <% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <!-- 메인 작성 영역 -->
+<script type="text/javascript">
+$(function(){
+	var chkObj = document.getElementsByName("RowCheck");
+	var rowCnt = chkObj.length;
+	
+	$("input[name='allCheck']").click(function(){
+		var chk_listArr = $("input[name='RowCheck']");
+		for(var i = 0; i < chk_listArr.length; i++){
+			chk_listArr[i].checked = this.checked;
+		}
+	});
+	$("input[name='RowCheck']").click(function(){
+		if($("input[name='RowCheck']:checked").length == rowCnt){
+			$("input[name='allCheck']")[0].checked = true;
+		}
+		else{
+			$("input[name='allCheck']")[0].checked = false;
+		}
+	});
+});
+
+function deleteValue(){
+	var valueArr = new Array();
+	var list = $("input[name='RowCheck']");
+	for(var i = 0; i < list.length; i++){
+		if(list[i].checked){
+			valueArr.push(list[i].value);
+		}
+	}
+	if(valueArr.length == 0){
+		alert("선택된 글이 없습니다.");
+	}
+	else{
+
+		if(confirm("정말 삭제하시겠습니까?")) {
+			$.ajax({
+				url : "qnaDelete.do",
+				type : "POST",
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(jdata){
+					console.log(jdata);
+					if(jdata = 1){
+						alert("삭제성공");
+						location.replace("/controller/admin/qnaList.do")
+					}
+					else{
+						alert("삭제실패");
+					}
+				}
+			});
+		} else {
+			return false;
+		}
+	}
+}
+
+ </script>
 
 </head>
 <body>
@@ -79,24 +139,37 @@
 				</div>
 				<table border="1" class="tableAdmin qna admin">
 					<tr>
-						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>작성일</th><th>상태</th>
-					</tr>
+							<th>
+								<input type="checkbox" name="allCheck" id="allCheck" />
+							</th>
+							<th>번호</th><th>제목</th><th>작성일</th><th>상태<th>삭제여부</th>
+						</tr>
 					<c:forEach items="${list}" var="qna">
 					<tr>
-						
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox" name="RowCheck" th:value="${qna.qNo}"
+							class="RowCheck"
+							data-qNo="${qna.qNo }" value="${qna.qNo }"></td>
 						<td>${qna.qNo }</td>
 						<td><a href="<%=request.getContextPath()%>/help/qnaView.do?qNo=${qna.qNo}">${qna.qTitle }</a></td>
 						<td>
 						${qna.qDate }
 						</td>
 						<td>
-						<c:if test="${qna.qlevel ne 0 }">
-						답변완료
-						</c:if>
-						<c:if test="${qna.qlevel eq 0 }">
-						답변대기
-						</c:if></td>
+							<c:if test="${qna.qlevel ne 0 }">
+							답변완료
+							</c:if>
+							<c:if test="${qna.qlevel eq 0 }">
+							답변대기
+							</c:if>
+						</td>
+						<td>
+							<%-- <c:if test="${qna.delYN eq 'N' }">
+								삭제 가능
+							</c:if>
+							<c:if test="${qna.delYN eq 'Y' }">
+								삭제 완료
+							</c:if> --%>
+						</td>
 					</tr>
 					</c:forEach>
 				</table>
@@ -124,7 +197,7 @@ for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++)
 }
 %>
 	</div>
-	<input type="button" value="선택 삭제">
+	<input type="button" value="선택 삭제" onclick="deleteValue();">
 		</div>
 	</div>
 	</section>

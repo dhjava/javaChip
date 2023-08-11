@@ -205,7 +205,6 @@ public class AdminController
 */
 		String[] ajaxMsg = request.getParameterValues("valueArr");
 		
-		
 		int size = ajaxMsg.length;
 			
 			for(int i = 0; i < size; i++) {
@@ -216,6 +215,21 @@ public class AdminController
 
 /*		hs.deleteNoticeByAdmin(selectedIds);
 		return "redirect:/admin/boardList";*/
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/qnaDelete.do")
+	public String qnaDelete(HttpServletRequest request)
+	{
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		
+		int size = ajaxMsg.length;
+			
+			for(int i = 0; i < size; i++) {
+				hs.deleteQnaByAdmin(ajaxMsg[i]);
+			}
+
+		return "redirect:/admin/qnaList";
 	}
 	
 	@RequestMapping(value="/product.do")

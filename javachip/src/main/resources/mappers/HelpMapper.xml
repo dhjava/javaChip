@@ -242,4 +242,10 @@
 		WHERE nNo = #{nNo}
 	</update>
 	
+	<!-- 관리자 qna 선택삭제 -->
+	<update id="deleteQnaByAdmin">
+		UPDATE Notice 
+		SET delYN = 'Y'
+		WHERE qNo = #{qNo}
+	</update>
 </mapper>

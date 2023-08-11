@@ -41,25 +41,29 @@ function deleteValue(){
 		alert("선택된 글이 없습니다.");
 	}
 	else{
-		var chk = confirm("정말 삭제하시겠습니까?");
-		
-		$.ajax({
-			url : "boardDelete.do",
-			type : "POST",
-			traditional : true,
-			data : {
-				valueArr : valueArr
-			},
-			success : function(jdata){
-				if(jdata = 1){
-					alert("삭제성공");
-					location.replace("/controller/admin/boardList.do")
+
+		if(confirm("정말 삭제하시겠습니까?")) {
+			$.ajax({
+				url : "boardDelete.do",
+				type : "POST",
+				traditional : true,
+				data : {
+					valueArr : valueArr
+				},
+				success : function(jdata){
+					console.log(jdata);
+					if(jdata = 1){
+						alert("삭제성공");
+						location.replace("/controller/admin/boardList.do")
+					}
+					else{
+						alert("삭제실패");
+					}
 				}
-				else{
-					alert("삭제실패");
-				}
-			}
-		});
+			});
+		} else {
+			return false;
+		}
 	}
 }
 
@@ -134,15 +138,12 @@ function deleteValue(){
 					</div>
 				</form>
 				</div>
-				<form action="boardDelete.do" method="post">
 					<table border="1" class="tableAdmin admin">
 						<tr>
 							<th>
-								<div class="allCheck">
 								<input type="checkbox" name="allCheck" id="allCheck" />
-								</div>
 							</th>
-							<th>번호</th><th>제목</th><th>작성일</th>
+							<th>번호</th><th>제목</th><th>작성일</th><th>삭제여부</th>
 						</tr>
 						<c:forEach items="${list }" var="Notice">
 						<tr>
@@ -150,19 +151,21 @@ function deleteValue(){
 							<input type="checkbox" name="RowCheck" th:value="${Notice.nNo}"
 							class="RowCheck"
 							data-nNo="${Notice.nNo }" value="${Notice.nNo }">
-							<!-- <script>
-							$(".chBox").click(function(){
-								$("#allCheck").prop("checked", false);
-							});
-							</script> -->
 						</td>
 						<td>${Notice.nNo }</td>
 						<td><a href="<%=request.getContextPath() %>/help/noticeView.do?nNo=${Notice.nNo}">${Notice.nTitle }</a></td>
 						<td>${Notice.nDate }</td>
+						<td>
+							<%-- <c:if test="${Notice.delYN eq 'Y' }">
+								삭제 완료
+							</c:if>
+							<c:if test="${Notice.delYN eq 'N' }">
+								삭제 가능
+							</c:if> --%>
+						</td>
 						</tr>
 						</c:forEach>
 					</table>
-				</form>
 				<div class="admin_pagination" style="text-align:center;">
 <%
 String param = "searchType="+pm.getAdminSearchVO().getSearchType()+"&SearchValue="+pm.encoding2(pm.getAdminSearchVO().getSearchValue());
@@ -191,68 +194,8 @@ for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++)
 <!-- <input type="button" value="선택 삭제"> -->
 <div class="delBtn">
 	<button type="submit" class="selectDelete_btn" onclick="deleteValue();">선택 삭제</button>
-<!-- 	<script>
-        document.getElementById('selectAll').addEventListener('change', function () {
-            var checkboxes = document.getElementsByClassName('checkbox');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = this.checked;
-            }
-        });
-    </script> -->
-<!-- 	<script>
-	$(".selectDelete_btn").click(function(){
-		var confirm_val = confirm("정말 삭제하시겠습니까?");
-
-		if(confirm_val) {
-			var checkArr = new Array();
-			
-			$("input[class='chBox']:checked").each(function(){
-			checkArr.push($(this).attr("data-nNo"));
-		});
-	
-			$.ajax({
-				url : "boardDelete.do",
-				type : "post",
-				data : { chbox : checkArr },
-				success : function(result){
-					if(result == 1){
-						location.href = "boardList.do";
-					}else{
-						alert("삭제실패");
-					}
-				}
-			});
-		}
-	});
-</script> -->
 </div>
 <br>
-<%-- <div class="delete">
-	<button type="button" class="delete_btn" data-nNo="${Notice.nNo }">삭제</button>
-	<script>
-	 $(".delete_btn").click(function(){
-			var confirm_val = confirm("정말 삭제하시겠습니까?");
-		
-			if(confirm_val) {
-				var checkArr = new Array();
-				
-				checkArr.push($(this).attr("data-nNo"));
-		              
-					$.ajax({
-						url : "boardDelete.do",
-						type : "post",
-						data : { chbox : checkArr },
-						success : function(result){
-							if(result == 1) {            
-								location.href = "/admin/boardList.do";
-							} else {
-								alert("삭제 실패");
-							}
-						}
-					});
-				} 
-			});
-</script>--%>
 </div> 
 	</div>
 	</div>
