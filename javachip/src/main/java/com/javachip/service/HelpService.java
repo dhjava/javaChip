@@ -47,5 +47,5 @@ public interface HelpService {
 	//관리자용 전체 Qna수(페이징기능)
 	int QnATotal(AdminSearchVO AdminSearchVO);
 	//관리자 공지사항 삭제
-	public void deleteNoticeByAdmin(NoticeVO NoticeVO);
+	public void deleteNoticeByAdmin(String nNo);
 }

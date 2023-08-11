@@ -141,9 +141,9 @@ public class HelpServiceImpl implements HelpService {
 	
 	//관리자 공지사항 삭제
 	@Override
-	public void deleteNoticeByAdmin(NoticeVO NoticeVO) 
+	public void deleteNoticeByAdmin(String nNo) 
 	{
-		helpDAO.deleteNoticeByAdmin(NoticeVO);
+		helpDAO.deleteNoticeByAdmin(nNo);
 	}
 
 }

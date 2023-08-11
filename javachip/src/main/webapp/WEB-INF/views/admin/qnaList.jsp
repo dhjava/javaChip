@@ -67,6 +67,7 @@
 					<form class="d-flex justify-content-center">
  						<div class="input-group mb-4">
 							<select name="searchType_qna">
+								<option value="total" <c:if test="${param.searchType_qna eq 'total'}">selected</c:if>>전체</option>
 								<option value="complete" <c:if test="${param.searchType_qna eq 'complete'}">selected</c:if>>답변완료</option>
 								<option value="wait" <c:if test="${param.searchType eq 'wait'}">selected</c:if>>답변대기</option>
 							</select>

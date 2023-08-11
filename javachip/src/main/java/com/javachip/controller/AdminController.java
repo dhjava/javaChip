@@ -2,6 +2,7 @@ package com.javachip.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,30 +182,40 @@ public class AdminController
 		result = us.stopUser(uNo);
 		return result+"";
 	}
+	
 	@ResponseBody
 	@RequestMapping(value="/boardDelete.do")
-	public int boardDelete(HttpSession session,
-			@RequestParam(value = "chbox[]") List<String> chArr, NoticeVO NoticeVO)
+	public String boardDelete(HttpServletRequest request)
 	{
+/*		
+		HttpSession session,
+		@RequestParam(value = "chbox[]") List<String> chArr, NoticeVO NoticeVO
+		
 		NoticeVO notice = (NoticeVO)session.getAttribute("notice");
 		int result = 0;
 		int nNo = 0;
 		
 		for(String i : chArr) {
-			nNo = Integer.parseInt(i);
-			NoticeVO.setnNo(nNo);
+			notice.setnNo(nNo);
 			hs.deleteNoticeByAdmin(NoticeVO);
 		}
+	
 		result = 1;
 		return result;
-		
-/*		String[] BoardMsg = request.getParameterValues("valueArr");
-		int size = BoardMsg.length;
-		for(int i = 0; i < size; i++)
-		{
-			hs.deleteNotice(BoardMsg);
-		}
 */
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		
+		
+		int size = ajaxMsg.length;
+			
+			for(int i = 0; i < size; i++) {
+				hs.deleteNoticeByAdmin(ajaxMsg[i]);
+			}
+
+		return "redirect:/admin/boardList";
+
+/*		hs.deleteNoticeByAdmin(selectedIds);
+		return "redirect:/admin/boardList";*/
 	}
 	
 	@RequestMapping(value="/product.do")
