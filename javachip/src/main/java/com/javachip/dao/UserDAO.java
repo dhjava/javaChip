@@ -11,7 +11,7 @@ import com.javachip.vo.UserVO;
 
 @Repository
 public class UserDAO {
-	
+	// user 페이지
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -39,6 +39,15 @@ public class UserDAO {
 	
 	public UserVO pwFind(UserVO vo) {
 		return sqlSession.selectOne(namespace+".pwFind", vo);
+	}
+	
+	// mypage 관련
+	public int userUpdate(UserVO vo) {
+		return sqlSession.update(namespace+".userUpdate", vo);
+	}
+	
+	public int goodbye(UserVO vo) {
+		return sqlSession.delete(namespace+".goodbye", vo);
 	}
 	
 	//admin용========================================================

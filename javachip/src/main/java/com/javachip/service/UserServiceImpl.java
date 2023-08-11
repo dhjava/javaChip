@@ -12,6 +12,7 @@ import com.javachip.vo.UserVO;
 @Repository
 public class UserServiceImpl implements UserService {
 
+	// member 페이지
 	@Autowired
 	private UserDAO userDAO;
 	
@@ -46,6 +47,17 @@ public class UserServiceImpl implements UserService {
 	public UserVO pwFind(UserVO vo) {
 		
 		return userDAO.idFind(vo);
+	}
+	
+	// mypage 관련
+	@Override
+	public int userUpdate(UserVO vo) {
+		return userDAO.userUpdate(vo);
+	}
+	
+	@Override
+	public int goodbye(UserVO vo) {
+		return userDAO.goodbye(vo);
 	}
 	
 	

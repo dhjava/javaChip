@@ -9,12 +9,17 @@ import com.javachip.vo.UserVO;
 
 @Service
 public interface UserService {
+	// member 페이지
 	UserVO selectUserByLogin(UserVO vo);
 	int selectCntById(String uId);
 	int insert(UserVO vo);
 	int insertBiz(UserVO vo);
 	UserVO idFind(UserVO vo);
 	UserVO pwFind(UserVO vo);
+	
+	// mypage 관련
+	int userUpdate(UserVO vo);
+	int goodbye(UserVO vo);
 	
 	//admin용========================================================
 	List<UserVO>list(AdminSearchVO AdminSearchVO);	//관리자 전체 회원 목록(검색기능추가)
