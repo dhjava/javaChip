@@ -171,7 +171,7 @@
 	                                <li>할인 <span id="discount" style="color:#DD2222;">0원</span></li>
                                 </ul>
                                 <div class="checkout__order__total">
-                                	총 가격 <span id="total">0원</span>
+                                	총 가격 <span id="total" name="total">0원</span>
                                 </div>
                                 <button type="button" class="site-btn" onclick="requestPay()">주문하기</button>
                             </div>
