@@ -313,7 +313,7 @@ public class HelpController {
 		String secretCheck = req.getParameter("secretCheck");
 		
 		if( "Y".equals(secretCheck) ) {			
-			qnaVO.setSecretYN('Y');
+			qnaVO.setSecretYN("Y");
 		}
 		System.out.println(qnaVO.getSecretYN());
 		
