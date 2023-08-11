@@ -38,7 +38,7 @@
                         	<div class="msg"></div>
                         <p>주소<span>*</span></p>
 	                        <input type="text" placeholder="우편번호" class="join__input__short" id="uAddNum" name="uAdd">
-	                        <button type="button" class="btn btn-outline-secondary" onclick="sample4_execDaumPostcode()">우편번호</button>
+	                        <button type="button" class="btn btn-outline-secondary" onclick="sample6_execDaumPostcode()">우편번호</button>
 	                        <input type="text" placeholder="주소" class="join__input__add" id="uAdd1" name="uAdd">
 	                        <input type="text" placeholder="나머지 주소" class="join__input__add" id="uAdd2" name="uAdd">
 	                        <input type="hidden" name="uAdd_all" id="uAdd_all" value=""/>
@@ -273,6 +273,6 @@
         </div>
     </section>
 	<script src="<%=request.getContextPath() %>/resources/js/memberBiz.js"></script>
-	<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+	<script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 <%@ include file="../include/footer.jsp" %>

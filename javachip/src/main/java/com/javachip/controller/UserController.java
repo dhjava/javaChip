@@ -157,31 +157,32 @@ public class UserController {
 		return "member/idFind";
 	}
 	
-	@RequestMapping(value="/pwFind")
-	public String findPwView() throws Exception{
-		return"/member/pwFind";
+	@RequestMapping(value="/pwFind.do",method=RequestMethod.GET)
+	public String pwFind() {
+		return "member/pwFind";
 	}
-		
-	@RequestMapping(value="/pwFind", method=RequestMethod.POST)
-	public String findPw(UserVO userVO,Model model) throws Exception{
-		
-		if(us.pwFindCheck(userVO)==0) {
-			model.addAttribute("msg", "아이디와 이메일를 확인해주세요");
-			
-			return "/member/findPwView";
-		}else {
 	
-		us.pwFind(userVO.getuMail(),userVO.getuId(),userVO.getuName());
-		model.addAttribute("user", userVO.getuMail());
+	@RequestMapping(value="/pwFind.do", method=RequestMethod.POST)
+	public String pwFind(UserVO vo,Model model) throws Exception{
 		
-		return"/member/pwFind";
+		UserVO user = us.pwFind(vo);
+		
+		if(user != null) { 
+			model.addAttribute("check", 0);
+			System.out.println("아이디 확인 O");
+		} else { 
+			model.addAttribute("check", 1);
+			System.out.println("비밀번호 확인 X");
 		}
-	}
+		
+		return "member/pwFind";
+		}
+	
 	@ResponseBody
-	@RequestMapping(value="/emailAuth")
+	@RequestMapping(value="/emailAuth.do")
 	public String emailAuth( @RequestParam(value= "uId_email",  required=false) String uId_email) {
 		
-		System.out.println("이메일 인증 요청 들어옴");
+		System.out.println("임시 비밀번호 전송");
 		System.out.println("emailAuth="+uId_email);
 		return mailService.joinmail(uId_email);
 	}

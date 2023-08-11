@@ -9,8 +9,7 @@
 				<input type="text" placeholder="이름" id="uName" name="uName"><br>
 				<input type="text" placeholder="아이디" id="uId" name="uId"><br>
 				<input type="text" placeholder="이메일" id="uMail" name="uMail"><br>
-				<button type="button" onclick="emailAuth()" >이메일 인증</button>
-				<input class="login btn" type="submit" value="비밀번호찾기">
+				<input class="login btn"  type="button" onclick="emailAuth()" value="임시 비밀번호 전송">
 				<input type="hidden" id="mail-check-input">
 			</div>
 			

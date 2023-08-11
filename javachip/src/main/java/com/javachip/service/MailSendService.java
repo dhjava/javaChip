@@ -15,31 +15,32 @@ public class MailSendService {
 	// 인증용 메일 
 			@Autowired
 			private JavaMailSenderImpl mailSender;
-			int authNumber;
+			int userPw;
 			
 			// 인증용 난수
 			public void makeRandomNumber()
 			{
 				Random r = new Random();
-				int checkNum = r.nextInt(888888) + 111111;
-				System.out.println("인증번호="+checkNum);
-				authNumber = checkNum;
+				int tempPw = r.nextInt(88888888) + 11111111;
+				System.out.println("임시 비밀번호="+tempPw);
+				userPw = tempPw;
 			}
 			
 			public String joinmail(String uId_email) {
 				makeRandomNumber();
+				
 				System.out.println("MailSendService="+uId_email);
-				System.out.println("MailSendService="+authNumber);
+				System.out.println("MailSendService="+userPw);
 				String setFrom = "javachio@naver.com";  // email-config에 설정한 자신의 이메일 주소를 입력 
 				String toMail = uId_email;
-				String title = "환영합니다. 회원 가입 인증 이메일 입니다.";
-				String content = "홈페이지를 방문해주셔서 감사합니다." + 	//html 형식으로 작성 ! 
+				String title = "[JavaChip] 임시 비밀번호 발급";
+				String content = "안녕하세요. JavaChip입니다." + 	//html 형식으로 작성 ! 
 		                "<br><br>" + 
-					    "인증 번호는 javachip" + authNumber + "입니다." + 
-					    "<br>" + 
-					    "해당 인증번호를 인증번호 확인란에 기입하여 주세요."; //이메일 내용 삽입
+					    "회원님의 임시 비밀번호는 <span style='font-weight:bold'>" + userPw + "</span> 입니다." + 
+					    "<br><br>" + 
+					    "로그인 후 마이페이지에서 비밀번호를 변경해주세요."; //이메일 내용 삽입
 				mailSend(setFrom, toMail, title, content);
-				return Integer.toString(authNumber);
+				return Integer.toString(userPw);
 			}
 			//이메일 전송 메소드 
 			public void mailSend(String setFrom, String toMail, String title, String content) { 
