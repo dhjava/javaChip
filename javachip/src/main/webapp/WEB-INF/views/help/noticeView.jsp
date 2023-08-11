@@ -59,18 +59,18 @@
 					</td>
 				</tr>
 			</table>
-			<table class="table table-striped" style="margin-top:50px;">
+			<table class="table table-striped" style="margin-top:50px;table-layout:fixed;">
 				<c:forEach var="nearNotice" items="${nearNoticeList}">
 				<c:if test="${nearNotice.nNo > noticeVO.nNo}">
 					<tr>
 						<th scope="row" style="width:12%">▲다음글</th>
-						<td><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
+						<td class="boardElipsis"><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
 					</tr>
 				</c:if>
 				<c:if test="${nearNotice.nNo < noticeVO.nNo}">
 					<tr>
 						<th scope="row">▼이전글</th>
-						<td><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
+						<td class="boardElipsis"><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
 					</tr>
 				</c:if>
 				</c:forEach>

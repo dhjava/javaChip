@@ -24,7 +24,7 @@
 			<div class="board-wButton" style="margin-bottom:20px;">
 				<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="location.href='<%= request.getContextPath() %>/help/qnaWrite.do'">글 쓰기</button>
 			</div>
-			<table class ="table table-hover">
+			<table class ="table table-hover" style="table-layout:fixed;">
 				<tr>
 					<td scope="col" style="width:10%">번호</td>
 					<td scope="col" style="width:56%">제목</td>
@@ -39,7 +39,7 @@
 				<fmt:formatDate value="${dateStr}" pattern="HH:mm" var="boardDateTime"/>
 				<tr>
 					<td scope="row">${pm.seqNo-status.index}</td>
-					<td>
+					<td class="boardElipsis">
 						<a href="qnaView.do?qNo=${qna.qNo}">
 						<c:if test="${qna.qlevel > 0}">
 							&nbsp;&nbsp;⮡ &nbsp;Re:
