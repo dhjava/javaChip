@@ -39,7 +39,14 @@
 				<fmt:formatDate value="${dateStr}" pattern="HH:mm" var="boardDateTime"/>
 				<tr>
 					<td scope="row">${pm.seqNo-status.index}</td>
-					<td><a href="qnaView.do?qNo=${qna.qNo}">${qna.qTitle}</a></td>
+					<td>
+						<a href="qnaView.do?qNo=${qna.qNo}">
+						<c:if test="${qna.qlevel > 0}">
+							&nbsp;&nbsp;⮡ &nbsp;Re:
+						</c:if>
+						${qna.qTitle}
+						</a>
+					</td>
 					<td>
 						<c:if test="${qna.uStatus eq 'A'}">	
 						관리자

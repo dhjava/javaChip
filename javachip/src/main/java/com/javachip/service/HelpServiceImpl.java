@@ -50,9 +50,9 @@ public class HelpServiceImpl implements HelpService {
 	}
 	
 	@Override
-	public int modifyNotice(NoticeVO vo) {
+	public int modifyNotice(NoticeVO noticeVO) {
 		
-		return helpDAO.modifyNotice(vo);
+		return helpDAO.modifyNotice(noticeVO);
 	}
 	
 	@Override
@@ -62,10 +62,10 @@ public class HelpServiceImpl implements HelpService {
 	}
 	
 	@Override
-	public int insertQna(QnaVO vo) {
+	public int insertQna(QnaVO qnaVO) {
 		
-		int result = helpDAO.insertQna(vo);
-		helpDAO.updateQno(vo.getqNo());
+		int result = helpDAO.insertQna(qnaVO);
+		helpDAO.updateQno(qnaVO.getqNo());
 		
 		return result;
 	}
@@ -100,6 +100,14 @@ public class HelpServiceImpl implements HelpService {
 	public int totalQna(SearchVO searchVO) {
 		
 		return helpDAO.totalQna(searchVO);
+	}
+	
+	@Override
+	public int AnswerQna(QnaVO qnaVO) {
+		
+		int result = helpDAO.AnswerQna(qnaVO);
+		
+		return result;
 	}
 	
 	//====================================관리자 메소드====================================
@@ -137,4 +145,5 @@ public class HelpServiceImpl implements HelpService {
 	{
 		helpDAO.deleteNoticeByAdmin(NoticeVO);
 	}
+
 }

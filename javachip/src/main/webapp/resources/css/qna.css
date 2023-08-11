@@ -25,13 +25,13 @@
 	height: 80px;
 	border: 1px solid #ced4da;
 	
-	/* div ¾È Áß¾Ó Á¤·Ä */
+	/* div ì•ˆ ì¤‘ì•™ ì •ë ¬ */
 	display : flex;
 	justify-content : center;
 	align-items : center;
 }
 .pContainer.pInfo > div {
-	/* div ¾È Áß¾Ó Á¤·Ä */
+	/* div ì•ˆ ì¤‘ì•™ ì •ë ¬ */
 	display : flex;
 	justify-content : center;
 	align-items : center;
@@ -48,7 +48,7 @@ select {
 
 /* product Select */
 
-/* ¸ð´ÞÃ¢ È­¸é ¼³Á¤  start*/
+/* ëª¨ë‹¬ì°½ í™”ë©´ ì„¤ì •  start*/
 #pSelectContainer{
 	width: 100%;
 	height: 100%;
@@ -83,7 +83,7 @@ select {
 	overflow-y: auto;
 }
 
-/* ¸ð´ÞÃ¢ È­¸é ¼³Á¤  end*/
+/* ëª¨ë‹¬ì°½ í™”ë©´ ì„¤ì •  end*/
 
 #pSelectContainer.modalHidden {
 	display: none;
@@ -103,7 +103,7 @@ select {
 .pSelectTable tr:nth-child(2) > td{
 	border-top:none !important;
 }
-.table.table-hover.pSelectTable th , td {
+.table.table-hover.pSelectTable th , .table.table-hover.pSelectTable td {
 	text-align : center;
 	vertical-align : middle !important;
 }

@@ -102,5 +102,10 @@
 				</form>
 			</div>
 		</div>
+		<div>
+			<a href="<%= request.getContextPath() %>/notGet">post만 가능 405</a>
+			<a href="<%= request.getContextPath() %>/exception">예외 500</a>
+			<a href="<%= request.getContextPath() %>/notExist">없는페이지 400</a>
+		</div>
 	</section>
 <%@ include file="../include/footer.jsp" %>
