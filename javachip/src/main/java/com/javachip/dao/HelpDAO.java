@@ -104,10 +104,14 @@ public class HelpDAO {
 		return value;
 	}
 	
-	//관리자용 공지사항 삭제
+	//관리자용 공지사항 선택삭제
 	public void deleteNoticeByAdmin(String nNo) {
 		sqlSession.update("com.javachip.mapper.helpMapper.deleteNoticeByAdmin", nNo);
 	}
 	
-	
+	//관리자 Qna 선택삭제
+	public void deleteQnaByAdmin(String qNo)
+	{
+		sqlSession.update("com.javachip.mapper.helpMapper.deleteQnaByAdmin", qNo);
+	}
 }
