@@ -46,21 +46,21 @@
 				</tr>
 				<c:if test="${qnaVO.qlevel > 0}">
 				<tr>
-					<td>[질문]</td>
+					<td colspan="2">[질문]</td>
 				</tr>	
 				<tr>
 					<td style="width:12%">제목</td>
 					<td>${originQnaVO.qTitle}</td>
 				</tr>	
 				<tr>
-					<td>${originQnaVO.qContents}</td>
+					<td colspan="3" style="white-space:pre-line; height:200px;">${originQnaVO.qContents}</td>
 				</tr>	
 				<tr>	
-					<td>[답변]</td>
+					<td colspan="2">[답변]</td>
 				</tr>
 				</c:if>
-				<tr>
-					<td colspan="3" style="white-space:pre-line;">${qnaVO.qContents}</td>
+				<tr style="">
+					<td colspan="3" style="white-space:pre-line; height:200px;">${qnaVO.qContents}</td>
 				</tr>
 				<tr>
 					<td colspan="3">
@@ -75,18 +75,32 @@
 					</td>
 				</tr>
 			</table>
-			<table class="table table-striped" style="margin-top:50px;">
+			<table class="table table-striped" style="margin-top:50px;table-layout:fixed;">
 			<c:forEach var="nearQna" items="${nearQnaList}">
 			<c:if test="${nearQna.qNo > qnaVO.qNo}">
 				<tr>
 					<th scope="row" style="width:12%">▲다음글</th>
-					<td><a href="qnaView.do?qNo=${nearQna.qNo}">${nearQna.qTitle}</a></td>
+					<td class="boardElipsis">
+						<a href="qnaView.do?qNo=${nearQna.qNo}">
+						<c:if test="${nearQna.qlevel > 0}">
+							&nbsp;&nbsp;⮡ &nbsp;Re:
+						</c:if>
+						${nearQna.qTitle}
+						</a>
+					</td>
 				</tr>
 			</c:if>
 			<c:if test="${nearQna.qNo < qnaVO.qNo}">
 				<tr>
 					<th scope="row">▼이전글</th>
-					<td><a href="qnaView.do?qNo=${nearQna.qNo}">${nearQna.qTitle}</a></td>
+					<td class="boardElipsis">
+						<a href="qnaView.do?qNo=${nearQna.qNo}">
+						<c:if test="${nearQna.qlevel > 0}">
+							&nbsp;&nbsp;⮡ &nbsp;Re:
+						</c:if>
+						${nearQna.qTitle}
+						</a>
+					</td>
 				</tr>
 			</c:if>
 			</c:forEach>

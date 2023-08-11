@@ -141,7 +141,7 @@
 	</select>
 	
 	<select id="selectNearQno" resultType="QnaVO" parameterType="int">
-		SELECT qNo,qTitle from Qna
+		SELECT qNo,qTitle,qlevel from Qna
 		WHERE ( qNo = IFNULL((SELECT MIN(qNo) FROM Qna WHERE qNo &gt; #{qNo} AND delYN = 'N'),0) 
 		OR qNo = IFNULL((SELECT MAX(qNo) FROM Qna WHERE qNo &lt; #{qNo} AND delYN = 'N'),0)
 		)ORDER BY qNo DESC
