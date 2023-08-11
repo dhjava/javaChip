@@ -11,6 +11,8 @@ public class QnaVO {
 	
 	private int qlevel;
 	private int originqno;
+	private char delYN;
+	private char secretYN;
 	
 	private String uName;
 	private String pName;
@@ -43,6 +45,12 @@ public class QnaVO {
 	}
 	public int getOriginqno() {
 		return originqno;
+	}
+	public char getDelYN() {
+		return delYN;
+	}
+	public char getSecretYN() {
+		return secretYN;
 	}
 	public String getuName() {
 		return uName;
@@ -81,6 +89,12 @@ public class QnaVO {
 	}
 	public void setOriginqno(int originqno) {
 		this.originqno = originqno;
+	}
+	public void setDelYN(char delYN) {
+		this.delYN = delYN;
+	}
+	public void setSecretYN(char secretYN) {
+		this.secretYN = secretYN;
 	}
 	public void setuName(String uName) {
 		this.uName = uName;

@@ -42,7 +42,7 @@
 					<td colspan="2">작성일  ${boardDate}</td>
 				</tr>
 				<tr>
-					<td colspan="3" style="white-space:pre-line;">
+					<td colspan="3" style="white-space:pre-line; height:200px;">
 						${noticeVO.nContents}
 					</td>
 				</tr>
@@ -69,7 +69,7 @@
 				</c:if>
 				<c:if test="${nearNotice.nNo < noticeVO.nNo}">
 					<tr>
-						<th scope="row">▼이전글</th>
+						<th scope="row" style="width:12%">▼이전글</th>
 						<td class="boardElipsis"><a href="noticeView.do?nNo=${nearNotice.nNo}">${nearNotice.nTitle}</a></td>
 					</tr>
 				</c:if>

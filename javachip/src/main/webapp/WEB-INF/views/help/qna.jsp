@@ -2,6 +2,9 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
 		<div class="container">
@@ -45,6 +48,7 @@
 							&nbsp;&nbsp;⮡ &nbsp;Re:
 						</c:if>
 						${qna.qTitle}
+						<i class="material-icons">&#xe897;</i>
 						</a>
 					</td>
 					<td>

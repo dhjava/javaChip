@@ -41,6 +41,11 @@
 							</tr>
 							<tr>
 								<td style="width:12%">제목</td>
+								<td>
+									<div class="p-2 bd-highlight" style="text-align:right">
+									<p>비밀글  <input type="checkbox" name="secretCheck" id="secretCheck" value="${originQnaVO.secretYN}" <c:if test="${originQnaVO.secretYN eq 'Y'}">checked</c:if> readonly /></p>
+									</div>
+								</td>
 								<td colspan="2">
 									${originQnaVO.qTitle}
 									<input type="hidden" name="originqno" id=""originqno"" value="${originQnaVO.qNo}">
