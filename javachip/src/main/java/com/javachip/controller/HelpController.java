@@ -41,137 +41,7 @@ public class HelpController {
 		return "help/faq";
 	}
 	
-	//qna
-	@RequestMapping(value="/qna.do", method = RequestMethod.GET)
-	public String qna(SearchVO searchVO, Model model) {
-		
-		// 전체개수 확인
-		int cnt = helpService.totalQna(searchVO);
-		
-		System.out.println("cnt::" + cnt);
-		
-		pageMaker.setSearchVO(searchVO);	// calcData에 담을 searchVO 세팅
-		pageMaker.setTotalCount(cnt);
-		
-		List<QnaVO> list = helpService.selectQnaList(searchVO);
-		
-		model.addAttribute("list",list);
-		model.addAttribute("pm",pageMaker);
-		
-		System.out.println("StartPage ::" + pageMaker.getStartPage());
-		System.out.println("EndPage ::" + pageMaker.getEndPage());
-		
-		
-		return "help/qna";
-	}
-	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.GET)
-	public String qnaWrite(String qType, Model model, HttpServletRequest req) {
-		
-		String path = "";
-					
-		// 로그인 확인
-		HttpSession session = req.getSession();
-		UserVO loginVO = (UserVO)session.getAttribute("login");
-		
-		if( loginVO == null ) {
-			path = "redirect:/member/login.do";
-		}
-			
-		// qType 이 없을 경우 qType은 nQnA
-		if(qType == null || qType.equals("")) {
-			qType = "N";
-		}
-		
-		model.addAttribute("qType", qType);
-		
-		
-		if( !qType.equals("N") || !qType.equals("P")) {
-			
-			return "help/qnaWrite";
-		}else {
-			
-			path = "redirect:/";
-		}
-	
-		// 잘못된 타입일 경우 qna 페이지로
-		return path;
-	}
-	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.POST)
-	public String qnaWriteAction(QnaVO qnaVO, HttpServletRequest req, HttpServletResponse res) throws IOException {
-		
-		String path = "";
-		// 글 출력
-			res.setContentType("text/html;charset=UTF-8");
-			PrintWriter pw = res.getWriter();
-					
-		// 로그인 확인
-		HttpSession session = req.getSession();
-		UserVO loginVO = (UserVO)session.getAttribute("login");
-		
-		if( loginVO == null ) {
-			pw.append("<script>alert('로그인 후 이용해주세요.');location.href='../member/login.do';</script>");
-			pw.flush();
-		}
-		System.out.println("uNo :: " + loginVO.getuNo());
-		
-		qnaVO.setuNo( loginVO.getuNo() );
-		
-		// insertQnA 실행
-		int result = helpService.insertQna(qnaVO);
-		
-		System.out.println("qNo :" + qnaVO.getqNo());
-		
-		// 성공 : 1 , 실패 : 0
-		if( result == 1 ) {
-			path = "qnaView.do?qNo=" + qnaVO.getqNo();
-		}else {
-			pw.append("<script>alert('게시글 등록을 실패하였습니다.');location.href='qna.do';</script>");
-			path = "qna.do";
-			pw.flush();
-		
-		}
-		
-		return "redirect:" + path ;
-	}
-	@RequestMapping(value="/qnaView.do", method = RequestMethod.GET)
-	public String qnaView(int qNo, Model model) {
-		// Qna의 qNo 게시글 내용 및 이전,다음 게시글 정보를 받아옴.
-		QnaVO qnaVO = helpService.selectOneByQno(qNo);
-		List<QnaVO> nearQnaList = helpService.selectNearQno(qNo);
-		model.addAttribute("qnaVO",qnaVO);
-		model.addAttribute("nearQnaList",nearQnaList);
-		
-		return "help/qnaView";
-	}
-	
-	@RequestMapping(value="/qnaDelete.do", method = RequestMethod.POST)
-	public String qnaDelete(int qNo, HttpServletResponse res,HttpServletRequest req) throws IOException {
-		
-		HttpSession session = req.getSession();
-		res.setContentType("text/html;charset=UTF-8");
-		PrintWriter pw = res.getWriter();
-		
-		UserVO loginVO = (UserVO)session.getAttribute("login");
-		if( loginVO == null ) {
-			pw.append("<script>alert('로그인 후 이용가능합니다.');location.href='../';</script>");
-			pw.flush();
-		}
-		
-		int result = helpService.deleteQna(qNo);
-		
-		if( result > 0 ) {
-			// 삭제 성공
-			pw.append("<script>alert('게시글을 삭제하였습니다.');location.href='qna.do'</script>");
-		}else {
-			// 삭제 실패
-			pw.append("<script>alert('게시글을 삭제를 실패하였습니다.');location.href='qnaView.do?qNo=" + qNo + "'</script>");
-		}
-		
-		pw.flush();
-		
-		return "redirect:qna.do";
-	}
-	
+
 	//notice
 	@RequestMapping(value="/notice.do", method = RequestMethod.GET)
 	public String notice(SearchVO searchVO, Model model, HttpServletRequest req) {
@@ -331,7 +201,7 @@ public class HelpController {
 	}
 	@RequestMapping(value="/noticeDelete.do", method = RequestMethod.POST)
 	public String noticeDelete(int nNo, HttpServletResponse res, HttpServletRequest req) throws IOException {
-	
+		
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = res.getWriter();
 		
@@ -348,13 +218,7 @@ public class HelpController {
 			pw.flush();
 		}
 		// uNo 비교
-		int result = 0;
-		
-		NoticeVO noticeVO = helpService.selectOneByNno(nNo);
-		if(noticeVO.getuNo() == loginVO.getuNo()) {
-			result = helpService.deleteNotice(nNo);
-		}
-		
+		int result = helpService.deleteNotice(nNo);
 		
 		if( result > 0 ) {
 			// 삭제 성공
@@ -369,6 +233,204 @@ public class HelpController {
 		return "redirect:notice.do";
 	}
 
-
+	//qna
+	@RequestMapping(value="/qna.do", method = RequestMethod.GET)
+	public String qna(SearchVO searchVO, Model model) {
+		
+		// 전체개수 확인
+		int cnt = helpService.totalQna(searchVO);
+		
+		System.out.println("cnt::" + cnt);
+		
+		pageMaker.setSearchVO(searchVO);	// calcData에 담을 searchVO 세팅
+		pageMaker.setTotalCount(cnt);
+		
+		List<QnaVO> list = helpService.selectQnaList(searchVO);
+		
+		model.addAttribute("list",list);
+		model.addAttribute("pm",pageMaker);
+		
+		System.out.println("StartPage ::" + pageMaker.getStartPage());
+		System.out.println("EndPage ::" + pageMaker.getEndPage());
+		
+		
+		return "help/qna";
+	}
+	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.GET)
+	public String qnaWrite(String qType, Model model, HttpServletRequest req) {
+		
+		String path = "";
+					
+		// 로그인 확인
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		
+		if( loginVO == null ) {
+			path = "redirect:/member/login.do";
+		}
+			
+		// qType 이 없을 경우 qType은 nQnA
+		if(qType == null || qType.equals("") || !qType.equals("P")) {
+			qType = "N";
+		}
+		
+		model.addAttribute("qType", qType);
+		
+		System.out.println("qType::" + qType);
+		
+		if( qType.equals("N") || qType.equals("P")) {
+			
+			path = "help/qnaWrite";
+		}else {
+			
+			path = "redirect:/";
+		}
+	
+		// 잘못된 타입일 경우 qna 페이지로
+		return path;
+	}
+	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.POST)
+	public String qnaWriteAction(QnaVO qnaVO, HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
+		String path = "";
+		// 글 출력
+			res.setContentType("text/html;charset=UTF-8");
+			PrintWriter pw = res.getWriter();
+					
+		// 로그인 확인
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		
+		if( loginVO == null ) {
+			pw.append("<script>alert('로그인 후 이용해주세요.');location.href='../member/login.do';</script>");
+			pw.flush();
+		}
+		System.out.println("uNo :: " + loginVO.getuNo());
+		
+		qnaVO.setuNo( loginVO.getuNo() );
+		
+		// insertQnA 실행
+		int result = helpService.insertQna(qnaVO);
+		
+		System.out.println("qNo :" + qnaVO.getqNo());
+		
+		// 성공 : 1 , 실패 : 0
+		if( result == 1 ) {
+			path = "qnaView.do?qNo=" + qnaVO.getqNo();
+		}else {
+			pw.append("<script>alert('게시글 등록을 실패하였습니다.');location.href='qna.do';</script>");
+			path = "qna.do";
+			pw.flush();
+		
+		}
+		
+		return "redirect:" + path ;
+	}
+	@RequestMapping(value="/qnaView.do", method = RequestMethod.GET)
+	public String qnaView(int qNo, Model model) {
+		// Qna의 qNo 게시글 내용 및 이전,다음 게시글 정보를 받아옴.
+		QnaVO qnaVO = helpService.selectOneByQno(qNo);
+		List<QnaVO> nearQnaList = helpService.selectNearQno(qNo);
+		
+		model.addAttribute("qnaVO",qnaVO);
+		model.addAttribute("nearQnaList",nearQnaList);
+		
+		// qlevel이 0보다 클 경우(=qna답변일 경우) originqno와 일치하는 게시글 정보를 받아옴.
+		if(qnaVO.getQlevel() > 0) {
+			int originqno = qnaVO.getOriginqno();
+			
+			QnaVO originQnaVO = helpService.selectOneByQno(originqno);
+			model.addAttribute("originQnaVO",originQnaVO);
+		}
+		
+		return "help/qnaView";
+	}
+	
+	@RequestMapping(value="/qnaDelete.do", method = RequestMethod.POST)
+	public String qnaDelete(int qNo, HttpServletResponse res,HttpServletRequest req) throws IOException {
+		
+		HttpSession session = req.getSession();
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+		
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if( loginVO == null ) {
+			pw.append("<script>alert('로그인 후 이용가능합니다.');location.href='../';</script>");
+			pw.flush();
+		}
+		
+		int result = helpService.deleteQna(qNo);
+		
+		if( result > 0 ) {
+			// 삭제 성공
+			pw.append("<script>alert('게시글을 삭제하였습니다.');location.href='qna.do'</script>");
+		}else {
+			// 삭제 실패
+			pw.append("<script>alert('게시글을 삭제를 실패하였습니다.');location.href='qnaView.do?qNo=" + qNo + "'</script>");
+		}
+		
+		pw.flush();
+		
+		return "redirect:qna.do";
+	}
+	
+	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.GET)
+	public String qnaAnswer(int qNo,Model model) {
+		
+		QnaVO originQnaVO = helpService.selectOneByQno(qNo);
+		
+		model.addAttribute("originQnaVO",originQnaVO);
+		
+		return "help/qnaAnswer";
+	}
+	
+	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.POST)
+	public String qnaAnswerAction(QnaVO qnaVO,HttpServletResponse res, HttpServletRequest req) throws IOException {
+		
+		String path = "";
+		
+		// 글 출력
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+				
+		// 로그인 확인
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		
+		if( loginVO == null ) {
+			
+			pw.append("<script>alert('관리자 로그인 후 이용하실 수 있습니다.');location.href='../member/login.do'</script>");
+			pw.flush();
+		}else {
+			if(!loginVO.getuStatus().equals("A")) {
+				pw.append("<script>alert('관리자 계정이 아닙니다.');location.href='../'</script>");
+				pw.flush();
+			}else {
+				if( qnaVO.getQlevel() != 0) {
+					pw.append("<script>alert('잘못된 접근입니다.');location.href='../'</script>");
+					pw.flush();
+					path="redirect:../";
+				}else {
+					qnaVO.setuNo( loginVO.getuNo() );
+					// insertQnA 실행
+					
+					int result = helpService.AnswerQna(qnaVO);
+					
+					// 성공 : 1 , 실패 : 0
+					if( result == 1 ) {
+						path = "qnaView.do?qNo=" + qnaVO.getqNo();
+					}else {
+						pw.append("<script>alert('게시글 등록을 실패하였습니다.');location.href='qna.do';</script>");
+						path = "qna.do";
+						pw.flush();
+						
+					}
+				}
+				
+			}
+		}
+		
+		return path;
+	}
 	
 }
