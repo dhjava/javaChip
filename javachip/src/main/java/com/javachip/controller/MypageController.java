@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
+import com.javachip.service.UserService;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.MileageVO;
 import com.javachip.vo.UserVO;
@@ -27,6 +28,8 @@ public class MypageController {
 	private CartService cs;
 	@Autowired
 	private MileageService ms;
+	@Autowired
+	private UserService us;
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpServletRequest req, Model model) {
@@ -139,7 +142,15 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/myinfo.do")
-	public String myinfo() {
+	public String myinfo(UserVO vo) {
+		int result = us.userUpdate(vo);
+		
+		if(result>0) {
+			System.out.println("정보 변경 성공");
+		}else {
+			System.out.println("정보 변경 실패");
+		}
+		
 		return "mypage/myinfo";
 	}
 	

@@ -115,6 +115,64 @@
 		   AND uName = #{uName}
 	</select>
 	
+<!-- =============================== mypage 관련 쿼리 ==================================== -->
+	<update id = "userUpdate" parameterType="userVO">
+		INSERT INTO user(
+			 uId
+			,uPw
+			,uName
+			,uJoin
+			,uRetire
+			,uPhone
+			,uStatus
+			,uBisno
+			,uAdd
+			,uMail
+			,uAlertNum
+		)values(
+			 #{uId}
+			,#{uPw}
+			,#{uName}
+			,NOW()
+			,"N"
+			,#{uPhone}
+			,"N"
+			,""
+			,#{uAdd}
+			,#{uMail}
+			,#{uAlertNum}
+		)
+	</update>
+	
+	<delete id = "goodbye" parameterType="userVO">
+		INSERT INTO user(
+			 uId
+			,uPw
+			,uName
+			,uJoin
+			,uRetire
+			,uPhone
+			,uStatus
+			,uBisno
+			,uAdd
+			,uMail
+			,uAlertNum
+		)values(
+			 #{uId}
+			,#{uPw}
+			,#{uName}
+			,NOW()
+			,"N"
+			,#{uPhone}
+			,"N"
+			,""
+			,#{uAdd}
+			,#{uMail}
+			,#{uAlertNum}
+		)
+	</delete>
+
+	
 <!-- ===============================관리자용 sql 쿼리 모음================================ -->
 	<!-- 관리자 일반회원 공통조건 검색 참조 -->
 	<sql id="findUser">
