@@ -42,14 +42,18 @@
 				<fmt:formatDate value="${dateStr}" pattern="HH:mm" var="boardDateTime"/>
 				<tr>
 					<td scope="row">${pm.seqNo-status.index}</td>
-					<td class="boardElipsis">
-						<a href="qnaView.do?qNo=${qna.qNo}">
-						<c:if test="${qna.qlevel > 0}">
-							&nbsp;&nbsp;⮡ &nbsp;Re:
+					<td>
+						<span class="boardElipsis">
+							<a href="qnaView.do?qNo=${qna.qNo}">
+							<c:if test="${qna.qlevel > 0}">
+								&nbsp;&nbsp;⮡ &nbsp;Re:
+							</c:if>
+							${qna.qTitle}
+							</a>
+						</span>
+						<c:if test="${qna.secretYN eq 'Y'}">
+							<img alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
 						</c:if>
-						${qna.qTitle}
-						<i class="material-icons">&#xe897;</i>
-						</a>
 					</td>
 					<td>
 						<c:if test="${qna.uStatus eq 'A'}">	
