@@ -32,7 +32,14 @@
 				</tr>
 				<tr>
 					<td>작성자</td>
-					<td colspan="2">${qnaVO.uName}</td>
+					<td colspan="2">
+						<c:if test="${qna.uStatus eq 'A'}">	
+						관리자
+						</c:if>
+						<c:if test="${qna.uStatus ne 'A'}">	
+						${qna.uName}
+						</c:if>
+					</td>
 				</tr>
 			<c:if test="${qnaVo.qType eq 'P'}">
 				<tr style="height:120px;">
@@ -92,7 +99,7 @@
 			</c:if>
 			<c:if test="${nearQna.qNo < qnaVO.qNo}">
 				<tr>
-					<th scope="row">▼이전글</th>
+					<th scope="row" style="width:12%">▼이전글</th>
 					<td class="boardElipsis">
 						<a href="qnaView.do?qNo=${nearQna.qNo}">
 						<c:if test="${nearQna.qlevel > 0}">

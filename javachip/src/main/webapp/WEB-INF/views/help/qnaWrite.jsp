@@ -53,6 +53,9 @@
 						<p>제목<p>
 						<input type="text" name="qTitle" id="qTitle" class="form-control" aria-label="subject" placeholder="제목을 입력하세요.">
 					</div>
+					<div class="p-2 bd-highlight" style="text-align:right">
+						<p>비밀글  <input type="checkbox" name="secretCheck" id="secretCheck" value="Y"/> </p>
+					</div>
 					<div class="p-2 bd-highlight">
 						<textarea class="form-control" name="qContents" id="qContents" rows="10"></textarea>
 					</div>

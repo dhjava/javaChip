@@ -309,6 +309,14 @@ public class HelpController {
 		
 		qnaVO.setuNo( loginVO.getuNo() );
 		
+		// 비밀글 체크여부
+		String secretCheck = req.getParameter("secretCheck");
+		
+		if( "Y".equals(secretCheck) ) {			
+			qnaVO.setSecretYN('Y');
+		}
+		System.out.println(qnaVO.getSecretYN());
+		
 		// insertQnA 실행
 		int result = helpService.insertQna(qnaVO);
 		

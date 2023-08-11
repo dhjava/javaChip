@@ -83,8 +83,10 @@
 	<!-- QnA -->
 	<insert id="insertQna" parameterType="qnaVO">
 		INSERT INTO QnA 
-		(uNo, qTitle, qContents, qType, pNo, qlevel) 
-		VALUES(#{uNo},#{qTitle},#{qContents},#{qType},#{pNo},0)
+		(uNo, qTitle, qContents, qType, pNo, qlevel, secretYN) 
+		VALUES(#{uNo},#{qTitle},#{qContents},#{qType},#{pNo},0, 
+		IFNULL(#{secretYN},'N')
+		)
 		
 		<selectKey resultType="int" keyProperty="qNo" order="AFTER">
 			SELECT max(qNo) as qNo 
@@ -141,7 +143,7 @@
 	</select>
 	
 	<select id="selectNearQno" resultType="QnaVO" parameterType="int">
-		SELECT qNo,qTitle,qlevel from Qna
+		SELECT qNo,qTitle,qlevel,secretYN from Qna
 		WHERE ( qNo = IFNULL((SELECT MIN(qNo) FROM Qna WHERE qNo &gt; #{qNo} AND delYN = 'N'),0) 
 		OR qNo = IFNULL((SELECT MAX(qNo) FROM Qna WHERE qNo &lt; #{qNo} AND delYN = 'N'),0)
 		)ORDER BY qNo DESC
@@ -161,8 +163,10 @@
 	
 	<insert id="answerQna" parameterType="qnaVO">
 		INSERT INTO Qna
-		(originqno,qlevel,uNo, qTitle, qContents, qType)
-		VALUES(#{originqno},#{qlevel}+1,#{uNo},#{qTitle},#{qContents},#{qType})
+		(originqno,qlevel,uNo, qTitle, qContents, qType,secretYN)
+		VALUES(#{originqno},#{qlevel}+1,#{uNo},#{qTitle},#{qContents},#{qType},
+		IFNULL(#{secretYN},'N');
+		)
 	</insert>
 	
 	<!-- =============================관리자용 sql쿼리문 모음======================================== -->
