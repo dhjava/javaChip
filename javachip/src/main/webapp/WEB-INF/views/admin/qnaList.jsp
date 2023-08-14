@@ -163,12 +163,12 @@ function deleteValue(){
 							</c:if>
 						</td>
 						<td>
-							<%-- <c:if test="${qna.delYN eq 'N' }">
+							<c:if test="${qna.delYN eq 'N' }">
 								삭제 가능
 							</c:if>
 							<c:if test="${qna.delYN eq 'Y' }">
 								삭제 완료
-							</c:if> --%>
+							</c:if>
 						</td>
 					</tr>
 					</c:forEach>
