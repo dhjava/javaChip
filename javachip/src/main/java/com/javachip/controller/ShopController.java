@@ -38,26 +38,113 @@ public class ShopController {
 	
 	@RequestMapping(value="/grid.do")
 	public String grid(
-			HttpServletRequest req
-		,	Model model
+			Model model
 		,	SearchVO searchVO
 		) {
-			/*
-			 * List<ProductVO> productList = null;
-			 * String pType = req.getParameter("pType");
-			 * if(pType.equals("") || pType==null) {
-			 * 	productList =
-			 * 	ps.selectAllProduct(searchVO);
-			 * }else {
-			 * 	productList = ps.selectProductType(pType);
-			 * } model.addAttribute("productList",productList);
-			 */
+			List<ProductVO> productList = ps.selectAllProduct(searchVO);
+			model.addAttribute("productList", productList);
 		return "shop/grid";
 	}
 	
 	@RequestMapping(value="/details.do")
-	public String details() {
+	public String details(Model model, int pNo) {
+		ProductVO pv = ps.selectOneProduct(pNo);
+		System.out.println(pv);
+		model.addAttribute("pv", pv);
 		return "shop/details";
+	}
+	
+	@RequestMapping(value="/addCart.do")
+	public int addCart(
+			HttpServletRequest req
+			,	int pNo
+			,	int cCount
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return 0;
+		}
+		
+		int uNo = loginVO.getuNo();
+		System.out.println("uNo::"+uNo);
+		System.out.println("pNo::"+pNo);
+		System.out.println("cCount::"+cCount);
+		CartVO cv = new CartVO();
+		cv.setuNo(uNo);
+		cv.setpNo(pNo);
+		cv.setcCount(cCount);
+		
+		int result = cs.addCart(cv);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/addCartGrid.do")
+	public int addCartGrid(
+			HttpServletRequest req
+		,	int pNo
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return 0;
+		}
+		
+		int uNo = loginVO.getuNo();
+		System.out.println("uNo::"+uNo);
+		
+		CartVO cv = new CartVO();
+		cv.setuNo(uNo);
+		cv.setpNo(pNo);
+		cv.setcCount(1);
+		
+		int result = cs.addCart(cv);
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/buyNow.do")
+	public String buy(
+			HttpServletRequest req
+			,	Model model
+			,	int pNo
+			,	int cCount
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		System.out.println("uNo::"+uNo);
+		
+		// 장바구니에 존재하는 지 검사
+		List<CartVO> cart = cs.selectCartByUno(uNo);
+		for(CartVO items : cart) {
+			if(items.getpNo() == pNo) {
+				return "redirect:/mypage/cart.do";
+			}
+		}
+		int totalMileage = ms.selectTotalMileage(uNo);
+		System.out.println("totalMileage::"+totalMileage);
+		
+		CartVO cv = new CartVO();
+		cv.setuNo(uNo);
+		cv.setpNo(pNo);
+		cv.setcCount(cCount);
+		int result = cs.addCart(cv);
+		if(result <= 0) {
+			return "redirect:/shop/details.do?pNo="+pNo;
+		}
+		int cNo = cv.getcNo();
+		
+		List<CartVO> orderList = new ArrayList<CartVO>();
+		CartVO order = cs.selectCartForOrder(cNo);
+		orderList.add(order);
+		model.addAttribute("totalMileage", totalMileage);
+		model.addAttribute("orderList", orderList);
+		return "shop/checkout";
 	}
 	
 	@RequestMapping(value="/checkout.do", method=RequestMethod.GET)

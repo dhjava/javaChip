@@ -2,6 +2,42 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import="com.javachip.vo.ProductVO" %>
+<%
+	ProductVO pv = (ProductVO)request.getAttribute("pv");
+%>
+<script>
+	function addCartFn() {
+		
+		var pNo = $("#pNo").val();
+		var cCount = $("#cCount").val();
+		
+		$.ajax({
+			url:"addCart.do",
+			type:"get",
+			data:"pNo="+pNo+"&cCount="+cCount,
+			success:function(data) {
+				if(data> 0) {
+					if(confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?")) {
+						document.location.href="mypage/cart.do";
+					}
+				}else {
+					alert("로그인이 필요한 서비스입니다.");
+					document.location.href="<%= request.getContextPath() %>/member/login.do";
+				}
+			},
+			error:function(){
+				alert("예외발생!");
+			}
+		});
+	}
+	
+	function buyNowFn() {
+		var pNo = $("#pNo").val();
+		var cCount = $("#cCount").val();
+		document.location.href="buyNow.do?pNo="+pNo+"&cCount="+cCount;
+	}
+</script>
 <!-- 메인 작성 영역 -->
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
@@ -9,11 +45,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>상품명</h2>
+                        <h2>${pv.pName}</h2>
                         <div class="breadcrumb__option">
                             <a href="<%= request.getContextPath() %>">홈</a>
                             <a href="grid.do">항목</a>
-                            <span>상품명</span>
+                            <span>${pv.pName}</span>
                         </div>
                     </div>
                 </div>
@@ -36,20 +72,19 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__text">
-                        <h3>상품명</h3>
-                        <div class="product__details__price">$50.00</div>
-                        <p>상품 설명 Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                            vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                            quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
+                        <h3>${pv.pName}</h3>
+                        <div class="product__details__price">${pv.pPrice}원</div>
+                        <p>${pv.pNote}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
                                 <div class="pro-qty">
-                                    <input type="text" value="1">
+                                    <input type="text" name="cCount" id="cCount" value="1"  oninput="this.value=this.value.replace(/[^0-9]/g,'');">
                                 </div>
                             </div>
                         </div>
-                        <a href="#" class="primary-btn">장바구니에 추가</a>
-                        <a href="<%= request.getContextPath() %>/mypage/cart.do" class="primary-btn" style="background-color:#DD5555">바로 구매</a>
+                    	<input type="hidden" name="pNo" id="pNo" value="${pv.pNo}">
+                        <a href="javascript:addCartFn()" class="primary-btn">장바구니에 추가</a>
+                        <a href="javascript:buyNowFn()" class="primary-btn" style="background-color:#DD5555">바로 구매</a>
                         <ul>
                             <li><b>판매상태</b> <span>재고 있음</span></li>
                             <li><span style="float:left;"><b>옵션</b></span>
@@ -91,24 +126,7 @@
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
                                 <div class="product__details__tab__desc">
                                     <h6>상품정보</h6>
-                                    <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                        Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus
-                                        suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                                        vehicula elementum sed sit amet dui. Donec rutrum congue leo eget malesuada.
-                                        Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
-                                        accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a
-                                        pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula
-                                        elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
-                                        et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-                                        vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-                                        <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
-                                        ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
-                                        elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                                        porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
-                                        nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                                        Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Sed
-                                        porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum
-                                        sed sit amet dui. Proin eget tortor risus.</p>
+                                    <p>${pv.pDetail}</p>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
