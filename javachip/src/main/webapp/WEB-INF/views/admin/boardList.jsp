@@ -156,12 +156,12 @@ function deleteValue(){
 						<td><a href="<%=request.getContextPath() %>/help/noticeView.do?nNo=${Notice.nNo}">${Notice.nTitle }</a></td>
 						<td>${Notice.nDate }</td>
 						<td>
-							<%-- <c:if test="${Notice.delYN eq 'Y' }">
+							<c:if test="${Notice.delYN eq 'Y' }">
 								삭제 완료
 							</c:if>
 							<c:if test="${Notice.delYN eq 'N' }">
 								삭제 가능
-							</c:if> --%>
+							</c:if>
 						</td>
 						</tr>
 						</c:forEach>
