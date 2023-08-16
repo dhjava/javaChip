@@ -42,8 +42,12 @@ public class UserDAO {
 	}
 	
 	// mypage 관련
-	public int userUpdate(UserVO vo) {
-		return sqlSession.update(namespace+".userUpdate", vo);
+	public int infoCheck(UserVO vo) throws Exception{
+		return sqlSession.selectOne(namespace+".infoCheck", vo);
+	}
+	
+	public int infoUpdate(UserVO vo) throws Exception {
+		return sqlSession.update(namespace+".infoUpdate", vo);
 	}
 	
 	public int goodbye(UserVO vo) {

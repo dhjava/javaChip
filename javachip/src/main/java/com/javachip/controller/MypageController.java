@@ -141,17 +141,19 @@ public class MypageController {
 		return "mypage/myboard";
 	}
 	
-	@RequestMapping(value="/myinfo.do")
-	public String myinfo(UserVO vo) {
-		int result = us.userUpdate(vo);
-		
-		if(result>0) {
-			System.out.println("정보 변경 성공");
-		}else {
-			System.out.println("정보 변경 실패");
-		}
-		
+	@RequestMapping(value="/myinfo.do", method=RequestMethod.GET)
+	public String myinfo(HttpSession session, Model model, UserVO vo) throws Exception{
+		String uId = (String) session.getAttribute("uId");
+		model.addAttribute(uId);
+		System.out.println(vo.getuId());
 		return "mypage/myinfo";
+	}
+	
+	@RequestMapping(value="/myinfoUpdate.do", method=RequestMethod.POST)
+	public String myinfoUpdate(HttpServletRequest request,UserVO vo) throws Exception{
+		us.infoUpdate(vo);
+		System.out.println(vo.getuId());
+		return "redirect:myinfo.do";
 	}
 	
 	@RequestMapping(value="/myqna.do")

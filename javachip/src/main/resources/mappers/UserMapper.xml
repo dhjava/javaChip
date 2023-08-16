@@ -15,7 +15,30 @@
 			,uPhone
 			,uStatus
 			,uBisno
-			,uAdd
+			,uAdd1
+			,uAdd2
+			,uAdd3
+			,uMail
+			,uAlertNum
+		  FROM user
+		 WHERE uId = #{uId}
+		   AND uPw = #{uPw}
+		   AND uRetire = "N"
+	</select>
+	
+	<select id="selectUser" resultType="userVO" parameterType="userVO">
+		SELECT uNo
+			,uId
+			,uPw
+			,uName
+			,uJoin
+			,uRetire
+			,uPhone
+			,uStatus
+			,uBisno
+			,uAdd1
+			,uAdd2
+			,uAdd3
 			,uMail
 			,uAlertNum
 		  FROM user
@@ -46,7 +69,9 @@
 			,uPhone
 			,uStatus
 			,uBisno
-			,uAdd
+			,uAdd1
+			,uAdd2
+			,uAdd3
 			,uMail
 			,uAlertNum
 		)values(
@@ -58,7 +83,9 @@
 			,#{uPhone}
 			,"N"
 			,""
-			,#{uAdd}
+			,#{uAdd1}
+			,#{uAdd2}
+			,#{uAdd3}
 			,#{uMail}
 			,#{uAlertNum}
 		)
@@ -74,19 +101,23 @@
 			,uPhone
 			,uStatus
 			,uBisno
-			,uAdd
+			,uAdd1
+			,uAdd2
+			,uAdd3
 			,uMail
 			,uAlertNum
 		)values(
 			 #{uId}
 			,#{uPw}
 			,#{uName}
-			,#{uJoin}
-			,#{uRetire}
+			,NOW()
+			,"N"
 			,#{uPhone}
-			,#{uStatus}
-			,#{uBisno}
-			,#{uAdd}
+			,"W"
+			,""
+			,#{uAdd1}
+			,#{uAdd2}
+			,#{uAdd3}
 			,#{uMail}
 			,#{uAlertNum}
 		)
@@ -116,32 +147,24 @@
 	</select>
 	
 <!-- =============================== mypage 관련 쿼리 ==================================== -->
-	<update id = "userUpdate" parameterType="userVO">
-		INSERT INTO user(
-			 uId
-			,uPw
-			,uName
-			,uJoin
-			,uRetire
-			,uPhone
-			,uStatus
-			,uBisno
-			,uAdd
-			,uMail
-			,uAlertNum
-		)values(
-			 #{uId}
-			,#{uPw}
-			,#{uName}
-			,NOW()
-			,"N"
-			,#{uPhone}
-			,"N"
-			,""
-			,#{uAdd}
-			,#{uMail}
-			,#{uAlertNum}
-		)
+	<select id="infoCheck" resultType="userVO" parameterType="userVO">
+		SELECT count(*)
+		  FROM user
+		 WHERE uId = #{uId}
+	</select>
+	
+	<update id = "infoUpdate" parameterType="userVO">
+		UPDATE user
+		   SET uId = #{uId}
+			  ,uPw = #{uPw}
+			  ,uName = #{uName}
+			  ,uPhone = #{uPhone}
+			  ,uBisno = #{uBisno}
+			  ,uAdd1 = #{uAdd1}
+			  ,uAdd2 = #{uAdd2}
+			  ,uAdd3 = #{uAdd3}
+			  ,uMail = #{uMail}
+		 WHERE uId = #{uId}
 	</update>
 	
 	<delete id = "goodbye" parameterType="userVO">

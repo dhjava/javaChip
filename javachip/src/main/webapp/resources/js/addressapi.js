@@ -16,10 +16,10 @@ function sample6_execDaumPostcode() {
             }
 
             // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('uAddNum').value = data.zonecode;
-            document.getElementById("uAdd1").value = addr;
+            document.getElementById('uAdd1').value = data.zonecode;
+            document.getElementById("uAdd2").value = addr;
             // 커서를 상세주소 필드로 이동한다.
-            document.getElementById("uAdd2").focus();
+            document.getElementById("uAdd3").focus();
         }
     }).open();
 }

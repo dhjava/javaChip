@@ -51,8 +51,13 @@ public class UserServiceImpl implements UserService {
 	
 	// mypage 관련
 	@Override
-	public int userUpdate(UserVO vo) {
-		return userDAO.userUpdate(vo);
+	public int infoCheck(UserVO vo) throws Exception {
+		return userDAO.infoCheck(vo);
+	}
+	
+	@Override
+	public int infoUpdate(UserVO vo) throws Exception {
+		return userDAO.infoUpdate(vo);
 	}
 	
 	@Override
