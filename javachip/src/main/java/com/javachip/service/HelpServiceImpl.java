@@ -131,6 +131,13 @@ public class HelpServiceImpl implements HelpService {
 	{
 		return helpDAO.NoticeTotal(AdminSearchVO);
 	}
+	
+	
+	
+	
+	
+	
+	
 
 	//관리자용 QnA 검색/페이징 전체 리스트를 위한 메소드
 	@Override
