@@ -80,6 +80,7 @@
 	
 	<insert id = "insertBiz" parameterType="userVO">
 		INSERT INTO user(
+			 uId
 			,uPw
 			,uName
 			,uJoin
@@ -100,7 +101,7 @@
 			,"N"
 			,#{uPhone}
 			,"W"
-			,""
+			,#{uBisno}
 			,#{uAdd1}
 			,#{uAdd2}
 			,#{uAdd3}

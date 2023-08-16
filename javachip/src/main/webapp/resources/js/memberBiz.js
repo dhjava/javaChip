@@ -56,7 +56,7 @@ function checks() {
 		return false;
 	}
 
-	alert("가입 신청이 완료되었습니다.<\n>사업자 회원은 사업자 증명이 완료된 후 가입이 승인됩니다.<\n>제출 메일 : javachip0703@gmail.com")
+	alert("가입 신청이 완료되었습니다.\n사업자 회원은 사업자 증명이 완료된 후 가입이 승인됩니다.\n제출 메일 : javachip0703@gmail.com")
   return true;
 }
 

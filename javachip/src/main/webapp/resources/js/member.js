@@ -121,8 +121,6 @@ function checkFn(obj){
 function submitFn(){
 	if(checkIdFlag && checkPasswordFlag && checkNameFlag && checkPhoneFlag && checkMailFlag){
 		// 선택 불가한 select 값 form에 전송하기위해 disabled 값 제거
-		$("#uPw").prop('disabled',false);
-		$("#uName").prop('disabled',false);
 		$("form").submit();
 	}
 }
@@ -180,6 +178,5 @@ $(document).ready(function() {
 });
 
 function inputActive()  {
-	const target = document.getElementById('uPw');
-	target.disabled = false;
+	$('#uPw').attr('readonly', false);
   }

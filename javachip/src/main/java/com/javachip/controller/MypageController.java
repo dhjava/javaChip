@@ -145,8 +145,12 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/myinfo.do")
-	public String myinfo(){
-		
+	public String myinfo(HttpServletRequest req){
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
 		return "mypage/myinfo";
 	}
 	

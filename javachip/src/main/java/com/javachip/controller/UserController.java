@@ -49,14 +49,23 @@ public class UserController {
 		if(loginVO != null) {
 			//login할 회원이 데이터베이스에 존재
 			System.out.println("회원존재");
-			
 			session.setAttribute("login", loginVO);
-			pw.append("<script>alert('로그인에 성공했습니다.');location.href='"+req.getContextPath()+"/';</script>");
+			String uStatus = loginVO.getuStatus();
 			
-		}else {
+			if(uStatus.equals("W")) {
+				System.out.println("가입 대기 회원");
+				session.invalidate();
+				pw.append("<script>alert('가입 대기 중인 회원입니다.\\n가입 승인 후 로그인 가능합니다."
+						+ "\\n(승인 기간 : 가입일에서 최대 1주일)\\n\\n"
+						+ "문의사항은 javachip0703@gmail.com으로 보내주세요.');location.href='"
+						+req.getContextPath()+"/member/login.do';</script>");
+			}else{
+			pw.append("<script>alert('로그인에 성공했습니다.');location.href='"+req.getContextPath()+"/';</script>");
+			}
+		}else{
 			//login할 회원이 데이터베이스에 존재 X
 			System.out.println("회원존재 X");
-			pw.append("<script>alert('로그인에 실패했습니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");
+			pw.append("<script>alert('존재하지 않는 아이디나 비밀번호입니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");
 		}
 		
 		pw.flush();

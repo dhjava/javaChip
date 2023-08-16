@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public int insertBiz(UserVO vo) {
-		return userDAO.insert(vo);
+		return userDAO.insertBiz(vo);
 	}
 
 	@Override
