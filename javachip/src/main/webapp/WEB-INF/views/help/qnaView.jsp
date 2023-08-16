@@ -4,7 +4,6 @@
 <%@ include file="../include/nav.jsp" %>
 
 <script src="<%=request.getContextPath() %>/resources/js/qna.js"></script>
-
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
 		<div class="container">
@@ -21,14 +20,22 @@
 				</div>
 		</div>
 	</div>
-</section>
+	</section>
 	<section class="board-box spad">
 		<div class="container">
 			<h4>QnA 글 보기</h4>
 			<table class="table" style="margin-top:40px; margin-bottom:50px; font-size:11pt;">
 				<tr>
 					<td style="width:12%">제목</td>
-					<td colspan="2">${qnaVO.qTitle}</td>
+					<td colspan="2">
+					<c:if test="${qnaVO.qlevel > 0}">
+						Re:
+					</c:if>
+					${qnaVO.qTitle}
+					<c:if test="${qnaVO.secretYN eq 'Y'}">
+						<img style="display: inline-block;vertical-align:baseline" alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
+					</c:if>
+					</td>
 				</tr>
 				<tr>
 					<td>작성자</td>
@@ -51,13 +58,17 @@
 				<tr style="font-color:gray; font-size:10pt;">
 					<td colspan="2">작성일  ${qnaVO.qDate}</td>
 				</tr>
-				<c:if test="${qnaVO.qlevel > 0}">
-				<tr>
-					<td colspan="2">[질문]</td>
-				</tr>	
+				<c:if test="${qnaVO.qlevel > 0}">	
 				<tr>
 					<td style="width:12%">제목</td>
-					<td>${originQnaVO.qTitle}</td>
+					<td>
+						<c:if test="${qna.qlevel > 0}">
+							&nbsp;&nbsp;⮡ &nbsp;Re:
+						</c:if>
+						${originQnaVO.qTitle}
+						<c:if test="${originQnaVO.secretYN eq 'Y'}">
+							<img style="display: inline-block;vertical-align:baseline" alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
+						</c:if></td>
 				</tr>	
 				<tr>
 					<td colspan="3" style="white-space:pre-line; height:200px;">${originQnaVO.qContents}</td>
@@ -71,47 +82,58 @@
 				</tr>
 				<tr>
 					<td colspan="3">
-						<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qna.do'">목록으로</button>
-					<c:if test="${qnaVO.qlevel eq 0}">	
+						<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qna.do'">목록으로</button>	
 						<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qnaAnswer.do?qNo=${qnaVO.qNo}'">답변하기</button>
-					</c:if>	
 						<button type="button" class="btn btn-outline-danger" onclick="qnaDelFn();">삭제하기</button>
-						<form name="delFrm" method="post" action="noticeDelete.do">
-							<input type="hidden" name="qNo" value="">
+						<form name="delFrm" method="post" action="qnaDelete.do">
+							<input type="hidden" name="qNo" value="${qnaVO.qNo}">
+							<input type="hidden" name="loginUno" value="${login.uNo}">
 						</form>
 					</td>
 				</tr>
 			</table>
+			
 			<table class="table table-striped" style="margin-top:50px;table-layout:fixed;">
 			<c:forEach var="nearQna" items="${nearQnaList}">
 			<c:if test="${nearQna.qNo > qnaVO.qNo}">
 				<tr>
 					<th scope="row" style="width:12%">▲다음글</th>
-					<td class="boardElipsis">
-						<a href="qnaView.do?qNo=${nearQna.qNo}">
-						<c:if test="${nearQna.qlevel > 0}">
-							&nbsp;&nbsp;⮡ &nbsp;Re:
+					<td>
+						<span class="boardElipsis" style="display: inline-block; max-width:470px;">
+							<a href="qnaView.do?qNo=${nearQna.qNo}">
+							<c:if test="${nearQna.qlevel > 0}">
+								&nbsp;&nbsp;⮡ &nbsp;
+							</c:if>
+							${nearQna.qTitle}
+							</a>
+						</span>	
+						<c:if test="${nearQna.secretYN eq 'Y'}">
+							<img style="display: inline-block;vertical-align:baseline" alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
 						</c:if>
-						${nearQna.qTitle}
-						</a>
 					</td>
 				</tr>
 			</c:if>
 			<c:if test="${nearQna.qNo < qnaVO.qNo}">
 				<tr>
 					<th scope="row" style="width:12%">▼이전글</th>
-					<td class="boardElipsis">
-						<a href="qnaView.do?qNo=${nearQna.qNo}">
-						<c:if test="${nearQna.qlevel > 0}">
-							&nbsp;&nbsp;⮡ &nbsp;Re:
+					<td>
+						<span class="boardElipsis" style="display: inline-block; max-width:470px;">
+							<a href="qnaView.do?qNo=${nearQna.qNo}">
+								<c:if test="${nearQna.qlevel > 0}">
+									&nbsp;&nbsp;⮡ &nbsp;
+								</c:if>
+								${nearQna.qTitle}
+							</a>
+						</span>
+						<c:if test="${nearQna.secretYN eq 'Y'}">
+							<img style="display: inline-block;vertical-align:baseline" alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
 						</c:if>
-						${nearQna.qTitle}
-						</a>
 					</td>
 				</tr>
 			</c:if>
 			</c:forEach>
 			</table>
+			
 		</div>
 	</section>
 <%@ include file="../include/footer.jsp" %>

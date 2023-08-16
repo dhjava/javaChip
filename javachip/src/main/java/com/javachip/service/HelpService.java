@@ -33,6 +33,8 @@ public interface HelpService {
 	
 	int deleteQna(int qNo);
 	
+	int deleteOriginQna(int originqno);
+	
 	int totalQna(SearchVO searchVO);
 	
 	int AnswerQna(QnaVO qnaVO);

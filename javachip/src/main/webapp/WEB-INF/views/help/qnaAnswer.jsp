@@ -33,53 +33,50 @@
 						</div>
 						<div class="p-2 bd-highlight">
 							<p>제목<p>
-							<input type="text" name="qTitle" id="qTitle" class="form-control" aria-label="subject" placeholder="제목을 입력하세요." value="${originQnaVO.qTitle}">
+							<input type="text" name="qTitle" id="qTitle" class="form-control" aria-label="subject" placeholder="제목을 입력하세요." value="Re: ${prevQnaVO.qTitle}">
 						</div>
 						<table class="table" style="margin-top:40px; margin-bottom:50px; font-size:11pt; text-align:left">
 							<tr>
-								<td>[질문]</td>
-							</tr>
-							<tr>
 								<td style="width:12%">제목</td>
-								<td>
-									<div class="p-2 bd-highlight" style="text-align:right">
-									<p>비밀글  <input type="checkbox" name="secretCheck" id="secretCheck" value="${originQnaVO.secretYN}" <c:if test="${originQnaVO.secretYN eq 'Y'}">checked</c:if> readonly /></p>
-									</div>
-								</td>
 								<td colspan="2">
-									${originQnaVO.qTitle}
-									<input type="hidden" name="originqno" id=""originqno"" value="${originQnaVO.qNo}">
-									<input type="hidden" name="qType" id="qType" value="${originQnaVO.qType}">
+									${prevQnaVO.qTitle}
+									<input type="hidden" name="qlevel" id="qlevel" value="${prevQnaVO.qlevel}">
+									<input type="hidden" name="originqno" id="originqno" value="${prevQnaVO.originqno}">
+									<input type="hidden" name="qType" id="qType" value="${prevQnaVO.qType}">
+									<input type="hidden" name="secretCheck" id="secretCheck" value="${prevQnaVO.secretYN}">
 								</td>
 							</tr>
 							<tr>
 								<td>작성자</td>
-								<td colspan="2">${originQnaVO.uName}</td>
+								<td colspan="2">${prevQnaVO.uName}</td>
 							</tr>
-						<c:if test="${originQnaVO.qType eq 'P'}">
+						<c:if test="${prevQnaVO.qType eq 'P'}">
 							<tr style="height:120px;">
 								<td style="vertical-align:middle;">문의 상품</td>
 								<td style="vertical-align:middle; text-align:center; width:20%">(사진)</td>
-								<td>${originQnaVO.pNo}</td>
+								<td>${prevQnaVO.pNo}</td>
 							</tr>
 						</c:if>
 							<tr style="font-color:gray; font-size:10pt;">
-								<td colspan="2">작성일  ${originQnaVO.qDate}</td>
+								<td colspan="2">작성일  ${prevQnaVO.qDate}</td>
 							</tr>
 							<tr>
-								<td colspan="3" style="white-space:pre-line;">${originQnaVO.qContents}</td>
+								<td colspan="3" style="white-space:pre-line;">${prevQnaVO.qContents}</td>
 							</tr>
 						</table>
+					</div>
+					<div class="p-2 bd-highlight" style="text-align:right">
+						<p>비밀글  <input type="checkbox" value="${prevQnaVO.secretYN}" <c:if test="${prevQnaVO.secretYN eq 'Y'}">checked</c:if> disabled /></p>
 					</div>
 					<div class="p-2 bd-highlight">
 						<textarea class="form-control" name="qContents" id="qContents" rows="10"></textarea>
 					</div>
 					<div class="p-2 bd-highlight">
 						<div class="input-group mb-1">
-								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="inputGroupFile02">
-									<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-								</div>
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="inputGroupFile02">
+								<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+							</div>
 						</div>
 					</div>
 					<div class="p-2 bd-highlight" align="center">

@@ -43,16 +43,19 @@
 				<tr>
 					<td scope="row">${pm.seqNo-status.index}</td>
 					<td>
-						<span class="boardElipsis">
+						<span class="boardElipsis" style="display: inline-block; max-width:470px;">
 							<a href="qnaView.do?qNo=${qna.qNo}">
 							<c:if test="${qna.qlevel > 0}">
-								&nbsp;&nbsp;⮡ &nbsp;Re:
+								<c:forEach var="i" begin="0" end="${qna.qlevel}">
+								&nbsp;&nbsp;
+								</c:forEach>
+								⮡ &nbsp;
 							</c:if>
 							${qna.qTitle}
 							</a>
 						</span>
 						<c:if test="${qna.secretYN eq 'Y'}">
-							<img alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
+							<img style="display: inline-block;vertical-align:baseline" alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
 						</c:if>
 					</td>
 					<td>

@@ -97,6 +97,12 @@ public class HelpServiceImpl implements HelpService {
 	}
 	
 	@Override
+	public int deleteOriginQna(int originqno) {
+		
+		return helpDAO.deleteOriginQna(originqno);
+	}
+	
+	@Override
 	public int totalQna(SearchVO searchVO) {
 		
 		return helpDAO.totalQna(searchVO);
@@ -109,6 +115,7 @@ public class HelpServiceImpl implements HelpService {
 		
 		return result;
 	}
+	
 	
 	//====================================관리자 메소드====================================
 	//관리자용 notice 페이징을 위한 메소드
@@ -145,5 +152,6 @@ public class HelpServiceImpl implements HelpService {
 	{
 		helpDAO.deleteNoticeByAdmin(nNo);
 	}
+
 
 }
