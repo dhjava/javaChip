@@ -18,8 +18,8 @@ public interface UserService {
 	UserVO pwFind(UserVO vo);
 	
 	// mypage 관련
-	int infoCheck(UserVO vo) throws Exception ;
-	int infoUpdate(UserVO vo) throws Exception ;
+	UserVO infoCheck(int uNo);
+	int infoUpdate(UserVO vo);
 	int goodbye(UserVO vo);
 	
 	//admin용========================================================

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.javachip.dao.UserDAO;
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
 import com.javachip.service.UserService;
@@ -30,6 +31,8 @@ public class MypageController {
 	private MileageService ms;
 	@Autowired
 	private UserService us;
+	@Autowired
+	private UserDAO ud;
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpServletRequest req, Model model) {
@@ -141,18 +144,24 @@ public class MypageController {
 		return "mypage/myboard";
 	}
 	
-	@RequestMapping(value="/myinfo.do", method=RequestMethod.GET)
-	public String myinfo(HttpSession session, Model model, UserVO vo) throws Exception{
-		String uId = (String) session.getAttribute("uId");
-		model.addAttribute(uId);
-		System.out.println(vo.getuId());
+	@RequestMapping(value="/myinfo.do")
+	public String myinfo(){
+		
 		return "mypage/myinfo";
 	}
 	
-	@RequestMapping(value="/myinfoUpdate.do", method=RequestMethod.POST)
-	public String myinfoUpdate(HttpServletRequest request,UserVO vo) throws Exception{
+	@RequestMapping(value="/myinfoUpdate.do")
+	public String myinfoUpdate(HttpServletRequest req,UserVO vo,Model model) throws Exception{
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		vo.setuNo(uNo);
+		System.out.println(vo);
 		us.infoUpdate(vo);
-		System.out.println(vo.getuId());
+		model.addAttribute("vo",vo);
 		return "redirect:myinfo.do";
 	}
 	

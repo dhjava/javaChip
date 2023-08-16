@@ -42,11 +42,11 @@ public class UserDAO {
 	}
 	
 	// mypage 관련
-	public int infoCheck(UserVO vo) throws Exception{
-		return sqlSession.selectOne(namespace+".infoCheck", vo);
+	public UserVO infoCheck(int uNo){
+		return sqlSession.selectOne(namespace+".infoCheck", uNo);
 	}
 	
-	public int infoUpdate(UserVO vo) throws Exception {
+	public int infoUpdate(UserVO vo){
 		return sqlSession.update(namespace+".infoUpdate", vo);
 	}
 	

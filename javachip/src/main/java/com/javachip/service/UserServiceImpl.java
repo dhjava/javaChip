@@ -51,12 +51,12 @@ public class UserServiceImpl implements UserService {
 	
 	// mypage 관련
 	@Override
-	public int infoCheck(UserVO vo) throws Exception {
-		return userDAO.infoCheck(vo);
+	public UserVO infoCheck(int uNo){
+		return userDAO.infoCheck(uNo);
 	}
 	
 	@Override
-	public int infoUpdate(UserVO vo) throws Exception {
+	public int infoUpdate(UserVO vo){
 		return userDAO.infoUpdate(vo);
 	}
 	

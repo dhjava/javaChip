@@ -25,8 +25,6 @@
                 <h4>회원정보 수정</h4>
                 <form action="myinfoUpdate.do" method="post" onsubmit="return checks()">
                     <div class="join__input"><!-- PK에서 가져오기 -->
-                <form action="#">
-                    <div class="join__input">
                     	<p>아이디<span>*</span></p>
                         	<input type="text" class="join__input__short" id="uId" name="uId" value="${login.uId}" disabled/>
                     	<p>비밀번호<span>*</span>&nbsp;&nbsp;<span style="font-size:10pt; color:silver;">대/소문자, 숫자, 특수기호 최소 8자에서 최대 20자</span></p>
@@ -40,13 +38,9 @@
                         	<div class="msg"></div>
                         <p>주소<span>*</span></p>
 	                        <input type="text" placeholder="우편번호" class="join__input__short" id="uAdd1" name="uAdd1" value="${login.uAdd1}">
-	                        <input type="text" placeholder="우편번호" class="join__input__short" id="uAddNum" name="uAdd">
 	                        <button type="button" class="btn btn-outline-secondary" onclick="sample6_execDaumPostcode()">우편번호</button>
 	                        <input type="text" placeholder="주소" class="join__input__add" id="uAdd2" name="uAdd2" value="${login.uAdd2}">
 	                        <input type="text" placeholder="나머지 주소" class="join__input__add" id="uAdd3" name="uAdd3" value="${login.uAdd3}">
-	                        <input type="text" placeholder="주소" class="join__input__add" id="uAdd1" name="uAdd">
-	                        <input type="text" placeholder="나머지 주소" class="join__input__add" id="uAdd2" name="uAdd">
-	                        <input type="hidden" name="uAdd_all" id="uAdd_all" value=""/>
                         <p>전화번호<span>*</span></p>
 							<input class="join__input__short" type="text" name="uPhone" id="uPhone" onblur="checkFn(this)" value="${login.uPhone}">
 							<div class="msg"></div>
@@ -66,7 +60,6 @@
                    	</div>
 					<div class="join__submit">
 						<input type="submit" class="btn btn-primary" value="정보 수정">
-						<input type="submit" class="btn btn-primary" value="회원가입">
 						<input type="reset" class="btn btn-outline-secondary" value="취소">
 					</div>
                 </form>

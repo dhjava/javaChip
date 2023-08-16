@@ -6,20 +6,7 @@
 <mapper namespace="com.javachip.mapper.UserMapper">
 	
 	<select id="selectUserByLogin" resultType="userVO" parameterType="userVO">
-		SELECT uNo
-			,uId
-			,uPw
-			,uName
-			,uJoin
-			,uRetire
-			,uPhone
-			,uStatus
-			,uBisno
-			,uAdd1
-			,uAdd2
-			,uAdd3
-			,uMail
-			,uAlertNum
+		SELECT *
 		  FROM user
 		 WHERE uId = #{uId}
 		   AND uPw = #{uPw}
@@ -93,7 +80,6 @@
 	
 	<insert id = "insertBiz" parameterType="userVO">
 		INSERT INTO user(
-			 uId
 			,uPw
 			,uName
 			,uJoin
@@ -147,16 +133,16 @@
 	</select>
 	
 <!-- =============================== mypage 관련 쿼리 ==================================== -->
-	<select id="infoCheck" resultType="userVO" parameterType="userVO">
-		SELECT count(*)
+	<select id="infoCheck" resultType="userVO" parameterType="int">
+		SELECT *
 		  FROM user
-		 WHERE uId = #{uId}
+		 WHERE uNo = #{uNo}
 	</select>
 	
+	<!--  -->
 	<update id = "infoUpdate" parameterType="userVO">
 		UPDATE user
-		   SET uId = #{uId}
-			  ,uPw = #{uPw}
+		   SET uPw = #{uPw}
 			  ,uName = #{uName}
 			  ,uPhone = #{uPhone}
 			  ,uBisno = #{uBisno}
@@ -164,7 +150,7 @@
 			  ,uAdd2 = #{uAdd2}
 			  ,uAdd3 = #{uAdd3}
 			  ,uMail = #{uMail}
-		 WHERE uId = #{uId}
+		 WHERE uNo = #{uNo}
 	</update>
 	
 	<delete id = "goodbye" parameterType="userVO">

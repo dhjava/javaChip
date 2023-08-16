@@ -1,5 +1,7 @@
 $.getScript( '//code.jquery.com/jquery-latest.min.js' );
 
+
+
 function checks() {
 	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 	var getCheck= RegExp(/^[a-zA-Z0-9]{4,16}$/);
@@ -118,6 +120,9 @@ function checkFn(obj){
 }
 function submitFn(){
 	if(checkIdFlag && checkPasswordFlag && checkNameFlag && checkPhoneFlag && checkMailFlag){
+		// 선택 불가한 select 값 form에 전송하기위해 disabled 값 제거
+		$("#uPw").prop('disabled',false);
+		$("#uName").prop('disabled',false);
 		$("form").submit();
 	}
 }
@@ -173,3 +178,8 @@ $(document).ready(function() {
 		else $("#agree_all").prop("checked", true); 
 	});
 });
+
+function inputActive()  {
+	const target = document.getElementById('uPw');
+	target.disabled = false;
+  }

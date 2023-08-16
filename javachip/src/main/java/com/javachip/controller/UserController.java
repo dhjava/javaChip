@@ -31,12 +31,12 @@ public class UserController {
 	@Autowired
 	private MailSendService mailService;
 	
-	@RequestMapping(value="/login.do",method=RequestMethod.GET)
+	@RequestMapping(value="/login.do")
 	public String login() {
 		return "member/login";
 	}
 	
-	@RequestMapping(value="/login.do",method=RequestMethod.POST)
+	@RequestMapping(value="/loginAction.do")
 	public void login(UserVO vo,HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
 		HttpSession session = req.getSession();
