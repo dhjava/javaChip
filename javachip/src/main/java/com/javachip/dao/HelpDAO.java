@@ -68,8 +68,8 @@ public class HelpDAO {
 		return sqlSession.update("com.javachip.mapper.helpMapper.deleteQna", qNo);
 	}
 	
-	public int deleteOriginQna(int originqno) {
-		return sqlSession.update("com.javachip.mapper.helpMapper.deleteOriginQna", originqno);
+	public int deleteNextQna(QnaVO qnaVO) {
+		return sqlSession.update("com.javachip.mapper.helpMapper.deleteNextQna", qnaVO);
 	}
 	
 	public int totalQna(SearchVO searchVO) {

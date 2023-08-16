@@ -87,6 +87,7 @@
 						<button type="button" class="btn btn-outline-danger" onclick="qnaDelFn();">삭제하기</button>
 						<form name="delFrm" method="post" action="qnaDelete.do">
 							<input type="hidden" name="qNo" value="${qnaVO.qNo}">
+							<input type="hidden" name="qlevel" value="${qnaVO.qlevel}">
 							<input type="hidden" name="loginUno" value="${login.uNo}">
 						</form>
 					</td>

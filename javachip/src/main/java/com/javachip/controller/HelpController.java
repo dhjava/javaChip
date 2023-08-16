@@ -399,12 +399,9 @@ public class HelpController {
 			pw.flush();
 		}else {
 			
-			// 본래 게시물이면
-			if(qnaVO.getOriginqno() == qnaVO.getqNo()) {
-				result = helpService.deleteOriginQna(qnaVO.getOriginqno());
-			}else {
-				result = helpService.deleteQna(qNo);
-			}
+			
+			result = helpService.deleteNextQna(qnaVO);
+			
 			// 삭제 여부 체크
 			if( result > 0 ) {
 				// 삭제 성공

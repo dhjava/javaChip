@@ -154,10 +154,11 @@
 		SET delYN = 'Y'
 		WHERE qNo = #{qNo}
 	</update>
-	<update id="deleteOriginQna" parameterType="int">
+	<update id="deleteNextQna" parameterType="qnaVO">
 		UPDATE Qna 
 		SET delYN = 'Y'
 		WHERE originqno = #{originqno}
+		AND qlevel >= #{qlevel}
 	</update>
 	
 	<select id="totalQna" resultType="int">

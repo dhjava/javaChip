@@ -97,9 +97,9 @@ public class HelpServiceImpl implements HelpService {
 	}
 	
 	@Override
-	public int deleteOriginQna(int originqno) {
+	public int deleteNextQna(QnaVO qnaVO) {
 		
-		return helpDAO.deleteOriginQna(originqno);
+		return helpDAO.deleteNextQna(qnaVO);
 	}
 	
 	@Override

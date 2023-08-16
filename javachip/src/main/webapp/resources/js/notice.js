@@ -63,7 +63,7 @@ function helpModifyResetFn() {
 
 // 공지사항 삭제
 function noticeDelFn() {
-	if( confirm("정말 삭제하시겠습니까?") ) {
+	if( confirm("게시물을 정말 삭제하시겠습니까?") ) {
 		//true
 		document.delFrm.submit();
 	}else {
