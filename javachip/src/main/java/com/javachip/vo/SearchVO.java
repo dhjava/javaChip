@@ -3,7 +3,6 @@ package com.javachip.vo;
 public class SearchVO extends PageVO{
 	private String searchType;
 	private String searchValue;
-	private String sort;
 	
 	public String getSearchType() {
 		return searchType;
@@ -16,12 +15,6 @@ public class SearchVO extends PageVO{
 	}
 	public void setSearchValue(String searchValue) {
 		this.searchValue = searchValue;
-	}
-	public String getSort() {
-		return sort;
-	}
-	public void setSort(String sort) {
-		this.sort = sort;
 	}
 	
 	@Override

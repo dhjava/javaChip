@@ -9,15 +9,13 @@ public class ProductVO {
 	private int pOutput;
 	private int pStock;
 	private String pDate;
-	private String pNote;
-	private String pDetail;
 	
 	@Override
 	public String toString() {
 		return "ProductVO [pNo=" + pNo + ", pType=" + pType + ", pName=" + pName + ", pPrice=" + pPrice + ", pInput="
-				+ pInput + ", pOutput=" + pOutput + ", pStock=" + pStock + ", pDate=" + pDate + ", pNote=" + pNote
-				+ ", pDetail=" + pDetail + "]";
+				+ pInput + ", pOutput=" + pOutput + ", pStock=" + pStock + ", pDate=" + pDate + "]";
 	}
+	
 	public int getpNo() {
 		return pNo;
 	}
@@ -65,17 +63,5 @@ public class ProductVO {
 	}
 	public void setpDate(String pDate) {
 		this.pDate = pDate;
-	}
-	public String getpNote() {
-		return pNote;
-	}
-	public void setpNote(String pNote) {
-		this.pNote = pNote;
-	}
-	public String getpDetail() {
-		return pDetail;
-	}
-	public void setpDetail(String pDetail) {
-		this.pDetail = pDetail;
 	}
 }

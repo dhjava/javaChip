@@ -6,7 +6,7 @@ public class NoticeVO {
 	private String nTitle;
 	private String nContents;
 	private String nDate;
-	private String delYN;
+	private char delYN;
 	
 	private String uName;
 	
@@ -26,13 +26,14 @@ public class NoticeVO {
 	public String getnDate() {
 		return nDate;
 	}
+	public char getDelYN() {
+		return delYN;
+	}
 	// getter 추가
 	public String getuName() {
 		return uName;
 	}
-	public String getDelYN() {
-		return delYN;
-	}
+
 	// setter
 	public void setnNo(int nNo) {
 		this.nNo = nNo;
@@ -49,14 +50,14 @@ public class NoticeVO {
 	public void setnDate(String nDate) {
 		this.nDate = nDate;
 	}
+	public void setDelYN(char delYN) {
+		this.delYN = delYN;
+	}
 	// setter 추가
 	public void setuName(String uName) {
 		this.uName = uName;
 	}
-
-	public void setDelYN(String delYN) {
-		this.delYN = delYN;
-	}
+	
 	// toString
 	@Override
 	public String toString() {

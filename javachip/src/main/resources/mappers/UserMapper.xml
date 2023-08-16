@@ -117,20 +117,31 @@
 	
 <!-- =============================== mypage 관련 쿼리 ==================================== -->
 	<update id = "userUpdate" parameterType="userVO">
-		UPDATE user
-		   SET uId = #{uId}
-			  ,uPw = #{uPw}
-			  ,uName = #{uName}
-			  ,uJoin = #{uJoin}
-			  ,uRetire = #{uRetire}
-			  ,uPhone = #{uPhone}
-			  ,uStatus = #{uStatus}
-			  ,uBisno = #{uBisno}
-			  ,uAdd = #{uAdd}
-			  ,uMail = #{uMail}
-			  ,uAlertNum = #{uAlertNum}
-		 WHERE uId = #{uId}
-		
+		INSERT INTO user(
+			 uId
+			,uPw
+			,uName
+			,uJoin
+			,uRetire
+			,uPhone
+			,uStatus
+			,uBisno
+			,uAdd
+			,uMail
+			,uAlertNum
+		)values(
+			 #{uId}
+			,#{uPw}
+			,#{uName}
+			,NOW()
+			,"N"
+			,#{uPhone}
+			,"N"
+			,""
+			,#{uAdd}
+			,#{uMail}
+			,#{uAlertNum}
+		)
 	</update>
 	
 	<delete id = "goodbye" parameterType="userVO">

@@ -68,6 +68,10 @@ public class HelpDAO {
 		return sqlSession.update("com.javachip.mapper.helpMapper.deleteQna", qNo);
 	}
 	
+	public int deleteOriginQna(int originqno) {
+		return sqlSession.update("com.javachip.mapper.helpMapper.deleteOriginQna", originqno);
+	}
+	
 	public int totalQna(SearchVO searchVO) {
 		return sqlSession.selectOne("com.javachip.mapper.helpMapper.totalQna", searchVO);
 	}
@@ -75,6 +79,7 @@ public class HelpDAO {
 	public int AnswerQna(QnaVO qnaVO) {
 		return sqlSession.insert("com.javachip.mapper.helpMapper.answerQna", qnaVO);
 	}
+	
 	
 	//====================================관리자 메소드====================================
 	//관리자용 공지사항 검색/페이징 전체 리스트를 위한 메소드

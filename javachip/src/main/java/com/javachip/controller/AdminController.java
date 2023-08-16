@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -176,7 +175,7 @@ public class AdminController
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/AlertUser.do" , method = RequestMethod.POST)
+	@RequestMapping(value="/AlertUser.do")
 	public String AlertUser(int uNo)
 	{
 		int result = 0;
@@ -185,10 +184,27 @@ public class AdminController
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/boardDelete.do" , method = RequestMethod.POST)
+	@RequestMapping(value="/boardDelete.do")
 	public String boardDelete(HttpServletRequest request)
 	{
+/*		
+		HttpSession session,
+		@RequestParam(value = "chbox[]") List<String> chArr, NoticeVO NoticeVO
+		
+		NoticeVO notice = (NoticeVO)session.getAttribute("notice");
+		int result = 0;
+		int nNo = 0;
+		
+		for(String i : chArr) {
+			notice.setnNo(nNo);
+			hs.deleteNoticeByAdmin(NoticeVO);
+		}
+	
+		result = 1;
+		return result;
+*/
 		String[] ajaxMsg = request.getParameterValues("valueArr");
+		
 		
 		int size = ajaxMsg.length;
 			
@@ -197,21 +213,9 @@ public class AdminController
 			}
 
 		return "redirect:/admin/boardList";
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/qnaDelete.do" , method = RequestMethod.POST)
-	public String qnaDelete(HttpServletRequest request)
-	{
-		String[] ajaxMsg = request.getParameterValues("valueArr");
-		
-		int size = ajaxMsg.length;
-			
-			for(int i = 0; i < size; i++) {
-				hs.deleteQnaByAdmin(ajaxMsg[i]);
-			}
 
-		return "redirect:/admin/qnaList";
+/*		hs.deleteNoticeByAdmin(selectedIds);
+		return "redirect:/admin/boardList";*/
 	}
 	
 	@RequestMapping(value="/product.do")

@@ -3612,6 +3612,10 @@ section.join.spad {
 	white-space:nowrap;
 	overflow:hidden;
 }
+/* 비밀글 */
+.secretBoard {
+	border: 1px solid #dcdcdc;
+}
 
 /* 마이페이지 */
 .shoping-cart a{

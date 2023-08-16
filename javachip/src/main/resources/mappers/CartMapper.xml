@@ -56,11 +56,6 @@
 			,#{pNo}
 			,#{cCount}
 		)
-		<selectKey order="AFTER" keyProperty="cNo" resultType="int">
-			SELECT MAX(cNo)
-			  FROM cart
-			 WHERE uNo = #{uNo}
-		</selectKey>
 	</insert>
 	
 	<!-- 장바구니에서 상품 삭제 -->

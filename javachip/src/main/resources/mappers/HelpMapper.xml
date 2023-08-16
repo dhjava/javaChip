@@ -154,6 +154,11 @@
 		SET delYN = 'Y'
 		WHERE qNo = #{qNo}
 	</update>
+	<update id="deleteOriginQna" parameterType="int">
+		UPDATE Qna 
+		SET delYN = 'Y'
+		WHERE originqno = #{originqno}
+	</update>
 	
 	<select id="totalQna" resultType="int">
 		SELECT COUNT(*) AS cnt FROM Qna
@@ -165,8 +170,13 @@
 		INSERT INTO Qna
 		(originqno,qlevel,uNo, qTitle, qContents, qType,secretYN)
 		VALUES(#{originqno},#{qlevel}+1,#{uNo},#{qTitle},#{qContents},#{qType},
-		IFNULL(#{secretYN},'N');
+		IFNULL(#{secretYN},'N')
 		)
+		
+		<selectKey resultType="int" keyProperty="qNo" order="AFTER">
+			SELECT max(qNo) as qNo 
+			FROM QnA
+		</selectKey>
 	</insert>
 	
 	<!-- =============================관리자용 sql쿼리문 모음======================================== -->

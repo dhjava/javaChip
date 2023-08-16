@@ -294,8 +294,8 @@ public class HelpController {
 		
 		String path = "";
 		// 글 출력
-			res.setContentType("text/html;charset=UTF-8");
-			PrintWriter pw = res.getWriter();
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
 					
 		// 로그인 확인
 		HttpSession session = req.getSession();
@@ -315,7 +315,6 @@ public class HelpController {
 		if( "Y".equals(secretCheck) ) {			
 			qnaVO.setSecretYN("Y");
 		}
-		System.out.println(qnaVO.getSecretYN());
 		
 		// insertQnA 실행
 		int result = helpService.insertQna(qnaVO);
@@ -335,10 +334,35 @@ public class HelpController {
 		return "redirect:" + path ;
 	}
 	@RequestMapping(value="/qnaView.do", method = RequestMethod.GET)
-	public String qnaView(int qNo, Model model) {
+	public String qnaView(int qNo, Model model, HttpServletRequest req, HttpServletResponse res) throws IOException {
+		
 		// Qna의 qNo 게시글 내용 및 이전,다음 게시글 정보를 받아옴.
 		QnaVO qnaVO = helpService.selectOneByQno(qNo);
 		List<QnaVO> nearQnaList = helpService.selectNearQno(qNo);
+		
+		// 로그인 확인
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		
+		// 글 출력
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+		
+		// 비밀글 설정이 켜져있다면,
+		if(qnaVO.getSecretYN().equals("Y")) {
+			// 작성자 체크
+			if(loginVO == null) {
+				
+				return "help/secret";
+			}else if(loginVO.getuNo() == qnaVO.getuNo() || loginVO.getuStatus().equals("A")){
+				
+
+			}else {
+				
+				return "help/secret";
+			}
+			
+		}
 		
 		model.addAttribute("qnaVO",qnaVO);
 		model.addAttribute("nearQnaList",nearQnaList);
@@ -367,17 +391,31 @@ public class HelpController {
 			pw.flush();
 		}
 		
-		int result = helpService.deleteQna(qNo);
+		QnaVO qnaVO = helpService.selectOneByQno(qNo);
+		int result = 0;
 		
-		if( result > 0 ) {
-			// 삭제 성공
-			pw.append("<script>alert('게시글을 삭제하였습니다.');location.href='qna.do'</script>");
+		if( qnaVO.getuNo() != loginVO.getuNo()) {
+			pw.append("<script>alert('삭제하려면 해당 게시글 작성자이어야만 합니다.');location.href='../';</script>");
+			pw.flush();
 		}else {
-			// 삭제 실패
-			pw.append("<script>alert('게시글을 삭제를 실패하였습니다.');location.href='qnaView.do?qNo=" + qNo + "'</script>");
+			
+			// 본래 게시물이면
+			if(qnaVO.getOriginqno() == qnaVO.getqNo()) {
+				result = helpService.deleteOriginQna(qnaVO.getOriginqno());
+			}else {
+				result = helpService.deleteQna(qNo);
+			}
+			// 삭제 여부 체크
+			if( result > 0 ) {
+				// 삭제 성공
+				pw.append("<script>alert('게시글을 삭제하였습니다.');location.href='qna.do'</script>");
+				pw.flush();
+			}else {
+				// 삭제 실패
+				pw.append("<script>alert('게시글을 삭제를 실패하였습니다.');location.href='qnaView.do?qNo=" + qNo + "'</script>");
+				pw.flush();
+			}
 		}
-		
-		pw.flush();
 		
 		return "redirect:qna.do";
 	}
@@ -385,15 +423,16 @@ public class HelpController {
 	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.GET)
 	public String qnaAnswer(int qNo,Model model) {
 		
-		QnaVO originQnaVO = helpService.selectOneByQno(qNo);
+		QnaVO prevQnaVO = helpService.selectOneByQno(qNo);
 		
-		model.addAttribute("originQnaVO",originQnaVO);
+		
+		model.addAttribute("prevQnaVO",prevQnaVO);
 		
 		return "help/qnaAnswer";
 	}
 	
 	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.POST)
-	public String qnaAnswerAction(QnaVO qnaVO,HttpServletResponse res, HttpServletRequest req) throws IOException {
+	public String qnaAnswerAction(String secretCheck, QnaVO qnaVO,HttpServletResponse res, HttpServletRequest req) throws IOException {
 		
 		String path = "";
 		
@@ -413,20 +452,19 @@ public class HelpController {
 			if(!loginVO.getuStatus().equals("A")) {
 				pw.append("<script>alert('관리자 계정이 아닙니다.');location.href='../'</script>");
 				pw.flush();
-			}else {
-				if( qnaVO.getQlevel() != 0) {
-					pw.append("<script>alert('잘못된 접근입니다.');location.href='../'</script>");
-					pw.flush();
-					path="redirect:../";
-				}else {
+			}
 					qnaVO.setuNo( loginVO.getuNo() );
 					// insertQnA 실행
 					
+					if( "Y".equals(secretCheck) ) {			
+						qnaVO.setSecretYN("Y");
+					}
+					System.out.println(qnaVO.toString());
 					int result = helpService.AnswerQna(qnaVO);
 					
 					// 성공 : 1 , 실패 : 0
 					if( result == 1 ) {
-						path = "qnaView.do?qNo=" + qnaVO.getqNo();
+						path = "redirect:qnaView.do?qNo=" + qnaVO.getqNo();
 					}else {
 						pw.append("<script>alert('게시글 등록을 실패하였습니다.');location.href='qna.do';</script>");
 						path = "qna.do";
@@ -435,8 +473,8 @@ public class HelpController {
 					}
 				}
 				
-			}
-		}
+			
+		
 		
 		return path;
 	}

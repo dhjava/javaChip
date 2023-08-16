@@ -12,18 +12,15 @@
 		<if test='searchType != null and searchType.equals("pName")'>
 		   AND title like concat('%', #{searchValue}, '%')
 		</if>
-		<if test='searchType != null and searchType.equals("pType")'>
-		   AND pType = #{searchValue}
-		</if>
-		<if test='sort != null and sort.equals("new")'>
+		<!-- <if test='searchType != null and searchType.equals("new")'>
 		 ORDER BY pDate DESC
 		</if>
-		<if test='sort != null and sort.equals("pop")'>
+		<if test='searchType != null and searchType.equals("pop")'>
 		 ORDER BY pOutput DESC
 		</if>
-		<if test='sort != null and sort.equals("price")'>
+		<if test='searchType != null and searchType.equals("price")'>
 		 ORDER BY pPrice DESC
-		</if>
+		</if> -->
 	</select>
 	
 	<!-- 상품 조회 -->

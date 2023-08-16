@@ -145,8 +145,6 @@ public class MypageController {
 	public String myinfo(UserVO vo) {
 		int result = us.userUpdate(vo);
 		
-		System.out.println(result);
-		
 		if(result>0) {
 			System.out.println("정보 변경 성공");
 		}else {

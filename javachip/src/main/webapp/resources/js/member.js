@@ -1,7 +1,5 @@
 $.getScript( '//code.jquery.com/jquery-latest.min.js' );
 
-
-
 function checks() {
 	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 	var getCheck= RegExp(/^[a-zA-Z0-9]{4,16}$/);
@@ -175,8 +173,3 @@ $(document).ready(function() {
 		else $("#agree_all").prop("checked", true); 
 	});
 });
-
-function inputActive()  {
-	const target = document.getElementById('uPw');
-	target.disabled = false;
-  }
