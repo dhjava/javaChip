@@ -73,7 +73,7 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/deliveryList.do")
-	public String delivery()
+	public String deliveryList()
 	{
 		return "admin/deliveryList";
 	}

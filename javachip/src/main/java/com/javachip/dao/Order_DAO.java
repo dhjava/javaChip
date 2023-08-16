@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.Order_VO;
 
 @Repository
@@ -30,5 +31,19 @@ public class Order_DAO {
 	}
 	public int updateOrderStatus(Order_VO order_VO) {
 		return sqlSession.update(namespace+".updateOrderStatus", order_VO);
+	}
+	
+	//관리자용 메소드
+	//검색, 페이징 포함한 주문내역 전체 리스트
+	public List<Order_VO> list(AdminSearchVO AdminSearchVO)
+	{
+		return sqlSession.selectList(namespace+".selectByAdmin", AdminSearchVO);
+	}
+	//페이징 위한 order 총 목록 갯수
+	public int OrderTotal(AdminSearchVO AdminSearchVO)
+	{
+		int value = 0;
+		value = sqlSession.selectOne(namespace+".OrderTotal", AdminSearchVO);
+		return value;
 	}
 }

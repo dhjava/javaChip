@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.Order_VO;
 
 @Service
@@ -16,4 +17,11 @@ public interface Order_Service {
 	// 관리자
 	List<Order_VO> selectOrderForAdmin();
 	int updateOrderStatus(Order_VO order_VO);
+	
+	
+	//관리자용 메소드
+	//검색, 페이징 포함한 주문내역 전체 리스트
+	List<Order_VO> list(AdminSearchVO AdminSearchVO);
+	//페이징 위한 주문 전체 목록 개수
+	int OrderTotal(AdminSearchVO AdminSearchVO);
 }
