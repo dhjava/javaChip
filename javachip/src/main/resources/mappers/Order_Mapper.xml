@@ -58,4 +58,15 @@
 		   SET oStatus = #{oStatus}
 		 WHERE oNo = #{oNo}
 	</update>
+	
+	<!-- =====================관리자용 sql모음 =====================-->
+	<!-- 검색기능 추가한 order 모음 -->
+	<select id="selectByAdmin" resultType="Order_VO" parameterType="AdminSearchVO">
+		select * from order_
+	</select>
+	
+	<!-- 페이징 위한 order 총 목록 갯수 -->
+	<select id="OrderTotal" resultType="int">
+		select count(*) as cnt from order_
+	</select>
 </mapper>
