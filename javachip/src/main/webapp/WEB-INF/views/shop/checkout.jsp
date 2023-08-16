@@ -17,7 +17,7 @@
 			$(".calPrice").each(function(i, e) {
 				sum += parseInt($(e).text());
 			});
-			$("#total").text(sum+"원");
+			$("#getTotal").text(sum+"원");
 		});
 		
 	    function usePointFn() {
@@ -46,7 +46,7 @@
 				$("#point").attr("value", point);
 				sum = parseInt(sum)-point;
 			}
-			$("#total").text(sum+"원");
+			$("#getTotal").text(sum+"원");
 		}
 	    
 		var IMP = window.IMP;
@@ -71,11 +71,13 @@
 	              // 결제 내용 DB로 보내기 (order_테이블, 기존 장바구니는 cStatus 'O'로 변경)
 	              alert("결제 성공");
 	              $("#usePoint").attr("disabled","disabled");
+	              $("#total").attr("value",$("#getTotal").text());
 	              $("#checkoutFrm").submit();
 	          } else {
 	              // 결제 실패 시 로직
 	              alert("결제 실패. 잠시 후 다시 시도해주세요");
 	              $("#usePoint").attr("disabled","disabled");
+	              $("#total").attr("value",$("#getTotal").text());
 	              $("#checkoutFrm").submit();
 	          }
 	      });
@@ -171,7 +173,8 @@
 	                                <li>할인 <span id="discount" style="color:#DD2222;">0원</span></li>
                                 </ul>
                                 <div class="checkout__order__total">
-                                	총 가격 <span id="total" name="total">0원</span>
+                                	총 가격 <span id="getTotal">0</span>
+                                	<input type="hidden" id="total" name="total">
                                 </div>
                                 <button type="button" class="site-btn" onclick="requestPay()">주문하기</button>
                             </div>
