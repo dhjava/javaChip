@@ -48,6 +48,8 @@ public interface HelpService {
 	List<QnaVO> selectQnAByAdmin(AdminSearchVO AdminSearchVO);
 	//관리자용 전체 Qna수(페이징기능)
 	int QnATotal(AdminSearchVO AdminSearchVO);
-	//관리자 공지사항 삭제
+	//관리자 공지사항 선택삭제
 	public void deleteNoticeByAdmin(String nNo);
+	//관리자 QnA 선택삭제
+	public void deleteQnaByAdmin(String qNo);
 }
