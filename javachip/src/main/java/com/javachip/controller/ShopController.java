@@ -1,9 +1,12 @@
 package com.javachip.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
@@ -38,26 +43,119 @@ public class ShopController {
 	
 	@RequestMapping(value="/grid.do")
 	public String grid(
-			HttpServletRequest req
-		,	Model model
+			Model model
 		,	SearchVO searchVO
 		) {
-			/*
-			 * List<ProductVO> productList = null;
-			 * String pType = req.getParameter("pType");
-			 * if(pType.equals("") || pType==null) {
-			 * 	productList =
-			 * 	ps.selectAllProduct(searchVO);
-			 * }else {
-			 * 	productList = ps.selectProductType(pType);
-			 * } model.addAttribute("productList",productList);
-			 */
+			List<ProductVO> productList = ps.selectAllProduct(searchVO);
+			model.addAttribute("productList", productList);
 		return "shop/grid";
 	}
 	
 	@RequestMapping(value="/details.do")
-	public String details() {
+	public String details(Model model, int pNo) {
+		ProductVO pv = ps.selectOneProduct(pNo);
+		System.out.println(pv);
+		model.addAttribute("pv", pv);
 		return "shop/details";
+	}
+	
+	@RequestMapping(value="/addCart.do")
+	@ResponseBody
+	public int addCart(
+			HttpServletRequest req
+			,	int pNo
+			,	int cCount
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return -1;
+		}
+		
+		int uNo = loginVO.getuNo();
+		System.out.println("uNo::"+uNo);
+		System.out.println("pNo::"+pNo);
+		System.out.println("cCount::"+cCount);
+		
+				
+		CartVO cv = new CartVO();
+		cv.setuNo(uNo);
+		cv.setpNo(pNo);
+		cv.setcCount(cCount);
+		
+		int checkCart = cs.checkDupCart(cv);
+		if(checkCart > 0) {
+			// 중복
+			return 2;
+		}
+		int result = cs.addCart(cv);
+		if(result != 1) {
+			// 오류
+			System.out.println(result);
+			return 0;
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/buyNow.do")
+	public void buyNow(
+			HttpServletRequest req
+			,	Model model
+			,	int pNo
+			,	int cCount
+			,	HttpServletResponse res
+			,	RedirectAttributes rttr
+			) throws IOException {
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+		
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			pw.append("<script>alert('로그인이 필요한 서비스입니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");
+			pw.flush();
+			return;
+		}
+		int uNo = loginVO.getuNo();
+		System.out.println("uNo::"+uNo);
+		
+		// 장바구니에 존재하는 지 검사
+		List<CartVO> cart = cs.selectCartByUno(uNo);
+		for(CartVO items : cart) {
+			if(items.getpNo() == pNo) {
+				pw.append("<script>alert('이미 장바구니에 있는 상품입니다.');location.href='"+req.getContextPath()+"/mypage/cart.do';</script>");
+				pw.flush();
+				return;
+			}
+		}
+		int totalMileage = ms.selectTotalMileage(uNo);
+		System.out.println("totalMileage::"+totalMileage);
+		
+		CartVO cv = new CartVO();
+		cv.setuNo(uNo);
+		cv.setpNo(pNo);
+		cv.setcCount(cCount);
+		int result = cs.addCart(cv);
+		if(result <= 0) {
+			pw.append("<script>alert('오류가 발생했습니다.');location.href='details.do?pNo='"+pNo+";</script>");
+			pw.flush();
+			return;
+		}
+		int cNo = cv.getcNo();
+		
+		/*
+		 * List<CartVO> orderList = new ArrayList<CartVO>(); 
+		 * CartVO order = cs.selectCartForOrder(cNo);
+		 * orderList.add(order);
+		 * model.addAttribute("totalMileage", totalMileage);
+		 * model.addAttribute("orderList", orderList);
+		 */
+		
+		pw.append("<form id='buyNow' method='get' action='checkout.do'>"
+				+ "<input type='hidden' name='selCartList' value='"+cNo+"'>"
+				+ "</form>"
+				+ "<script>window.onload=function(){document.getElementById('buyNow').submit();}</script>");
+		pw.flush();
 	}
 	
 	@RequestMapping(value="/checkout.do", method=RequestMethod.GET)
@@ -74,6 +172,7 @@ public class ShopController {
 		
 		int uNo = loginVO.getuNo();
 		System.out.println("uNo::"+uNo);
+		System.out.println(selCartList);
 		
 		// 마일리지 조회
 		int totalMileage = ms.selectTotalMileage(uNo);
@@ -113,35 +212,41 @@ public class ShopController {
 			return "redirect:/member/login.do";
 		}
 		int uNo = loginVO.getuNo();
-		// 사용할 적립금(마일리지)
-		int usePoint = Integer.parseInt(point);
-		System.out.println(point);
-		if(usePoint != 0) {
-			session.setAttribute("point", point);
-			if(usePoint > ms.selectTotalMileage(uNo))
-			{
-				System.out.println("using point error");
-				return "redirect:/";
-			}
-			MileageVO mv = new MileageVO();
-			mv.setuNo(uNo);
-			mv.setmMinus(usePoint);
-			mv.setmNote("상품 결제");
-			ms.minusMileage(mv);
-			System.out.println("using point::"+point);
-		}
-				
-		int oTotalPrice = Integer.parseInt(total);
+		System.out.println("uNo::"+uNo);
+		
+		System.out.println("total::"+total);
+		String totalPrice = total.substring(0, total.length()-1);
+		System.out.println("totalPrice::"+totalPrice);
+		int oTotalPrice = Integer.parseInt(totalPrice);
+		
 		Order_VO ov = new Order_VO();
-		ov.setuNo(loginVO.getuNo());
-		ov.setoTotalPrice(oTotalPrice);
+		ov.setuNo(uNo);
 		ov.setoName(oName);
 		// ov.setoAdd(oAdd);
+		ov.setoTotalPrice(oTotalPrice);
 		ov.setoPhone(oPhone);
 		ov.setoPay("C");
 		System.out.println(ov);
+		
 		int result = os.insertOrder(ov);
-		if(result > 0) {
+		if(result == 0) {
+			// 사용할 적립금(마일리지)
+			int usePoint = Integer.parseInt(point);
+			System.out.println("point::"+point);
+			if(usePoint != 0) {
+				session.setAttribute("point", point);
+				if(usePoint > ms.selectTotalMileage(uNo))
+				{
+					System.out.println("using point error");
+					return "redirect:/";
+				}
+				MileageVO mv = new MileageVO();
+				mv.setuNo(uNo);
+				mv.setmMinus(usePoint);
+				mv.setmNote("상품 결제");
+				ms.minusMileage(mv);
+				System.out.println("using point::"+point);
+			}
 			MileageVO insertMV = new MileageVO();
 			insertMV.setuNo(uNo);
 			double addMileage = oTotalPrice*0.05;
