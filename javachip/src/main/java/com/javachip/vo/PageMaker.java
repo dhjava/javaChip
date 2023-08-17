@@ -79,6 +79,7 @@ public class PageMaker {
 		if (endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
+		
 		// 이전페이지  여부
 		prev = (startPage ==1 ? false : true);
 		// 다음페이지 여부

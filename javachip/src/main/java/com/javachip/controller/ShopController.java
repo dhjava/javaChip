@@ -24,6 +24,7 @@ import com.javachip.service.ProductService;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.MileageVO;
 import com.javachip.vo.Order_VO;
+import com.javachip.vo.PageMaker;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
@@ -40,14 +41,28 @@ public class ShopController {
 	private MileageService ms;
 	@Autowired
 	private ProductService ps;
+	@Autowired
+	private PageMaker pm;
 	
 	@RequestMapping(value="/grid.do")
 	public String grid(
 			Model model
 		,	SearchVO searchVO
 		) {
-			List<ProductVO> productList = ps.selectAllProduct(searchVO);
-			model.addAttribute("productList", productList);
+		int cnt = ps.totalProduct(searchVO); // 총 상품 개수
+		searchVO.setPerPageNum(12);			 // 페이지 당 상품 개수
+		searchVO.calcStart();				 // 쿼리용 계산함수
+		//System.out.println("totalProduct::"+cnt);
+		//System.out.println("page::"+searchVO.getPage());
+		//System.out.println("startNum::"+searchVO.getStartNum());
+		if(searchVO.getSort() == null || searchVO.getSort().equals("")) {
+			searchVO.setSort("new");
+		}
+		pm.setSearchVO(searchVO);
+		pm.setTotalCount(cnt);
+		List<ProductVO> productList = ps.selectAllProduct(searchVO);
+		model.addAttribute("productList", productList);
+		model.addAttribute("pm", pm);
 		return "shop/grid";
 	}
 	

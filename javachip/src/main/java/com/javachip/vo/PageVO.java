@@ -41,5 +41,7 @@ public class PageVO
 		this.startNum = startNum;
 	}
 	
-	
+	public void calcStart() {
+		startNum = (page-1)*perPageNum;
+	}
 }

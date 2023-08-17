@@ -19,6 +19,10 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.selectAllProduct(searchVO);
 	}
 	@Override
+	public int totalProduct(SearchVO searchVO) {
+		return productDAO.totalProduct(searchVO);
+	}
+	@Override
 	public List<ProductVO> selectProductType(String pType) {
 		return productDAO.selectProductType(pType);
 	}
