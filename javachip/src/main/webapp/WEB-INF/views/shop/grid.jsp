@@ -124,7 +124,7 @@
                     	<c:forEach var="i" begin="${pm.startPage}" end="${pm.endPage}" step="1">
 	                        <a href="grid.do?page=${i}&searchType=${pm.searchVO.searchType}&searchValue=${pm.searchVO.searchValue}">${i}</a>
                         </c:forEach>
-                    	<c:if test="${pm.prev == true}">
+                    	<c:if test="${pm.next == true}">
 	                        <a href="grid.do?page=${pm.endPage+1}&searchType=${pm.searchVO.searchType}&searchValue=${pm.searchVO.searchValue}"><i class="fa fa-long-arrow-right"></i></a>
                     	</c:if>
                     </div>
