@@ -60,13 +60,31 @@
 	</update>
 	
 	<!-- =====================관리자용 sql모음 =====================-->
+	<sql id="findOrder">
+		<if test='searchType != null and searchType.equals("uId")'>
+		AND u.uId LIKE CONCAT('%', #{searchValue}, '%') 
+		</if>
+	</sql>
+	
 	<!-- 검색기능 추가한 order 모음 -->
 	<select id="selectByAdmin" resultType="Order_VO" parameterType="AdminSearchVO">
-		select * from order_
+			SELECT o.*, u.uId, p.pName
+				FROM Order_ o
+				LEFT JOIN Cart c ON o.cNo = c.cNo
+				LEFT JOIN Product p ON c.pNo = p.pNo
+				LEFT JOIN User u ON o.uNo = u.uNo
+				WHERE 1 = 1
+				<include refid="findOrder" />
+				ORDER BY o.oNo ASC
+				LIMIT #{sNum}, #{perPageNum};
 	</select>
 	
 	<!-- 페이징 위한 order 총 목록 갯수 -->
 	<select id="OrderTotal" resultType="int">
-		select count(*) as cnt from order_
+		SELECT count(*) as cnt
+		FROM Order_ o
+		LEFT JOIN User u ON o.uNo = u.uNo
+		WHERE 1 = 1
+		<include refid="findOrder" />
 	</select>
 </mapper>

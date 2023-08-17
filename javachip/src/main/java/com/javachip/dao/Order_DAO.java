@@ -37,13 +37,13 @@ public class Order_DAO {
 	//검색, 페이징 포함한 주문내역 전체 리스트
 	public List<Order_VO> list(AdminSearchVO AdminSearchVO)
 	{
-		return sqlSession.selectList(namespace+".selectByAdmin", AdminSearchVO);
+		return sqlSession.selectList("com.javachip.mapper.order_Mapper.selectByAdmin", AdminSearchVO);
 	}
 	//페이징 위한 order 총 목록 갯수
 	public int OrderTotal(AdminSearchVO AdminSearchVO)
 	{
 		int value = 0;
-		value = sqlSession.selectOne(namespace+".OrderTotal", AdminSearchVO);
+		value = sqlSession.selectOne("com.javachip.mapper.order_Mapper.OrderTotal", AdminSearchVO);
 		return value;
 	}
 }
