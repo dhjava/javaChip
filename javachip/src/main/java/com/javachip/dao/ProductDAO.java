@@ -21,6 +21,9 @@ public class ProductDAO {
 	public List<ProductVO> selectAllProduct(SearchVO searchVO) {
 		return sqlSession.selectList(namespace+".selectAllProduct", searchVO);
 	}	
+	public int totalProduct(SearchVO searchVO) {
+		return sqlSession.selectOne(namespace+".totalProduct", searchVO);
+	}
 	public List<ProductVO> selectProductType(String pType) {
 		return sqlSession.selectList(namespace+".selectProductType", pType);
 	}	

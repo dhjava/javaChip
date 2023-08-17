@@ -4,8 +4,10 @@
 <%@ include file="../include/nav.jsp" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.javachip.vo.ProductVO" %>
+<%@ page import="com.javachip.vo.PageMaker" %>
 <%
 	List<ProductVO> productList = (List<ProductVO>)request.getAttribute("productList");
+	PageMaker pm = (PageMaker)request.getAttribute("pm");
 %>
 <script>
 	var url = window.location.search;
@@ -93,7 +95,7 @@
                             </div>
                             <div class="col-lg-4 col-md-4">
                                 <div class="filter__found">
-                                    <h6><span>16</span>개의 상품이 조회되었습니다</h6>
+                                    <h6><span>${pm.totalCount}</span>개의 상품이 조회되었습니다</h6>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-3">
@@ -105,7 +107,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/product/product-1.jpg"
-                                	 onclick="location.href ='<%= request.getContextPath() %>/shop/details.do?pNo=${list.pNo}'" style="cursor:pointer;">
+                                	 onclick="location.href ='shop/details.do?pNo=${list.pNo}'" style="cursor:pointer;">
                                 </div>
                                 <div class="product__item__text">
                                     <h6><a href="details.do?pNo=${list.pNo}">${list.pName}</a></h6>
@@ -116,10 +118,15 @@
                     </c:forEach>
                     </div>
                     <div class="product__pagination">
-                        <a href="grid.do">1</a>
-                        <a href="grid.do">2</a>
-                        <a href="grid.do">3</a>
-                        <a href="grid.do"><i class="fa fa-long-arrow-right"></i></a>
+                    	<c:if test="${pm.prev == true}">
+	                        <a href="grid.do?page=${pm.startPage-1}&searchType=${pm.searchVO.searchType}&searchValue=${pm.searchVO.searchValue}"><i class="fa fa-long-arrow-left"></i></a>
+                    	</c:if>
+                    	<c:forEach var="i" begin="${pm.startPage}" end="${pm.endPage}" step="1">
+	                        <a href="grid.do?page=${i}&searchType=${pm.searchVO.searchType}&searchValue=${pm.searchVO.searchValue}">${i}</a>
+                        </c:forEach>
+                    	<c:if test="${pm.prev == true}">
+	                        <a href="grid.do?page=${pm.endPage+1}&searchType=${pm.searchVO.searchType}&searchValue=${pm.searchVO.searchValue}"><i class="fa fa-long-arrow-right"></i></a>
+                    	</c:if>
                     </div>
                 </div>
             </div>
