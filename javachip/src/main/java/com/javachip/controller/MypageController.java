@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.javachip.dao.UserDAO;
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
 import com.javachip.service.UserService;
@@ -31,8 +30,6 @@ public class MypageController {
 	private MileageService ms;
 	@Autowired
 	private UserService us;
-	@Autowired
-	private UserDAO ud;
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpServletRequest req, Model model) {
@@ -102,8 +99,27 @@ public class MypageController {
 	// ajax end
 	
 	@RequestMapping(value="/goodbye.do")
-	public String goodbye() {
+	public String goodbye(HttpServletRequest req,UserVO vo,Model model) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
 		return "mypage/goodbye";
+	}
+	
+	@RequestMapping(value="/byebye.do")
+	public String byebye(HttpServletRequest req,UserVO vo,Model model) throws Exception{
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		String uId = loginVO.getuId();
+		vo.setuId(uId);
+		String uPw = loginVO.getuPw();
+		vo.setuId(uPw);
+		System.out.println(vo);
+		us.goodbye(vo);
+		model.addAttribute("vo",vo);
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value="/hdetail.do")

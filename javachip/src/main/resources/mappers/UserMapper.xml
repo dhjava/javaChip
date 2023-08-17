@@ -155,31 +155,9 @@
 	</update>
 	
 	<delete id = "goodbye" parameterType="userVO">
-		INSERT INTO user(
-			 uId
-			,uPw
-			,uName
-			,uJoin
-			,uRetire
-			,uPhone
-			,uStatus
-			,uBisno
-			,uAdd
-			,uMail
-			,uAlertNum
-		)values(
-			 #{uId}
-			,#{uPw}
-			,#{uName}
-			,NOW()
-			,"N"
-			,#{uPhone}
-			,"N"
-			,""
-			,#{uAdd}
-			,#{uMail}
-			,#{uAlertNum}
-		)
+		DELETE FROM user
+		 WHERE uId = #{uId}
+		   AND uPw = #{uPw}
 	</delete>
 
 	

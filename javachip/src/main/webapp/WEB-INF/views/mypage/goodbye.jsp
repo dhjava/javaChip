@@ -2,7 +2,7 @@
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 	<div class="frame login">
-		<form name="goodbye frm">
+		<form name="goodbye frm" action="myinfoUpdate.do" method="post" onsubmit="return checks()">
 			<h3>회원탈퇴</h3>
 			<div class="main login">
 				<br>
