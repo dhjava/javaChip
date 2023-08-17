@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javachip.service.HelpService;
+import com.javachip.service.Order_Service;
 import com.javachip.service.UserService;
 import com.javachip.vo.AdminPageMaker;
 import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.NoticeVO;
+import com.javachip.vo.Order_VO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.UserVO;
 
@@ -32,6 +34,9 @@ public class AdminController
 	
 	@Autowired
 	private HelpService hs;
+	
+	@Autowired
+	private Order_Service os;
 	
 	@RequestMapping(value="/qnaList.do")
 	public String qnaList(Model model, AdminSearchVO AdminSearchVO)
@@ -73,8 +78,22 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/deliveryList.do")
-	public String deliveryList()
+	public String deliveryList(Model model, AdminSearchVO AdminSearchVO)
 	{
+		int cnt = os.OrderTotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setTotalCount(cnt);
+		
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		
+		List<Order_VO> olist = os.list(AdminSearchVO);
+		System.out.println(olist);
+		model.addAttribute("list", olist);
+		model.addAttribute("pm", pm);
+		
 		return "admin/deliveryList";
 	}
 	
