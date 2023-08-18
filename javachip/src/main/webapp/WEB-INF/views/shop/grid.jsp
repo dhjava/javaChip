@@ -107,7 +107,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/product/product-1.jpg"
-                                	 onclick="location.href ='shop/details.do?pNo=${list.pNo}'" style="cursor:pointer;">
+                                	 onclick="location.href ='details.do?pNo=${list.pNo}'" style="cursor:pointer;">
                                 </div>
                                 <div class="product__item__text">
                                     <h6><a href="details.do?pNo=${list.pNo}">${list.pName}</a></h6>

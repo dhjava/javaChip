@@ -21,11 +21,13 @@ import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
 import com.javachip.service.Order_Service;
 import com.javachip.service.ProductService;
+import com.javachip.service.ReviewService;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.MileageVO;
 import com.javachip.vo.Order_VO;
 import com.javachip.vo.PageMaker;
 import com.javachip.vo.ProductVO;
+import com.javachip.vo.ReviewVO;
 import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
 
@@ -41,6 +43,8 @@ public class ShopController {
 	private MileageService ms;
 	@Autowired
 	private ProductService ps;
+	@Autowired
+	private ReviewService rs;
 	@Autowired
 	private PageMaker pm;
 	
@@ -67,11 +71,57 @@ public class ShopController {
 	}
 	
 	@RequestMapping(value="/details.do")
-	public String details(Model model, int pNo) {
+	public String details(
+			HttpServletRequest req
+		,	Model model
+		,	int pNo
+			) {
 		ProductVO pv = ps.selectOneProduct(pNo);
 		System.out.println(pv);
+		List<ReviewVO> reviewList = rs.selectReview(pNo);
+		boolean canReview = false;
+		
+		// 리뷰 작성 가능한지
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO!=null) {
+			// 유저의 주문 조회
+			// if(주문 내역 중 pNo가 같은 정보 확인) {
+			// 	canReview = true;
+			// }
+		}
+		
 		model.addAttribute("pv", pv);
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("canReview", canReview);
 		return "shop/details";
+	}
+	
+	@RequestMapping(value="/reviewWrite.do")
+	@ResponseBody
+	public int reviewWrite(
+				HttpServletRequest req
+			,	String rContents
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return -1;
+		}
+		
+		int uNo = loginVO.getuNo();
+		System.out.println("uNo::"+uNo);
+		System.out.println("rContents::"+rContents);
+		
+		ReviewVO rv = new ReviewVO();
+		rv.setuNo(uNo);
+		rv.setrContents(rContents);
+		
+		int result = rs.insertReview(rv);
+		if(result != 1) {
+			return 2;
+		}
+		return 1;
 	}
 	
 	@RequestMapping(value="/addCart.do")
