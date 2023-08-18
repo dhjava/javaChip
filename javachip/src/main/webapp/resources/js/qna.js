@@ -16,7 +16,7 @@ function qnaSubmitFn() {
 			return;
 		}else
 	// QnA 내용이 입력되지 않았을 때
-	if($("#qContents").val() == "") {
+	if($("#qContents").text() == "") {
 			checkContentsFlag = false;
 			alert("내용을 입력해주세요.");
 			$("#qContents").focus();
@@ -56,7 +56,60 @@ function qnaSubmitFn() {
 		
 		$("#pNo").prop('disabled',false);
 		// 제출
-		$("#submitFrm").submit();
+		qnaWriteFn();
+	}
+}
+function qnaAnswerSubmitFn() {
+	// QnA 제목이 입력되지 않았을 때
+	if($("#qTitle").val() == "") {
+			checkTitleFlag = false;
+			alert("제목을 입력해주세요.");
+			$("#qTitle").focus();
+			
+			return;
+		}else
+	// QnA 내용이 입력되지 않았을 때
+	if($("#qContents").text() == "") {
+			checkContentsFlag = false;
+			alert("내용을 입력해주세요.");
+			$("#qContents").focus();
+			
+			return;
+		}else
+	// QnA 제목과 내용이 있을경우
+	{
+		checkTitleFlag = true;
+		checkContentsFlag = true;
+	}
+	
+	// 상품 QnA가 선택되고, 상품이 선택되지 않았을 때	
+	if( $("#qType").val() == "P" ) {
+		
+			if($("#pNo").val() == 0) {
+				checkPNoFlag = false;
+				alert("질문하실 상품을 선택해주세요.");
+				 $("#pNo").focus();
+			}else {
+			// 상품QnA가 선택되고, 상품이 선택되었을 경우
+				checkPNoFlag = true;
+			}
+	}else {
+	// 일반 QnA일때	
+		checkPNoFlag = true;
+	
+	}
+	// Flag확인하고 submit
+	if(checkTitleFlag && checkPNoFlag && checkContentsFlag){
+		submitFlag = true;
+	}
+	
+	
+	if(submitFlag) {
+		// 선택 불가한 select 값 form에 전송하기위해 disabled 값 제거
+		
+		$("#pNo").prop('disabled',false);
+		// 제출
+		qnaAnswerFn();
 	}
 }
 
@@ -119,7 +172,7 @@ function selectPNoFn(){
 
 window.onload = selectQTypeFn;
 
-window.addEventListener('load', 'selectPNoFn;');
+window.addEventListener('load',selectPNoFn);
 
 
 // wrap css 이벤트
@@ -184,4 +237,4 @@ function qnaDelFn() {
 		return;
 	}	
 		
-	}
+}
