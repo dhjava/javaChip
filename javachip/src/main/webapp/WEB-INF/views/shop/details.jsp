@@ -2,9 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import="java.util.List" %>
 <%@ page import="com.javachip.vo.ProductVO" %>
+<%@ page import="com.javachip.vo.ReviewVO" %>
 <%
 	ProductVO pv = (ProductVO)request.getAttribute("pv");
+	List<ReviewVO> reviewList = (List<ReviewVO>)request.getAttribute("reivewList");
+	// boolean canReview = (boolean)request.getAttribute("canReview");
 %>
 <script>
 	function addCartFn() {
@@ -41,6 +45,25 @@
 		var pNo = $("#pNo").val();
 		var cCount = $("#cCount").val();
 		document.location.href="buyNow.do?pNo="+pNo+"&cCount="+cCount;
+	}
+	
+	function reviewWriteFn() {
+		$.ajax({
+			url:"reviewWrite.do",
+			type:"post",
+			data:"rContents="+$("#rContents").val(),
+			success:function(data) {
+				if(data == 1) {
+					alert("후기가 작성되었습니다.");
+					location.reload();
+				}else {
+					alert("오류가 발생했습니다.");
+				}
+			},
+			error:function() {
+				alert("오류가 발생했습니다.");
+			}
+		});
 	}
 	
 	function shareTwitter() {
@@ -128,7 +151,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
-                                    aria-selected="false">후기 <span>(20)</span></a>
+                                    aria-selected="false">후기</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
@@ -153,19 +176,32 @@
 									    </tr>
 									  </thead>
 									  <tbody>
-									    <tr>
-									      <td>Mark</td>
-									      <td>Otto</td>
-									      <td>2023-07-21</td>
-									    </tr>
-									    <tr>
-									      <td>Jacob</td>
-									      <td>Thornton</td>
-									      <td>2023-07-21</td>
-									    </tr>
+										  <c:choose>
+										  	<c:when test="${empty reviewList}">
+										  		<tr>
+										  			<td colspan="2">작성된 리뷰가 없습니다.</td>
+										  		</tr>
+										  	</c:when>
+										  	<c:otherwise>
+											  	<c:forEach items="${reviewList}" var="review">
+											    <tr>
+											      <td>${reviewList.uName}</td>
+											      <td>${reviewList.rContents}</td>
+											      <td>${reviewList.rDate}</td>
+											    </tr>
+											  	</c:forEach>
+										  	</c:otherwise>
+										  </c:choose>
+										  <%-- <c:if test="${canReview}"> --%>
+										    <tr>
+										      <td>작성자</td>
+										      <td><textarea name="rContents" id="rContents"
+										      	style="width:95%; height:100%; border:solid 1px #e8e8e8; resize:none;"></textarea></td>
+										      <td><button type="button" class="btn btn-dark" onclick="reviewWriteFn()">후기 등록</button></td>
+										    </tr>
+										  <%-- </c:if> --%>
 									  </tbody>
 									</table>
-									<button type="button" class="btn btn-dark">후기 등록</button>
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-3" role="tabpanel">
