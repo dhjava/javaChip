@@ -427,23 +427,50 @@ public class HelpController {
 	
 	@ResponseBody
 	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.POST)
-	public int qnaAnswerAction(String secretCheck, QnaVO qnaVO, HttpServletRequest req) {
-		// 로그인 유저번호
-		HttpSession session = req.getSession();
-		UserVO loginVO = (UserVO)session.getAttribute("login");
+	public String qnaAnswerAction(String secretCheck, QnaVO qnaVO, HttpServletRequest req) {
 		
-		qnaVO.setuNo( loginVO.getuNo() );
-		// insertQnA 실행
-		
-		if( "Y".equals(secretCheck) ) {			
-			qnaVO.setSecretYN("Y");
-		}
-		
-		// insertQnA Answer 실행
-		helpService.AnswerQna(qnaVO);
-		int qNo = qnaVO.getqNo();
+		// Jackson
+			JsonObject jsonObj = new JsonObject();
 			
-		return qNo;
+			// 로그인 확인
+			HttpSession session = req.getSession();
+			UserVO loginVO = (UserVO)session.getAttribute("login");
+			
+			String result = "";	
+			String path = "";	
+			
+			// orgin qna의 uNo를 받아온다.
+			QnaVO originQnaVO = helpService.selectOneByQno(qnaVO.getOriginqno());
+			
+			if(loginVO == null) {
+				result = "로그인 후 이용이 가능합니다.";
+				path = "../member/login.do";
+			}else if(loginVO.getuNo() == originQnaVO.getuNo() || loginVO.getuStatus().equals("A")) {
+				// 로그인 유저번호 등록
+				qnaVO.setuNo( loginVO.getuNo() );
+				// 비밀글 체크여부
+				if( "Y".equals(secretCheck) ) {			
+					qnaVO.setSecretYN("Y");
+				}
+				
+				// insertQnA Answer 실행
+				helpService.AnswerQna(qnaVO);
+				
+				// ajax에 보낼 aNo 등록
+				
+				result = "게시글을 등록하였습니다";
+				path = "qnaView.do?qNo=" + qnaVO.getqNo();
+			}else {
+				result = "원글 작성자 또는 관리자만 답글이 가능합니다.";
+				path = "javascript:history.back()";
+			}
+			
+			jsonObj.addProperty("result",result);
+			jsonObj.addProperty("path",path);
+			
+			System.out.println(jsonObj.toString());
+			
+			return jsonObj.toString();
 	}
 	
 	@RequestMapping(value="/fileupload.do", method = RequestMethod.GET)
