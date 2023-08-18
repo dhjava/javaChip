@@ -98,28 +98,30 @@ public class MypageController {
 	}
 	// ajax end
 	
-	@RequestMapping(value="/goodbye.do")
-	public String goodbye(HttpServletRequest req,UserVO vo,Model model) {
-		HttpSession session = req.getSession();
-		UserVO loginVO = (UserVO)session.getAttribute("login");
-		if(loginVO==null) {
-			return "redirect:/member/login.do";
-		}
+	@RequestMapping(value="/goodbye.do", method=RequestMethod.GET)
+	public String goodbye() {
 		return "mypage/goodbye";
 	}
 	
-	@RequestMapping(value="/byebye.do")
-	public String byebye(HttpServletRequest req,UserVO vo,Model model) throws Exception{
+	@RequestMapping(value="/goodbye.do", method=RequestMethod.POST)
+	public String goodbye(UserVO vo, HttpSession session, RedirectAttributes ra, HttpServletRequest req) throws Exception{
+		System.out.println("removePOST");
+		
 		HttpSession session = req.getSession();
-		UserVO loginVO = (UserVO)session.getAttribute("login");
-		String uId = loginVO.getuId();
-		vo.setuId(uId);
-		String uPw = loginVO.getuPw();
-		vo.setuId(uPw);
-		System.out.println(vo);
-		us.goodbye(vo);
-		model.addAttribute("vo",vo);
-		return "redirect:/";
+		UserVO user = (UserVO)session.getAttribute("user");
+		
+		String oldPass = user.getuPw();
+		String newPass = vo.getuPw();
+		
+		if(oldPass.equals(newPass)) {
+			us.byebye(vo);
+			ra.addFlashAttribute("result", "removeOK");
+			session.invalidate();
+			return "redirect:/";
+		} else {
+			ra.addFlashAttribute("result", "removeFalse");
+			return "redirect:/mypage/goodbye";
+		}
 	}
 	
 	@RequestMapping(value="/hdetail.do")

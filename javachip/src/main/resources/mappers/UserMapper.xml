@@ -154,7 +154,7 @@
 		 WHERE uNo = #{uNo}
 	</update>
 	
-	<delete id = "goodbye" parameterType="userVO">
+	<delete id = "byebye" parameterType="userVO">
 		DELETE FROM user
 		 WHERE uId = #{uId}
 		   AND uPw = #{uPw}

@@ -61,8 +61,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int goodbye(UserVO vo) {
-		return userDAO.goodbye(vo);
+	public int byebye(UserVO vo) {
+		return userDAO.byebye(vo);
 	}
 	
 	
