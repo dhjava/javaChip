@@ -91,8 +91,14 @@ public class HelpController {
 		return "help/noticeWrite";
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
 	public String noticeWriteAction(NoticeVO noticeVO, HttpServletResponse res , HttpServletRequest req) throws IOException {
+=======
+	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
+	
+	public String noticeWriteAction(NoticeVO noticeVO, HttpServletResponse res , HttpServletRequest req) throws IOException {
+>>>>>>> branch 'main' of https://github.com/reachless12/javaChip.git
 		
 		// 글 출력
 		res.setContentType("text/html;charset=UTF-8");
