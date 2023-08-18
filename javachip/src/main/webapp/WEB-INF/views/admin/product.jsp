@@ -94,6 +94,7 @@
 						</div>
 						<br>
 						<button type="submit" class="btn btn-dark">등록하기</button>
+						<button type="submit" class="btn btn-dark">삭제하기</button>
                     	</div>
                     </form>
                 </div>

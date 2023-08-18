@@ -104,7 +104,7 @@
 						<th>번호</th><th>제목</th><th>작성일</th>
 					</tr>
 					<tr>
-						<td>1</td><td><a href="<%=request.getContextPath()%>/help/noticeView.do">공지사항입니다.</a></td><td>2023-07-11</td>
+						<td>1</td><td><a href="<%=request.getContextPath()%>/help/noticeView.do?nNo=${Notice.nNo}">${Notice.nTitle }</a></td><td>2023-07-11</td>
 					</tr>
 					<tr>
 						<td>1</td><td><a href="<%=request.getContextPath()%>/help/noticeView.do">공지사항입니다.</a></td><td>2023-07-11</td>

@@ -19,6 +19,7 @@ import com.javachip.vo.AdminPageMaker;
 import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.NoticeVO;
 import com.javachip.vo.Order_VO;
+import com.javachip.vo.ProductVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.UserVO;
 
@@ -98,8 +99,9 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/main.do")
-	public String main()
+	public String main(Model model, AdminSearchVO AdminSearchVO)
 	{
+		int qcnt = hs.QnATotal(AdminSearchVO);
 		return "admin/main";
 	}
 
@@ -206,22 +208,7 @@ public class AdminController
 	@RequestMapping(value="/boardDelete.do")
 	public String boardDelete(HttpServletRequest request)
 	{
-/*		
-		HttpSession session,
-		@RequestParam(value = "chbox[]") List<String> chArr, NoticeVO NoticeVO
-		
-		NoticeVO notice = (NoticeVO)session.getAttribute("notice");
-		int result = 0;
-		int nNo = 0;
-		
-		for(String i : chArr) {
-			notice.setnNo(nNo);
-			hs.deleteNoticeByAdmin(NoticeVO);
-		}
-	
-		result = 1;
-		return result;
-*/
+
 		String[] ajaxMsg = request.getParameterValues("valueArr");
 		
 		
@@ -233,8 +220,6 @@ public class AdminController
 
 		return "redirect:/admin/boardList";
 
-/*		hs.deleteNoticeByAdmin(selectedIds);
-		return "redirect:/admin/boardList";*/
 	}
 	
 	@RequestMapping(value="/product.do")

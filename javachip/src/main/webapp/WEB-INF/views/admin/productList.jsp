@@ -76,38 +76,9 @@
 						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피1</a></td>
 						<td>000원</td><td>0</td>
 						<td>
-							<select>
-								<option>판매중</option>
-								<option>매진</option>
-								<option>판매중지</option>
-							</select>
+							판매중
 						</td>
 					</tr>
-					<tr>
-						<td><input type="checkbox"></td><td>1</td><td>커피</td>
-						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피2</a></td>
-						<td>000원</td><td>0</td>
-						<td>
-							<select>
-								<option>판매중</option>
-								<option>매진</option>
-								<option>판매중지</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td><input type="checkbox"></td><td>1</td><td>커피</td>
-						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피3</a></td>
-						<td>000원</td><td>0</td>
-						<td>
-							<select>
-								<option>판매중</option>
-								<option>매진</option>
-								<option>판매중지</option>
-							</select>
-						</td>
-					</tr>
-
 				</table>
 				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
 				<input type="button" value="선택 삭제">
