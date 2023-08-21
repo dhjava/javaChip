@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.SearchVO;
 
@@ -18,4 +19,10 @@ public interface ProductService {
 	int outputProduct(ProductVO productVO);
 	int updateProduct(ProductVO productVO);
 	int deleteProduct(int pNo);
+	
+	//관리자 메소드
+	//관리자용 상품 리스트(검색기능)
+	List<ProductVO> List(AdminSearchVO AdminSearchVO);
+	//상픔 전체 목록 갯수(페이징)
+	int productTotal(AdminSearchVO AdminSearchVO);
 }

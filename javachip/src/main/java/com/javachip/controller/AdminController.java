@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javachip.service.HelpService;
 import com.javachip.service.Order_Service;
+import com.javachip.service.ProductService;
 import com.javachip.service.UserService;
 import com.javachip.vo.AdminPageMaker;
 import com.javachip.vo.AdminSearchVO;
@@ -38,6 +39,9 @@ public class AdminController
 	
 	@Autowired
 	private Order_Service os;
+	
+	@Autowired
+	private ProductService ps;
 	
 	@RequestMapping(value="/qnaList.do")
 	public String qnaList(Model model, AdminSearchVO AdminSearchVO)
@@ -229,8 +233,24 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/productList.do")
-	public String productList()
+	public String productList(Model model, AdminSearchVO AdminSearchVO)
 	{
+		int cnt = ps.productTotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setTotalCount(cnt);
+		
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		if(AdminSearchVO.getPage() > 1) 
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		
+		List<ProductVO> plist = ps.List(AdminSearchVO);
+		model.addAttribute("list", plist);
+		model.addAttribute("pm", pm);
 		return "admin/productList";
 	}
 }

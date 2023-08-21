@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javachip.dao.ProductDAO;
+import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.SearchVO;
 
@@ -49,5 +50,16 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int deleteProduct(int pNo) {
 		return productDAO.deleteProduct(pNo);
+	}
+	
+	//관리자용 메소드
+	//상품리스트(검색기능)
+	@Override
+	public java.util.List<ProductVO> List(AdminSearchVO AdminSearchVO) {
+		return productDAO.List(AdminSearchVO);
+	}
+	@Override
+	public int productTotal(AdminSearchVO AdminSearchVO) {
+		return productDAO.productTotal(AdminSearchVO);
 	}
 }
