@@ -2,6 +2,7 @@ package com.javachip.controller;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -16,7 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
+import com.google.gson.JsonObject;
 import com.javachip.service.HelpService;
 import com.javachip.vo.NoticeVO;
 import com.javachip.vo.PageMaker;
@@ -276,8 +281,6 @@ public class HelpController {
 		
 		model.addAttribute("qType", qType);
 		
-		System.out.println("qType::" + qType);
-		
 		if( qType.equals("N") || qType.equals("P")) {
 			
 			path = "help/qnaWrite";
@@ -289,49 +292,47 @@ public class HelpController {
 		// 잘못된 타입일 경우 qna 페이지로
 		return path;
 	}
+	
+	@ResponseBody
 	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.POST)
-	public String qnaWriteAction(QnaVO qnaVO, HttpServletRequest req, HttpServletResponse res) throws IOException {
+	public String qnaWriteAction(QnaVO qnaVO, HttpServletRequest req) {
 		
-		String path = "";
-		// 글 출력
-		res.setContentType("text/html;charset=UTF-8");
-		PrintWriter pw = res.getWriter();
-					
+		// Jackson
+		JsonObject jsonObj = new JsonObject();
+		
 		// 로그인 확인
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		
-		if( loginVO == null ) {
-			pw.append("<script>alert('로그인 후 이용해주세요.');location.href='../member/login.do';</script>");
-			pw.flush();
-		}
-		System.out.println("uNo :: " + loginVO.getuNo());
-		
-		qnaVO.setuNo( loginVO.getuNo() );
-		
-		// 비밀글 체크여부
-		String secretCheck = req.getParameter("secretCheck");
-		
-		if( "Y".equals(secretCheck) ) {			
-			qnaVO.setSecretYN("Y");
-		}
-		
-		// insertQnA 실행
-		int result = helpService.insertQna(qnaVO);
-		
-		System.out.println("qNo :" + qnaVO.getqNo());
-		
-		// 성공 : 1 , 실패 : 0
-		if( result == 1 ) {
-			path = "qnaView.do?qNo=" + qnaVO.getqNo();
+		String result = "";	
+		String path = "";	
+		if(loginVO == null) {
+			result = "로그인 후 이용이 가능합니다.";
+			path = "../member/login.do";
 		}else {
-			pw.append("<script>alert('게시글 등록을 실패하였습니다.');location.href='qna.do';</script>");
-			path = "qna.do";
-			pw.flush();
-		
+			// 로그인 유저번호 등록
+			qnaVO.setuNo( loginVO.getuNo() );
+			// 비밀글 체크여부
+			String secretCheck = req.getParameter("secretCheck");
+			if( "Y".equals(secretCheck) ) {			
+				qnaVO.setSecretYN("Y");
+			}
+			// insertQnA 실행
+			helpService.insertQna(qnaVO);
+			
+			System.out.println("uNo :: " + loginVO.getuNo());
+			// ajax에 보낼 aNo 등록
+			
+			result = "게시글을 등록하였습니다";
+			path = "qnaView.do?qNo=" + qnaVO.getqNo();
 		}
 		
-		return "redirect:" + path ;
+		jsonObj.addProperty("result",result);
+		jsonObj.addProperty("path",path);
+		
+		System.out.println(jsonObj.toString());
+		
+		return jsonObj.toString();
 	}
 	@RequestMapping(value="/qnaView.do", method = RequestMethod.GET)
 	public String qnaView(int qNo, Model model, HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -351,10 +352,7 @@ public class HelpController {
 		// 비밀글 설정이 켜져있다면,
 		if(qnaVO.getSecretYN().equals("Y")) {
 			// 작성자 체크
-			if(loginVO == null) {
-				
-				return "help/secret";
-			}else if(loginVO.getuNo() == qnaVO.getuNo() || loginVO.getuStatus().equals("A")){
+			if(loginVO.getuNo() == qnaVO.getuNo() || loginVO.getuStatus().equals("A")){
 				
 
 			}else {
@@ -422,58 +420,105 @@ public class HelpController {
 		
 		QnaVO prevQnaVO = helpService.selectOneByQno(qNo);
 		
-		
 		model.addAttribute("prevQnaVO",prevQnaVO);
 		
 		return "help/qnaAnswer";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.POST)
-	public String qnaAnswerAction(String secretCheck, QnaVO qnaVO,HttpServletResponse res, HttpServletRequest req) throws IOException {
+	public String qnaAnswerAction(String secretCheck, QnaVO qnaVO, HttpServletRequest req) {
 		
-		String path = "";
-		
-		// 글 출력
-		res.setContentType("text/html;charset=UTF-8");
-		PrintWriter pw = res.getWriter();
-				
-		// 로그인 확인
-		HttpSession session = req.getSession();
-		UserVO loginVO = (UserVO)session.getAttribute("login");
-		
-		if( loginVO == null ) {
+		// Jackson
+			JsonObject jsonObj = new JsonObject();
 			
-			pw.append("<script>alert('관리자 로그인 후 이용하실 수 있습니다.');location.href='../member/login.do'</script>");
-			pw.flush();
-		}else {
-			if(!loginVO.getuStatus().equals("A")) {
-				pw.append("<script>alert('관리자 계정이 아닙니다.');location.href='../'</script>");
-				pw.flush();
-			}
-					qnaVO.setuNo( loginVO.getuNo() );
-					// insertQnA 실행
-					
-					if( "Y".equals(secretCheck) ) {			
-						qnaVO.setSecretYN("Y");
-					}
-					System.out.println(qnaVO.toString());
-					int result = helpService.AnswerQna(qnaVO);
-					
-					// 성공 : 1 , 실패 : 0
-					if( result == 1 ) {
-						path = "redirect:qnaView.do?qNo=" + qnaVO.getqNo();
-					}else {
-						pw.append("<script>alert('게시글 등록을 실패하였습니다.');location.href='qna.do';</script>");
-						path = "qna.do";
-						pw.flush();
-						
-					}
+			// 로그인 확인
+			HttpSession session = req.getSession();
+			UserVO loginVO = (UserVO)session.getAttribute("login");
+			
+			String result = "";	
+			String path = "";	
+			
+			// orgin qna의 uNo를 받아온다.
+			QnaVO originQnaVO = helpService.selectOneByQno(qnaVO.getOriginqno());
+			
+			if(loginVO == null) {
+				result = "로그인 후 이용이 가능합니다.";
+				path = "../member/login.do";
+			}else if(loginVO.getuNo() == originQnaVO.getuNo() || loginVO.getuStatus().equals("A")) {
+				// 로그인 유저번호 등록
+				qnaVO.setuNo( loginVO.getuNo() );
+				// 비밀글 체크여부
+				if( "Y".equals(secretCheck) ) {			
+					qnaVO.setSecretYN("Y");
 				}
 				
+				// insertQnA Answer 실행
+				helpService.AnswerQna(qnaVO);
+				
+				// ajax에 보낼 aNo 등록
+				
+				result = "게시글을 등록하였습니다";
+				path = "qnaView.do?qNo=" + qnaVO.getqNo();
+			}else {
+				result = "원글 작성자 또는 관리자만 답글이 가능합니다.";
+				path = "javascript:history.back()";
+			}
 			
-		
-		
-		return path;
+			jsonObj.addProperty("result",result);
+			jsonObj.addProperty("path",path);
+			
+			System.out.println(jsonObj.toString());
+			
+			return jsonObj.toString();
 	}
 	
+	@RequestMapping(value="/fileupload.do", method = RequestMethod.GET)
+	public String fileupload() {
+			
+		return "help/qnaWrite";
+	}
+	
+	
+	@RequestMapping(value="/fileupload.do", method = RequestMethod.POST)
+	public String fileupload( MultipartFile uploadFile, HttpServletRequest req) throws Exception {
+		String realPath = req.getSession().getServletContext().getRealPath("/resources/upload");
+		System.out.println("realPath::::"+realPath);
+		
+		String path = "../../resources/upload";
+		
+		File dir = new File(realPath);
+		// 디렉토리 존재여부에 따라 디렉토리 생성
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		
+		if(!uploadFile.getOriginalFilename().isEmpty()) {
+			
+			String fileName = uploadFile.getOriginalFilename();
+			// etc에 파일 확장자값 넣기
+			// "."으로 배열을 나누고 etc에  맨마지막 배열(배열은 0부터 길이는 1부터 세므로, -1) 값(파일확장자)을 넣는다.
+			String fileNameArray[] = fileName.split("\\.");
+			String etc = fileNameArray[fileNameArray.length-1];
+			
+			long timeMilis = System.currentTimeMillis();
+			// substring(startIndex,endIndex) : startIndex부터 endIndex이전에 끊는다.
+			// ex) index ->substring(1,3) : nd
+			// fileName.length()-etc.length()-1 : 파일전체명 - 확장자길이 - "."
+			String newFileName = fileName.substring(0,fileName.length()-etc.length()-1) + timeMilis + "." + etc;
+			
+			// trnasferTo(File file) :: 파일의 저장
+			uploadFile.transferTo(new File(realPath,newFileName));
+			
+			return newFileName;
+		}
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/fileload.do", method = RequestMethod.POST)
+	public String fileload() {
+		
+		return "redirect:/";
+	}
 }

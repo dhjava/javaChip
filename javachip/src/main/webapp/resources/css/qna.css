@@ -107,3 +107,9 @@ select {
 	text-align : center;
 	vertical-align : middle !important;
 }
+
+/* qna 이미지 삽입용 text박스 */
+.textbox {
+	height:450px;
+	overflow: auto;
+}

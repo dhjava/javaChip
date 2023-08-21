@@ -5,7 +5,31 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/qna.css" type="text/css"/>
 
 <script src="<%=request.getContextPath() %>/resources/js/qna.js"></script>
+<script>
+function qnaAnswerFn() {
 
+		var formData = $("#submitFrm").serialize();
+		var qContents =  $("#qContents").html();
+		
+		$.ajax({
+			url:"qnaAnswer.do",
+			type:"post",
+			data:formData+"&qContents=" + qContents,
+			dataType:"json",
+			success:function(data) {
+				alert(data.result);
+				location.replace(data.path);
+			},
+			error:function() {
+				
+				alert('게시글 등록에 실패하였습니다.');
+				var url = "qna.do";
+				location.replace(url);
+			}
+		});
+		
+}
+</script>
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
 		<div class="container">
@@ -26,7 +50,7 @@
 	<section class="board-box spad">
 		<div class="container">
 			<div class="write-form">
-				<form id="submitFrm" action="qnaAnswer.do" method="post">
+				<form id="submitFrm" method="post">
 					<div class="d-flex flex-column bd-highlight mb-3">
 						<div class="p-2 bd-highlight">
 							<h4>Qna 답변</h4>
@@ -69,7 +93,8 @@
 						<p>비밀글  <input type="checkbox" value="${prevQnaVO.secretYN}" <c:if test="${prevQnaVO.secretYN eq 'Y'}">checked</c:if> disabled /></p>
 					</div>
 					<div class="p-2 bd-highlight">
-						<textarea class="form-control" name="qContents" id="qContents" rows="10"></textarea>
+						<div class="form-control textbox" id="qContents" contentEditable="true" >
+						</div>
 					</div>
 					<div class="p-2 bd-highlight">
 						<div class="input-group mb-1">
@@ -81,7 +106,7 @@
 					</div>
 					<div class="p-2 bd-highlight" align="center">
 						<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="helpResetFn">취소하기</button>
-						<button type="button" class="btn btn-dark" onclick="qnaSubmitFn();">작성하기</button>
+						<button type="button" class="btn btn-dark" onclick="qnaAnswerSubmitFn();">작성하기</button>
 					</div>
 				</form>
 			</div>

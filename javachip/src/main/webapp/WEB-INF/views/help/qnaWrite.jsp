@@ -5,7 +5,33 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/qna.css" type="text/css"/>
 
 <script src="<%=request.getContextPath() %>/resources/js/qna.js"></script>
+<script>
+function qnaWriteFn() {
 
+	var formData = $("#submitFrm").serialize();
+	var qContents =  $("#qContents").html();
+	
+	$.ajax({
+		url:"qnaWrite.do",
+		type:"post",
+		data:formData+"&qContents=" + qContents,
+		dataType:"json",
+		success:function(data) {
+			alert(data.result);
+			location.replace(data.path);
+		},
+		error:function() {
+			
+			alert('게시글 등록에 실패하였습니다.');
+			var url = "qna.do";
+			location.replace(url);
+		}
+	});
+	
+}
+	
+
+</script>
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
 		<div class="container">
@@ -26,8 +52,8 @@
 	<section class="board-box spad">
 		<div class="container">
 			<div class="write-form">
-				<form id="submitFrm" action="qnaWrite.do" method="post">
-					<div class="d-flex flex-column bd-highlight mb-3">
+				<div class="d-flex flex-column bd-highlight mb-3">
+				<form id="submitFrm" method="post">
 						<div class="p-2 bd-highlight">
 							<h4><b>Qna 글쓰기</b></h4>
 						</div>
@@ -57,22 +83,25 @@
 						<p>비밀글  <input type="checkbox" name="secretCheck" id="secretCheck" value="Y"/> </p>
 					</div>
 					<div class="p-2 bd-highlight">
-						<textarea class="form-control" name="qContents" id="qContents" rows="10"></textarea>
-					</div>
-						<div class="p-2 bd-highlight">
-							<div class="input-group mb-1">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="inputGroupFile02">
-										<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-									</div>
-							</div>
-						</div>
-						<div class="p-2 bd-highlight" align="center">
-							<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="helpResetFn">취소하기</button>
-							<button type="button" class="btn btn-dark" onclick="qnaSubmitFn();">작성하기</button>
+						<div class="form-control textbox" id="qContents" contentEditable="true">
 						</div>
 					</div>
 				</form>
+					<div class="p-2 bd-highlight">
+						<div class="input-group mb-1">
+								<div class="custom-file">
+								<form action="fileupload.do" method="post" enctype="multipart/form-data">
+									<input type="file" class="custom-file-input" id="inputGroupFile02">
+									<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+								</form>
+								</div>
+						</div>
+					</div>
+					<div class="p-2 bd-highlight" align="center">
+						<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="helpResetFn">취소하기</button>
+						<button type="button" class="btn btn-dark" onclick="qnaSubmitFn();">작성하기</button>
+					</div>
+				</div>	
 			</div>
 		</div>
 		<div id="pSelectContainer" class="modalHidden">
