@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import ="com.javachip.vo.*" %> 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
+<% AdminPageMaker qpm =  (AdminPageMaker)request.getAttribute("qpm"); %>
+<% AdminPageMaker ppm =  (AdminPageMaker)request.getAttribute("ppm"); %>
+<% AdminPageMaker npm =  (AdminPageMaker)request.getAttribute("npm"); %>
 <!-- 메인 작성 영역 -->
 </head>
 <body>
@@ -67,35 +71,62 @@
 					<tr>
 						<th>번호</th><th>상품명</th><th>재고수</th><th>상품상태</th>
 					</tr>
+				<c:forEach items="${plist }" var="product">
 					<tr>
-						<td>1</td><td><a href="<%=request.getContextPath()%>/admin/product.do">커피1</a></td><td>0</td><td>매진</td>
+						<td>${product.pNo }</td>
+						<td><a href="<%=request.getContextPath()%>/admin/product.do?pNo=${product.pNo}">${product.pName}</a></td>
+						<td>${product.pStock }</td>
+						<td>매진</td>
 					</tr>
+				</c:forEach>	
 					<tr>
-						<td>2</td><td><a href="<%=request.getContextPath()%>/admin/product.do">커피1</a></td><td>0</td><td>매진</td>
-					</tr>
-					<tr>
-						<td>3</td><td><a href="<%=request.getContextPath()%>/admin/product.do">커피1</a></td><td>0</td><td>매진</td>
-					</tr>
-					<tr>
-						<td colspan="4">◀ 1 2 3 4 5 6 7 8 9 10 ▶</td>
+						<td colspan="4">
+<c:if test="${ppm.isPrev()}">
+					<a href="main.do?pPage=${ppm.startPage-1}">◀</a>
+</c:if>
+				<c:if test="${ppm.startPage != 0}">
+					<c:forEach var="cnt" begin="${ppm.startPage}" end="${ppm.endPage}">
+						<a href="main.do?pPage=${cnt}&ppm=true&qpm=${param.qpm}&npm=${param.npm}">${cnt}</a>&nbsp;
+					</c:forEach>
+				</c:if>
+				<c:if test="${pm.startPage == 0}">
+					1
+				</c:if>
+				<c:if test="${ppm.isNext() && ppm.endPage>0}">	
+					<a href="main.do?pPage=${ppm.endPage()+1}">▶</a>
+				</c:if>
+						</td>
 					</tr>
 				</table>
 				<h4><b>QnA 답변대기</b></h4><br>
 				<table border="1" class="tableAdmin admin">
 					<tr>
-						<th>번호</th><th>제목</th><th>아이디</th><th>작성일</th>
+						<th>번호</th><th>제목</th><th>작성일</th>
 					</tr>
+				<c:forEach items="${qlist }" var="qna">
 					<tr>
-						<td>1</td><td><a href="<%=request.getContextPath()%>/help/qna.do">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td>
+						<td>${qna.qNo }</td>
+						<td><a href="<%=request.getContextPath()%>/help/qna.do?qNo=${qna.qNo}">${qna.qTitle}</a></td>
+						<td>${qna.qDate }</td>
 					</tr>
+				</c:forEach>
 					<tr>
-						<td>1</td><td><a href="<%=request.getContextPath()%>/help/qna.do">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td>
-					</tr>
-					<tr>
-						<td>1</td><td><a href="<%=request.getContextPath()%>/help/qna.do">커피1 질문입니다.</a></td><td>hong12</td><td>2023-07-11</td>
-					</tr>
-					<tr>
-						<td colspan="4">◀ 1 2 3 4 5 6 7 8 9 10 ▶</td>
+						<td colspan="4">
+<c:if test="${qpm.isPrev()}">
+					<a href="main.do?qPage=${qpm.startPage-1}">◀</a>
+</c:if>
+				<c:if test="${qpm.startPage != 0}">
+					<c:forEach var="cnt" begin="${qpm.startPage}" end="${qpm.endPage}">
+						<a href="main.do?qPage=${cnt}&qpm=true&ppm=${param.ppm}&npm=${param.npm}">${cnt}</a>&nbsp;
+					</c:forEach>
+				</c:if>
+				<c:if test="${qpm.startPage == 0}">
+					1
+				</c:if>
+				<c:if test="${qpm.isNext() && qpm.endPage>0}">	
+					<a href="main.do?qPage=${qpm.endPage()+1}">▶</a>
+				</c:if>
+						</td>
 					</tr>
 				</table>
 				<h4><b>공지사항</b></h4><br>
@@ -103,17 +134,30 @@
 					<tr>
 						<th>번호</th><th>제목</th><th>작성일</th>
 					</tr>
+				<c:forEach items="${nlist }" var="notice">
 					<tr>
-						<td>1</td><td><a href="<%=request.getContextPath()%>/help/noticeView.do?nNo=${Notice.nNo}">${Notice.nTitle }</a></td><td>2023-07-11</td>
+						<td>${notice.nNo }</td>
+						<td><a href="<%=request.getContextPath()%>/help/noticeView.do?nNo=${notice.nNo}">${notice.nTitle }</a></td>
+						<td>${notice.nDate }</td>
 					</tr>
+				</c:forEach>
 					<tr>
-						<td>1</td><td><a href="<%=request.getContextPath()%>/help/noticeView.do">공지사항입니다.</a></td><td>2023-07-11</td>
-					</tr>
-					<tr>
-						<td>1</td><td><a href="<%=request.getContextPath()%>/help/noticeView.do">공지사항입니다.</a></td><td>2023-07-11</td>
-					</tr>
-					<tr>
-						<td colspan="3">◀ 1 2 3 4 5 6 7 8 9 10 ▶</td>
+						<td colspan="3">
+<c:if test="${npm.isPrev()}">
+					<a href="main.do?nPage=${npm.startPage-1}">◀</a>
+</c:if>
+				<c:if test="${npm.startPage != 0}">
+					<c:forEach var="cnt" begin="${npm.startPage}" end="${npm.endPage}">
+						<a href="main.do?nPage=${cnt}&npm=true&qpm=${param.qpm}&ppm=${param.ppm}">${cnt}</a>&nbsp;
+					</c:forEach>
+				</c:if>
+				<c:if test="${npm.startPage == 0}">
+					1
+				</c:if>
+				<c:if test="${npm.isNext() && npm.endPage>0}">	
+					<a href="main.do?nPage=${npm.endPage()+1}">▶</a>
+				</c:if>
+						</td>
 					</tr>
 				</table>
 		</div>

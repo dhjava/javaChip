@@ -27,7 +27,7 @@ import com.javachip.vo.UserVO;
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController 
-{
+{	
 	@Autowired
 	private UserService us;
 	
@@ -106,6 +106,47 @@ public class AdminController
 	public String main(Model model, AdminSearchVO AdminSearchVO)
 	{
 		int qcnt = hs.QnATotal(AdminSearchVO);
+		pm.setAdminSearchVO(AdminSearchVO);
+		pm.setqTotalCount(qcnt);
+		
+		int pcnt = ps.productTotal(AdminSearchVO);
+		AdminPageMaker ppm = new AdminPageMaker();
+		ppm.setAdminSearchVO(AdminSearchVO);
+		ppm.setpTotalCount(pcnt);
+		
+		int ncnt = hs.NoticeTotal(AdminSearchVO);
+		AdminPageMaker npm = new AdminPageMaker();
+		npm.setAdminSearchVO(AdminSearchVO);
+		npm.setnTotalCount(ncnt);
+		
+		AdminSearchVO.setPerPageNum(3);
+		
+		if(AdminSearchVO.getqPage() > 1)
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getqPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		if(AdminSearchVO.getpPage() > 1)
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getpPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		if(AdminSearchVO.getnPage() > 1)
+		{
+			AdminSearchVO.setsNum((AdminSearchVO.getnPage() - 1) * AdminSearchVO.getPerPageNum());
+		}
+		List<QnaVO> qlist = hs.selectQnAByAdmin(AdminSearchVO);
+		List<ProductVO> plist = ps.List(AdminSearchVO);
+		List<NoticeVO> nlist = hs.selectNoticeByAdmin(AdminSearchVO);
+		
+		model.addAttribute("qlist", qlist);
+		model.addAttribute("plist", plist);
+		model.addAttribute("nlist", nlist);
+		model.addAttribute("qpm", pm);
+		model.addAttribute("ppm", ppm);
+		model.addAttribute("npm", npm);
+		
+		System.out.println(pm);
+		System.out.println(ppm);
+		System.out.println(npm);
 		return "admin/main";
 	}
 
