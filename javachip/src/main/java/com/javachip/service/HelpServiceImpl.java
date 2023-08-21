@@ -64,10 +64,7 @@ public class HelpServiceImpl implements HelpService {
 	@Override
 	public int insertQna(QnaVO qnaVO) {
 		
-		int result = helpDAO.insertQna(qnaVO);
-		helpDAO.updateQno(qnaVO.getqNo());
-		
-		return result;
+		return helpDAO.insertQna(qnaVO);
 	}
 
 	@Override

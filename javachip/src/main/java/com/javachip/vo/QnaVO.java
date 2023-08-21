@@ -40,7 +40,7 @@ public class QnaVO {
 		return qDate;
 	}
 	public String getqAnswerDate() {
-		return qDate;
+		return qAnswerDate;
 	}
 	public String getqType() {
 		return qType;
@@ -122,10 +122,10 @@ public class QnaVO {
 	// toString
 	@Override
 	public String toString() {
-		return "QnaVO [qNo=" + qNo + ", qTitle=" + qTitle + ", qContents=" + qContents + ", uNo=" + uNo + ", qDate="
-				+ qDate + ", qType=" + qType + ", pNo=" + pNo + ", qlevel=" + qlevel + ", originqno=" + originqno
-				+ ", uName=" + uName + ", pName=" + pName + ", uStatus=" + uStatus + "]";
+		return "QnaVO [qNo=" + qNo + ", qTitle=" + qTitle + ", qContents=" + qContents + ", qAnswer=" + qAnswer
+				+ ", uNo=" + uNo + ", qDate=" + qDate + ", qAnswerDate=" + qAnswerDate + ", qType=" + qType + ", pNo="
+				+ pNo + ", qlevel=" + qlevel + ", originqno=" + originqno + ", delYN=" + delYN + ", secretYN="
+				+ secretYN + ", uName=" + uName + ", pName=" + pName + ", uStatus=" + uStatus + "]";
 	}
-	
 	
 }

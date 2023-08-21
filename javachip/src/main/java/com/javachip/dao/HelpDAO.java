@@ -48,10 +48,6 @@ public class HelpDAO {
 		return sqlSession.insert("com.javachip.mapper.helpMapper.insertQna", qnaVO);
 	}
 	
-	public int updateQno(int qNo) {
-		return sqlSession.update("com.javachip.mapper.helpMapper.updateOriginQno",qNo);
-	}
-	
 	public List<QnaVO> selectQnaList (SearchVO searchVO) {
 		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectQnaAll",searchVO);
 	}
