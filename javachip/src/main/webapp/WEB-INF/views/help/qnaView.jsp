@@ -58,28 +58,20 @@
 				<tr style="font-color:gray; font-size:10pt;">
 					<td colspan="2">작성일  ${qnaVO.qDate}</td>
 				</tr>
-				<c:if test="${qnaVO.qlevel > 0}">	
 				<tr>
-					<td style="width:12%">제목</td>
-					<td>
-						<c:if test="${qna.qlevel > 0}">
-							&nbsp;&nbsp;⮡ &nbsp;Re:
-						</c:if>
-						${originQnaVO.qTitle}
-						<c:if test="${originQnaVO.secretYN eq 'Y'}">
-							<img style="display: inline-block;vertical-align:baseline" alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
-						</c:if></td>
+					<td colspan="3" style="white-space:pre-line; height:200px;">${qnaVO.qContents}</td>
 				</tr>	
-				<tr>
-					<td colspan="3" style="white-space:pre-line; height:200px;">${originQnaVO.qContents}</td>
-				</tr>	
+			<c:if test="${not empty qnaVO.qAnswer}">
 				<tr>	
 					<td colspan="2">[답변]</td>
 				</tr>
-				</c:if>
-				<tr style="">
-					<td colspan="3" style="white-space:pre-line; height:200px;">${qnaVO.qContents}</td>
+				<tr>	
+					<td colspan="2">작성일  ${qnaVO.qAnswerDate}</td>
 				</tr>
+				<tr style="">
+					<td colspan="3" style="white-space:pre-line; height:200px;">${qnaVO.qAnswer}</td>
+				</tr>
+			</c:if>
 				<tr>
 					<td colspan="3">
 						<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qna.do'">목록으로</button>	
@@ -87,7 +79,6 @@
 						<button type="button" class="btn btn-outline-danger" onclick="qnaDelFn();">삭제하기</button>
 						<form name="delFrm" method="post" action="qnaDelete.do">
 							<input type="hidden" name="qNo" value="${qnaVO.qNo}">
-							<input type="hidden" name="qlevel" value="${qnaVO.qlevel}">
 							<input type="hidden" name="loginUno" value="${login.uNo}">
 						</form>
 					</td>

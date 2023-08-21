@@ -4,8 +4,10 @@ public class QnaVO {
 	private int qNo;
 	private String qTitle;
 	private String qContents;
+	private String qAnswer;
 	private int uNo;
 	private String qDate;
+	private String qAnswerDate;
 	private String qType;
 	private int pNo;
 	
@@ -28,10 +30,16 @@ public class QnaVO {
 	public String getqContents() {
 		return qContents;
 	}
+	public String getqAnswer() {
+		return qAnswer;
+	}
 	public int getuNo() {
 		return uNo;
 	}
 	public String getqDate() {
+		return qDate;
+	}
+	public String getqAnswerDate() {
 		return qDate;
 	}
 	public String getqType() {
@@ -72,11 +80,17 @@ public class QnaVO {
 	public void setqContents(String qContents) {
 		this.qContents = qContents;
 	}
+	public void setqAnswer(String qAnswer) {
+		this.qAnswer = qAnswer;
+	}
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
 	}
 	public void setqDate(String qDate) {
 		this.qDate = qDate;
+	}
+	public void setqAnswerDate(String qAnswerDate) {
+		this.qAnswerDate = qAnswerDate;
 	}
 	public void setqType(String qType) {
 		this.qType = qType;

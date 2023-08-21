@@ -97,12 +97,6 @@ public class HelpServiceImpl implements HelpService {
 	}
 	
 	@Override
-	public int deleteNextQna(QnaVO qnaVO) {
-		
-		return helpDAO.deleteNextQna(qnaVO);
-	}
-	
-	@Override
 	public int totalQna(SearchVO searchVO) {
 		
 		return helpDAO.totalQna(searchVO);
@@ -111,9 +105,7 @@ public class HelpServiceImpl implements HelpService {
 	@Override
 	public int AnswerQna(QnaVO qnaVO) {
 		
-		int result = helpDAO.AnswerQna(qnaVO);
-		
-		return result;
+		return helpDAO.AnswerQna(qnaVO);
 	}
 	
 	

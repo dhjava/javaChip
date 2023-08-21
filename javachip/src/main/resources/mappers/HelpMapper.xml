@@ -83,8 +83,8 @@
 	<!-- QnA -->
 	<insert id="insertQna" parameterType="qnaVO">
 		INSERT INTO QnA 
-		(uNo, qTitle, qContents, qType, pNo, qlevel, secretYN) 
-		VALUES(#{uNo},#{qTitle},#{qContents},#{qType},#{pNo},0, 
+		(uNo, qTitle, qContents, qType, pNo, secretYN) 
+		VALUES(#{uNo},#{qTitle},#{qContents},#{qType},#{pNo}, 
 		IFNULL(#{secretYN},'N')
 		)
 		
@@ -118,7 +118,7 @@
 		FROM QnA
 		WHERE delYN = 'N'
 		<include refid ="qSearch"/>
-		ORDER BY originqno DESC, qlevel ASC
+		ORDER BY originqno DESC
 		LIMIT #{startNum},#{perPageNum}
 	</select>
 	
@@ -143,7 +143,7 @@
 	</select>
 	
 	<select id="selectNearQno" resultType="QnaVO" parameterType="int">
-		SELECT qNo,qTitle,qlevel,secretYN from Qna
+		SELECT qNo,qTitle,secretYN from Qna
 		WHERE ( qNo = IFNULL((SELECT MIN(qNo) FROM Qna WHERE qNo &gt; #{qNo} AND delYN = 'N'),0) 
 		OR qNo = IFNULL((SELECT MAX(qNo) FROM Qna WHERE qNo &lt; #{qNo} AND delYN = 'N'),0)
 		)ORDER BY qNo DESC
@@ -154,31 +154,17 @@
 		SET delYN = 'Y'
 		WHERE qNo = #{qNo}
 	</update>
-	<update id="deleteNextQna" parameterType="qnaVO">
-		UPDATE Qna 
-		SET delYN = 'Y'
-		WHERE originqno = #{originqno}
-		AND qlevel >= #{qlevel}
-	</update>
-	
 	<select id="totalQna" resultType="int">
 		SELECT COUNT(*) AS cnt FROM Qna
 		WHERE delYN='N'
 		<include refid="qSearch" />
 	</select>
 	
-	<insert id="answerQna" parameterType="qnaVO">
-		INSERT INTO Qna
-		(originqno,qlevel,uNo, qTitle, qContents, qType,secretYN)
-		VALUES(#{originqno},#{qlevel}+1,#{uNo},#{qTitle},#{qContents},#{qType},
-		IFNULL(#{secretYN},'N')
-		)
-		
-		<selectKey resultType="int" keyProperty="qNo" order="AFTER">
-			SELECT max(qNo) as qNo 
-			FROM QnA
-		</selectKey>
-	</insert>
+	<update id="answerQna" parameterType="qnaVO">
+		UPDATE Qna
+		SET qAnswer = #{qAnswer}, qAnswerDate = NOW()
+		WHERE qNo = #{qNo}
+	</update>
 	
 	<!-- =============================관리자용 sql쿼리문 모음======================================== -->
 	<!-- 관리자 로그인 확인 -->

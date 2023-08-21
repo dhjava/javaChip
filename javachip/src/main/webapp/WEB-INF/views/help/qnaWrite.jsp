@@ -9,7 +9,7 @@
 function qnaWriteFn() {
 
 	var formData = $("#submitFrm").serialize();
-	var qContents =  $("#qContents").html();
+	var qContents = $("#qContents").html();
 	
 	$.ajax({
 		url:"qnaWrite.do",
@@ -30,7 +30,14 @@ function qnaWriteFn() {
 	
 }
 	
-
+function qnaUploadFn() {
+	var formData = $("#inputGroupFile02");
+	
+	if(formData.files.length == 0) {
+		return;
+	}
+	
+}
 </script>
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
@@ -90,7 +97,7 @@ function qnaWriteFn() {
 					<div class="p-2 bd-highlight">
 						<div class="input-group mb-1">
 								<div class="custom-file">
-								<form action="fileupload.do" method="post" enctype="multipart/form-data">
+								<form id="fileSubmitFrm" method="post" enctype="multipart/form-data">
 									<input type="file" class="custom-file-input" id="inputGroupFile02">
 									<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
 								</form>
