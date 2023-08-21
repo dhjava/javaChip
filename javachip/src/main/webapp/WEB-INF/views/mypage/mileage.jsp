@@ -37,8 +37,8 @@
                             <thead>
                                 <tr>
                                     <th>적립/사용</th>
-                                    <th class="shoping__product">적립/사용내역</th>
-                                    <th>적립금액</th>
+                                    <th class="shoping__product">내역</th>
+                                    <th>금액</th>
                                     <th>날짜</th>
                                 </tr>
                             </thead>
@@ -64,8 +64,8 @@
 		                                    <td class="shoping__cart__item">
 		                                        <h5>${mileage.mNote}</h5>
 		                                    </td>
-		                                    <td class="shoping__cart__price">
-		                                        ${mileage.mMinus} P
+		                                    <td class="shoping__cart__price" style="color:#dd2222;">
+		                                        -${mileage.mMinus} P
 		                                    </td>
 	                                    </c:otherwise>
                                     </c:choose>

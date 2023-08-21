@@ -5,48 +5,60 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.javachip.vo.CartVO" %>
-<%
-	List<CartVO> orderList = (List<CartVO>)request.getAttribute("orderList");
-	int totalMileage = (int)request.getAttribute("totalMileage");
-%>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
+		// 금액 ,+원
+		function moneyFn(str) {
+			return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',')+"원"
+		}
+		
+		function moneyToNum(str) {
+			var newStr = str.toString().replace(',' ,'');
+			return newStr.toString().replace('원' ,'');
+		}
+		
 		var sum = 0;
 		$(document).ready(function() {
 			$("#point").attr("value", "0");
 			$(".calPrice").each(function(i, e) {
 				sum += parseInt($(e).text());
 			});
-			$("#getTotal").text(sum+"원");
+			
+			$(".calPrice").text(moneyFn($(".calPrice").text()));
+			$("#getTotal").text(moneyFn(sum));
 		});
 		
 	    function usePointFn() {
 			// 최대치 설정 필요 (총 금액 + 사용 가능한 적립금)
-			var point = parseInt($("#usePoint").val());
+			var point = $("#usePoint").val();
 			var maxPoint = parseInt($("#maxPoint").val());
+			console.log(point);
 			console.log(maxPoint);
+			console.log(sum);
+			var price = sum;
 			if(point == "" || point < 1) {
 				$("#usePoint").attr("value", 0);
 				$("#discount").empty();
 				$("#point").attr("value", 0);
+				price = sum;
 			}else if(point > maxPoint) {
 				alert("사용 가능한 포인트를 초과하였습니다.");
 				$("#usePoint").attr("value", maxPoint);
-				$("#discount").text("-"+maxPoint+"원");
+				$("#discount").text("-"+moneyFn(maxPoint));
 				$("#point").attr("value", maxPoint);
-				sum = parseInt(sum)-maxPoint;
+				price = parseInt(sum)-maxPoint;
 			}else if(point > parseInt(sum)) {
 				alert("결제하려는 금액보다 더 많은 포인트를 사용하실 수 없습니다.");
 				$("#usePoint").attr("value", sum);
-				$("#discount").text("-"+sum+"원");
+				$("#discount").text("-"+moneyFn(sum));
 				$("#point").attr("value", sum);
-				sum = 0;
+				price = 0;
 			}else {
-				$("#discount").text("-"+point+"원");
+				$("#discount").text("-"+moneyFn(point));
 				$("#point").attr("value", point);
-				sum = parseInt(sum)-point;
+				price = parseInt(sum)-point;
 			}
-			$("#getTotal").text(sum+"원");
+			$("#getTotal").text(moneyFn(price));
 		}
 	    
 		var IMP = window.IMP;
@@ -168,7 +180,7 @@
                                 <div class="checkout__order__products">제품 <span>가격</span></div>
                                 <ul>
                                 	<c:forEach items="${orderList}" var="cart">
-	                                    <li>${cart.pName}<span class="calPrice">${cart.pPrice*cart.cCount}원</span></li>
+	                                    <li>${cart.pName}<span class="calPrice">${cart.pPrice*cart.cCount}</span></li>
                                 	</c:forEach>
 	                                <li>할인 <span id="discount" style="color:#DD2222;">0원</span></li>
                                 </ul>
