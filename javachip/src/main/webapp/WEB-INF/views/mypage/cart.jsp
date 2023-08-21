@@ -20,14 +20,14 @@
 			console.log($("input[name=chkCart]"))
 			$("#cart").submit();
 		}
-		
+				
 		function chkAll() {
 			$("input[name=chkCart]").prop("checked", true);
 			var sum = 0;
 			$(".shoping__cart__total").each(function(i, e) {
-				sum += parseInt($(e).text());
+				sum += parseInt(moneyToNum($(e).text()));
 			});
-			$("#sumAll").text(sum+"원");
+			$("#sumAll").text(moneyFn(sum));
 			$("#sumSelAll").text($("#sumAll").text());
 		}
 		
@@ -37,28 +37,31 @@
 		}
 		
 		function delChk() {
-			var selDelCart = [];
+			var selectList = [];
 			$("input[name=chkCart]").each(function() {
 				if($(this).is(":checked") == true) {
 					var chk = $(this).val();
-					selDelCart.push(chk);
-				}
-				
-				for(var items : selDelCart) {
-					if($("#chkNo"+items).val() != null) {
-						$.ajax({
-							url:"deleteCart.do",
-							type:"post",
-							data:"cNo="+items,
-							success:function(){
-								
-							}
-						});
-					}
+					selectList.push(chk);
+					console.log(chk);
+					$.ajax({
+						url:"deleteCart.do",
+						type:"post",
+						data:"cNo="+chk,
+						success:function(){
+							console.log(chk+" deleted");
+						},
+						error:function(){
+							alert("예외 발생!");
+						}
+					});
 				}
 			});
-			console.log(selDelCart);
-			
+			if(selectList.length == 0) {
+				alert("선택한 상품이 없습니다.");
+			}else {
+				alert("선택한 상품이 삭제되었습니다.");
+				location.reload();
+			}
 		}
 		
 		function delAll() {
@@ -84,12 +87,27 @@
 			}
 		}
 		
+		// 금액 ,+원
+		function moneyFn(str) {
+			return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',')+"원"
+		}
+		
+		function moneyToNum(str) {
+			var newStr = str.toString().replace(',' ,'');
+			return newStr.toString().replace('원' ,'');
+		}
+		
 		$(document).ready(function(){
+			var cPrice = $("#cartPrice").text();
+			var cTotal = $("#cartTotal").text();
+			$("#cartPrice").text(moneyFn(cPrice));
+			$("#cartTotal").text(moneyFn(cTotal));
+			
 			var sum = 0;
 			$(".shoping__cart__total").each(function(i, e) {
-				sum += parseInt($(e).text());
+				sum += parseInt(moneyToNum($(e).text()));
 			});
-			$("#sumAll").text(sum+"원");
+			$("#sumAll").text(moneyFn(sum));
 			
 			$("input[name=cCount]").change(function() {
 				var obj = $(this);
@@ -97,7 +115,7 @@
 				var cCount = obj.parents("tr").find("input[name=cCount]").val();
 				var input = obj.parents("tr").find(".shoping__cart__total");
 				var price = obj.parents("tr").find(".shoping__cart__price").text();
-				var cal = parseInt(cCount)*parseInt(price);
+				var cal = parseInt(moneyToNum(cCount))*parseInt(moneyToNum(price));
 				$.ajax({
 					url:"updateCount.do",
 					type:"post",
@@ -105,13 +123,15 @@
 					success:function(data) {
 						if(data > 0) {
 							console.log(data+" success");
-							input.html(cal+"원");
+							input.html(moneyFn(cal));
 							
 							sum = 0;
 							$(".shoping__cart__total").each(function(i, e) {
-								sum += parseInt($(e).text());
+								sum += parseInt(moneyToNum($(e).text()));
 							});
-							$("#sumAll").text(sum+"원");
+							$("#sumAll").text(moneyFn(sum));
+							
+							chkSelPrice();
 						}
 					},
 					error:function(){
@@ -134,9 +154,9 @@
 							
 							var sum = 0;
 							$(".shoping__cart__total").each(function(i, e) {
-								sum += parseInt($(e).text());
+								sum += parseInt(moneyToNum($(e).text()));
 							});
-							$("#sumAll").text(sum+"원");
+							$("#sumAll").text(moneyFn(sum));
 						}
 					},
 					error:function(){
@@ -145,16 +165,19 @@
 				});
 			});
 			
-
-			$("input[name=chkCart]").change(function() {
+			function chkSelPrice() {
 				var selSum = 0;
 				$("#sumSelAll").text(selSum);
 				$("input[name=chkCart]").each(function() {
 					if($(this).is(":checked") == true) {
-						selSum += parseInt($(this).parents("tr").find(".shoping__cart__total").text());
+						selSum += parseInt(moneyToNum($(this).parents("tr").find(".shoping__cart__total").text()));
 					}
 				});
-				$("#sumSelAll").text(selSum+"원");
+				$("#sumSelAll").text(moneyFn(selSum));
+			}
+			
+			$("input[name=chkCart]").change(function() {
+				chkSelPrice();
 			});
 		});
 	</script>
@@ -214,7 +237,7 @@
 		                                    	</a>
 		                                    </td>
 		                                    <td class="shoping__cart__price">
-		                                    	${cart.pPrice}원
+		                                    	<span id="cartPrice">${cart.pPrice}</span>
 		                                    </td>
 		                                    <td class="shoping__cart__quantity">
 		                                        <div class="quantity">
@@ -225,7 +248,7 @@
 		                                        </div>
 		                                    </td>
 		                                    <td class="shoping__cart__total">
-		                                        ${cart.cCount * cart.pPrice}원
+		                                        <span id="cartTotal">${cart.cCount * cart.pPrice}</span>
 		                                    </td>
 		                                    <td class="shoping__cart__item__close">
 		                                        <span class="icon_close"></span>
