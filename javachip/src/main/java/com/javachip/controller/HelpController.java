@@ -377,7 +377,7 @@ public class HelpController {
 	}
 	
 	@RequestMapping(value="/qnaDelete.do", method = RequestMethod.POST)
-	public String qnaDelete(int qNo, HttpServletResponse res,HttpServletRequest req) throws IOException {
+	public void qnaDelete(int qNo, HttpServletResponse res,HttpServletRequest req) throws IOException {
 		
 		HttpSession session = req.getSession();
 		res.setContentType("text/html;charset=UTF-8");
@@ -411,8 +411,6 @@ public class HelpController {
 				pw.flush();
 			}
 		}
-		
-		return "redirect:qna.do";
 	}
 	
 	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.GET)

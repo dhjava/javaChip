@@ -94,11 +94,6 @@
 		</selectKey>
 	</insert>
 	
-	<update id="updateOriginQno" parameterType="integer">
-		UPDATE QnA set originqno = #{qNo} 
-		WHERE qNo = #{qNo}
-	</update>
-	
 	<select id="selectQnaAll" resultType="qnaVO" parameterType="searchVO">
 		SELECT * 
 		<!-- masking uName 선택 -->
@@ -118,7 +113,7 @@
 		FROM QnA
 		WHERE delYN = 'N'
 		<include refid ="qSearch"/>
-		ORDER BY originqno DESC
+		ORDER BY qNo DESC
 		LIMIT #{startNum},#{perPageNum}
 	</select>
 	
