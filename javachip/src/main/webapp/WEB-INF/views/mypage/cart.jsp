@@ -2,19 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
-<%@ page import="java.util.List" %>
-<%@ page import="com.javachip.vo.CartVO" %>
-<%
-	List<CartVO> cartList = (List<CartVO>)request.getAttribute("cartList");
-	int uNo = (int)request.getAttribute("uNo");
-%>
+<% int uNo = (int) request.getAttribute("uNo"); %>
 	<script>
 		function doCheckoutFn() {
 			var orderCart = [];
 			$("input[name=chkCart]").each(function() {
-				if($(this).is(":checked") == false) {
-					
-				}else {
+				if($(this).is(":checked") == true) {
 					var chk = $(this).val();
 					orderCart.push(chk);
 				}
@@ -30,7 +23,42 @@
 		
 		function chkAll() {
 			$("input[name=chkCart]").prop("checked", true);
+			var sum = 0;
+			$(".shoping__cart__total").each(function(i, e) {
+				sum += parseInt($(e).text());
+			});
+			$("#sumAll").text(sum+"원");
 			$("#sumSelAll").text($("#sumAll").text());
+		}
+		
+		function unChkAll() {
+			$("input[name=chkCart]").prop("checked", false);
+			$("#sumSelAll").text("");
+		}
+		
+		function delChk() {
+			var selDelCart = [];
+			$("input[name=chkCart]").each(function() {
+				if($(this).is(":checked") == true) {
+					var chk = $(this).val();
+					selDelCart.push(chk);
+				}
+				
+				for(var items : selDelCart) {
+					if($("#chkNo"+items).val() != null) {
+						$.ajax({
+							url:"deleteCart.do",
+							type:"post",
+							data:"cNo="+items,
+							success:function(){
+								
+							}
+						});
+					}
+				}
+			});
+			console.log(selDelCart);
+			
 		}
 		
 		function delAll() {
@@ -44,6 +72,7 @@
 							alert("장바구니를 비웠습니다.");
 							$("tbody").html('<tr><td colspan="5">장바구니가 비어있습니다.</td></tr>');
 							$("#sumAll").html('');
+							$("#sumSelAll").text('');
 						}else {
 							alert("비울 상품이 없거나 잘못된 요청입니다.");
 						}
@@ -53,7 +82,7 @@
 					}
 				});
 			}
-		};
+		}
 		
 		$(document).ready(function(){
 			var sum = 0;
@@ -102,6 +131,12 @@
 						if(data > 0) {
 							console.log("success");
 							obj.parents("tr").empty();
+							
+							var sum = 0;
+							$(".shoping__cart__total").each(function(i, e) {
+								sum += parseInt($(e).text());
+							});
+							$("#sumAll").text(sum+"원");
 						}
 					},
 					error:function(){
@@ -171,10 +206,12 @@
                             	<c:otherwise>
 		                            <c:forEach items="${cartList}" var="cart">
 		                                <tr>
-		                                	<td><input type="checkbox" name="chkCart" value="${cart.cNo}"></td>
+		                                	<td><input type="checkbox" name="chkCart" id="chkNo${cart.cNo}" value="${cart.cNo}"></td>
 		                                    <td class="shoping__cart__item">
-		                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
-		                                        <h5>${cart.pName}</h5>
+		                                    	<a href="<%= request.getContextPath() %>/shop/details.do?pNo=${cart.pNo}" target="_blank" rel="noreferer">
+			                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
+			                                        <h5>${cart.pName}</h5>
+		                                    	</a>
 		                                    </td>
 		                                    <td class="shoping__cart__price">
 		                                    	${cart.pPrice}원
@@ -205,10 +242,13 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
-                        <a href="javascript:chkAll()" class="primary-btn cart-btn"><span class="icon_check"></span>모두 선택하기</a>
+                        <a href="javascript:chkAll()" class="primary-btn cart-btn"><span class="icon_check"></span> 모두 선택</a>
+                        <a href="javascript:unChkAll()" class="primary-btn cart-btn"><span class="icon_close"></span> 모두 선택 해제</a>
                         <a href="javascript:delAll()" class="primary-btn cart-btn cart-btn-right">
-                        	<span class="icon_trash"></span>
-                        	모두 비우기
+                        	<span class="icon_trash"></span> 모두 비우기
+                        </a>
+                        <a href="javascript:delChk()" class="primary-btn cart-btn cart-btn-right" style="margin-right:3px">
+                        	<span class="icon_trash_alt"></span> 선택 상품 비우기
                         </a>
                     </div>
                 </div>

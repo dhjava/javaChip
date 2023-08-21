@@ -217,7 +217,7 @@ public class ShopController {
 		 */
 		
 		pw.append("<form id='buyNow' method='get' action='checkout.do'>"
-				+ "<input type='hidden' name='selCartList' value='"+cNo+"'>"
+				+ "<input type='text' name='selCartList' value='"+cNo+"'>"
 				+ "</form>"
 				+ "<script>window.onload=function(){document.getElementById('buyNow').submit();}</script>");
 		pw.flush();
@@ -240,7 +240,10 @@ public class ShopController {
 		System.out.println(selCartList);
 		
 		// 마일리지 조회
-		int totalMileage = ms.selectTotalMileage(uNo);
+		int totalMileage = 0;
+		if(ms.selectTotalMileage(uNo) != 0) {
+			totalMileage = ms.selectTotalMileage(uNo);
+		}
 		System.out.println("totalMileage::"+totalMileage);
 		
 		// 선택한 장바구니 모두 조회
