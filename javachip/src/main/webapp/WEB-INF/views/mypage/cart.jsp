@@ -30,6 +30,11 @@
 		
 		function chkAll() {
 			$("input[name=chkCart]").prop("checked", true);
+			var sum = 0;
+			$(".shoping__cart__total").each(function(i, e) {
+				sum += parseInt($(e).text());
+			});
+			$("#sumAll").text(sum+"원");
 			$("#sumSelAll").text($("#sumAll").text());
 		}
 		
@@ -44,6 +49,7 @@
 							alert("장바구니를 비웠습니다.");
 							$("tbody").html('<tr><td colspan="5">장바구니가 비어있습니다.</td></tr>');
 							$("#sumAll").html('');
+							$("#sumSelAll").text('');
 						}else {
 							alert("비울 상품이 없거나 잘못된 요청입니다.");
 						}
@@ -102,6 +108,12 @@
 						if(data > 0) {
 							console.log("success");
 							obj.parents("tr").empty();
+							
+							var sum = 0;
+							$(".shoping__cart__total").each(function(i, e) {
+								sum += parseInt($(e).text());
+							});
+							$("#sumAll").text(sum+"원");
 						}
 					},
 					error:function(){
@@ -173,8 +185,10 @@
 		                                <tr>
 		                                	<td><input type="checkbox" name="chkCart" value="${cart.cNo}"></td>
 		                                    <td class="shoping__cart__item">
-		                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
-		                                        <h5>${cart.pName}</h5>
+		                                    	<a href="<%= request.getContextPath() %>/shop/details.do?pNo=${cart.pNo}" target="_blank" rel="noreferer">
+			                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
+			                                        <h5>${cart.pName}</h5>
+		                                    	</a>
 		                                    </td>
 		                                    <td class="shoping__cart__price">
 		                                    	${cart.pPrice}원

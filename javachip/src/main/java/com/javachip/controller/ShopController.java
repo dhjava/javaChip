@@ -217,7 +217,7 @@ public class ShopController {
 		 */
 		
 		pw.append("<form id='buyNow' method='get' action='checkout.do'>"
-				+ "<input type='hidden' name='selCartList' value='"+cNo+"'>"
+				+ "<input type='text' name='selCartList' value='"+cNo+"'>"
 				+ "</form>"
 				+ "<script>window.onload=function(){document.getElementById('buyNow').submit();}</script>");
 		pw.flush();
