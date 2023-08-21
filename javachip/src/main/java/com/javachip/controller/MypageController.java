@@ -104,7 +104,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/goodbye.do", method=RequestMethod.POST)
-	public String goodbye(UserVO vo, HttpSession session, RedirectAttributes ra, HttpServletRequest req) throws Exception{
+	public String goodbye(UserVO vo, RedirectAttributes ra, HttpServletRequest req) throws Exception{
 		System.out.println("removePOST");
 		
 		HttpSession session = req.getSession();

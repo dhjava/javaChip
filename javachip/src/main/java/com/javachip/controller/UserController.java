@@ -60,7 +60,8 @@ public class UserController {
 						+ "문의사항은 javachip0703@gmail.com으로 보내주세요.');location.href='"
 						+req.getContextPath()+"/member/login.do';</script>");
 			}else{
-			pw.append("<script>alert('로그인에 성공했습니다.');location.href='"+req.getContextPath()+"/';</script>");
+			pw.append("<script>alert('로그인에 성공했습니다.\\n\\n회원 이름 : " + loginVO.getuName()
+					+ "\\n경고 횟수 : "+ loginVO.getuAlertNum() + "');location.href='"+req.getContextPath()+"/';</script>");
 			}
 		}else{
 			//login할 회원이 데이터베이스에 존재 X
