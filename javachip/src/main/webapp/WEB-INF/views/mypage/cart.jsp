@@ -33,7 +33,7 @@
 		
 		function unChkAll() {
 			$("input[name=chkCart]").prop("checked", false);
-			$("#sumSelAll").text("");
+			$("#sumSelAll").text("0원");
 		}
 		
 		function delChk() {

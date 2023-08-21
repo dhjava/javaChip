@@ -11,13 +11,13 @@
                             <span>상품목록</span>
                         </div>
                         <ul>
-                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">원두</a></li>
-                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">생두</a></li>
-                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">드립백</a></li>
-                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">캡슐</a></li>
-                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">도매</a></li>
-                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">커피용품</a></li>
-                            <li><a href="<%=request.getContextPath() %>/shop/grid.do">정기배송</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do?searchType=pType&searchValue=A">원두</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do?searchType=pType&searchValue=B">생두</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do?searchType=pType&searchValue=C">드립백</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do?searchType=pType&searchValue=D">캡슐</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do?searchType=pType&searchValue=E">도매</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do?searchType=pType&searchValue=F">커피용품</a></li>
+                            <li><a href="<%=request.getContextPath() %>/shop/grid.do?searchType=pType&searchValue=G">정기배송</a></li>
                         </ul>
                     </div>
                 </div>

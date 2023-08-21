@@ -19,13 +19,13 @@
 	$(document).ready(function(){
 		if(searchType == "pType") {
 			switch(searchValue) {
-			case "1" : $("#ctg").text("원두"); break;
-			case "2" : $("#ctg").text("생두"); break;
-			case "3" : $("#ctg").text("드립백"); break;
-			case "4" : $("#ctg").text("캡슐"); break;
-			case "5" : $("#ctg").text("도매"); break;
-			case "6" : $("#ctg").text("커피용품"); break;
-			case "7" : $("#ctg").text("정기배송"); break;
+			case "A" : $("#ctg").text("원두"); break;
+			case "B" : $("#ctg").text("생두"); break;
+			case "C" : $("#ctg").text("드립백"); break;
+			case "D" : $("#ctg").text("캡슐"); break;
+			case "E" : $("#ctg").text("도매"); break;
+			case "F" : $("#ctg").text("커피용품"); break;
+			case "G" : $("#ctg").text("정기배송"); break;
 			default :  $("#ctg").text("전체"); break;
 			}
 		}
@@ -68,13 +68,13 @@
                             <h4>목록</h4>
                             <ul>
                                 <li><a href="grid.do">전체</a></li>
-                                <li><a href="grid.do?searchType=pType&searchValue=1">원두</a></li>
-                                <li><a href="grid.do?searchType=pType&searchValue=2">생두</a></li>
-                                <li><a href="grid.do?searchType=pType&searchValue=3">드립백</a></li>
-                                <li><a href="grid.do?searchType=pType&searchValue=4">캡슐</a></li>
-                                <li><a href="grid.do?searchType=pType&searchValue=5">도매</a></li>
-                                <li><a href="grid.do?searchType=pType&searchValue=6">커피용품</a></li>
-                                <li><a href="grid.do?searchType=pType&searchValue=7">정기배송</a></li>
+                                <li><a href="grid.do?searchType=pType&searchValue=A">원두</a></li>
+                                <li><a href="grid.do?searchType=pType&searchValue=B">생두</a></li>
+                                <li><a href="grid.do?searchType=pType&searchValue=C">드립백</a></li>
+                                <li><a href="grid.do?searchType=pType&searchValue=D">캡슐</a></li>
+                                <li><a href="grid.do?searchType=pType&searchValue=E">도매</a></li>
+                                <li><a href="grid.do?searchType=pType&searchValue=F">커피용품</a></li>
+                                <li><a href="grid.do?searchType=pType&searchValue=G">정기배송</a></li>
                             </ul>
                         </div>
                     </div>
