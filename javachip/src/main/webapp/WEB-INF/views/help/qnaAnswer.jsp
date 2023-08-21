@@ -9,12 +9,12 @@
 function qnaAnswerFn() {
 
 		var formData = $("#submitFrm").serialize();
-		var qContents =  $("#qContents").html();
+		var qAnswer =  $("#qAnswer").html();
 		
 		$.ajax({
 			url:"qnaAnswer.do",
 			type:"post",
-			data:formData+"&qContents=" + qContents,
+			data:formData+"&qAnswer=" + qAnswer,
 			dataType:"json",
 			success:function(data) {
 				alert(data.result);
@@ -55,45 +55,39 @@ function qnaAnswerFn() {
 						<div class="p-2 bd-highlight">
 							<h4>Qna 답변</h4>
 						</div>
-						<div class="p-2 bd-highlight">
-							<p>제목<p>
-							<input type="text" name="qTitle" id="qTitle" class="form-control" aria-label="subject" placeholder="제목을 입력하세요." value="Re: ${prevQnaVO.qTitle}">
-						</div>
 						<table class="table" style="margin-top:40px; margin-bottom:50px; font-size:11pt; text-align:left">
 							<tr>
-								<td style="width:12%">제목</td>
+								<td style="width:12%">제목
+									<input type="hidden" name="qNo" value="${ qnaVO.qNo }">
+								</td>
 								<td colspan="2">
-									${prevQnaVO.qTitle}
-									<input type="hidden" name="qlevel" id="qlevel" value="${prevQnaVO.qlevel}">
-									<input type="hidden" name="originqno" id="originqno" value="${prevQnaVO.originqno}">
-									<input type="hidden" name="qType" id="qType" value="${prevQnaVO.qType}">
-									<input type="hidden" name="secretCheck" id="secretCheck" value="${prevQnaVO.secretYN}">
+									${qnaVO.qTitle}
 								</td>
 							</tr>
 							<tr>
 								<td>작성자</td>
-								<td colspan="2">${prevQnaVO.uName}</td>
+								<td colspan="2">${qnaVO.uName}</td>
 							</tr>
-						<c:if test="${prevQnaVO.qType eq 'P'}">
+						<c:if test="${qnaVO.qType eq 'P'}">
 							<tr style="height:120px;">
 								<td style="vertical-align:middle;">문의 상품</td>
 								<td style="vertical-align:middle; text-align:center; width:20%">(사진)</td>
-								<td>${prevQnaVO.pNo}</td>
+								<td>${qnaVO.pNo}</td>
 							</tr>
 						</c:if>
 							<tr style="font-color:gray; font-size:10pt;">
-								<td colspan="2">작성일  ${prevQnaVO.qDate}</td>
+								<td colspan="2">작성일  ${qnaVO.qDate}</td>
 							</tr>
 							<tr>
-								<td colspan="3" style="white-space:pre-line;">${prevQnaVO.qContents}</td>
+								<td colspan="3" style="white-space:pre-line;">${qnaVO.qContents}</td>
 							</tr>
 						</table>
 					</div>
 					<div class="p-2 bd-highlight" style="text-align:right">
-						<p>비밀글  <input type="checkbox" value="${prevQnaVO.secretYN}" <c:if test="${prevQnaVO.secretYN eq 'Y'}">checked</c:if> disabled /></p>
+						<p>비밀글  <input type="checkbox" value="${qnaVO.secretYN}" <c:if test="${qnaVO.secretYN eq 'Y'}">checked</c:if> disabled /></p>
 					</div>
 					<div class="p-2 bd-highlight">
-						<div class="form-control textbox" id="qContents" contentEditable="true" >
+						<div class="form-control textbox" id="qAnswer" contentEditable="true" >
 						</div>
 					</div>
 					<div class="p-2 bd-highlight">

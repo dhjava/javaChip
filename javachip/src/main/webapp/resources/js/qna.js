@@ -59,6 +59,7 @@ function qnaSubmitFn() {
 		qnaWriteFn();
 	}
 }
+
 function qnaAnswerSubmitFn() {
 	// QnA 제목이 입력되지 않았을 때
 	if($("#qTitle").val() == "") {
@@ -69,10 +70,10 @@ function qnaAnswerSubmitFn() {
 			return;
 		}else
 	// QnA 내용이 입력되지 않았을 때
-	if($("#qContents").text() == "") {
+	if($("#qAnswer").text() == "") {
 			checkContentsFlag = false;
 			alert("내용을 입력해주세요.");
-			$("#qContents").focus();
+			$("#qAnswer").focus();
 			
 			return;
 		}else

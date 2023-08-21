@@ -364,7 +364,7 @@ public class HelpController {
 		
 		model.addAttribute("qnaVO",qnaVO);
 		model.addAttribute("nearQnaList",nearQnaList);
-		
+	/*	
 		// qlevel이 0보다 클 경우(=qna답변일 경우) originqno와 일치하는 게시글 정보를 받아옴.
 		if(qnaVO.getQlevel() > 0) {
 			int originqno = qnaVO.getOriginqno();
@@ -372,7 +372,7 @@ public class HelpController {
 			QnaVO originQnaVO = helpService.selectOneByQno(originqno);
 			model.addAttribute("originQnaVO",originQnaVO);
 		}
-		
+	*/	
 		return "help/qnaView";
 	}
 	
@@ -398,7 +398,7 @@ public class HelpController {
 		}else {
 			
 			
-			result = helpService.deleteNextQna(qnaVO);
+			result = helpService.deleteQna(qNo);
 			
 			// 삭제 여부 체크
 			if( result > 0 ) {
@@ -418,9 +418,9 @@ public class HelpController {
 	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.GET)
 	public String qnaAnswer(int qNo,Model model) {
 		
-		QnaVO prevQnaVO = helpService.selectOneByQno(qNo);
+		QnaVO qnaVO = helpService.selectOneByQno(qNo);
 		
-		model.addAttribute("prevQnaVO",prevQnaVO);
+		model.addAttribute("qnaVO",qnaVO);
 		
 		return "help/qnaAnswer";
 	}
@@ -438,20 +438,8 @@ public class HelpController {
 			
 			String result = "";	
 			String path = "";	
-			
-			// orgin qna의 uNo를 받아온다.
-			QnaVO originQnaVO = helpService.selectOneByQno(qnaVO.getOriginqno());
-			
-			if(loginVO == null) {
-				result = "로그인 후 이용이 가능합니다.";
-				path = "../member/login.do";
-			}else if(loginVO.getuNo() == originQnaVO.getuNo() || loginVO.getuStatus().equals("A")) {
-				// 로그인 유저번호 등록
-				qnaVO.setuNo( loginVO.getuNo() );
-				// 비밀글 체크여부
-				if( "Y".equals(secretCheck) ) {			
-					qnaVO.setSecretYN("Y");
-				}
+						
+			if( loginVO.getuStatus().equals("A")) {
 				
 				// insertQnA Answer 실행
 				helpService.AnswerQna(qnaVO);
@@ -461,7 +449,7 @@ public class HelpController {
 				result = "게시글을 등록하였습니다";
 				path = "qnaView.do?qNo=" + qnaVO.getqNo();
 			}else {
-				result = "원글 작성자 또는 관리자만 답글이 가능합니다.";
+				result = "관리자만 답변이 가능합니다.";
 				path = "javascript:history.back()";
 			}
 			
