@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import ="com.javachip.vo.*" %> 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
+<% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <!-- 메인 작성 영역 -->
 
 </head>
@@ -60,29 +62,75 @@
 		<div class="main admin">
 				<h4><b>상품 목록 조회</b></h4><br>
 				<div class="search admin">
-					<select>
-						<option>상품번호</option>
-						<option>상품명</option>
+				<form action="productList.do" method="get">
+					<select name="searchType">
+						<option value="pNo"
+						<c:if test="${param.searchType eq 'pNo'}">selected</c:if>>상품번호</option>
+						<option value="pName"
+						<c:if test="${param.searchType eq 'pName'}">selected</c:if>>상품명</option>
 					</select>
-					<input type="text"><input type="button" value="검색">
+					<input type="text" name="SearchValue" value="${param.SearchValue}">
+					<button type="submit" class="btn btn-secondary mb-4">검색</button>
+				</form>
 				</div>
 				<table border="1" class="tableAdmin qna admin">
 					<tr>
-						<th><input type="checkbox"></th><th>번호</th><th>상품구분</th><th>상품명</th><th>가격</th><th>재고수</th><th>상품상태</th>
+						<!-- <th><input type="checkbox"></th> -->
+						<th>번호</th><th>상품구분</th><th>상품명</th><th>가격</th><th>재고수</th><th>상품상태</th>
 					</tr>
+					<c:forEach items="${list }" var="product">
 					<tr>
-						<td><input type="checkbox"></td><td>1</td>
-						<td>커피</td>
-						<td><a href="<%=request.getContextPath() %>/admin/product.do">커피1</a></td>
-						<td>000원</td><td>0</td>
+						<%-- <td>
+							<input type="checkbox" name="RowCheck" th:value="${product.pNo}"
+							class="RowCheck"
+							data-nNo="${product.pNo }" value="${product.pNo }">
+						</td> --%>
+						<td>${product.pNo}</td>
+						<td>${product.pType}</td>
+						<td><a href="<%=request.getContextPath() %>/admin/product.do?pNo=${product.pNo}">
+							${product.pName}</a></td>
+						<td>${product.pPrice}</td>
+						<td>${product.pStock}</td>
 						<td>
-							판매중
+							<c:if test="${product.pStock > 0}">
+								판매중
+							</c:if>
+							<c:if test="${product.pStock eq 0 }">
+								재고없음
+							</c:if>
 						</td>
 					</tr>
+					</c:forEach>
 				</table>
-				<div class="admin_pagination" style="text-align:center;">◀ 1 2 3 4 5 6 7 8 9 10 ▶</div>
-				<input type="button" value="선택 삭제">
-		</div>
+				<div class="admin_pagination" style="text-align:center;">
+<%
+String param = "searchType="+pm.getAdminSearchVO().getSearchType()+"&SearchValue="+pm.encoding2(pm.getAdminSearchVO().getSearchValue());
+if (pm.isPrev()){ %>
+<a href="<%=request.getContextPath()%>/admin/boardList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>
+<%
+}
+%>
+
+<% 
+for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++) 
+{
+%>
+<a href="<%=request.getContextPath()%>/admin/boardList.do?page=<%=i%>&<%=param%>"><%=i %></a>
+<%	
+}
+%>
+
+<%if(pm.isNext() && pm.getEndPage() > 0 ){ %>
+<a href="<%=request.getContextPath()%>/admin/boardList.do?page=<%=pm.getEndPage()+1%>&<%=param%>">▶</a>
+<%
+}
+%>
+</div>
+<br>
+<!-- <input type="button" value="선택 삭제"> -->
+<!-- <div class="delBtn">
+	<button type="submit" class="selectDelete_btn" onclick="deleteValue();">선택 삭제</button>
+</div> -->
 	</div>
 	</section>
 	<!-- Section End -->

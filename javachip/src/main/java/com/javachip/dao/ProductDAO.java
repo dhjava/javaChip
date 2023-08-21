@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.SearchVO;
 
@@ -44,5 +45,19 @@ public class ProductDAO {
 	}	
 	public int deleteProduct(int pNo) {
 		return sqlSession.delete(namespace+".deleteProduct", pNo);
+	}
+	
+	// 관리자용 메소드
+	// 관리자용 검색기능
+	public List<ProductVO> List(AdminSearchVO AdminSearchVO)
+	{
+		return sqlSession.selectList(namespace+".selectByAdmin", AdminSearchVO);
+	}
+	// 관리자 상품 목록 전체 갯수(페이징)
+	public int productTotal(AdminSearchVO AdminSearchVO)
+	{
+		int value = 0;
+		value = sqlSession.selectOne(namespace+".productTotal", AdminSearchVO);
+		return value;
 	}
 }
