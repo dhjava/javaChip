@@ -124,7 +124,7 @@ for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++)
 }
 %>
 	</div>
-	<input type="button" value="선택 삭제">
+	<button type="submit" class="btn btn-dark" onclick="deleteValue();">선택 삭제</button>
 		</div>
 	</div>
 	</section>
