@@ -86,7 +86,7 @@
 </c:if>
 				<c:if test="${ppm.startPage != 0}">
 					<c:forEach var="cnt" begin="${ppm.startPage}" end="${ppm.endPage}">
-						<a href="main.do?pPage=${cnt}&ppm=true&qpm=${param.qpm}&npm=${param.npm}">${cnt}</a>&nbsp;
+						<a href="main.do?pPage=${cnt}">${cnt}</a>&nbsp;
 					</c:forEach>
 				</c:if>
 				<c:if test="${pm.startPage == 0}">
@@ -117,7 +117,7 @@
 </c:if>
 				<c:if test="${qpm.startPage != 0}">
 					<c:forEach var="cnt" begin="${qpm.startPage}" end="${qpm.endPage}">
-						<a href="main.do?qPage=${cnt}&qpm=true&ppm=${param.ppm}&npm=${param.npm}">${cnt}</a>&nbsp;
+						<a href="main.do?qPage=${cnt}">${cnt}</a>&nbsp;
 					</c:forEach>
 				</c:if>
 				<c:if test="${qpm.startPage == 0}">
@@ -148,7 +148,7 @@
 </c:if>
 				<c:if test="${npm.startPage != 0}">
 					<c:forEach var="cnt" begin="${npm.startPage}" end="${npm.endPage}">
-						<a href="main.do?nPage=${cnt}&npm=true&qpm=${param.qpm}&ppm=${param.ppm}">${cnt}</a>&nbsp;
+						<a href="main.do?nPage=${cnt}">${cnt}</a>&nbsp;
 					</c:forEach>
 				</c:if>
 				<c:if test="${npm.startPage == 0}">

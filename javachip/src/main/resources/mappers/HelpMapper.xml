@@ -199,7 +199,7 @@
 			AND nTitle like concat('%',#{searchValue},'%')
 			AND nContents like concat('%',#{searchValue},'%')
 		</if>
-		order by uNo asc limit #{sNum},#{perPageNum}
+		order by uNo asc limit #{nPage},#{perPageNum}
 	</select>
 	
 	<!-- 관리자 QnA 검색/페이징 전체 목록 -->
@@ -212,7 +212,7 @@
 		<if test='searchType_qna != null and searchType_qna.equals("wait")'>
 			AND qlevel = 0
 		</if>
-		order by uNo asc limit #{sNum},#{perPageNum}
+		order by uNo asc limit #{qPage},#{perPageNum}
 	</select>
 	
 	<!-- 관리자 QnA 검색/페이징 공지사항 전체 갯수 -->
