@@ -24,7 +24,7 @@ public class PattachServiceImpl implements PattachService {
 		return pattachDAO.deletePattach(pNo);
 	}
 	@Override
-	public int updatePattach(PattachVO pattachVO) {
+	public int insertAttach(PattachVO pattachVO) {
 		return pattachDAO.updatePattach(pattachVO);
 	}
 }

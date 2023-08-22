@@ -190,7 +190,8 @@ for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++)
 <br>
 <!-- <input type="button" value="선택 삭제"> -->
 <div class="delBtn">
-	<button type="submit" class="selectDelete_btn" onclick="deleteValue();">선택 삭제</button>
+	<button type="submit" class="btn btn-dark" onclick="deleteValue();">선택 삭제</button>
+	<a class="btn btn-dark" href="<%=request.getContextPath() %>/help/noticeWrite.do">글쓰기</a>
 <!-- 	<script>
         document.getElementById('selectAll').addEventListener('change', function () {
             var checkboxes = document.getElementsByClassName('checkbox');
