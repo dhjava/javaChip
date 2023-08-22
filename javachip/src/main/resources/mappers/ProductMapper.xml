@@ -110,14 +110,19 @@
 	
 	<!-- 관리자용 sql쿼리문모음================================================ -->
 	<select id="selectByAdmin" resultType="ProductVO" parameterType="AdminSearchVO">
-		select * from product
+		<![CDATA[
+    SELECT Product.*, pAttach.aNo, pAttach.aOriginName
+    FROM Product
+    LEFT JOIN pAttach ON Product.pNo = pAttach.pNo
+    WHERE 1 = 1
+    ]]>
 		<if test='searchType != null and searchType.equals("pNo")'>
-			where pNo like concat('%',#{searchValue},'%')
+			AND Product.pNo like concat('%',#{searchValue},'%')
 		</if>
 		<if test='searchType != null and searchType.equals("pName")'>
-			where pName like concat('%',#{searchValue},'%')
+			AND Product.pName like concat('%',#{searchValue},'%')
 		</if>
-		order by pNo asc limit #{pPage},#{perPageNum}
+		order by Product.pNo asc limit #{pPage},#{perPageNum}
 	</select>
 	
 	<!-- 상품 전체 목록 갯수 -->
@@ -130,4 +135,16 @@
 			where pName like concat('%',#{searchValue},'%')
 		</if>
 	</select>
+	
+	<!-- 상품 상세 -->
+	<select id="selectOneProductByAdmin" resultType="productVO" parameterType="int">
+		select * from product
+		where pNo = #{pNo}
+	</select>
+	<!-- 상품 새등록 -->
+	<insert id="insertProductByAdmin" parameterType="productVO">
+	<!-- 첫 번째 INSERT -->
+    INSERT INTO Product (pType, pName, pPrice, pInput, pOutput, pStock, pDate)
+    VALUES (#{pType}, #{pName}, #{pPrice}, #{pInput}, #{pOutput}, #{pInput}, NOW());
+	</insert>
 </mapper>

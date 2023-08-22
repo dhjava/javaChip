@@ -87,7 +87,7 @@
 						</td> --%>
 						<td>${product.pNo}</td>
 						<td>${product.pType}</td>
-						<td><a href="<%=request.getContextPath() %>/admin/product.do?pNo=${product.pNo}">
+						<td><a href="<%=request.getContextPath() %>/admin/productDetail.do?pNo=${product.pNo}">
 							${product.pName}</a></td>
 						<td>${product.pPrice}</td>
 						<td>${product.pStock}</td>
@@ -106,7 +106,7 @@
 <%
 String param = "searchType="+pm.getAdminSearchVO().getSearchType()+"&SearchValue="+pm.encoding2(pm.getAdminSearchVO().getSearchValue());
 if (pm.isPrev()){ %>
-<a href="<%=request.getContextPath()%>/admin/boardList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>
+<a href="<%=request.getContextPath()%>/admin/productList.do?page=<%=pm.getStartPage()-1%>&<%=param%>">◀</a></td>
 <%
 }
 %>
@@ -115,18 +115,22 @@ if (pm.isPrev()){ %>
 for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++) 
 {
 %>
-<a href="<%=request.getContextPath()%>/admin/boardList.do?page=<%=i%>&<%=param%>"><%=i %></a>
+<a href="<%=request.getContextPath()%>/admin/productList.do?page=<%=i%>&<%=param%>"><%=i %></a>
 <%	
 }
 %>
 
 <%if(pm.isNext() && pm.getEndPage() > 0 ){ %>
-<a href="<%=request.getContextPath()%>/admin/boardList.do?page=<%=pm.getEndPage()+1%>&<%=param%>">▶</a>
+<a href="<%=request.getContextPath()%>/admin/productList.do?page=<%=pm.getEndPage()+1%>&<%=param%>">▶</a>
 <%
 }
 %>
 </div>
 <br>
+<%--  <button type="button" onclick="location.href='<%=request.getContextPath() %>/admin/productOrder.do'">
+상품등록 
+</button> --%>
+<a class="btn btn-dark" href="<%=request.getContextPath() %>/admin/productOrder.do">상품등록</a>
 <!-- <input type="button" value="선택 삭제"> -->
 <!-- <div class="delBtn">
 	<button type="submit" class="selectDelete_btn" onclick="deleteValue();">선택 삭제</button>

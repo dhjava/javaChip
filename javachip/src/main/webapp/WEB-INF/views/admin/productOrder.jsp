@@ -25,7 +25,6 @@
 	<!-- Breadcrumb Section End -->
 	<!-- section -->
 	<section class="spad frame admin">
-	
 		<div class="side admin">
 			<div class="blog__sidebar__item">
 				<h4>상품관리</h4>
@@ -57,6 +56,8 @@
 				</ul>
 			</div>	
 		</div>
+		<form class="product__input" method="post" 
+		action="<%= request.getContextPath() %>/admin/productOrder.do" enctype="multipart/form-data">
 		<div class="main admin">
 				<div class="row">
                 <div class="col-lg-6 col-md-6">
@@ -68,22 +69,28 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                <form class="product__input">
                     <div class="product__details__text">
                     	상품구분 :<br>
                     	<select class="custom-select" id="pType" name="pType">
 						  <option selected>선택해주세요.</option>
-						  <option value="원두">원두</option>
-						  <option value="생두">생두</option>
-						  <option value="드립백">드립백</option>
-						  <option value="캡슐">캡슐</option>
-						  <option value="도매">도매</option>
-						  <option value="커피용품">커피용품</option>
-						  <option value="정기배송">정기배송</option>
+						  <option value="A" 
+						  <c:if test="${param.pType eq 'A'}">selected</c:if>>원두</option>
+						  <option value="B"
+						  <c:if test="${param.pType eq 'B'}">selected</c:if>>생두</option>
+						  <option value="C"
+						  <c:if test="${param.pType eq 'C'}">selected</c:if>>드립백</option>
+						  <option value="D"
+						  <c:if test="${param.pType eq 'D'}">selected</c:if>>캡슐</option>
+						  <option value="E"
+						  <c:if test="${param.pType eq 'E'}">selected</c:if>>도매</option>
+						  <option value="F"
+						  <c:if test="${param.pType eq 'F'}">selected</c:if>>커피용품</option>
+						  <option value="G"
+						  <c:if test="${param.pType eq 'G'}">selected</c:if>>정기배송</option>
 						</select><br><br><br>
                         상품명 :<br><input class="form-control"  type="text" id="pName" name="pName" placeholder="상품명" ><br>
                         가격 :<br><input class="form-control"  type="text" id="pPrice" name="pPrice" placeholder="개당 가격"><br>
-                        상품설명 :<br><textarea class="form-control" rows="4" id="" name="" placeholder="상품설명"></textarea><br>
+                        상품설명 :<br><textarea class="form-control" rows="4" id="pNote" name="pNote" placeholder="상품설명"></textarea><br>
                         입고수 :<br><input class="form-control"  type="text" id="pInput" name="pInput" placeholder="입고 수량"><br>
                         사진 첨부 :<br>
                         <div class="input-group mb-3">
@@ -94,12 +101,11 @@
 						</div>
 						<br>
 						<button type="submit" class="btn btn-dark">등록하기</button>
-						<button type="submit" class="btn btn-dark">삭제하기</button>
                     	</div>
-                    </form>
                 </div>
             </div>
         </div>
+    </form>
 	</section>
 	<!-- Section End -->
 <%@ include file="../include/footer.jsp" %>

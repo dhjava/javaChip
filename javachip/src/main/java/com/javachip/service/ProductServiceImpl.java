@@ -62,4 +62,13 @@ public class ProductServiceImpl implements ProductService {
 	public int productTotal(AdminSearchVO AdminSearchVO) {
 		return productDAO.productTotal(AdminSearchVO);
 	}
+	@Override
+	public ProductVO selectOneProductByAdmin(int pNo) {
+		return productDAO.selectOneProductByAdmin(pNo);
+	}
+	@Override
+	public int insertProductByAdmin(ProductVO productVO) 
+	{
+		return productDAO.insertProductByAdmin(productVO);
+	}
 }

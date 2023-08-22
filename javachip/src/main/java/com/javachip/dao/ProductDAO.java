@@ -60,4 +60,14 @@ public class ProductDAO {
 		value = sqlSession.selectOne(namespace+".productTotal", AdminSearchVO);
 		return value;
 	}
+	//상품 상세
+	public ProductVO selectOneProductByAdmin(int pNo)
+	{
+		return sqlSession.selectOne(namespace+".selectOneProductByAdmin", pNo);
+	}
+	
+	public int insertProductByAdmin(ProductVO productVO)
+	{
+		return sqlSession.insert(namespace+".insertProductByAdmin", productVO);
+	}
 }
