@@ -121,21 +121,27 @@ public class AdminController
 		
 		AdminSearchVO.setPerPageNum(3);
 		
-		if(AdminSearchVO.getqPage() > 1)
+		if(AdminSearchVO.getqPage() > 0)
 		{
-			AdminSearchVO.setsNum((AdminSearchVO.getqPage() - 1) * AdminSearchVO.getPerPageNum());
-		}
-		if(AdminSearchVO.getpPage() > 1)
+			AdminSearchVO.setqPage((AdminSearchVO.getqPage() - 1) * AdminSearchVO.getPerPageNum());
+		} 
+		if(AdminSearchVO.getpPage() > 0)
 		{
-			AdminSearchVO.setsNum((AdminSearchVO.getpPage() - 1) * AdminSearchVO.getPerPageNum());
+			AdminSearchVO.setpPage((AdminSearchVO.getpPage() - 1) * AdminSearchVO.getPerPageNum());
 		}
-		if(AdminSearchVO.getnPage() > 1)
+		if(AdminSearchVO.getnPage() > 0)
 		{
-			AdminSearchVO.setsNum((AdminSearchVO.getnPage() - 1) * AdminSearchVO.getPerPageNum());
+			AdminSearchVO.setnPage((AdminSearchVO.getnPage() - 1) * AdminSearchVO.getPerPageNum());
 		}
+		
 		List<QnaVO> qlist = hs.selectQnAByAdmin(AdminSearchVO);
 		List<ProductVO> plist = ps.List(AdminSearchVO);
 		List<NoticeVO> nlist = hs.selectNoticeByAdmin(AdminSearchVO);
+		
+		AdminSearchVO pa = new AdminSearchVO();
+		pa.setnPage(AdminSearchVO.getnPage());
+		pa.setpPage(AdminSearchVO.getpPage());
+		pa.setqPage(AdminSearchVO.getqPage());
 		
 		model.addAttribute("qlist", qlist);
 		model.addAttribute("plist", plist);
@@ -143,10 +149,8 @@ public class AdminController
 		model.addAttribute("qpm", pm);
 		model.addAttribute("ppm", ppm);
 		model.addAttribute("npm", npm);
-		
-		System.out.println(pm);
-		System.out.println(ppm);
-		System.out.println(npm);
+		model.addAttribute("pa", pa);
+	
 		return "admin/main";
 	}
 
