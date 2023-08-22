@@ -307,38 +307,46 @@ public class AdminController
 		return "admin/productOrder";
 	}
 	
-	@RequestMapping(value="/productOrder.do" , method=RequestMethod.POST)
-	public String productOrder(ProductVO productVO, MultipartFile uploadFile, PattachVO pattachVO) throws Exception
-	{
+	@RequestMapping(value="/productOrder.do", method=RequestMethod.POST)
+	public String productOrder(ProductVO productVO, MultipartFile uploadFile, PattachVO pattachVO) throws Exception {
+		
 		int result = ps.insertProductByAdmin(productVO);
-		
-		String realPath = "C:\\Users\\502-8\\git\\javaChip\\javachip\\src\\main\\webapp\\resources\\attach";
-		
-		File dir = new File(realPath);
-		if(!dir.exists())
-		{
-			dir.mkdirs();
-		}
-		if(!uploadFile.getOriginalFilename().isEmpty())
-		{
-			String fileNM = uploadFile.getOriginalFilename();
+
+		if (result > 0) {
 			
-			String fileNMArray[] = fileNM.split("\\.");
-			String etc =  fileNMArray[fileNMArray.length-1];
-			
-			long timeMilis = System.currentTimeMillis();
-			
-			String newFileNM 
-			= fileNM.substring(0,fileNM.length()-etc.length()-1)+timeMilis+"."+etc;
-			
-			uploadFile.transferTo(new File(realPath,newFileNM));
-			
-			pattachVO.setpNo(productVO.getpNo());
-			pattachVO.setaOriginName(uploadFile.getOriginalFilename());
-			pattachVO.setaChangeName(newFileNM);
-			
-			int result2 = ps.insertAttach(pattachVO);
-			
+			int newProductNo = productVO.getpNo(); 
+
+			String realPath = "C:\\Users\\502-8\\git\\javaChip\\javachip\\src\\main\\webapp\\resources\\attach";
+
+			File dir = new File(realPath);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+
+			if (!uploadFile.getOriginalFilename().isEmpty()) {
+				String fileNM = uploadFile.getOriginalFilename();
+				String fileNMArray[] = fileNM.split("\\.");
+				String etc =  fileNMArray[fileNMArray.length-1];
+
+				long timeMilis = System.currentTimeMillis();
+
+				String newFileNM = fileNM.substring(0, fileNM.length() - etc.length() - 1) + timeMilis + "." + etc;
+
+				uploadFile.transferTo(new File(realPath, newFileNM));
+
+				pattachVO.setpNo(newProductNo);
+				pattachVO.setaOriginName(uploadFile.getOriginalFilename());
+				pattachVO.setaChangeName(newFileNM);
+
+				
+				int result2 = ps.insertAttach(pattachVO);
+
+				if (result2 > 0) {
+					return "admin/productList";
+				} else {
+					return "admin/productOrder";
+				}
+			}
 		}
 		return "admin/productOrder";
 	}

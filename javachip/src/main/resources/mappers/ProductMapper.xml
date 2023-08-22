@@ -152,7 +152,6 @@
 	<insert id="insertAttach" parameterType="PattachVO">
 	INSERT INTO pAttach (pNo,aOriginName,aChangeName)
 		VALUES (#{pNo},#{aOriginName},#{aChangeName})
-		Where pNo = #{pNo}
 		<selectKey order="AFTER" keyProperty="pNo" resultType="int">
 			SELECT MAX(pNo)
 			  FROM product

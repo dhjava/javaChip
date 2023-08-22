@@ -74,6 +74,6 @@ public class ProductDAO {
 	//상품 사진 인서트
 	public int insertAttach(PattachVO pattachVO)
 	{
-		return sqlSession.insert(namespace+"insertAttach", pattachVO);
+		return sqlSession.insert(namespace+".insertAttach", pattachVO);
 	}
 }
