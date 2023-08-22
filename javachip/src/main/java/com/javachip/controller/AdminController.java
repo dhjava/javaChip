@@ -3,12 +3,14 @@ package com.javachip.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -225,10 +227,6 @@ public class AdminController
 		{
 			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
 		}
-		if(AdminSearchVO.getPage() > 1) 
-		{
-			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
-		}
 		List<UserVO> blacklist = us.blacklist(AdminSearchVO);
 		model.addAttribute("list", blacklist);
 		model.addAttribute("pm", pm);
@@ -244,6 +242,7 @@ public class AdminController
 		return "admin/blacklistDetail";
 	}
 	
+	//회원 경고
 	@ResponseBody
 	@RequestMapping(value="/AlertUser.do")
 	public String AlertUser(int uNo)
@@ -253,6 +252,7 @@ public class AdminController
 		return result+"";
 	}
 	
+	//선택삭제
 	@ResponseBody
 	@RequestMapping(value="/boardDelete.do")
 	public String boardDelete(HttpServletRequest request)
@@ -271,12 +271,6 @@ public class AdminController
 
 	}
 	
-	@RequestMapping(value="/product.do")
-	public String product()
-	{
-		return "admin/product";
-	}
-	
 	@RequestMapping(value="/productList.do")
 	public String productList(Model model, AdminSearchVO AdminSearchVO)
 	{
@@ -284,18 +278,35 @@ public class AdminController
 		pm.setAdminSearchVO(AdminSearchVO);
 		pm.setTotalCount(cnt);
 		
-		if(AdminSearchVO.getPage() > 1) 
+		if(AdminSearchVO.getpPage() > 0)
 		{
-			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
-		}
-		if(AdminSearchVO.getPage() > 1) 
-		{
-			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
+			AdminSearchVO.setpPage((AdminSearchVO.getpPage() - 1) * AdminSearchVO.getPerPageNum());
 		}
 		
 		List<ProductVO> plist = ps.List(AdminSearchVO);
 		model.addAttribute("list", plist);
 		model.addAttribute("pm", pm);
 		return "admin/productList";
+	}
+	
+	@RequestMapping(value="/productDetail.do")
+	public String productDetail(int pNo, Model model)
+	{
+		ProductVO product = ps.selectOneProductByAdmin(pNo);
+		model.addAttribute("vo", product);
+		return "admin/productDetail";
+	}
+	
+	@RequestMapping(value="/productOrder.do" , method=RequestMethod.GET)
+	public String productOrder()
+	{
+		return "admin/productOrder";
+	}
+	
+	@RequestMapping(value="/productOrder.do" , method=RequestMethod.POST)
+	public String productOrder(ProductVO productVO)
+	{
+		int result = ps.insertProductByAdmin(productVO);
+		return "admin/productOrder";
 	}
 }

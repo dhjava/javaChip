@@ -25,4 +25,8 @@ public interface ProductService {
 	List<ProductVO> List(AdminSearchVO AdminSearchVO);
 	//상픔 전체 목록 갯수(페이징)
 	int productTotal(AdminSearchVO AdminSearchVO);
+	//상품 상세
+	ProductVO selectOneProductByAdmin(int pNo);
+	//상품 등록(인서트)
+	int insertProductByAdmin(ProductVO productVO);
 }
