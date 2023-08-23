@@ -83,7 +83,7 @@
 	      }, function (rsp) { // callback
 	          if (rsp.success) {
 	              // 결제 성공 시 로직
-	              // 결제 내용 DB로 보내기
+	              // 결제 내용 DB로 보내기 (order_테이블, 기존 장바구니는 cStatus 'O'로 변경)
 	              alert("결제 성공");
 	              $("#usePoint").attr("disabled","disabled");
 	              $("#total").attr("value",$("#getTotal").text());
