@@ -153,6 +153,7 @@ public class AdminController
 		System.out.println(AdminSearchVO.getnPage());
 		System.out.println(AdminSearchVO.getpPage());
 		System.out.println(AdminSearchVO.getqPage());
+		System.out.println(AdminSearchVO.getPerPageNum());
 		
 		model.addAttribute("qlist", qlist);
 		model.addAttribute("plist", plist);
