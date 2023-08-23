@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javachip.dao.ProductDAO;
 import com.javachip.vo.AdminSearchVO;
+import com.javachip.vo.PattachVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.SearchVO;
 
@@ -70,5 +71,10 @@ public class ProductServiceImpl implements ProductService {
 	public int insertProductByAdmin(ProductVO productVO) 
 	{
 		return productDAO.insertProductByAdmin(productVO);
+	}
+	@Override
+	public int insertAttach(PattachVO pattachVO) 
+	{
+		return productDAO.insertAttach(pattachVO);
 	}
 }

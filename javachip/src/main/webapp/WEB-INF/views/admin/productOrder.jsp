@@ -95,8 +95,7 @@
                         사진 첨부 :<br>
                         <div class="input-group mb-3">
 						  <div class="custom-file">
-						    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-						    <label class="custom-file-label" for="inputGroupFile01">파일을 선택하세요</label>
+						    <input type="file" name="uploadFile">
 						  </div>
 						</div>
 						<br>

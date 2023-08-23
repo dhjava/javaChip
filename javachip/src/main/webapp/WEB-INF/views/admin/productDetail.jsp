@@ -62,8 +62,9 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <img class="product__details__pic__item--large"
-                                src="img/product/details/board-box-1.jpg" alt="">
+                            <c:if test="${not empty param.fileNM}">
+<img src="<%=request.getContextPath()%>/resources/upload/${param.fileNM}">
+</c:if>
                         </div>
                     </div>
                 </div>
@@ -78,6 +79,7 @@
                         상품설명 :<br>${vo.pNote }<br>
                         입고수 :<br>${vo.pInput }<br>
                         <button type="submit" class="btn btn-dark" onclick="delete();">삭제하기</button>
+                        <button type="submit" class="btn btn-dark" onclick="delete();">수정하기</button>
                     	</div>
                     </form>
                 </div>

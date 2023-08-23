@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.javachip.vo.AdminSearchVO;
+import com.javachip.vo.PattachVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.SearchVO;
 
@@ -29,4 +30,6 @@ public interface ProductService {
 	ProductVO selectOneProductByAdmin(int pNo);
 	//상품 등록(인서트)
 	int insertProductByAdmin(ProductVO productVO);
+	//상품 사진 인서트
+	int insertAttach(PattachVO pattachVO);
 }

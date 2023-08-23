@@ -141,10 +141,20 @@
 		select * from product
 		where pNo = #{pNo}
 	</select>
+	
 	<!-- 상품 새등록 -->
 	<insert id="insertProductByAdmin" parameterType="productVO">
-	<!-- 첫 번째 INSERT -->
-    INSERT INTO Product (pType, pName, pPrice, pInput, pOutput, pStock, pDate)
-    VALUES (#{pType}, #{pName}, #{pPrice}, #{pInput}, #{pOutput}, #{pInput}, NOW());
+	INSERT INTO Product (pType, pName, pPrice, pInput, pOutput, pStock, pDate)
+		VALUES (#{pType}, #{pName}, #{pPrice}, #{pInput}, #{pOutput}, #{pInput}, NOW());
+	</insert>
+	
+	<!-- 상품 새등록 할때 첨부파일 인서트 -->
+	<insert id="insertAttach" parameterType="PattachVO">
+	INSERT INTO pAttach (pNo,aOriginName,aChangeName)
+		VALUES (#{pNo},#{aOriginName},#{aChangeName})
+		<selectKey order="AFTER" keyProperty="pNo" resultType="int">
+			SELECT MAX(pNo)
+			  FROM product
+		</selectKey>
 	</insert>
 </mapper>

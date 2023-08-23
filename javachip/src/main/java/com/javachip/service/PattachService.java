@@ -9,5 +9,5 @@ public interface PattachService {
 	PattachVO selectPattach(int pNo);
 	int insertPattach(PattachVO pattachVO);
 	int deletePattach(int pNo);
-	int updatePattach(PattachVO pattachVO);
+	int insertAttach(PattachVO pattachVO);
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javachip.vo.AdminSearchVO;
+import com.javachip.vo.PattachVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.SearchVO;
 
@@ -65,9 +66,14 @@ public class ProductDAO {
 	{
 		return sqlSession.selectOne(namespace+".selectOneProductByAdmin", pNo);
 	}
-	
+	//상품 인서트
 	public int insertProductByAdmin(ProductVO productVO)
 	{
 		return sqlSession.insert(namespace+".insertProductByAdmin", productVO);
+	}
+	//상품 사진 인서트
+	public int insertAttach(PattachVO pattachVO)
+	{
+		return sqlSession.insert(namespace+".insertAttach", pattachVO);
 	}
 }
