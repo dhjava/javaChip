@@ -101,7 +101,7 @@
 	    function addressPopup(){
             var url = "addressPopup.do";
             var name = "배송지 관리";
-            var option = "width = 900, height = 850, top = 100, left = 200, location = no"
+            var option = "width = 1000, height = 850, top = 100, left = 200, location = no"
             window.open(url, name, option);
         }
 	</script>
@@ -131,6 +131,7 @@
             <div class="checkout__form">
                 <h4>배송 정보 입력</h4>
                     <div class="row">
+                    	<div class="col-lg-7">
 	                    	<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
 		                    	<span>배송지 목록</span>
 		                    	<div class="form-check">
