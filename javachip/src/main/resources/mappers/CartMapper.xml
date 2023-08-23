@@ -12,7 +12,6 @@
 		     , (SELECT pPrice FROM product WHERE cart.pNo = product.pNo) as pPrice
 		  FROM cart
 		 WHERE uNo = #{uNo}
-		   AND cStatus = 'C'
 	</select>
 	
 	<!-- 이미 장바구니에 있는지 조회 -->
@@ -21,7 +20,6 @@
 		  FROM cart
 		 WHERE uNo = #{uNo}
 		   AND pNo = #{pNo}
-		   AND cStatus = 'C'
 	</select>
 	
 	<!-- 장바구니 선택한 것만 (예정) cNo 여러개 받아서 백단에서 하나씩 select, 리스트로 만들어서 다시 구현 -->
@@ -31,7 +29,6 @@
 		     , (SELECT pPrice FROM product WHERE cart.pNo = product.pNo) as pPrice
 		  FROM cart
 		 WHERE cNo = #{cNo}
-		   AND cStatus = 'C'
 	</select>
 	
 	<!-- 장바구니 총 합계 금액 -->
@@ -41,7 +38,6 @@
 		  JOIN product p
 		    ON c.pNo = p.pNo
 		 WHERE uNo = #{uNo}
-		   AND c.cStatus = 'C'
 	</select>
 	
 	<!-- 장바구니 추가 -->
@@ -74,7 +70,6 @@
 		DELETE
 		  FROM cart
 		 WHERE uNo = #{uNo}
-		   AND cStatus = 'C'
 	</delete>
 	
 	<!-- 장바구니 상품 갯수 수정 -->
@@ -82,15 +77,6 @@
 		UPDATE cart
 		   SET cCount = #{cCount}
 		 WHERE cNo = #{cNo}
-		   AND cStatus = 'C'
 	</update>
 	
-	<!-- 결제 시 사용할 쿼리 -->
-	<update id="orderCart" parameterType="CartVO">
-		UPDATE cart
-		   SET cStatus = 'O'
-		     , oNo = #{oNo}
-		 WHERE uNo = #{uNo}
-		   AND cStatus = 'C' 
-	</update>
 </mapper>

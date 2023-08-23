@@ -8,6 +8,7 @@
         <typeAlias type="com.javachip.vo.UserVO" alias="UserVO"/>
         <typeAlias type="com.javachip.vo.MileageVO" alias="MileageVO"/>
         <typeAlias type="com.javachip.vo.Order_VO" alias="Order_VO"/>
+        <typeAlias type="com.javachip.vo.Order_DetailVO" alias="Order_DetailVO"/>
         <typeAlias type="com.javachip.vo.ProductVO" alias="ProductVO"/>
         <typeAlias type="com.javachip.vo.PattachVO" alias="PattachVO"/>
         <typeAlias type="com.javachip.vo.RefundVO" alias="RefundVO"/>
