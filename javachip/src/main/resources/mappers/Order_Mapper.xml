@@ -17,22 +17,18 @@
 		INSERT INTO
 		order_ (
 			 uNo
-			,oName
-			,oAdd
-			,oPhone
 			,oTrackNo
 			,oTotalPrice
 			,oPay
 			,oStatus
+			,addNo
 		) VALUES (
 			 #{uNo}
-			,#{oName}
-			,#{oAdd}
-			,#{oPhone}
 			,0
 			,#{oTotalPrice}
 			,#{oPay}
 			,'O'
+			,#{addNo}
 		)
 	</insert>
 	
@@ -40,8 +36,7 @@
 	<update id="updateOrderReceiver" parameterType="Order_VO">
 		UPDATE order_
 		   SET oName = #{oName}
-		     , oAdd = #{oAdd}
-		     , oPhone = #{oPhone}
+		     , addNo = #{addNo}
 		 WHERE oNo = #{oNo}
 		   AND uNo = #{uNo}
 	</update>

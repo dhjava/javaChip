@@ -15,7 +15,7 @@ public class Order_DAO {
 	@Autowired
 	private SqlSession sqlSession;
 	
-	private static final String namespace = "com.javachip.mapper.cartMapper";
+	private static final String namespace = "com.javachip.mapper.order_Mapper";
 	
 	public List<Order_VO> selectUserOrder(int uNo) {
 		return sqlSession.selectList(namespace+".selectUserOrder", uNo);
