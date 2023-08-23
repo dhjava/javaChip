@@ -163,7 +163,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/myinfo.do")
-	public String myinfo(HttpServletRequest req){
+	public String myinfo(HttpServletRequest req,Model model,int uNo){
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO==null) {

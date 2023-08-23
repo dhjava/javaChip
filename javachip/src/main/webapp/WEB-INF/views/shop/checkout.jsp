@@ -24,8 +24,26 @@
 				sum += parseInt($(e).text());
 			});
 			
-			$(".calPrice").text(moneyFn($(".calPrice").text()));
+			$("#calPrice").text(moneyFn($("#calPrice").text()));
 			$("#getTotal").text(moneyFn(sum));
+			
+			$("#sameInfo").change(function() {
+	  	        if ($(this).is(":checked")) {
+	  	            $("#oName").val($("#uName").val());
+	  	            $("#oAdd1").val($("#uAdd1").val());
+	  	            $("#oAdd2").val($("#uAdd2").val());
+	  	            $("#oAdd3").val($("#uAdd3").val());
+	  	            $("#oPhone").val($("#uPhone").val());
+	  	            $("#oMail").val($("#uMail").val());
+	  	        } else {
+	  	            $("#oName").val("");
+	  	            $("#oAdd1").val("");
+	  	            $("#oAdd2").val("");
+	  	            $("#oAdd3").val("");
+	  	            $("#oPhone").val("");
+	  	            $("#oMail").val("");
+	  	        }
+			});
 		});
 		
 	    function usePointFn() {
@@ -93,6 +111,7 @@
 	              $("#checkoutFrm").submit();
 	          }
 	      });
+	      
 	    }
 	</script>
 	
@@ -121,8 +140,60 @@
             <div class="checkout__form">
                 <h4>배송 정보 입력</h4>
                     <div class="row">
+                    	<div class="userInfo" style="display:none;">
+                    	<div class="row">
+                         <div class="col-lg-6">
+                             <div class="checkout__input">
+                                 <p>성명<span>*</span></p>
+                                 <input type="text" name="uName" id="uName" value="${login.uName }">
+                             </div>
+                         </div>
+                         </div>
+                         <div class="checkout__input">
+                             <p>주소<span>*</span></p>
+                             <input type="text" id="uAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" value="${login.uAdd1 }">
+                             <button type="button" class="btn btn-outline-primary" onclick="sample6_execDaumPostcode()">우편번호</button>
+                             <input type="text" id="uAdd2" placeholder="주소" class="checkout__input__add" value="${login.uAdd2 }">
+                             <input type="text" id="uAdd3" placeholder="나머지 주소" class="checkout__input__add" value="${login.uAdd3 }">
+                         </div>
+                         <div class="row">
+                             <div class="col-lg-6">
+                                 <div class="checkout__input">
+                                     <p>전화번호<span>*</span></p>
+                                     <input type="text" name="uPhone" id="uPhone" value="${login.uPhone }">
+                                 </div>
+                             </div>
+                             <div class="col-lg-6">
+                                 <div class="checkout__input">
+                                     <p>이메일<span>*</span></p>
+                                     <input type="text" name="uMail" id="uMail" value="${login.uMail }">
+                                 </div>
+                             </div>
+                         </div>
+                    	</div>
                     	<div class="col-lg-7">
-                    	<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox"></p>
+                    	<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox" id="sameInfo" class="sameInfoCheck"/></p>
+	                    	<div class="col-lg-10 col-md-6" id="address_list">
+		                    	<span>배송지 목록</span>
+		                    	<div class="form-check">
+								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+								  <label class="form-check-label" for="exampleRadios1">
+								    기본 배송지
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+								  <label class="form-check-label" for="exampleRadios2">
+								    추가 배송지1
+								  </label>
+								</div>
+								<div class="form-check">
+								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+								  <label class="form-check-label" for="exampleRadios2">
+								    추가 배송지2
+								  </label>
+								</div>
+	                    	</div>
 	                    	<div class="col-lg-10 col-md-6">
 	                            <div class="row">
 	                                <div class="col-lg-6">
@@ -135,7 +206,7 @@
 	                            <div class="checkout__input">
 	                                <p>주소<span>*</span></p>
 	                                <input type="text" id="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" required>
-	                                <button type="button" class="btn btn-outline-primary">우편번호</button>
+	                                <button type="button" class="btn btn-outline-primary" onclick="sample6_execDaumPostcode()">우편번호</button>
 	                                <input type="text" id="oAdd2" placeholder="주소" class="checkout__input__add" required>
 	                                <input type="text" id="oAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
 	                            </div>
@@ -180,7 +251,7 @@
                                 <div class="checkout__order__products">제품 <span>가격</span></div>
                                 <ul>
                                 	<c:forEach items="${orderList}" var="cart">
-	                                    <li>${cart.pName}<span class="calPrice">${cart.pPrice*cart.cCount}</span></li>
+	                                    <li>${cart.pName}<span class="calPrice" id="calPrice">${cart.pPrice*cart.cCount}</span></li>
                                 	</c:forEach>
 	                                <li>할인 <span id="discount" style="color:#DD2222;">0원</span></li>
                                 </ul>
@@ -196,5 +267,8 @@
         </div>
     </section>
     </form>
+
     <!-- Checkout Section End -->
+<script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 <%@ include file="../include/footer.jsp" %>
