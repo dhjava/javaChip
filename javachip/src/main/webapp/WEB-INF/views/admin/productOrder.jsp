@@ -64,7 +64,7 @@
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
                             <img class="product__details__pic__item--large"
-                                src="img/product/details/board-box-1.jpg" alt="">
+                                src="<%=request.getContextPath() %>/resources/attach" alt="">
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,8 @@
                     <div class="product__details__text">
                     	상품구분 :<br>
                     	<select class="custom-select" id="pType" name="pType">
-						  <option selected>선택해주세요.</option>
+						  <option value=99
+						  <c:if test="${param.pType eq 99}">selected</c:if>>선택해주세요.</option>
 						  <option value="A" 
 						  <c:if test="${param.pType eq 'A'}">selected</c:if>>원두</option>
 						  <option value="B"
