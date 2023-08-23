@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javachip.mapper.order_detailMapper">
+
+	<!-- 해당 주문 상세 정보 조회 -->
+	<select id="selectOrderDetail" parameterType="int" resultType="Order_DetailVO">
+		SELECT *
+		  FROM order_detail
+		 WHERE oNo = #{oNo}
+	</select>
+	
+	<!-- 주문 상세 정보 등록 -->
+	<insert id="insertOrderDetail" parameterType="Order_DetailVO">
+		INSERT INTO
+		order_detail (
+			oNo,
+			pNo,
+			dCount
+		) VALUES (
+			#{oNo},
+			#{pNo},
+			#{dCount}
+		)
+		<selectKey order="AFTER" keyProperty="dNo" resultType="int">
+			SELECT MAX(dNo)
+			  FROM order_detail
+		</selectKey>
+	</insert>
+	
+</mapper>
