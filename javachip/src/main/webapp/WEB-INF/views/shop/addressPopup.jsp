@@ -37,7 +37,7 @@
 	    			<option value="add_sub1" id="add_sub1">추가 배송지1</option>
 	    			<option value="add_sub2" id="add_sub2">추가 배송지2</option>
 	    		</select>
-				<button type="button" class="btn btn-outline-primary" onclick="addressPopup()">배송지 등록/수정</button>
+				<button type="button" class="btn btn-outline-primary" onclick="">배송지 저장</button>
 	       	</div>
 	       	<div class="col-lg-10 col-md-6">
 	                <div class="row">
