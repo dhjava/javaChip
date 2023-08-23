@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/style.css" type="text/css"/>
     
     <!-- Js Plugins -->
-    <script src="<%=request.getContextPath() %>/resources/js/jquery-3.3.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>

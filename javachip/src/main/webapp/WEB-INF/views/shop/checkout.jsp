@@ -29,23 +29,6 @@
 			});
 			$("#getTotal").text(moneyFn(sum));
 			
-			$("#sameInfo").change(function() {
-	  	        if ($(this).is(":checked")) {
-	  	            $("#oName").val($("#uName").val());
-	  	            $("#oAdd1").val($("#uAdd1").val());
-	  	            $("#oAdd2").val($("#uAdd2").val());
-	  	            $("#oAdd3").val($("#uAdd3").val());
-	  	            $("#oPhone").val($("#uPhone").val());
-	  	            $("#oMail").val($("#uMail").val());
-	  	        } else {
-	  	            $("#oName").val("");
-	  	            $("#oAdd1").val("");
-	  	            $("#oAdd2").val("");
-	  	            $("#oAdd3").val("");
-	  	            $("#oPhone").val("");
-	  	            $("#oMail").val("");
-	  	        }
-			});
 		});
 		
 	    function usePointFn() {
@@ -113,8 +96,14 @@
 	              $("#checkoutFrm").submit();
 	          }
 	      });
-	      
 	    }
+		
+	    function addressPopup(){
+            var url = "addressPopup.do";
+            var name = "배송지 관리";
+            var option = "width = 1000, height = 850, top = 100, left = 200, location = no"
+            window.open(url, name, option);
+        }
 	</script>
 	
     <!-- Breadcrumb Section Begin -->
@@ -154,7 +143,6 @@
                          <div class="checkout__input">
                              <p>주소<span>*</span></p>
                              <input type="text" id="uAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" value="${login.uAdd1 }">
-                             <button type="button" class="btn btn-outline-primary" onclick="sample6_execDaumPostcode()">우편번호</button>
                              <input type="text" id="uAdd2" placeholder="주소" class="checkout__input__add" value="${login.uAdd2 }">
                              <input type="text" id="uAdd3" placeholder="나머지 주소" class="checkout__input__add" value="${login.uAdd3 }">
                          </div>
@@ -175,7 +163,7 @@
                     	</div>
                     	<div class="col-lg-7">
                     	<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox" id="sameInfo" class="sameInfoCheck"/></p>
-	                    	<div class="col-lg-10 col-md-6" id="address_list">
+	                    	<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
 		                    	<span>배송지 목록</span>
 		                    	<div class="form-check">
 								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
@@ -195,6 +183,7 @@
 								    추가 배송지2
 								  </label>
 								</div>
+								<button type="button" class="btn btn-outline-primary" onclick="addressPopup()">배송지 등록/수정</button>
 	                    	</div>
 	                    	<div class="col-lg-10 col-md-6">
 	                            <div class="row">
@@ -207,10 +196,10 @@
 	                            </div>
 	                            <div class="checkout__input">
 	                                <p>주소<span>*</span></p>
-	                                <input type="text" id="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" required>
-	                                <button type="button" class="btn btn-outline-primary" onclick="sample6_execDaumPostcode()">우편번호</button>
-	                                <input type="text" id="oAdd2" placeholder="주소" class="checkout__input__add" required>
-	                                <input type="text" id="oAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
+	                                <input type="text" id="oAdd1" name="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" required>
+	                                <button type="button" class="btn btn-outline-primary" onclick="sample7_execDaumPostcode()">우편번호</button>
+	                                <input type="text" id="oAdd2" name="oAdd2" placeholder="주소" class="checkout__input__add" required>
+	                                <input type="text" id="oAdd3" name="oAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
 	                            </div>
 	                            <div class="row">
 	                                <div class="col-lg-6">
@@ -271,6 +260,4 @@
     </form>
 
     <!-- Checkout Section End -->
-<script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 <%@ include file="../include/footer.jsp" %>

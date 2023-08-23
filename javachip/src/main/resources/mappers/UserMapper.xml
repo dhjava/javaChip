@@ -206,7 +206,7 @@
 	<select id="selectBizUserOneByuNoByAdmin" resultType="userVO" parameterType="int">
 		SELECT * FROM user
 		where uStatus = 'B'
-		and uNo = #{uNo}
+		and uNo = #{uNo}0
 	</select>
 	
 	<!-- 관리자 블랙리스트 세부 목록 -->

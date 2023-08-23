@@ -57,7 +57,7 @@
                    	</div>
                    	<hr>
                    	<div id="agr" style="display:none">
-                   	<input type="checkbox" id="agree_all" name="agree_all" checked=”checked” value="agree_all">
+                   		<input type="checkbox" id="agree_all" name="agree_all" value="agree_all" checked/>
                    	</div>
 					<div class="join__submit">
 						<input type="submit" class="btn btn-primary" value="정보 수정">
@@ -68,6 +68,4 @@
         </div>
     </section>
     <script src="<%=request.getContextPath() %>/resources/js/myinfoUpdate.js"></script>
-    <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 <%@ include file="../include/footer.jsp" %>
