@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.javachip.dao.HelpDAO;
 import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.NoticeVO;
+import com.javachip.vo.ProductVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
 
@@ -66,7 +67,13 @@ public class HelpServiceImpl implements HelpService {
 		
 		return helpDAO.insertQna(qnaVO);
 	}
-
+	
+	@Override
+	public List<ProductVO> selectProductList(SearchVO searchVO) {
+		
+		return helpDAO.selectProductList(searchVO);
+	}
+	
 	@Override
 	public List<QnaVO> selectQnaList(SearchVO searchVO) {
 		
@@ -97,6 +104,12 @@ public class HelpServiceImpl implements HelpService {
 	public int totalQna(SearchVO searchVO) {
 		
 		return helpDAO.totalQna(searchVO);
+	}
+	
+	@Override
+	public int totalProduct(SearchVO searchVO) {
+		
+		return helpDAO.totalProduct(searchVO);
 	}
 	
 	@Override

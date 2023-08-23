@@ -29,6 +29,18 @@
 			AND nContents like concat('%',#{searchValue},'%')
 		</if>
 	</sql>
+	<sql id="pSearch">
+		<if test='searchType != null and searchType.equals("all")'>
+			AND pName like concat('%',#{searchValue},'%')
+			AND pType like concat('%',#{searchValue},'%') 
+		</if>
+		<if test='searchType != null and searchType.equals("name")'>
+			AND pName like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("type")'>
+			AND pType like concat('%',#{searchValue},'%')
+		</if>
+	</sql>
 	<!-- 공지사항 -->
 	<insert id="insertNotice" parameterType="noticeVO">
 		INSERT INTO Notice 
@@ -94,6 +106,15 @@
 		</selectKey>
 	</insert>
 	
+	<select id="selectProductAll" resultType="productVO" parameterType="searchVO">
+		SELECT *
+		FROM Product
+		WHERE 1 = 1
+		<include refid="pSearch" />
+		ORDER BY pNo
+		LIMIT #{startNum},#{perPageNum}
+	</select>
+	
 	<select id="selectQnaAll" resultType="qnaVO" parameterType="searchVO">
 		SELECT * 
 		<!-- masking uName 선택 -->
@@ -153,6 +174,12 @@
 		SELECT COUNT(*) AS cnt FROM Qna
 		WHERE delYN='N'
 		<include refid="qSearch" />
+	</select>
+	
+	<select id="totalProduct" resultType="int">
+		SELECT COUNT(*) AS cnt FROM Product
+		WHERE 1=1
+		<include refid="pSearch" />
 	</select>
 	
 	<update id="answerQna" parameterType="qnaVO">
