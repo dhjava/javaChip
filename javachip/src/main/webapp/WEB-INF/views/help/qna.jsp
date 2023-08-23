@@ -45,12 +45,6 @@
 					<td>
 						<span class="boardElipsis" style="display: inline-block; max-width:470px;">
 							<a href="qnaView.do?qNo=${qna.qNo}">
-							<c:if test="${qna.qlevel > 0}">
-								<c:forEach var="i" begin="0" end="${qna.qlevel}">
-								&nbsp;&nbsp;
-								</c:forEach>
-								⮡ &nbsp;
-							</c:if>
 							${qna.qTitle}
 							</a>
 						</span>

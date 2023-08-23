@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.NoticeVO;
+import com.javachip.vo.ProductVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
 
@@ -25,9 +26,12 @@ public interface HelpService {
 	
 	int insertQna(QnaVO qnaVO);
 	
+	List<ProductVO> selectProductList(SearchVO searchVO);
+	
 	List<QnaVO> selectQnaList(SearchVO searchVO);
 	
 	QnaVO selectOneByQno(int qNo);
+	
 	
 	List<QnaVO> selectNearQno(int qNo);
 	
@@ -37,7 +41,7 @@ public interface HelpService {
 	
 	int AnswerQna(QnaVO qnaVO);
 	
-	
+	int totalProduct(SearchVO searchVO);
 	//====================================관리자 메소드====================================
 	//관리자용 공지사항 페이징 구현을 위한 메소드
 	List<NoticeVO> selectNoticeByAdmin(AdminSearchVO AdminSearchVO);

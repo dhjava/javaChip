@@ -29,7 +29,46 @@ function qnaWriteFn() {
 	});
 	
 }
+
+function productFindFn() {
+	var formData = $("#searchFrm").serialize();
 	
+	$.ajax({
+		url:"productSearch.do",
+		type:"get",
+		data:formData,
+		success:function(data) {
+		var htmlStr = ""
+		var list = data.list;
+		var pm = data.pm;
+			
+		if(list != '') {
+			for(let i=0; i < list.length ;i++) {
+				htmlStr += "<tr>";
+				htmlStr += "<td style='width : 15%'>" + (i + 1) + "</td>";
+				htmlStr += "<td style='width : 15%'><div class='img pInfo'>상품 이미지</div></td>";
+				htmlStr += "<td style='width : 20%; text-align: left'>" + list[i].pName + "</td>";
+				htmlStr += "<td style='width : 25%;'>" + list[i].pType + "</td>";
+				htmlStr += "<td style='width : 15%'><input name='pNoRadio' type='radio' value='" + list[i].pNo + "'></td>";
+				htmlStr += "</tr>";
+			}
+		}else{
+			htmlStr = "상품 정보가 없습니다.";
+			
+		}
+			
+			$("#pTable").html(htmlStr);
+			
+		
+		},
+		error:function() {
+			
+		alert("실패");
+		}
+		
+	});
+}
+
 function qnaUploadFn() {
 	var formData = $("#inputGroupFile02");
 	
@@ -66,6 +105,7 @@ function qnaUploadFn() {
 						</div>
 						<div class="p-2 bd-highlight">
 							<p>구분<p>
+						<div class="input-group">
 							<select name="qType" id="qType" class="board-type" onchange="selectQTypeFn();">
 								<option value="N"
 								<c:if test="${ qType eq 'N'}"> selected</c:if>
@@ -74,9 +114,9 @@ function qnaUploadFn() {
 								<option value="P"
 								<c:if test="${ qType eq 'P'}"> selected</c:if>
 								>상품 Q&amp;A
-								
 								</option>
 							</select>
+						</div>
 						</div>
 						<div class="p-2 bd-highlight" id="addQnaSelect">
 						</div>
@@ -94,7 +134,7 @@ function qnaUploadFn() {
 						</div>
 					</div>
 				</form>
-					<div class="p-2 bd-highlight">
+					
 						<div class="input-group mb-1">
 								<div class="custom-file">
 								<form id="fileSubmitFrm" method="post" enctype="multipart/form-data">
@@ -120,55 +160,30 @@ function qnaUploadFn() {
 					<div class="board-search" style="width:70%; float: left">
 						<form id="searchFrm" class="d-flex justify-content-center">
 			 				<div class="input-group">
-								<select>
-									<option value="title">카테고리</option>
-									<option value="bean">원두</option>
-									<option value="gift-set">상품</option>
+								<select name="searchType">
+									<option value="all">전체</option>
+									<option value="name">상품명</option>
+									<option value="type">종류</option>
 								</select>
-								<input type="text" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+								<input type="text" name="SearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
 								<div class="input-group-append">
-									<button type="submit" class="btn btn-secondary mb-4">검색하기</button>
+									<button type="button" class="btn btn-secondary mb-4" onclick="productFindFn()">검색하기</button>
 								</div>
 							</div>
 						</form>
 					</div>
 					<div class="p-2 bd-highlight ">
 					<table class="table table-hover pSelectTable">
-						<tr>
-							<th>번호</th>
-							<th colspan="2" align="center">상품</th>
-							<th>선택</th>
-						</tr>
-						<tr>
-							<td style="width : 15%">1</td>
-							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
-							<td style="width : 40%; text-align: left">커피 1</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="1"></td>
-						</tr>
-						<tr>
-							<td style="width : 10%">2</td>
-							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
-							<td style="width : 45%; text-align: left">커피 2</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="2"></td>
-						</tr>
-						<tr>
-							<td style="width : 10%">3</td>
-							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
-							<td style="width : 45%; text-align: left">커피 3</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="3"></td>
-						</tr>
-						<tr>
-							<td style="width : 10%">4</td>
-							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
-							<td style="width : 45%; text-align: left">커피 4</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="4"></td>
-						</tr>
-						<tr>
-							<td style="width : 10%">5</td>
-							<td style="width : 15%"><div class="img pInfo">상품 이미지</div></td>
-							<td style="width : 45%; text-align: left">커피 5</td>
-							<td style="width : 20%"><input name="pNoRadio" type="radio" value="5"></td>
-						</tr>
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th colspan="2" align="center">상품</th>
+								<th align="center">종류</th>
+								<th>선택</th>
+							</tr>
+						</thead>
+						<tbody id="pTable">
+						</tbody>
 					</table>
 					</div>
 				</div>

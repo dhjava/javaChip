@@ -5,7 +5,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,10 +23,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.javachip.service.HelpService;
+import com.javachip.service.ProductService;
 import com.javachip.vo.NoticeVO;
 import com.javachip.vo.PageMaker;
+import com.javachip.vo.ProductVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
@@ -270,6 +275,7 @@ public class HelpController {
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		
+		
 		if( loginVO == null ) {
 			path = "redirect:/member/login.do";
 		}
@@ -291,6 +297,37 @@ public class HelpController {
 	
 		// 잘못된 타입일 경우 qna 페이지로
 		return path;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/productSearch.do", method = RequestMethod.GET)
+	public Map<String,Object> productSearch(SearchVO searchVO) {
+		
+		
+		// 전체개수 확인
+		int cnt = helpService.totalProduct(searchVO);
+		
+		System.out.println("cnt::" + cnt);
+		
+		pageMaker.setSearchVO(searchVO);	// calcData에 담을 searchVO 세팅
+		pageMaker.setTotalCount(cnt);
+		
+		List<ProductVO> list = helpService.selectProductList(searchVO);
+		
+		
+		// Map에 값 담기
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("list", list);
+		map.put("pm", pageMaker);
+		
+		System.out.println("StartPage ::" + pageMaker.getStartPage());
+		System.out.println("EndPage ::" + pageMaker.getEndPage());
+		
+		
+		
+		return map;
+		
 	}
 	
 	@ResponseBody

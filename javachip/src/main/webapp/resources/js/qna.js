@@ -130,9 +130,10 @@ function selectQTypeFn(){
 		/* 상품 option start */
 		htmlTag += "<option name='pNoOption'";
 		htmlTag += "value = '" + "'>";
-		htmlTag += "=====상품 선택=====";
+		htmlTag += "<label>=====상품 선택=====</label>";
 		htmlTag += "</option>";
 		htmlTag += "<option name='posOption' id='posOption'>";
+		htmlTag += "<label></label>";
 		htmlTag += "</option>";
 		/* 상품 option end */
 		htmlTag += "</div>";
@@ -160,7 +161,7 @@ function selectPNoFn(){
 			htmlTag += " 상품 이미지"
 			htmlTag += "</div>"
 			htmlTag += "<div>"
-			htmlTag += " 상품 명 : " + $("#pNo").index( $("#pNo option:selected") );
+			htmlTag += " 상품 명 : " + $("#posOption").attr("label");
 			htmlTag += "</div>"
 			htmlTag += "</div>"
 		}
@@ -186,6 +187,7 @@ function pNoSelectWrapOutFn(){
 
 // qna select 창
 function openSelectBoxFn() {
+	productFindFn();
 	$("#pSelectContainer").removeClass("modalHidden");
 }
 
@@ -206,20 +208,21 @@ function helpResetFn() {
 
 // Pno 자식창에서 값보내기
 function sendPnoFn() {
-	var radioVal = $("input[name=pNoRadio]:radio").val();
-	
+	let radioVal = $("input[name='pNoRadio']").val();
 	if( radioVal == null && reaionVal.equals("") ) {
 		alert("상품을 선택하세요.");
 		return;
 	}else {
 	// 값을 넣기전에 공간을 비워두고 넣음.
-		var getVal = $("input[name=pNoRadio]:checked").val();
+		let getVal = $("input[name='pNoRadio']:checked").val();
+		let labelVal = $("input[name='pNoRadio']:checked").parent().parent().children().eq(2).text();
 		$("#posOption").empty();
 		
 		$("#posOption").append(getVal);
 		
 	// 추가된 option에 val 값 설정
 		$('#posOption').attr('value',getVal);
+		$('#posOption').attr('label',labelVal);
 		$("#posOption").attr("selected",true);
 	}
 	// 선택된 상품의 info 출력

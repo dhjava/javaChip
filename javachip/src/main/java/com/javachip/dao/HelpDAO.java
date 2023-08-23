@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javachip.vo.AdminSearchVO;
 import com.javachip.vo.NoticeVO;
+import com.javachip.vo.ProductVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
 
@@ -48,6 +49,10 @@ public class HelpDAO {
 		return sqlSession.insert("com.javachip.mapper.helpMapper.insertQna", qnaVO);
 	}
 	
+	public List<ProductVO> selectProductList (SearchVO searchVO) {
+		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectProductAll",searchVO);
+	}
+	
 	public List<QnaVO> selectQnaList (SearchVO searchVO) {
 		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectQnaAll",searchVO);
 	}
@@ -66,6 +71,9 @@ public class HelpDAO {
 	
 	public int totalQna(SearchVO searchVO) {
 		return sqlSession.selectOne("com.javachip.mapper.helpMapper.totalQna", searchVO);
+	}
+	public int totalProduct(SearchVO searchVO) {
+		return sqlSession.selectOne("com.javachip.mapper.helpMapper.totalProduct", searchVO);
 	}
 	
 	public int AnswerQna(QnaVO qnaVO) {
