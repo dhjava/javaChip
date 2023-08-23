@@ -98,10 +98,16 @@
 		}
 		
 		$(document).ready(function(){
-			var cPrice = $("#cartPrice").text();
-			var cTotal = $("#cartTotal").text();
-			$("#cartPrice").text(moneyFn(cPrice));
-			$("#cartTotal").text(moneyFn(cTotal));
+			
+			$(".cartPrice").each(function() {
+				var cPrice = $(this).text();
+				$(this).text(moneyFn(cPrice));
+			});
+			$(".cartTotal").each(function() {
+				var cTotal = $(this).text();
+				$(this).text(moneyFn(cTotal));
+			});
+			
 			
 			var sum = 0;
 			$(".shoping__cart__total").each(function(i, e) {
@@ -237,7 +243,7 @@
 		                                    	</a>
 		                                    </td>
 		                                    <td class="shoping__cart__price">
-		                                    	<span id="cartPrice">${cart.pPrice}</span>
+		                                    	<span class="cartPrice">${cart.pPrice}</span>
 		                                    </td>
 		                                    <td class="shoping__cart__quantity">
 		                                        <div class="quantity">
@@ -248,7 +254,7 @@
 		                                        </div>
 		                                    </td>
 		                                    <td class="shoping__cart__total">
-		                                        <span id="cartTotal">${cart.cCount * cart.pPrice}</span>
+		                                        <span class="cartTotal">${cart.cCount * cart.pPrice}</span>
 		                                    </td>
 		                                    <td class="shoping__cart__item__close">
 		                                        <span class="icon_close"></span>

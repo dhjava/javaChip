@@ -24,7 +24,9 @@
 				sum += parseInt($(e).text());
 			});
 			
-			$("#calPrice").text(moneyFn($("#calPrice").text()));
+			$(".calPrice").each(function() {
+				$(this).text(moneyFn($(this).text()));
+			});
 			$("#getTotal").text(moneyFn(sum));
 			
 			$("#sameInfo").change(function() {
