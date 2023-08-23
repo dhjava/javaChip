@@ -329,4 +329,8 @@ public class ShopController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value="/addressPopup.do")
+	public String addressPopup() {
+		return "shop/addressPopup";
+	}
 }

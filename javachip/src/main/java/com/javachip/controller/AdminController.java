@@ -1,24 +1,22 @@
 package com.javachip.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javachip.service.HelpService;
 import com.javachip.service.Order_Service;
+import com.javachip.service.PattachService;
 import com.javachip.service.ProductService;
 import com.javachip.service.UserService;
 import com.javachip.vo.AdminPageMaker;
@@ -48,6 +46,9 @@ public class AdminController
 	
 	@Autowired
 	private ProductService ps;
+	
+	@Autowired
+	private PattachService pas;
 	
 	@RequestMapping(value="/qnaList.do")
 	public String qnaList(Model model, AdminSearchVO AdminSearchVO)
@@ -148,6 +149,10 @@ public class AdminController
 		pa.setnPage(AdminSearchVO.getnPage());
 		pa.setpPage(AdminSearchVO.getpPage());
 		pa.setqPage(AdminSearchVO.getqPage());
+		
+		System.out.println(AdminSearchVO.getnPage());
+		System.out.println(AdminSearchVO.getpPage());
+		System.out.println(AdminSearchVO.getqPage());
 		
 		model.addAttribute("qlist", qlist);
 		model.addAttribute("plist", plist);
@@ -293,11 +298,13 @@ public class AdminController
 		return "admin/productList";
 	}
 	
-	@RequestMapping(value="/productDetail.do")
+	@RequestMapping(value="/productDetail.do", method=RequestMethod.GET)
 	public String productDetail(int pNo, Model model)
 	{
 		ProductVO product = ps.selectOneProductByAdmin(pNo);
+		PattachVO pavo = pas.selectPattach(pNo);
 		model.addAttribute("vo", product);
+		model.addAttribute("pavo", pavo);
 		return "admin/productDetail";
 	}
 	
@@ -308,15 +315,17 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/productOrder.do", method=RequestMethod.POST)
-	public String productOrder(ProductVO productVO, MultipartFile uploadFile, PattachVO pattachVO) throws Exception {
+	public String productOrder(ProductVO productVO, MultipartFile uploadFile, PattachVO pattachVO,
+			HttpServletRequest req, RedirectAttributes rttr) throws Exception {
 		
 		int result = ps.insertProductByAdmin(productVO);
-
+		System.out.println(productVO);
 		if (result > 0) {
 			
 			int newProductNo = productVO.getpNo(); 
 
-			String realPath = "C:\\Users\\502-8\\git\\javaChip\\javachip\\src\\main\\webapp\\resources\\attach";
+			String realPath = req.getSession().getServletContext().getRealPath("/resources/upload");
+			String path = "C:\\Users\\502-8\\git\\javaChip\\javachip\\src\\main\\webapp\\resources\\attach";
 
 			File dir = new File(realPath);
 			if (!dir.exists()) {
@@ -340,14 +349,17 @@ public class AdminController
 
 				
 				int result2 = ps.insertAttach(pattachVO);
-
+				int aNo = pattachVO.getaNo();
+				System.out.println(pattachVO);
+				rttr.addAttribute("pNo", newProductNo);
+				
 				if (result2 > 0) {
-					return "admin/productList";
+					return "redirect:/admin/productDetail.do";
 				} else {
 					return "admin/productOrder";
 				}
 			}
 		}
-		return "admin/productOrder";
+		return "redirect:/admin/productList.do";
 	}
 }

@@ -74,7 +74,7 @@
 				<c:forEach items="${plist }" var="product">
 					<tr>
 						<td>${product.pNo }</td>
-						<td><a href="<%=request.getContextPath()%>/admin/product.do?pNo=${product.pNo}">${product.pName}</a></td>
+						<td><a href="<%=request.getContextPath()%>/admin/productDetail.do?pNo=${product.pNo}">${product.pName}</a></td>
 						<td>${product.pStock }</td>
 						<td>매진</td>
 					</tr>

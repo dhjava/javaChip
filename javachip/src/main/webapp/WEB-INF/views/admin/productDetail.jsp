@@ -62,9 +62,9 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="product__details__pic">
                         <div class="product__details__pic__item">
-                            <c:if test="${not empty param.fileNM}">
-<img src="<%=request.getContextPath()%>/resources/upload/${param.fileNM}">
-</c:if>
+                            <c:if test="${not empty pavo}">
+							<img src="<%=request.getContextPath()%>/resources/upload/${pavo.aChangeName}">
+							</c:if>
                         </div>
                     </div>
                 </div>
@@ -72,12 +72,12 @@
                 <form class="product__input">
                     <div class="product__details__text">
                     	상품구분 :<br>
-                    	${vo.pType }<br><br><br>
-                        상품명 :<br>
-           ${vo.pName }<br>
-                        가격 :<br>${vo.pPrice }<br>
-                        상품설명 :<br>${vo.pNote }<br>
-                        입고수 :<br>${vo.pInput }<br>
+                    	${vo.pType }<br><br>
+                        상품명 :<br><br>
+           ${vo.pName }<br><br>
+                        가격 :<br>${vo.pPrice }<br><br>
+                        상품설명 :<br>${vo.pNote }<br><br>
+                        입고수 :<br>${vo.pInput }<br><br>
                         <button type="submit" class="btn btn-dark" onclick="delete();">삭제하기</button>
                         <button type="submit" class="btn btn-dark" onclick="delete();">수정하기</button>
                     	</div>
