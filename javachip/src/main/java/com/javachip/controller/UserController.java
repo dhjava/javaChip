@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javachip.service.MailSendService;
+import com.javachip.service.MileageService;
 import com.javachip.service.UserService;
+import com.javachip.vo.MileageVO;
 import com.javachip.vo.UserVO;
 
 @Controller
@@ -25,6 +27,8 @@ public class UserController {
 	
 	@Autowired
 	private UserService us;
+	@Autowired
+	private MileageService ms;
 	
 	// 이메일 서비스 불러오기
 	@Autowired
@@ -113,9 +117,18 @@ public class UserController {
 	@RequestMapping(value="/join.do",method=RequestMethod.POST)
 	public String join(UserVO vo) {
 		int result = us.insert(vo);
-		
 		if(result>0) {
+			
 			System.out.println("회원가입 성공");
+			
+			// 신규 가입 적립금
+			int uNo = vo.getuNo();
+			MileageVO mv = new MileageVO();
+			mv.setuNo(uNo);
+			mv.setmPlus(1000);
+			mv.setmNote("신규 회원 가입");
+			ms.plusMileage(mv);
+			
 		}else {
 			System.out.println("회원가입 실패");
 		}
@@ -135,6 +148,15 @@ public class UserController {
 		
 		if(result>0) {
 			System.out.println("회원가입 성공");
+			
+			// 신규 가입 적립금
+			int uNo = vo.getuNo();
+			MileageVO mv = new MileageVO();
+			mv.setuNo(uNo);
+			mv.setmPlus(1000);
+			mv.setmNote("신규 회원 가입");
+			ms.plusMileage(mv);
+			
 		}else {
 			System.out.println("회원가입 실패");
 		}

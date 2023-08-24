@@ -76,6 +76,10 @@
 			,#{uMail}
 			,#{uAlertNum}
 		)
+		<selectKey order="AFTER" keyProperty="uNo" resultType="int">
+			SELECT MAX(uNo)
+			  FROM user
+		</selectKey>
 	</insert>
 	
 	<insert id = "insertBiz" parameterType="userVO">
@@ -108,6 +112,10 @@
 			,#{uMail}
 			,#{uAlertNum}
 		)
+		<selectKey order="AFTER" keyProperty="uNo" resultType="int">
+			SELECT MAX(uNo)
+			  FROM user
+		</selectKey>
 	</insert>
 	
 	<select id="idFind" resultType="userVO" parameterType="userVO">
