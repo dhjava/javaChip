@@ -54,10 +54,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	//관리자용 메소드
-	//상품리스트(검색기능)
+	//상품리스트(검색기능, 메인 페이지)
 	@Override
 	public java.util.List<ProductVO> List(AdminSearchVO AdminSearchVO) {
 		return productDAO.List(AdminSearchVO);
+	}
+	//상품리스트(상품페이지)
+	@Override
+	public java.util.List<ProductVO> selectByAdminFromProduct(AdminSearchVO AdminSearchVO) {
+		return productDAO.selectByAdminFromProduct(AdminSearchVO);
 	}
 	@Override
 	public int productTotal(AdminSearchVO AdminSearchVO) {
@@ -77,4 +82,5 @@ public class ProductServiceImpl implements ProductService {
 	{
 		return productDAO.insertAttach(pattachVO);
 	}
+	
 }

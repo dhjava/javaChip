@@ -109,6 +109,7 @@
 	</delete>
 	
 	<!-- 관리자용 sql쿼리문모음================================================ -->
+	<!-- 메인용 -->
 	<select id="selectByAdmin" resultType="ProductVO" parameterType="AdminSearchVO">
 		<![CDATA[
     SELECT Product.*, pAttach.aNo, pAttach.aOriginName
@@ -123,6 +124,20 @@
 			AND Product.pName like concat('%',#{searchValue},'%')
 		</if>
 		order by Product.pNo asc limit #{pPage},#{perPageNum}
+	</select>
+	
+	<select id="selectByAdminFromProduct" resultType="ProductVO" parameterType="AdminSearchVO">
+		SELECT Product.*, pAttach.aNo, pAttach.aOriginName
+		    FROM Product
+		    LEFT JOIN pAttach ON Product.pNo = pAttach.pNo
+		    WHERE 1 = 1
+		<if test='searchType != null and searchType.equals("pNo")'>
+			AND Product.pNo like concat('%',#{searchValue},'%')
+		</if>
+		<if test='searchType != null and searchType.equals("pName")'>
+			AND Product.pName like concat('%',#{searchValue},'%')
+		</if>
+		order by Product.pNo asc limit #{sNum},#{perPageNum}
 	</select>
 	
 	<!-- 상품 전체 목록 갯수 -->

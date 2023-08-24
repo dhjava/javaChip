@@ -82,7 +82,7 @@ public class HelpDAO {
 	
 	
 	//====================================관리자 메소드====================================
-	//관리자용 공지사항 검색/페이징 전체 리스트를 위한 메소드
+	//관리자용 공지사항 검색/페이징 전체 리스트를 위한 메소드(메인)
 	public List<NoticeVO> selectNoticeByAdmin (AdminSearchVO AdminSearchVO) 
 	{
 		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectNoticeByAdmin",AdminSearchVO);
@@ -94,8 +94,17 @@ public class HelpDAO {
 		value = sqlSession.selectOne("com.javachip.mapper.helpMapper.NoticeTotal", AdminSearchVO);
 		return value;
 	}
-	
-	//관리자용 QnA 검색/페이징 전체 리스트를 위한 메소드
+	//관리자용 공지사항 검색/페이징 전체 리스트를 위한 메소드(공지사항)
+	public List<NoticeVO> selectNoticeByAdminFromNotice(AdminSearchVO AdminSearchVO)
+	{
+		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectNoticeByAdminFromNotice",AdminSearchVO);
+	}
+	//관리자용 공지사항 검색/페이징 전체 리스트를 위한 메소드(qna)
+	public List<QnaVO> selectQnAByAdminFromQna(AdminSearchVO AdminSearchVO)
+	{
+		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectQnAByAdminFromQna",AdminSearchVO);
+	}
+	//관리자용 QnA 검색/페이징 전체 리스트를 위한 메소드(메인)
 	public List<QnaVO> selectQnAByAdmin(AdminSearchVO AdminSearchVO)
 	{
 		return sqlSession.selectList("com.javachip.mapper.helpMapper.selectQnAByAdmin", AdminSearchVO);
