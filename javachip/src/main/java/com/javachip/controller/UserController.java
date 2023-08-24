@@ -26,7 +26,6 @@ public class UserController {
 	@Autowired
 	private UserService us;
 	
-
 	// 이메일 서비스 불러오기
 	@Autowired
 	private MailSendService mailService;
@@ -36,6 +35,7 @@ public class UserController {
 		return "member/login";
 	}
 	
+	// 로그인 컨트롤
 	@RequestMapping(value="/loginAction.do")
 	public void login(UserVO vo,HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
@@ -72,6 +72,7 @@ public class UserController {
 		pw.flush();
 	}
 	
+	// 로그아웃 컨트롤
 	@RequestMapping(value="/logout.do")
 	public void logout(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		
@@ -96,11 +97,14 @@ public class UserController {
 		
 	}
 	
+	// 일반/사업자 회원가입 선택
 	@RequestMapping(value="/joinSelect.do")
 	public String joinSelect() {
 		return "member/joinSelect";
 	}
 	
+	
+	// 일반 회원가입
 	@RequestMapping(value="/join.do",method=RequestMethod.GET)
 	public String join() {
 		return "member/join";
@@ -119,6 +123,7 @@ public class UserController {
 		return "redirect:login.do";
 	}
 	
+	// 사업자 회원가입
 	@RequestMapping(value="/joinBiz.do",method=RequestMethod.GET)
 	public String joinBiz() {
 		return "member/joinBiz";
@@ -136,7 +141,8 @@ public class UserController {
 		
 		return "redirect:login.do";
 	}
-
+	
+	// 아이디 중복 체크
 	@RequestMapping(value="/checkId.do", method=RequestMethod.POST)
 	@ResponseBody
 	public String selectCntById(String uId) {
@@ -145,6 +151,7 @@ public class UserController {
 		return result+"";
 	}
 	
+	// 아이디 찾기
 	@RequestMapping(value="/idFind.do",method=RequestMethod.GET)
 	public String idFind() {
 		return "member/idFind";
@@ -167,6 +174,7 @@ public class UserController {
 		return "member/idFind";
 	}
 	
+	// 비밀번호 찾기
 	@RequestMapping(value="/pwFind.do",method=RequestMethod.GET)
 	public String pwFind() {
 		return "member/pwFind";
