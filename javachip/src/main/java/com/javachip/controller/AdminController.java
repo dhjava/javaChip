@@ -62,7 +62,7 @@ public class AdminController
 			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
 		}
 		
-		List<QnaVO> qlist = hs.selectQnAByAdmin(AdminSearchVO);
+		List<QnaVO> qlist = hs.selectQnAByAdminFromQna(AdminSearchVO);
 		model.addAttribute("list", qlist);
 		model.addAttribute("pm", pm);
 		
@@ -81,7 +81,7 @@ public class AdminController
 			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
 		}
 		
-		List<NoticeVO> nlist = hs.selectNoticeByAdmin(AdminSearchVO);
+		List<NoticeVO> nlist = hs.selectNoticeByAdminFromNotice(AdminSearchVO);
 
 		model.addAttribute("list", nlist);
 		model.addAttribute("pm", pm);
@@ -288,12 +288,12 @@ public class AdminController
 		pm.setAdminSearchVO(AdminSearchVO);
 		pm.setTotalCount(cnt);
 		
-		if(AdminSearchVO.getpPage() > 0)
+		if(AdminSearchVO.getPage() > 1) 
 		{
-			AdminSearchVO.setpPage((AdminSearchVO.getpPage() - 1) * AdminSearchVO.getPerPageNum());
+			AdminSearchVO.setsNum((AdminSearchVO.getPage() - 1) * AdminSearchVO.getPerPageNum());
 		}
 		
-		List<ProductVO> plist = ps.List(AdminSearchVO);
+		List<ProductVO> plist = ps.selectByAdminFromProduct(AdminSearchVO);
 		model.addAttribute("list", plist);
 		model.addAttribute("pm", pm);
 		return "admin/productList";

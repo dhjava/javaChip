@@ -49,10 +49,15 @@ public class ProductDAO {
 	}
 	
 	// 관리자용 메소드
-	// 관리자용 검색기능
+	// 관리자용 검색기능(메인)
 	public List<ProductVO> List(AdminSearchVO AdminSearchVO)
 	{
 		return sqlSession.selectList(namespace+".selectByAdmin", AdminSearchVO);
+	}
+	//// 관리자용 검색기능(상품 페이지)
+	public List<ProductVO> selectByAdminFromProduct(AdminSearchVO AdminSearchVO)
+	{
+		return sqlSession.selectList(namespace+".selectByAdminFromProduct", AdminSearchVO);
 	}
 	// 관리자 상품 목록 전체 갯수(페이징)
 	public int productTotal(AdminSearchVO AdminSearchVO)
