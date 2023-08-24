@@ -34,12 +34,12 @@
     <div class="container">
     	<div class="userInfo" style="display:none;">
         	<div class="row">
-             <div class="col-lg-6">
-                 <div class="checkout__input">
-                     <p>성명<span>*</span></p>
-                     <input type="text" name="uName" id="uName" value="${login.uName }">
-                 </div>
-             </div>
+	             <div class="col-lg-6">
+	                 <div class="checkout__input">
+	                     <p>성명<span>*</span></p>
+	                     <input type="text" name="uName" id="uName" value="${login.uName }">
+	                 </div>
+	             </div>
              </div>
              <div class="checkout__input">
                  <p>주소<span>*</span></p>
@@ -63,56 +63,58 @@
              </div>
         </div>
         <div class="checkout__form">
-		<h4>배송지 관리</h4>
-		<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
-	    	배송지 목록
-    		<select name="sort" id="sort">
-    			<option value="add_main" id="add_main">기본 배송지</option>
-    			<option value="add_sub1" id="add_sub1">추가 배송지1</option>
-    			<option value="add_sub2" id="add_sub2">추가 배송지2</option>
-    		</select>
-			<button type="button" class="btn btn-outline-primary" onclick="">배송지 저장</button>
-	       	</div>
-	       	<div class="col-lg-10 col-md-6">
-	       		<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox" id="sameInfo" class="sameInfoCheck"/></p>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="checkout__input">
-                            <p>성명<span>*</span></p>
-                            <input type="text" name="oName" id="oName" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="checkout__input">
-                    <p>주소<span>*</span></p>
-                    <input type="text" id="oAdd1" name="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" required>
-                    <button type="button" class="btn btn-outline-primary" onclick="sample7_execDaumPostcode()">우편번호</button>
-                    <input type="text" id="oAdd2" name="oAdd2" placeholder="주소" class="checkout__input__add" required>
-                    <input type="text" id="oAdd3" name="oAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="checkout__input">
-                            <p>전화번호<span>*</span></p>
-                            <input type="text" name="oPhone" id="oPhone" required>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="checkout__input">
-                            <p>이메일<span>*</span></p>
-                            <input type="text" name="oMail" id="oMail" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="checkout__input">
-                    <p>배송 시 전달사항</p>
-                    <input type="text"
-                        placeholder="전달사항을 입력해주세요. (선택사항)">
-                </div>
-	            </div>
-            </div>
+        	<form name="addressSaved" id="addressSaved" method="post" action="addressSaved.do">
+				<h4>배송지 관리</h4>
+				<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
+			    	<p>배송지 목록</p>
+		    		<select name="sort" id="sort">
+		    			<option value="add_main" id="add_main">기본 배송지</option>
+		    			<option value="add_sub1" id="add_sub1">추가 배송지1</option>
+		    			<option value="add_sub2" id="add_sub2">추가 배송지2</option>
+		    		</select>
+					<button type="submit" class="btn btn-outline-primary" onclick="" style=margin-left:20px;>배송지 저장</button>
+				</div>
+		    	<div class="col-lg-10 col-md-6">
+		    		<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox" id="sameInfo" class="sameInfoCheck"/></p>
+		            <div class="row">
+		                <div class="col-lg-6">
+		                    <div class="checkout__input">
+		                        <p>성명<span>*</span></p>
+		                        <input type="text" name="oName" id="oName" required>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="checkout__input">
+		                <p>주소<span>*</span></p>
+		                <input type="text" id="oAdd1" name="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" required>
+		                <button type="button" class="btn btn-outline-primary" onclick="sample7_execDaumPostcode()">우편번호</button>
+		                <input type="text" id="oAdd2" name="oAdd2" placeholder="주소" class="checkout__input__add" required>
+		                <input type="text" id="oAdd3" name="oAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
+		            </div>
+		            <div class="row">
+		                <div class="col-lg-6">
+		                    <div class="checkout__input">
+		                        <p>전화번호<span>*</span></p>
+		                        <input type="text" name="oPhone" id="oPhone" required>
+		                    </div>
+		                </div>
+		                <div class="col-lg-6">
+		                    <div class="checkout__input">
+		                        <p>이메일<span>*</span></p>
+		                        <input type="text" name="oMail" id="oMail" required>
+		                    </div>
+		                </div>
+		            </div>
+		            <div class="checkout__input">
+		                <p>배송 시 전달사항</p>
+		                <input type="text"
+		                    placeholder="전달사항을 입력해주세요. (선택사항)">
+		            </div>
+		        </div>
+	        </form>
         </div>
-    </section>
+    </div>
+</section>
 </body>
     <script src="<%=request.getContextPath() %>/resources/js/bootstrap.bundle.js"></script>
     <script src="<%=request.getContextPath() %>/resources/js/jquery.nice-select.min.js"></script>
