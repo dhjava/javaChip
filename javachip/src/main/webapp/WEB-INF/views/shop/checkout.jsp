@@ -133,33 +133,19 @@
                     <div class="row">
                     	<div class="col-lg-7">
 	                    	<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
-		                    	<span>배송지 목록</span>
-		                    	<div class="form-check">
-								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-								  <label class="form-check-label" for="exampleRadios1">
-								    기본 배송지
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-								  <label class="form-check-label" for="exampleRadios2">
-								    추가 배송지1
-								  </label>
-								</div>
-								<div class="form-check">
-								  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-								  <label class="form-check-label" for="exampleRadios2">
-								    추가 배송지2
-								  </label>
-								</div>
-								<button type="button" class="btn btn-outline-primary" onclick="addressPopup()">배송지 등록/수정</button>
+		                    	<p>배송지 목록</p>
+		                    	<select name="sort" id="sort">
+					    			<option value="add_main" id="add_main">기본 배송지</option>
+					    			<option value="add_sub1" id="add_sub1">추가 배송지1</option>
+					    		</select>								
+					    		<button type="button" class="btn btn-outline-primary" style=margin-left:20px; onclick="addressPopup()">배송지 관리</button>
 	                    	</div>
 	                    	<div class="col-lg-10 col-md-6">
 	                            <div class="row">
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>성명<span>*</span></p>
-	                                        <input type="text" name="oName" id="oName" required>
+	                                        <input type="text" name="oName" id="oName" value="" required>
 	                                    </div>
 	                                </div>
 	                            </div>
