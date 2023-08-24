@@ -34,4 +34,6 @@ public interface ProductService {
 	int insertProductByAdmin(ProductVO productVO);
 	//상품 사진 인서트
 	int insertAttach(PattachVO pattachVO);
+	//상품 삭제
+	int productDelete(int pNo);
 }

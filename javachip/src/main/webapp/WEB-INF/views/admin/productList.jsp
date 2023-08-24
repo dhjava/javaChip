@@ -76,7 +76,7 @@
 				<table border="1" class="tableAdmin qna admin">
 					<tr>
 						<!-- <th><input type="checkbox"></th> -->
-						<th>번호</th><th>상품구분</th><th>상품명</th><th>가격</th><th>재고수</th><th>상품상태</th>
+						<th>번호</th><th>상품구분</th><th>상품명</th><th>가격</th><th>재고수</th><th>상품상태</th><th>삭제여부</th>
 					</tr>
 					<c:forEach items="${list }" var="product">
 					<tr>
@@ -97,6 +97,14 @@
 							</c:if>
 							<c:if test="${product.pStock eq 0 }">
 								재고없음
+							</c:if>
+						</td>
+						<td>
+							<c:if test="${product.delYN eq 'Y'}">
+								삭제된상태
+							</c:if>
+							<c:if test="${product.delYN eq 'N' }">
+								삭제안됌
 							</c:if>
 						</td>
 					</tr>

@@ -176,4 +176,11 @@
 			  FROM pattach
 		</selectKey>
 	</insert>
+	
+	<!-- 상품 삭제 -->
+	<update id="productDelete" parameterType="int">
+		update product
+		set delYN = 'Y'
+		Where pNo = #{pNo}
+	</update>
 </mapper>

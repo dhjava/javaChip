@@ -3,7 +3,36 @@
 <%@ include file="../include/nav.jsp" %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
+<script>
 
+
+	function productDelete(){
+		
+		var pNo = $("#pNo").text();
+		
+		$.ajax({
+			url : "productDelete.do",
+			type : "POST",
+			data : { pNo: pNo },
+			success : function(data)
+			{
+				
+				if(data > 0)
+				{
+					alert("상품삭제가 완료되었습니다.");
+				}
+				else
+				{
+					alert("상품삭제 실패")
+				}
+			},
+			error : function(data)
+			{
+				alert("그냥 실패!");
+			}
+		});
+	}
+</script>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -71,6 +100,9 @@
                 <div class="col-lg-6 col-md-6">
                 <form class="product__input">
                     <div class="product__details__text">
+                    	<div id="pNo" name="pNo">
+                    	${vo.pNo }
+                    	</div><br><br>
                     	상품구분 :<br>
                     	${vo.pType }<br><br>
                         상품명 :<br><br>
@@ -78,10 +110,11 @@
                         가격 :<br>${vo.pPrice }<br><br>
                         상품설명 :<br>${vo.pNote }<br><br>
                         입고수 :<br>${vo.pInput }<br><br>
-                        <button type="submit" class="btn btn-dark" onclick="delete();">삭제하기</button>
-                        <button type="submit" class="btn btn-dark" onclick="delete();">수정하기</button>
+                        
                     	</div>
                     </form>
+                    <button type="submit" class="btn btn-dark" onclick="productDelete();">삭제하기</button>
+                    <button type="submit" class="btn btn-dark" onclick="productUpdate();">수정하기</button>
                 </div>
             </div>
         </div>
