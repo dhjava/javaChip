@@ -2,14 +2,18 @@ package com.javachip.controller;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -262,6 +266,15 @@ public class AdminController
 		return result+"";
 	}
 	
+	//상품삭제
+	@ResponseBody
+	@RequestMapping(value="/productDelete.do", method = RequestMethod.POST)
+	public String productDelete(int pNo) {
+		int result = 0;
+		result = ps.productDelete(pNo);
+		return result+"";
+	}
+	
 	//선택삭제
 	@ResponseBody
 	@RequestMapping(value="/boardDelete.do")
@@ -306,6 +319,9 @@ public class AdminController
 		PattachVO pavo = pas.selectPattach(pNo);
 		model.addAttribute("vo", product);
 		model.addAttribute("pavo", pavo);
+		
+		System.out.println(product);
+		System.out.println(pavo);
 		return "admin/productDetail";
 	}
 	

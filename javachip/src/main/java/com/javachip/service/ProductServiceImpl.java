@@ -82,5 +82,10 @@ public class ProductServiceImpl implements ProductService {
 	{
 		return productDAO.insertAttach(pattachVO);
 	}
+	@Override
+	public int productDelete(int pNo)
+	{
+		return productDAO.productDelete(pNo);
+	}
 	
 }

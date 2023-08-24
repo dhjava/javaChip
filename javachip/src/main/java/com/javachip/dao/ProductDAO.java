@@ -81,4 +81,8 @@ public class ProductDAO {
 	{
 		return sqlSession.insert(namespace+".insertAttach", pattachVO);
 	}
+	//상품 삭제
+	public int productDelete(int pNo) {
+		return sqlSession.update(namespace+".productDelete", pNo);
+	}
 }

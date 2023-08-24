@@ -14,6 +14,7 @@ public class ProductVO {
 	private int aNo;		//pattach 기본키
 	private String aOriginName;	//pattach 추가로 받을 원본파일명
 	private String aChangeName; //pattach 추가로 받을 바뀐파일명
+	private String delYN;
 	
 	@Override
 	public String toString() {
@@ -110,5 +111,15 @@ public class ProductVO {
 	public void setaChangeName(String aChangeName) {
 		this.aChangeName = aChangeName;
 	}
+
+	public String getDelYN() {
+		return delYN;
+	}
+
+	public void setDelYN(String delYN) {
+		this.delYN = delYN;
+	}
+	
+	
 	
 }

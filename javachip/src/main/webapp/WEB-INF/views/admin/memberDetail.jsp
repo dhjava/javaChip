@@ -133,12 +133,12 @@
 		</tr>
 		<tr>
 			<td colspan="3">
-				${vo.uAdd }
+				${vo.uAdd1 }
 			</td>
 		</tr>
 		<tr>
 			<td colspan="3">
-				000동000호
+				${vo.uAdd2 }
 			</td>
 		</tr>
 		<tr>	
