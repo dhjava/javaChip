@@ -21,12 +21,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.javachip.service.AddressService;
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
+import com.javachip.service.Order_DetailService;
 import com.javachip.service.Order_Service;
 import com.javachip.service.ProductService;
 import com.javachip.service.ReviewService;
 import com.javachip.vo.AddressVO;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.MileageVO;
+import com.javachip.vo.Order_DetailVO;
 import com.javachip.vo.Order_VO;
 import com.javachip.vo.PageMaker;
 import com.javachip.vo.ProductVO;
@@ -42,6 +44,8 @@ public class ShopController {
 	private CartService cs;
 	@Autowired
 	private Order_Service os;
+	@Autowired
+	private Order_DetailService ods;
 	@Autowired
 	private MileageService ms;
 	@Autowired
@@ -272,11 +276,9 @@ public class ShopController {
 	@RequestMapping(value="/checkout.do", method=RequestMethod.POST)
 	public String checkout(
 			HttpServletRequest req
-		,	String oName
-		,	String oPhone
-		,	String oMail
 		,	String point
 		,	String total
+		,	String[] cNo
 		,	Model model
 			) {
 		HttpSession session = req.getSession();
@@ -288,21 +290,34 @@ public class ShopController {
 		System.out.println("uNo::"+uNo);
 		
 		System.out.println("total::"+total);
-		String totalPrice = total.substring(0, total.length()-1);
-		System.out.println("totalPrice::"+totalPrice);
-		int oTotalPrice = Integer.parseInt(totalPrice);
+		int totalPrice = Integer.parseInt(total);
 		
 		Order_VO ov = new Order_VO();
 		ov.setuNo(uNo);
-		ov.setoName(oName);
-		// ov.setoAdd(oAdd);
-		ov.setoTotalPrice(oTotalPrice);
-		ov.setoPhone(oPhone);
+		ov.setoTotalPrice(totalPrice);
 		ov.setoPay("C");
 		System.out.println(ov);
 		
 		int result = os.insertOrder(ov);
+		int oNo = ov.getoNo();
+		
 		if(result == 0) {
+			
+			// 구매한 장바구니를 주문 상세로
+			for(String items : cNo) {
+				int cartNo = Integer.parseInt(items);
+				CartVO cv = cs.selectCartForOrder(cartNo);
+				Order_DetailVO odvo = new Order_DetailVO();
+				
+				odvo.setoNo(oNo);
+				odvo.setpNo(cv.getpNo());
+				odvo.setdCount(cv.getcCount());
+				
+				ods.insertOrderDetail(odvo);
+				
+				cs.deleteOneCart(cartNo);
+			}
+			
 			// 사용할 적립금(마일리지)
 			int usePoint = Integer.parseInt(point);
 			System.out.println("point::"+point);
@@ -320,9 +335,11 @@ public class ShopController {
 				ms.minusMileage(mv);
 				System.out.println("using point::"+point);
 			}
+			
+			// 적립될 마일리지
 			MileageVO insertMV = new MileageVO();
 			insertMV.setuNo(uNo);
-			double addMileage = oTotalPrice*0.05;
+			double addMileage = totalPrice*0.05;
 			insertMV.setmPlus((int)addMileage);
 			insertMV.setmNote("상품 결제를 통한 적립");
 			ms.plusMileage(insertMV);
