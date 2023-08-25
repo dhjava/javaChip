@@ -30,10 +30,6 @@
 			}
 		});
 	}
-	
-	function productUpdate(){
-		
-	}
 </script>
 </head>
 <body>
@@ -106,14 +102,26 @@
                     	${vo.pNo }
                     	</div><br><br>
                     	상품구분 :<br>
-                    	${vo.pType }<br><br>
-						상품명 :<br><br>
-						${vo.pName }<br><br>
-						가격 :<br>${vo.pPrice }<br><br>
-						상품설명 :<br>${vo.pNote }<br><br>
-						입고수 :<br>${vo.pInput }<br><br>
-                        
-                    	</div>
+                    	<select class="custom-select" id="pType" name="pType">
+						    <option value="99" ${vo.pType eq '99' ? 'selected' : ''}>선택해주세요.</option>
+						    <option value="A" ${vo.pType eq 'A' ? 'selected' : ''}>원두</option>
+						    <option value="B" ${vo.pType eq 'B' ? 'selected' : ''}>생두</option>
+						    <option value="C" ${vo.pType eq 'C' ? 'selected' : ''}>드립백</option>
+						    <option value="D" ${vo.pType eq 'D' ? 'selected' : ''}>캡슐</option>
+						    <option value="E" ${vo.pType eq 'E' ? 'selected' : ''}>도매</option>
+						    <option value="F" ${vo.pType eq 'F' ? 'selected' : ''}>커피용품</option>
+						    <option value="G" ${vo.pType eq 'G' ? 'selected' : ''}>정기배송</option>
+						</select>
+                            <br><br><br>
+                            상품명 :<br>
+                            <input class="form-control" type="text" id="pName" name="pName" value="${vo.pName}" ><br>
+                            가격 :<br>
+                            <input class="form-control" type="text" id="pPrice" name="pPrice" value="${vo.pPrice}" ><br>
+                            상품설명 :<br>
+                            <textarea class="form-control" rows="4" id="pNote" name="pNote">${vo.pNote}</textarea><br>
+                            입고수 :<br>
+                            <input class="form-control" type="text" id="pInput" name="pInput" value="${vo.pInput}" ><br>
+                        </div>
                     <button type="submit" class="btn btn-success">수정하기</button></form>
                     <br>
                     <button type="submit" class="btn btn-dark" onclick="productDelete();">삭제하기</button>

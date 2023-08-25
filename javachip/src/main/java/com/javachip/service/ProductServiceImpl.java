@@ -87,5 +87,14 @@ public class ProductServiceImpl implements ProductService {
 	{
 		return productDAO.productDelete(pNo);
 	}
+	@Override
+	public int productUpdateByAdmin(ProductVO productVO) 
+	{
+		return productDAO.productUpdateByAdmin(productVO);
+	}
+	@Override
+	public int pattchUpdateByAdmin(PattachVO pattachVO) {
+		return productDAO.pattchUpdateByAdmin(pattachVO);
+	}
 	
 }

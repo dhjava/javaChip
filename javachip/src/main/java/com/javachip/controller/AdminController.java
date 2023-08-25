@@ -325,6 +325,32 @@ public class AdminController
 		return "admin/productDetail";
 	}
 	
+	@RequestMapping(value = "/productDetail.do", method = RequestMethod.POST)
+	public String productDetail(ProductVO productVO, MultipartFile uploadFile,
+			RedirectAttributes rttr, HttpServletRequest req) throws Exception {
+		
+		// 상품 정보 업데이트 수행
+		int result = ps.productUpdateByAdmin(productVO);
+		rttr.addAttribute("pNo", productVO.getpNo());
+		if (result > 0) {
+			
+			// 첨부파일 업데이트 처리 (파일이 첨부된 경우에만 수행)
+			if (!uploadFile.isEmpty()) {
+				String realPath = req.getSession().getServletContext().getRealPath("/resources/upload");
+				String fileNM = uploadFile.getOriginalFilename();
+				String fileNMArray[] = fileNM.split("\\.");
+				String etc = fileNMArray[fileNMArray.length - 1];
+
+				long timeMilis = System.currentTimeMillis();
+
+				String newFileNM = fileNM.substring(0, fileNM.length() - etc.length() - 1) + timeMilis + "." + etc;
+
+				uploadFile.transferTo(new File(realPath, newFileNM));
+			}
+		}
+		return "admin/productDetail";
+	}
+	
 	@RequestMapping(value="/productOrder.do" , method=RequestMethod.GET)
 	public String productOrder()
 	{
@@ -367,7 +393,7 @@ public class AdminController
 				
 				int result2 = ps.insertAttach(pattachVO);
 				int aNo = pattachVO.getaNo();
-				System.out.println(pattachVO);
+//				System.out.println(pattachVO);
 				rttr.addAttribute("pNo", newProductNo);
 				
 				if (result2 > 0) {
