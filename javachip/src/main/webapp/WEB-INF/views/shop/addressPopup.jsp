@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,11 +69,11 @@
 				<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
 			    	<p>배송지 목록</p>
 		    		<select name="sort" id="sort">
-		    			<option value="add_main" id="add_main">기본 배송지</option>
-		    			<option value="add_sub1" id="add_sub1">추가 배송지1</option>
-		    			<option value="add_sub2" id="add_sub2">추가 배송지2</option>
+		    			<option value="${addList.aNo}" id="add_main">기본 배송지</option>
+		    			<option value="${addList.aNo}" id="add_sub1">추가 배송지1</option>
+		    			<option value="${addList.aNo}" id="add_sub2">추가 배송지2</option>
 		    		</select>
-					<button type="submit" class="btn btn-outline-primary" onclick="" style=margin-left:20px;>배송지 저장</button>
+					<button type="submit" class="btn btn-outline-primary" id="addSaving" style=margin-left:20px;>저장/수정</button>
 				</div>
 		    	<div class="col-lg-10 col-md-6">
 		    		<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox" id="sameInfo" class="sameInfoCheck"/></p>
@@ -80,28 +81,28 @@
 		                <div class="col-lg-6">
 		                    <div class="checkout__input">
 		                        <p>성명<span>*</span></p>
-		                        <input type="text" name="oName" id="oName" required>
+		                        <input type="text" name="aName" id="aName" required>
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="checkout__input">
 		                <p>주소<span>*</span></p>
-		                <input type="text" id="oAdd1" name="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" required>
+		                <input type="text" id="aAdd1" name="aAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" value="${add.aName}" required>
 		                <button type="button" class="btn btn-outline-primary" onclick="sample7_execDaumPostcode()">우편번호</button>
-		                <input type="text" id="oAdd2" name="oAdd2" placeholder="주소" class="checkout__input__add" required>
-		                <input type="text" id="oAdd3" name="oAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
+		                <input type="text" id="aAdd2" name="aAdd2" placeholder="주소" class="checkout__input__add" required>
+		                <input type="text" id="aAdd3" name="aAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
 		            </div>
 		            <div class="row">
 		                <div class="col-lg-6">
 		                    <div class="checkout__input">
 		                        <p>전화번호<span>*</span></p>
-		                        <input type="text" name="oPhone" id="oPhone" required>
+		                        <input type="text" name="aPhone" id="aPhone" required>
 		                    </div>
 		                </div>
 		                <div class="col-lg-6">
 		                    <div class="checkout__input">
 		                        <p>이메일<span>*</span></p>
-		                        <input type="text" name="oMail" id="oMail" required>
+		                        <input type="text" name="aMail" id="aMail" required>
 		                    </div>
 		                </div>
 		            </div>
@@ -129,21 +130,30 @@
 	$(document).ready(function() {
 	    $("#sameInfo").change(function() {
 	        if ($(this).is(":checked")) {
-	            $("#oName").val($("#uName").val());
-	            $("#oAdd1").val($("#uAdd1").val());
-	            $("#oAdd2").val($("#uAdd2").val());
-	            $("#oAdd3").val($("#uAdd3").val());
-	            $("#oPhone").val($("#uPhone").val());
-	            $("#oMail").val($("#uMail").val());
+	            $("#aName").val($("#uName").val());
+	            $("#aAdd1").val($("#uAdd1").val());
+	            $("#aAdd2").val($("#uAdd2").val());
+	            $("#aAdd3").val($("#uAdd3").val());
+	            $("#aPhone").val($("#uPhone").val());
+	            $("#aMail").val($("#uMail").val());
 	        } else {
-	            $("#oName").val("");
-	            $("#oAdd1").val("");
-	            $("#oAdd2").val("");
-	            $("#oAdd3").val("");
-	            $("#oPhone").val("");
-	            $("#oMail").val("");
+	            $("#aName").val("");
+	            $("#aAdd1").val("");
+	            $("#aAdd2").val("");
+	            $("#aAdd3").val("");
+	            $("#aPhone").val("");
+	            $("#aMail").val("");
 	        }
 		});
 	});
+	
+
+$("#addSaving").click( function() {
+     $('#addressSaved').submit();
+     setTimeout(function() {   
+         window.close();
+      }, 100);
+  });
+});
 	</script>
 </html>
