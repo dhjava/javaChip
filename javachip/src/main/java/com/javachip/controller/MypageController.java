@@ -15,9 +15,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javachip.service.CartService;
 import com.javachip.service.MileageService;
+import com.javachip.service.Order_DetailService;
+import com.javachip.service.Order_Service;
 import com.javachip.service.UserService;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.MileageVO;
+import com.javachip.vo.Order_DetailVO;
+import com.javachip.vo.Order_VO;
+import com.javachip.vo.PageMaker;
+import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
 
 @Controller
@@ -30,6 +36,12 @@ public class MypageController {
 	private MileageService ms;
 	@Autowired
 	private UserService us;
+	@Autowired
+	private Order_Service os;
+	@Autowired
+	private Order_DetailService ods;
+	@Autowired
+	private PageMaker pm;
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpServletRequest req, Model model) {
@@ -124,15 +136,68 @@ public class MypageController {
 		}
 	}
 	
+	@RequestMapping(value="/history.do")
+	public String history(
+			HttpServletRequest req,
+			Model model,
+			SearchVO searchVO
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		
+		List<Order_VO> orderList = os.selectUserOrder(uNo);
+		int cnt = os.countUserOrder(uNo);
+		System.out.println("uNo::"+uNo);
+		System.out.println("cnt::"+cnt);
+		
+		pm.setSearchVO(searchVO);
+		pm.setTotalCount(cnt);
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("pm", pm);
+		
+		return "mypage/history";
+	}
+	
 	@RequestMapping(value="/hdetail.do")
-	public String hdetail() {
+	public String hdetail(
+			int oNo,
+			HttpServletRequest req,
+			Model model
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		
+		// 주문 조회
+		List<Order_VO> orderList = os.selectUserOrder(uNo);
+		int chkDup = 0;
+		Order_VO thisOrder = null;
+		for(Order_VO items : orderList) {
+			if(items.getoNo() == oNo) {
+				chkDup += 1;
+				thisOrder = items;
+			}
+		}
+		if(chkDup != 1) {
+			// 해당 주문이 없거나 오류
+			return "mypage/history";
+		}
+		
+		List<Order_DetailVO> orderDetail = ods.selectOrderDetail(oNo);
+		model.addAttribute("orderDetail", orderDetail);
+		model.addAttribute("thisOrder", thisOrder);
+		
 		return "mypage/hdetail";
 	}
 	
-	@RequestMapping(value="/history.do")
-	public String history() {
-		return "mypage/history";
-	}
 	
 	@RequestMapping(value="/main.do")
 	public String main() {

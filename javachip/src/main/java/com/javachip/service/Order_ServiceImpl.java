@@ -21,6 +21,11 @@ public class Order_ServiceImpl implements Order_Service {
 	}
 
 	@Override
+	public int countUserOrder(int uNo) {
+		return order_DAO.countUserOrder(uNo);
+	}
+	
+	@Override
 	public int insertOrder(Order_VO order_VO) {
 		return order_DAO.insertOrder(order_VO);
 	}

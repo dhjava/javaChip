@@ -20,6 +20,9 @@ public class Order_DAO {
 	public List<Order_VO> selectUserOrder(int uNo) {
 		return sqlSession.selectList(namespace+".selectUserOrder", uNo);
 	}
+	public int countUserOrder(int uNo) {
+		return sqlSession.selectOne(namespace+".countUserOrder", uNo);
+	}
 	public int insertOrder(Order_VO order_VO) {
 		return sqlSession.insert(namespace+".insertOrder", order_VO);
 	}

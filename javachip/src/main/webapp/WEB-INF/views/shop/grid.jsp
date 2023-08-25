@@ -117,7 +117,7 @@
                         </div>
                     </c:forEach>
                     </div>
-                    <div class="product__pagination">
+                    <div class="product__pagination" style="text-align:center;">
                     	<c:if test="${pm.prev == true}">
 	                        <a href="grid.do?page=${pm.startPage-1}&searchType=${pm.searchVO.searchType}&searchValue=${pm.searchVO.searchValue}"><i class="fa fa-long-arrow-left"></i></a>
                     	</c:if>

@@ -11,6 +11,7 @@ import com.javachip.vo.Order_VO;
 public interface Order_Service {
 	// 사용자
 	List<Order_VO> selectUserOrder(int uNo);
+	int countUserOrder(int uNo);
 	int insertOrder(Order_VO order_VO);
 	int updateOrderReceiver(Order_VO order_VO);
 	

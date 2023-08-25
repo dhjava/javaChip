@@ -12,6 +12,13 @@
 		 WHERE uNo = #{uNo}
 	</select>
 	
+	<!-- 사용자 주문 총합 -->
+	<select id="countUserOrder" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM order_
+		 WHERE uNo = #{uNo}
+	</select>
+	
 	<!-- 주문 -->
 	<insert id="insertOrder" parameterType="Order_VO">
 		INSERT INTO
@@ -30,6 +37,10 @@
 			,'O'
 			,#{addNo}
 		)
+		<selectKey order="AFTER" keyProperty="oNo" resultType="int">
+			SELECT MAX(oNo)
+			  FROM order_
+		</selectKey>
 	</insert>
 	
 	<!-- 수령인 정보 수정 -->

@@ -3,22 +3,19 @@ package com.javachip.vo;
 public class Order_VO {
 	private int oNo;
 	private int uNo;
-	private int cNo;
-	private String oName;
-	private String oAdd;
-	private String oPhone;
+	private int addNo;
 	private int oTrackNo;
 	private int oTotalPrice;
 	private String oPay;
 	private String oStatus;
+	private String oDate;
 	private String uId;
 	private String pName;
 	
 	@Override
 	public String toString() {
-		return "Order_VO [oNo=" + oNo + ", uNo=" + uNo + ", cNo=" + cNo + ", oName=" + oName + ", oAdd=" + oAdd
-				+ ", oPhone=" + oPhone + ", oTrackNo=" + oTrackNo + ", oTotalPrice=" + oTotalPrice + ", oPay=" + oPay
-				+ ", oStatus=" + oStatus + ", uId=" + uId + ", pName=" + pName + "]";
+		return "Order_VO [oNo=" + oNo + ", uNo=" + uNo + ", oTrackNo=" + oTrackNo + ", oTotalPrice=" + oTotalPrice + ", oPay=" + oPay
+				+ ", oStatus=" + oStatus + ", oDate=" + oDate + ", uId=" + uId + ", pName=" + pName + ", addNo=" + addNo + "]";
 	}
 	public int getoNo() {
 		return oNo;
@@ -32,29 +29,11 @@ public class Order_VO {
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
 	}
-	public int getcNo() {
-		return cNo;
+	public int getAddNo() {
+		return addNo;
 	}
-	public void setcNo(int cNo) {
-		this.cNo = cNo;
-	}
-	public String getoName() {
-		return oName;
-	}
-	public void setoName(String oName) {
-		this.oName = oName;
-	}
-	public String getoAdd() {
-		return oAdd;
-	}
-	public void setoAdd(String oAdd) {
-		this.oAdd = oAdd;
-	}
-	public String getoPhone() {
-		return oPhone;
-	}
-	public void setoPhone(String oPhone) {
-		this.oPhone = oPhone;
+	public void setAddNo(int addNo) {
+		this.addNo = addNo;
 	}
 	public int getoTrackNo() {
 		return oTrackNo;
@@ -80,7 +59,12 @@ public class Order_VO {
 	public void setoStatus(String oStatus) {
 		this.oStatus = oStatus;
 	}
-
+	public String getoDate() {
+		return oDate;
+	}
+	public void setoDate(String oDate) {
+		this.oDate = oDate;
+	}
 	public String getuId() {
 		return uId;
 	}

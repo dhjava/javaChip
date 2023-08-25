@@ -8,6 +8,8 @@
 	<!-- 해당 주문 상세 정보 조회 -->
 	<select id="selectOrderDetail" parameterType="int" resultType="Order_DetailVO">
 		SELECT *
+		     , (SELECT pName FROM product WHERE order_detail.pNo = product.pNo) as pName
+		     , (SELECT pPrice FROM product WHERE order_detail.pNo = product.pNo) as pPrice
 		  FROM order_detail
 		 WHERE oNo = #{oNo}
 	</select>
