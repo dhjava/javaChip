@@ -4,8 +4,6 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
 <script>
-
-
 	function productDelete(){
 		
 		var pNo = $("#pNo").text();
@@ -31,6 +29,10 @@
 				alert("그냥 실패!");
 			}
 		});
+	}
+	
+	function productUpdate(){
+		
 	}
 </script>
 </head>
@@ -105,16 +107,16 @@
                     	</div><br><br>
                     	상품구분 :<br>
                     	${vo.pType }<br><br>
-                        상품명 :<br><br>
-           ${vo.pName }<br><br>
-                        가격 :<br>${vo.pPrice }<br><br>
-                        상품설명 :<br>${vo.pNote }<br><br>
-                        입고수 :<br>${vo.pInput }<br><br>
+						상품명 :<br><br>
+						${vo.pName }<br><br>
+						가격 :<br>${vo.pPrice }<br><br>
+						상품설명 :<br>${vo.pNote }<br><br>
+						입고수 :<br>${vo.pInput }<br><br>
                         
                     	</div>
-                    </form>
+                    <button type="submit" class="btn btn-success">수정하기</button></form>
+                    <br>
                     <button type="submit" class="btn btn-dark" onclick="productDelete();">삭제하기</button>
-                    <button type="submit" class="btn btn-dark" onclick="productUpdate();">수정하기</button>
                 </div>
             </div>
         </div>
