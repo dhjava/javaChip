@@ -183,4 +183,26 @@
 		set delYN = 'Y'
 		Where pNo = #{pNo}
 	</update>
+	
+	<!-- 상품업데이트 -->
+	<update id="productUpdateByAdmin" parameterType="productVO">
+		UPDATE product
+		   SET pType = #{pType}
+		     , pName = #{pName}
+		     , pPrict = #{pPrice}
+		     , pInput = pInput + #{pInput}
+		     , pStock = pStock + #{pInput}
+		     , pDate = NOW()
+		     , pNote = #{pNote}
+		     , pDetail = #{pDetail}
+		 WHERE pNo = #{pNo}
+	</update>
+	
+	<!-- 첨부파일 업데이트 -->
+	<update id="pattchUpdateByAdmin" parameterType="PattachVO">
+		update pattach
+		   set aOriginName = #{aOriginName}
+		     , aChangeName = #{aChangeName}
+		 WHERE pNo = #{pNo}
+	</update>
 </mapper>

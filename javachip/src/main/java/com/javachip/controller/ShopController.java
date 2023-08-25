@@ -356,6 +356,7 @@ public class ShopController {
     public String addressSelect(@PathVariable int uId, Model model) {
         AddressVO addVO = as.addressSelect(uId);
         model.addAttribute("addVO", addVO);
+        
         return "shop/addressPopup";
     }
 	

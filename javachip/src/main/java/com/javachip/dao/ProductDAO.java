@@ -85,4 +85,15 @@ public class ProductDAO {
 	public int productDelete(int pNo) {
 		return sqlSession.update(namespace+".productDelete", pNo);
 	}
+	//상품 업데이트
+	public int productUpdateByAdmin(ProductVO productVO)
+	{
+		return sqlSession.update(namespace+".productUpdate", productVO);
+	}
+	//상품 사진 업데이트
+	public int pattchUpdateByAdmin(PattachVO pattachVO)
+	{
+		return sqlSession.update(namespace+".pattchUpdateByAdmin", pattachVO);
+	}
+	
 }
