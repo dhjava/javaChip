@@ -5,11 +5,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.javachip.vo.ProductVO" %>
 <%@ page import="com.javachip.vo.ReviewVO" %>
-<%
-	ProductVO pv = (ProductVO)request.getAttribute("pv");
-	List<ReviewVO> reviewList = (List<ReviewVO>)request.getAttribute("reivewList");
-	// boolean canReview = (boolean)request.getAttribute("canReview");
-%>
 <script>
 	function addCartFn() {
 		$.ajax({
@@ -241,7 +236,7 @@
 											      <td>
 											      	${review.rContents}
 											      	<c:if test="${login.uNo eq review.uNo}">
-											      		<a href="javascript:void(0);" onclick="updateReviewFn(this);">>[수정]</a>
+											      		<a href="javascript:void(0);" onclick="updateReviewFn(this);">[수정]</a>
 											      		<a href="javascript:void(0);" onclick="deleteReviewFn(this);">[삭제]</a>
 											      	</c:if>
 											      </td>

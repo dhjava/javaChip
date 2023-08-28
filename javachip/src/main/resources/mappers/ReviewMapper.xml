@@ -11,22 +11,19 @@
 		  FROM review
 	</select>
 	
-	<!-- 특정 상품 리뷰 조회 -->
-	<select id="selectReview" parameterType="int" resultType="ReviewVO">
+	<!-- 리뷰 조회 -->
+	<select id="selectReview" parameterType="SearchVO" resultType="ReviewVO">
 		SELECT *
 		     , (SELECT uName FROM user WHERE review.uNo = user.uNo) as uName
 		  FROM review
-		 WHERE pNo = #{pNo}
-		   AND rDelyn = 'N'
-	</select>
-	
-	<!-- 유저가 작성한 리뷰 조회 -->
-	<select id="selectUserReview" parameterType="int" resultType="ReviewVO">
-		SELECT *
-		     , (SELECT uName FROM user WHERE review.uNo = user.uNo) as uName
-		  FROM review
-		 WHERE uNo = #{uNo}
-		   AND rDelyn = 'N'
+		 WHERE 1=1
+		<if test='searchType != null and searchType.equals("uNo")'>
+		   AND uNo = #{searchValue}
+		</if>
+		<if test='searchType != null and searchType.equals("pNo")'>
+		   AND pNo = #{searchValue}
+		</if>
+		 LIMIT #{startNum}, #{perPageNum}
 	</select>
 	
 	<!-- 유저가 작성한 리뷰 개수 -->

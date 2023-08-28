@@ -90,14 +90,19 @@ public class ShopController {
 			HttpServletRequest req
 		,	Model model
 		,	int pNo
-		,	SearchVO searchVO
 			) {
 		ProductVO pv = ps.selectOneProduct(pNo);
 		System.out.println(pv);
-		List<ReviewVO> reviewList = rs.selectReview(pNo);
-		boolean canReview = false;
 		
-		// 리뷰 작성 가능한지
+		// searchVO 설정 고정
+		SearchVO searchVO = new SearchVO();
+		searchVO.setSearchType("pNo");
+		searchVO.setSearchValue(String.valueOf(pNo));
+		
+		// 리뷰 조회 + 작성 가능한지
+		List<ReviewVO> reviewList = rs.selectReview(searchVO);
+		
+		boolean canReview = false;
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO!=null) {
@@ -114,15 +119,6 @@ public class ShopController {
 		}
 		
 		// QnA 조회
-		searchVO.setSearchType("pNo");
-		searchVO.setSearchValue(String.valueOf(pNo));
-		int cnt = hs.totalQna(searchVO);
-		
-		System.out.println("qna cnt::" + cnt);
-		
-		pm.setSearchVO(searchVO);	// calcData에 담을 searchVO 세팅
-		pm.setTotalCount(cnt);
-		
 		List<QnaVO> qnaList = hs.selectQnaList(searchVO);
 		
 		
@@ -132,7 +128,6 @@ public class ShopController {
 		model.addAttribute("canReview", canReview);
 		
 		model.addAttribute("qnaList",qnaList);
-		model.addAttribute("pm",pm);
 		return "shop/details";
 	}
 	

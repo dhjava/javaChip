@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.javachip.vo.ReviewVO;
+import com.javachip.vo.SearchVO;
 
 @Service
 public interface ReviewService {
 	List<ReviewVO> selectAllReview();
-	List<ReviewVO> selectReview(int pNo);
-	List<ReviewVO> selectUserReview(int uNo);
+	List<ReviewVO> selectReview(SearchVO searchVO);
 	int countUserReview(int uNo);
 	int insertReview(ReviewVO reviewVO);
 	int updateReview(ReviewVO reviewVO);

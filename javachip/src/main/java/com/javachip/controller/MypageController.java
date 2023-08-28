@@ -14,15 +14,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javachip.service.CartService;
+import com.javachip.service.HelpService;
 import com.javachip.service.MileageService;
 import com.javachip.service.Order_DetailService;
 import com.javachip.service.Order_Service;
+import com.javachip.service.ReviewService;
 import com.javachip.service.UserService;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.MileageVO;
 import com.javachip.vo.Order_DetailVO;
 import com.javachip.vo.Order_VO;
 import com.javachip.vo.PageMaker;
+import com.javachip.vo.QnaVO;
+import com.javachip.vo.ReviewVO;
 import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
 
@@ -40,6 +44,10 @@ public class MypageController {
 	private Order_Service os;
 	@Autowired
 	private Order_DetailService ods;
+	@Autowired
+	private HelpService hs;
+	@Autowired
+	private ReviewService rs;
 	@Autowired
 	private PageMaker pm;
 	
@@ -224,11 +232,6 @@ public class MypageController {
 		return "mypage/mileage";
 	}
 	
-	@RequestMapping(value="/myboard.do")
-	public String myboard() {
-		return "mypage/myboard";
-	}
-	
 	@RequestMapping(value="/myinfo.do")
 	public String myinfo(HttpServletRequest req,Model model,int uNo){
 		HttpSession session = req.getSession();
@@ -254,13 +257,53 @@ public class MypageController {
 		return "redirect:myinfo.do";
 	}
 	
+	@RequestMapping(value="/myboard.do")
+	public String myboard(
+			HttpServletRequest req
+		,	Model model
+		) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		SearchVO sv = new SearchVO();
+		sv.setPerPageNum(5);
+		sv.setSearchType("uNo");
+		sv.setSearchValue(String.valueOf(uNo));
+		List<QnaVO> qnaList = hs.selectQnaList(sv);
+		List<ReviewVO> reviewList = rs.selectReview(sv);
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("reviewList", reviewList);
+		return "mypage/myboard";
+	}
+	
 	@RequestMapping(value="/myqna.do")
-	public String myqna() {
+	public String myqna(
+			HttpServletRequest req
+		,	Model model
+		) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
 		return "mypage/myqna";
 	}
 	
 	@RequestMapping(value="/myreview.do")
-	public String myreview() {
+	public String myreview(
+			HttpServletRequest req
+			,	Model model
+		) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
 		return "mypage/myreview";
 	}
 	
