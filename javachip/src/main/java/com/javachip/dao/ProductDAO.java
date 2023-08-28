@@ -88,7 +88,7 @@ public class ProductDAO {
 	//상품 업데이트
 	public int productUpdateByAdmin(ProductVO productVO)
 	{
-		return sqlSession.update(namespace+".productUpdate", productVO);
+		return sqlSession.update(namespace+".productUpdateByAdmin", productVO);
 	}
 	//상품 사진 업데이트
 	public int pattchUpdateByAdmin(PattachVO pattachVO)
