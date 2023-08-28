@@ -55,8 +55,7 @@
 	<update id="updateReview" parameterType="ReviewVO">
 		UPDATE review
 		   SET rContents = #{rContents}
-		 WHERE uNo = #{uNo}
-		   AND pNo = #{pNo}
+		 WHERE rNo = #{rNo}
 	</update>
 	
 	<!-- 리뷰 삭제 -->
@@ -65,5 +64,12 @@
 		   SET rDelyn = 'Y'
 		 WHERE uNo = #{uNo}
 		   AND pNo = #{pNo}
+	</update>
+	
+	<!-- 특정 리뷰 삭제 -->
+	<update id="deleteOneReview" parameterType="int">
+		UPDATE review
+		   SET rDelyn = 'Y'
+		 WHERE rNo = #{rNo}
 	</update>
 </mapper>

@@ -4,9 +4,6 @@
 <%@ include file="../include/nav.jsp" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.javachip.vo.MileageVO" %>
-<%
-	List<MileageVO> mileageList = (List<MileageVO>)request.getAttribute("mileageList");
-%>
 <!-- 메인 작성 영역 -->
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
@@ -43,6 +40,11 @@
                                 </tr>
                             </thead>
                             <tbody>
+                            <c:if test="${empty mileageList}">
+                            	<tr>
+                            		<td colspan="4">적립 및 사용내역이 없습니다.</td>
+                            	</tr>
+                            </c:if>
                             <c:forEach items="${mileageList}" var="mileage">
                                 <tr>
                                     <c:choose>
@@ -56,6 +58,9 @@
 		                                    <td class="shoping__cart__price">
 		                                        ${mileage.mPlus} P
 		                                    </td>
+		                                    <td class="shoping__cart__price">
+		                                        ${mileage.mDate}
+		                                    </td>
 	                                    </c:when>
 	                                    <c:otherwise>
 		                                    <td class="shoping__cart__price" style="width:12%;">
@@ -67,11 +72,11 @@
 		                                    <td class="shoping__cart__price" style="color:#dd2222;">
 		                                        -${mileage.mMinus} P
 		                                    </td>
+		                                    <td class="shoping__cart__price">
+		                                        ${mileage.mDate}
+		                                    </td>
 	                                    </c:otherwise>
                                     </c:choose>
-                                    <td class="shoping__cart__total">
-                                        ${mileage.mDate}
-                                    </td>
                                 </tr>
                             </c:forEach>
                             </tbody>

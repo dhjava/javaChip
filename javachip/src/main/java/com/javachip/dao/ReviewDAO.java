@@ -37,4 +37,7 @@ public class ReviewDAO {
 	public int deleteReview(ReviewVO reviewVO) {
 		return sqlSession.update(namespace+".deleteReview", reviewVO);
 	}
+	public int deleteOneReview(int rNo) {
+		return sqlSession.update(namespace+".deleteOneReview", rNo);
+	}
 }

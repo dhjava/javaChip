@@ -215,9 +215,11 @@ public class MypageController {
 			return "redirect:/member/login.do";
 		}
 		int uNo = loginVO.getuNo();
-		List<MileageVO> mileageList = ms.selectAllMileage(uNo);
+		if(ms.selectAllMileage(uNo) != null) {
+			List<MileageVO> mileageList = ms.selectAllMileage(uNo);
+			model.addAttribute("mileageList", mileageList);
+		}
 		
-		model.addAttribute("mileageList", mileageList);
 		
 		return "mypage/mileage";
 	}

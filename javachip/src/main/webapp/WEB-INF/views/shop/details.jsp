@@ -51,17 +51,67 @@
 		$.ajax({
 			url:"reviewWrite.do",
 			type:"post",
-			data:"rContents="+$("#rContents").val(),
+			data:"pNo="+$("#pNo").val()+"&rContents="+$("#rContents").val(),
 			success:function(data) {
 				if(data == 1) {
 					alert("후기가 작성되었습니다.");
-					location.reload();
+					location.href="details.do?pNo="+$("#pNo").val();
+				}else if(data == -1) {
+					alert("로그인 후 이용해주세요.");
 				}else {
-					alert("오류가 발생했습니다.");
+					alert("일시적 오류입니다. 잠시 후 이용해주세요.");
 				}
 			},
 			error:function() {
 				alert("오류가 발생했습니다.");
+			}
+		});
+	}
+	
+	function deleteReviewFn(obj) {
+		var rNo = $(obj).parents().find("input[name=rNo]").val();
+		$.ajax({
+			url:"deleteReview.do",
+			type:"post",
+			data:"rNo="+rNo,
+			success:function(data) {
+				if(data > 0) {
+					alert("후기가 삭제되었습니다.");
+					$(obj).parents("tr").empty();
+				}else {
+					alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				}
+			},
+			error:function() {
+				alert("예외 발생!");
+			}
+		});
+	}
+	function updateReviewFn(obj) {
+		var str = '<textarea id="updateContent" style="width:95%; height:100%; border:solid 1px #e8e8e8; resize:none;"></textarea>'
+				+ '<button type="button" class="btn btn-dark" onclick="updateBtnFn(this)">수정하기</button>'
+		$(obj).parent("td").html(str);
+	}
+	function updateBtnFn(obj) {
+		var rNo = $(obj).parents().find("input[name=rNo]").val();
+		var rContents = $("#updateContent").val();
+		console.log(rNo);
+		console.log(rContents);
+		
+		$.ajax({
+			url:"updateReview.do",
+			type:"post",
+			data:"rNo="+rNo+"&rContents="+$("#updateContent").val(),
+			success:function(data) {
+				if(data > 0) {
+					alert("후기가 수정 되었습니다.");
+					location.reload();
+				}else {
+					alert("오류가 발생했습니다. 잠시 후 다시 시도해주세요.");
+				}
+			},
+			error:function() {
+				alert("예외 발생!");
 			}
 		});
 	}
@@ -170,8 +220,9 @@
                                     <table class="table table-hover">
 									  <thead>
 									    <tr>
-									      <th scope="col" width="15%">작성자</th>
+									      <th scope="col" width="5%">#</th>
 									      <th scope="col">내용</th>
+									      <th scope="col" width="15%">작성자</th>
 									      <th scope="col" width="15%">작성일</th>
 									    </tr>
 									  </thead>
@@ -184,22 +235,30 @@
 										  	</c:when>
 										  	<c:otherwise>
 											  	<c:forEach items="${reviewList}" var="review">
+										      	<input type="hidden" name="rNo" value="${review.rNo}">
 											    <tr>
-											      <td>${reviewList.uName}</td>
-											      <td>${reviewList.rContents}</td>
-											      <td>${reviewList.rDate}</td>
+											      <td>${review.rNo}</td>
+											      <td>
+											      	${review.rContents}
+											      	<c:if test="${login.uNo eq review.uNo}">
+											      		<a href="javascript:void(0);" onclick="updateReviewFn(this);">>[수정]</a>
+											      		<a href="javascript:void(0);" onclick="deleteReviewFn(this);">[삭제]</a>
+											      	</c:if>
+											      </td>
+											      <td>${review.uName}</td>
+											      <td>${review.rDate}</td>
 											    </tr>
 											  	</c:forEach>
 										  	</c:otherwise>
 										  </c:choose>
-										  <%-- <c:if test="${canReview}"> --%>
+										  <c:if test="${canReview}">
 										    <tr>
-										      <td>작성자</td>
-										      <td><textarea name="rContents" id="rContents"
+										      <td></td>
+										      <td colspan="2"><textarea name="rContents" id="rContents"
 										      	style="width:95%; height:100%; border:solid 1px #e8e8e8; resize:none;"></textarea></td>
 										      <td><button type="button" class="btn btn-dark" onclick="reviewWriteFn()">후기 등록</button></td>
 										    </tr>
-										  <%-- </c:if> --%>
+										  </c:if>
 									  </tbody>
 									</table>
                                 </div>
@@ -216,21 +275,33 @@
 									    </tr>
 									  </thead>
 									  <tbody>
-									    <tr>
-									      <th scope="row">1</th>
-									      <td>Otto</td>
-									      <td>Mark</td>
-									      <td>2023-07-21</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">2</th>
-									      <td>Thornton</td>
-									      <td>Jacob</td>
-									      <td>2023-07-21</td>
-									    </tr>
+									  	<c:choose>
+										  	<c:when test="${empty qnaList}">
+										  		<tr>
+										  			<td colspan="2">작성된 문의가 없습니다.</td>
+										  		</tr>
+										  	</c:when>
+										  	<c:otherwise>
+											  	<c:forEach items="${qnaList}" var="qna">
+												    <tr>
+												      <td>${qna.qNo}</td>
+												      <td>${qna.qTitle}</td>
+												      <td>${qna.uName}</td>
+												      <td>${qna.qDate.substring(0,10)}</td>
+												    </tr>
+											  	</c:forEach>
+											</c:otherwise>
+										</c:choose>
 									  </tbody>
 									</table>
-									<button type="button" class="btn btn-dark">Q&A 등록</button>
+									<button type="button" id="qnaWriteBtn"
+									 onClick="location.href='<%= request.getContextPath() %>/help/qnaWrite.do?qType=P'" class="btn btn-dark">
+										Q&A 등록
+									</button>
+									<button type="button" id="qnaListBtn"
+									 onClick="location.href='<%= request.getContextPath() %>/help/qna.do?searchType=pNo&searchValue=${pv.pNo}'" class="btn btn-dark" style="float:right;">
+										더보기
+									</button>
                                 </div>
                             </div>
                         </div>
