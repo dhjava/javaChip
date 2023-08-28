@@ -15,4 +15,5 @@ public interface ReviewService {
 	int insertReview(ReviewVO reviewVO);
 	int updateReview(ReviewVO reviewVO);
 	int deleteReview(ReviewVO reviewVO);
+	int deleteOneReview(int rNo);
 }

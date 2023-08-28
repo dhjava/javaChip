@@ -1,5 +1,7 @@
 package com.javachip.controller;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.javachip.service.AddressService;
 import com.javachip.service.CartService;
+import com.javachip.service.HelpService;
 import com.javachip.service.MileageService;
 import com.javachip.service.Order_DetailService;
 import com.javachip.service.Order_Service;
@@ -32,6 +35,7 @@ import com.javachip.vo.Order_DetailVO;
 import com.javachip.vo.Order_VO;
 import com.javachip.vo.PageMaker;
 import com.javachip.vo.ProductVO;
+import com.javachip.vo.QnaVO;
 import com.javachip.vo.ReviewVO;
 import com.javachip.vo.SearchVO;
 import com.javachip.vo.UserVO;
@@ -56,6 +60,8 @@ public class ShopController {
 	private PageMaker pm;
 	@Autowired
 	private AddressService as;
+	@Autowired
+	private HelpService hs;
 	
 	@RequestMapping(value="/grid.do")
 	public String grid(
@@ -84,6 +90,7 @@ public class ShopController {
 			HttpServletRequest req
 		,	Model model
 		,	int pNo
+		,	SearchVO searchVO
 			) {
 		ProductVO pv = ps.selectOneProduct(pNo);
 		System.out.println(pv);
@@ -94,15 +101,38 @@ public class ShopController {
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO!=null) {
-			// 유저의 주문 조회
-			// if(주문 내역 중 pNo가 같은 정보 확인) {
-			// 	canReview = true;
-			// }
+			int uNo = loginVO.getuNo();
+			List<Order_VO> orderList = os.selectUserOrder(uNo);
+			for(Order_VO items : orderList) {
+				List<Order_DetailVO> odList = ods.selectOrderDetail(items.getoNo());
+				for(Order_DetailVO dItems : odList) {
+					if(dItems.getpNo() == pNo) {
+						canReview = true;
+					}
+				}
+			}
 		}
 		
+		// QnA 조회
+		searchVO.setSearchType("pNo");
+		searchVO.setSearchValue(String.valueOf(pNo));
+		int cnt = hs.totalQna(searchVO);
+		
+		System.out.println("qna cnt::" + cnt);
+		
+		pm.setSearchVO(searchVO);	// calcData에 담을 searchVO 세팅
+		pm.setTotalCount(cnt);
+		
+		List<QnaVO> qnaList = hs.selectQnaList(searchVO);
+		
+		
 		model.addAttribute("pv", pv);
+		
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("canReview", canReview);
+		
+		model.addAttribute("qnaList",qnaList);
+		model.addAttribute("pm",pm);
 		return "shop/details";
 	}
 	
@@ -110,6 +140,7 @@ public class ShopController {
 	@ResponseBody
 	public int reviewWrite(
 				HttpServletRequest req
+			,	int pNo
 			,	String rContents
 			) {
 		HttpSession session = req.getSession();
@@ -124,6 +155,7 @@ public class ShopController {
 		
 		ReviewVO rv = new ReviewVO();
 		rv.setuNo(uNo);
+		rv.setpNo(pNo);
 		rv.setrContents(rContents);
 		
 		int result = rs.insertReview(rv);
@@ -131,6 +163,25 @@ public class ShopController {
 			return 2;
 		}
 		return 1;
+	}
+	
+	@RequestMapping(value="deleteReview.do")
+	@ResponseBody
+	public int deleteReview(
+			int rNo
+			) {
+		int result = rs.deleteOneReview(rNo);
+		return result;
+	}
+	
+	@RequestMapping(value="updateReview.do")
+	@ResponseBody
+	public int updateReview(
+			ReviewVO rv
+			) {
+		System.out.println(rv);
+		int result = rs.updateReview(rv);
+		return result;
 	}
 	
 	@RequestMapping(value="/addCart.do")
