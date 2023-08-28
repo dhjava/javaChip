@@ -28,43 +28,15 @@
 		            <td scope="col" style="width:54%">제목</td>
 		            <td scope="col" style="width:15%">이름</td>
 		            <td scope="col" style="width:15%">날짜</td>
-		            <td scope="col" style="width:8%">조회수</td>
 		        </tr>
-		        <tr>	
-		            <td scope="row">5</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qview.do">이거 어떻게 하나요?</td>
-		            <td>김매똥</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
-		        <tr>
-		            <td scope="row">4</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qview.do">이거 어떻게 하나요?</td>
-		            <td>김왕똥</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
-		        <tr>
-		            <td scope="row">3</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qview.do">이거 어떻게 하나요?</td>
-		            <td>김설사</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
-		        <tr>
-		            <td scope="row">2</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qview.do">이거 어떻게 하나요?</td>
-		            <td>김새똥</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
-		        <tr>
-		            <td scope="row">1</td>
-		            <td><a href="<%= request.getContextPath() %>/help/qview.do">이거 어떻게 하나요?</td>
-		            <td>김킹똥</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
+		        <c:forEach items="${qnaList}" var="qna">
+			        <tr>
+			            <td scope="row">${qna.qNo}</td>
+			            <td><a href="<%= request.getContextPath() %>/help/qnaView.do?qNo=${qna.qNo}">${qna.qTitle}</td>
+			            <td>${qna.uName}</td>
+			            <td>${qna.qDate}</td>
+			        </tr>
+		        </c:forEach>
 		    </table>
 		    <div style="text-align:center;">
 		        <button>작성한 QnA 더보기</button>
@@ -81,43 +53,15 @@
 		            <td scope="col" style="width:54%">제목</td>
 		            <td scope="col" style="width:15%">이름</td>
 		            <td scope="col" style="width:15%">날짜</td>
-		            <td scope="col" style="width:8%">조회수</td>
 		        </tr>
-		        <tr>	
-		            <td scope="row">5</td>
-		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
-		            <td>김매똥</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
-		        <tr>
-		            <td scope="row">4</td>
-		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
-		            <td>김왕똥</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
-		        <tr>
-		            <td scope="row">3</td>
-		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
-		            <td>김설사</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
-		        <tr>
-		            <td scope="row">2</td>
-		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
-		            <td>김새똥</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
-		        <tr>
-		            <td scope="row">1</td>
-		            <td><a href="<%= request.getContextPath() %>/shop/details.do">이거 어떻게 하나요?</td>
-		            <td>김킹똥</td>
-		            <td>2023.07.11</td>
-		            <td>1</td>
-		        </tr>
+		        <c:forEach items="${reviewList}" var="review">
+			        <tr>
+			            <td scope="row">${review.rNo}</td>
+			            <td><a href="<%= request.getContextPath() %>/shop/details.do?pNo=${review.pNo}">${review.rContents}</td>
+			            <td>${review.uName}</td>
+			            <td>${review.rDate}</td>
+			        </tr>
+		        </c:forEach>
 		    </table>
 		    <div style="text-align:center;">
 		        <button>작성한 후기 더보기</button>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javachip.vo.ReviewVO;
+import com.javachip.vo.SearchVO;
 
 @Repository
 public class ReviewDAO {
@@ -19,11 +20,8 @@ public class ReviewDAO {
 	public List<ReviewVO> selectAllReview() {
 		return sqlSession.selectList(namespace+".selectAllReview");
 	}
-	public List<ReviewVO> selectReview(int pNo) {
-		return sqlSession.selectList(namespace+".selectReview", pNo);
-	}
-	public List<ReviewVO> selectUserReview(int uNo) {
-		return sqlSession.selectList(namespace+".selectUserReview", uNo);
+	public List<ReviewVO> selectReview(SearchVO searchVO) {
+		return sqlSession.selectList(namespace+".selectReview", searchVO);
 	}
 	public int countUserReview(int uNo) {
 		return sqlSession.selectOne(namespace+".countUserReview", uNo);

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javachip.dao.ReviewDAO;
 import com.javachip.vo.ReviewVO;
+import com.javachip.vo.SearchVO;
 
 @Repository
 public class ReviewServiceImpl implements ReviewService {
@@ -18,12 +19,8 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.selectAllReview();
 	}
 	@Override
-	public List<ReviewVO> selectReview(int pNo) {
-		return reviewDAO.selectReview(pNo);
-	}
-	@Override
-	public List<ReviewVO> selectUserReview(int uNo) {
-		return reviewDAO.selectUserReview(uNo);
+	public List<ReviewVO> selectReview(SearchVO searchVO) {
+		return reviewDAO.selectReview(searchVO);
 	}
 	@Override
 	public int countUserReview(int uNo) {
