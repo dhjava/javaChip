@@ -189,7 +189,7 @@
 		UPDATE product
 		   SET pType = #{pType}
 		     , pName = #{pName}
-		     , pPrict = #{pPrice}
+		     , pPrice = #{pPrice}
 		     , pInput = pInput + #{pInput}
 		     , pStock = pStock + #{pInput}
 		     , pDate = NOW()

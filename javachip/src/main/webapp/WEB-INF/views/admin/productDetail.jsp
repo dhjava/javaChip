@@ -96,11 +96,11 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                <form class="product__input">
+                <form class="product__input" 
+                action="<%= request.getContextPath() %>/admin/productDetail.do" method="post" enctype="multipart/form-data">
                     <div class="product__details__text">
-                    	<div id="pNo" name="pNo">
-                    	${vo.pNo }
-                    	</div><br><br>
+                    	<input type="hidden" name="pNo" value="${vo.pNo}">
+                    	<br><br>
                     	상품구분 :<br>
                     	<select class="custom-select" id="pType" name="pType">
 						    <option value="99" ${vo.pType eq '99' ? 'selected' : ''}>선택해주세요.</option>
@@ -121,6 +121,11 @@
                             <textarea class="form-control" rows="4" id="pNote" name="pNote">${vo.pNote}</textarea><br>
                             입고수 :<br>
                             <input class="form-control" type="text" id="pInput" name="pInput" value="${vo.pInput}" ><br>
+                        <div class="input-group mb-3">
+						  <div class="custom-file">
+						    <input type="file" name="uploadFile">
+						  </div>
+						</div>
                         </div>
                     <button type="submit" class="btn btn-success">수정하기</button></form>
                     <br>
