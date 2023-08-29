@@ -123,15 +123,28 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int stopUser(int uNo) 
+	public int AlertUser(int uNo) 
 	{
+		return userDAO.AlertUser(uNo);
+	}
+
+	@Override
+	public int stopUser(int uNo) {
+		// TODO Auto-generated method stub
 		return userDAO.stopUser(uNo);
 	}
 
 	@Override
-	public int CancleStopUser(UserVO vo) 
-	{
-		return userDAO.CancleStopUser(vo);
+	public int NonStopUser(int uNo) {
+		// TODO Auto-generated method stub
+		return userDAO.NonStopUser(uNo);
 	}
+
+	@Override
+	public int cancleWait(int uNo) {
+		// TODO Auto-generated method stub
+		return userDAO.cancleWait(uNo);
+	}
+
 
 }

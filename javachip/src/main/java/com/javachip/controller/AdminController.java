@@ -227,6 +227,7 @@ public class AdminController
 	{
 		UserVO bisvo = us.selectBizUserOneByuNoByAdmin(uNo);
 		model.addAttribute("vo", bisvo);
+		System.out.println(bisvo);
 		return "admin/bizmemberDetail";
 	}
 	
@@ -262,10 +263,38 @@ public class AdminController
 	public String AlertUser(int uNo)
 	{
 		int result = 0;
-		result = us.stopUser(uNo);
+		result = us.AlertUser(uNo);
 		return result+"";
 	}
 	
+	//회원 정지
+	@ResponseBody
+	@RequestMapping(value="/StopUser.do")
+	public String StopUser(int uNo)
+	{
+		int result=0;
+		result = us.stopUser(uNo);
+		return result+"";
+	}
+	//회원 정지 해제
+	@ResponseBody
+	@RequestMapping(value="/NonStopUser.do")
+	public String NonStopUser(int uNo)
+	{
+		int result=0;
+		result = us.NonStopUser(uNo);
+		return result+"";
+	}
+	
+	//사업자 가입대기 해제
+	@ResponseBody
+	@RequestMapping(value="/cancleWait.do")
+	public String cancleWait(int uNo)
+	{
+		int result=0;
+		result = us.cancleWait(uNo);
+		return result+"";
+	}
 	//상품삭제
 	@ResponseBody
 	@RequestMapping(value="/productDelete.do", method = RequestMethod.POST)
