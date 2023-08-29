@@ -104,6 +104,60 @@
             var option = "width = 1000, height = 850, top = 100, left = 200, location = no"
             window.open(url, name, option);
         }
+	    
+	    
+	    $(document).ready(function() {
+        $("#sort").change(function() {
+            var selectedValue = $(this).val();
+
+            // 여기에 선택된 값에 따라서 input 요소들의 값을 채우는 로직을 추가합니다.
+            if (selectedValue === "main") {
+                // 기본 배송지에 대한 처리
+                $("#oName").val("${addvo.aName}");
+                $("#oAdd1").val("${addvo.addr1}");
+                $("#oAdd2").val("${addvo.addr2}");
+                $("#oAdd3").val("${addvo.addr3}");
+                $("#oPhone").val("${addvo.aPhone}");
+                $("#oMail").val("${addvo.aMail}");
+            } else if (selectedValue === "sub1") {
+                // 추가 배송지1에 대한 처리
+                // 다른 값들을 필요에 따라 변경
+            }
+        });
+    });
+	    
+	    /* $(document).ready(function() {
+	        $("#sort").change(function() {
+	            var selectedValue = $(this).val();
+
+	            // 주소 목록을 받아온다고 가정
+	            var addvoList = [
+	                { aName: "Name1", addr1: "Addr1_1", addr2: "Addr2_1", addr3: "Addr3_1", aPhone: "Phone1", aMail: "Mail1" },
+	                { aName: "Name2", addr1: "Addr1_2", addr2: "Addr2_2", addr3: "Addr3_2", aPhone: "Phone2", aMail: "Mail2" }
+	                // ... 추가 주소 객체들 ...
+	            ];
+
+	            // 여기에 선택된 값에 따라서 input 요소들의 값을 채우는 로직을 추가합니다.
+	            if (selectedValue === "main") {
+	                // 기본 배송지에 대한 처리
+	                var defaultAddress = addvoList[0]; // 첫 번째 주소 객체를 기본 배송지로 가정
+	                fillAddressInputs(defaultAddress);
+	            } else if (selectedValue === "sub1") {
+	                // 추가 배송지1에 대한 처리
+	                var additionalAddress = addvoList[1]; // 두 번째 주소 객체를 추가 배송지로 가정
+	                fillAddressInputs(additionalAddress);
+	            }
+	        });
+	    });
+
+	    function fillAddressInputs(address) {
+	        $("#oName").val(address.aName);
+	        $("#oAdd1").val(address.addr1);
+	        $("#oAdd2").val(address.addr2);
+	        $("#oAdd3").val(address.addr3);
+	        $("#oPhone").val(address.aPhone);
+	        $("#oMail").val(address.aMail);
+	    } */
 	</script>
 	
     <!-- Breadcrumb Section Begin -->
@@ -134,9 +188,11 @@
                     	<div class="col-lg-7">
 	                    	<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
 		                    	<p>배송지 목록</p>
-		                    	<select name="sort" id="sort">
-					    			<option value="add_main" id="add_main">기본 배송지</option>
-					    			<option value="add_sub1" id="add_sub1">추가 배송지1</option>
+		                    	<select id="sort" name="sort">
+					    			<option value="main" id="main" 
+					    			<c:if test="${param.sort eq 'main'}">selected</c:if>>기본 배송지</option>
+					    			<option value="sub1" id="sub1"
+					    			<c:if test="${param.sort eq 'sub1'}">selected</c:if>>추가 배송지1</option>
 					    		</select>								
 					    		<button type="button" class="btn btn-outline-primary" style=margin-left:20px; onclick="addressPopup()">배송지 관리</button>
 	                    	</div>

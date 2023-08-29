@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javachip.vo.AddressVO;
+import com.javachip.vo.SearchVO;
 
 @Repository
 public class AddressDAO {
@@ -15,8 +16,8 @@ public class AddressDAO {
 	
 	private static final String namespace = "com.javachip.mapper.addressMapper";
 	
-    public AddressVO addressSelect(int uNo) {
-        return sqlSession.selectOne(namespace+".addressSelect", uNo);
+    public List<AddressVO> addressSelect(SearchVO searchVO) {
+        return sqlSession.selectList(namespace+".addressSelect", searchVO);
     }
 	
 	public int addressSaved(AddressVO vo) {

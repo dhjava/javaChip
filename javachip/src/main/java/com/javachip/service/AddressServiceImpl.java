@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javachip.dao.AddressDAO;
 import com.javachip.vo.AddressVO;
+import com.javachip.vo.SearchVO;
 
 @Repository
 public class AddressServiceImpl implements AddressService{
@@ -14,9 +15,9 @@ public class AddressServiceImpl implements AddressService{
 	private AddressDAO addressDAO;
 	
 	@Override
-	public AddressVO addressSelect(int uNo) {
+	public List<AddressVO> addressSelect(SearchVO searchVO) {
 		
-		return addressDAO.addressSelect(uNo);
+		return addressDAO.addressSelect(searchVO);
 	}
 	
 	@Override

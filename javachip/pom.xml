@@ -108,14 +108,14 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		
+
 		<!--파일업로드(추가)-->
 		<dependency>
 		<groupId>org.imgscalr</groupId>
 		<artifactId>imgscalr-lib</artifactId>
 		<version>4.2</version>
 		</dependency>
-		
+
 		<dependency>
 		<groupId>commons-fileupload</groupId>
 		<artifactId>commons-fileupload</artifactId>
@@ -209,6 +209,13 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
+		<!-- 메일 api -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.2</version>
+		</dependency>
+		
 		<!--  jbcrypt 암호화 -->
 		<dependency>
 		    <groupId>org.mindrot</groupId>
@@ -252,6 +259,11 @@
                     <mainClass>org.test.int1.Main</mainClass>
                 </configuration>
             </plugin>
+            <plugin>
+			  <groupId>org.apache.maven.plugins</groupId>
+			  <artifactId>maven-war-plugin</artifactId>
+			  <version>3.3.2</version>
+			</plugin>
         </plugins>
     </build>
 </project>

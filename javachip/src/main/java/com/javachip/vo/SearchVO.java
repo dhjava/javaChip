@@ -4,6 +4,7 @@ public class SearchVO extends PageVO{
 	private String searchType;
 	private String searchValue;
 	private String sort;
+	private int uNo;
 	
 	@Override
 	public String toString() {
@@ -28,4 +29,16 @@ public class SearchVO extends PageVO{
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
+
+	public int getuNo() {
+		return uNo;
+	}
+
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
+	}
+	
+	
 }
+
+
