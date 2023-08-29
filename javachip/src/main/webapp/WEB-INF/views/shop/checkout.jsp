@@ -145,28 +145,31 @@
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>성명<span>*</span></p>
-	                                        <input type="text" name="oName" id="oName" value="" required>
+	                                        <input type="text" name="oName" id="oName" value="${addvo.aName }">
 	                                    </div>
 	                                </div>
 	                            </div>
 	                            <div class="checkout__input">
 	                                <p>주소<span>*</span></p>
-	                                <input type="text" id="oAdd1" name="oAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" required>
+	                                <input type="text" id="oAdd1" name="oAdd1" 
+	                                value="${addvo.addr1 }" placeholder="우편번호" class="checkout__input__add" style="width:150px;">
 	                                <button type="button" class="btn btn-outline-primary" onclick="sample7_execDaumPostcode()">우편번호</button>
-	                                <input type="text" id="oAdd2" name="oAdd2" placeholder="주소" class="checkout__input__add" required>
-	                                <input type="text" id="oAdd3" name="oAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
+	                                <input type="text" id="oAdd2" name="oAdd2"
+	                                value="${addvo.addr2 }" placeholder="주소" class="checkout__input__add">
+	                                <input type="text" id="oAdd3" name="oAdd3"
+	                                value="${addvo.addr3 }" placeholder="나머지 주소" class="checkout__input__add">
 	                            </div>
 	                            <div class="row">
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>전화번호<span>*</span></p>
-	                                        <input type="text" name="oPhone" id="oPhone" required>
+	                                        <input type="text" name="oPhone" id="oPhone" value="${addvo.aPhone }">
 	                                    </div>
 	                                </div>
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>이메일<span>*</span></p>
-	                                        <input type="text" name="oMail" id="oMail" required>
+	                                        <input type="text" name="oMail" id="oMail" value="${addvo.aMail }">
 	                                    </div>
 	                                </div>
 	                            </div>
