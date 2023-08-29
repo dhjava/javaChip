@@ -44,4 +44,11 @@
 			,aMail = #{aMail}
 			,aComment = #{aComment}
 	</insert>
+	
+	<!-- 배송시 전달사항 -->
+	<update id="updateComment">
+	update addr
+	set aComment = #{aComment}
+	where uNo =#{uNo}
+	</update>
 </mapper>

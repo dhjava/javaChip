@@ -24,4 +24,10 @@ public class AddressServiceImpl implements AddressService{
 		
 		return addressDAO.addressSaved(vo);
 	}
+
+	@Override
+	public int updateComment(AddressVO addressVO) {
+		// TODO Auto-generated method stub
+		return addressDAO.updateComment(addressVO);
+	}
 }

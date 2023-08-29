@@ -22,4 +22,10 @@ public class AddressDAO {
 	public int addressSaved(AddressVO vo) {
 		return sqlSession.insert(namespace+".addressSaved", vo);
 	}
+	
+	//배송시 전달사항
+	public int updateComment(AddressVO addressVO)
+	{
+		return sqlSession.update(namespace+".updateComment", addressVO);
+	}
 }
