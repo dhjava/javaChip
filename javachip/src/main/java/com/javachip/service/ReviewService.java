@@ -11,7 +11,7 @@ import com.javachip.vo.SearchVO;
 public interface ReviewService {
 	List<ReviewVO> selectAllReview();
 	List<ReviewVO> selectReview(SearchVO searchVO);
-	int countUserReview(int uNo);
+	int countReview(SearchVO searchVO);
 	int insertReview(ReviewVO reviewVO);
 	int updateReview(ReviewVO reviewVO);
 	int deleteReview(ReviewVO reviewVO);

@@ -282,6 +282,7 @@ public class MypageController {
 	@RequestMapping(value="/myqna.do")
 	public String myqna(
 			HttpServletRequest req
+		,	SearchVO searchVO
 		,	Model model
 		) {
 		HttpSession session = req.getSession();
@@ -290,13 +291,24 @@ public class MypageController {
 			return "redirect:/member/login.do";
 		}
 		int uNo = loginVO.getuNo();
+		searchVO.setSearchType("uNo");
+		searchVO.setSearchValue(String.valueOf(uNo));
+		
+		List<QnaVO> qnaList = hs.selectQnaList(searchVO);
+		int cnt = hs.totalQna(searchVO);
+		pm.setSearchVO(searchVO);
+		pm.setTotalCount(cnt);
+		
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("pm", pm);
 		return "mypage/myqna";
 	}
 	
 	@RequestMapping(value="/myreview.do")
 	public String myreview(
 			HttpServletRequest req
-			,	Model model
+		,	SearchVO searchVO
+		,	Model model
 		) {
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
@@ -304,6 +316,17 @@ public class MypageController {
 			return "redirect:/member/login.do";
 		}
 		int uNo = loginVO.getuNo();
+		searchVO.setSearchType("uNo");
+		searchVO.setSearchValue(String.valueOf(uNo));
+		searchVO.calcStart();
+		
+		List<ReviewVO> reviewList = rs.selectReview(searchVO);
+		int cnt = rs.countReview(searchVO);
+		pm.setSearchVO(searchVO);
+		pm.setTotalCount(cnt);
+		
+		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("pm", pm);
 		return "mypage/myreview";
 	}
 	

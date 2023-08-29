@@ -4,11 +4,20 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.javachip.mapper.reviewMapper">
+	<sql id="search">
+		<if test='searchType != null and searchType.equals("uNo")'>
+		   AND uNo = #{searchValue}
+		</if>
+		<if test='searchType != null and searchType.equals("pNo")'>
+		   AND pNo = #{searchValue}
+		</if>
+	</sql>
 	<!-- 전체 리뷰 조회 -->
 	<select id="selectAllReview" resultType="ReviewVO">
 		SELECT *
 		     , (SELECT uName FROM user WHERE review.uNo = user.uNo) as uName
 		  FROM review
+		 ORDER BY rNo DESC
 	</select>
 	
 	<!-- 리뷰 조회 -->
@@ -16,22 +25,18 @@
 		SELECT *
 		     , (SELECT uName FROM user WHERE review.uNo = user.uNo) as uName
 		  FROM review
-		 WHERE 1=1
-		<if test='searchType != null and searchType.equals("uNo")'>
-		   AND uNo = #{searchValue}
-		</if>
-		<if test='searchType != null and searchType.equals("pNo")'>
-		   AND pNo = #{searchValue}
-		</if>
+		 WHERE rDelyn = 'N'
+		<include refid="search"/>
+		 ORDER BY rNo DESC
 		 LIMIT #{startNum}, #{perPageNum}
 	</select>
 	
 	<!-- 유저가 작성한 리뷰 개수 -->
-	<select id="countUserReview" parameterType="int" resultType="int">
+	<select id="countReview" parameterType="SearchVO" resultType="int">
 		SELECT COUNT(*)
 		  FROM review
-		 WHERE uNo = #{uNo}
-		   AND rDelyn = 'N'
+		 WHERE rDelyn = 'N'
+		<include refid="search"/>
 	</select>
 	
 	<!-- 리뷰 작성 -->

@@ -23,8 +23,8 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDAO.selectReview(searchVO);
 	}
 	@Override
-	public int countUserReview(int uNo) {
-		return reviewDAO.countUserReview(uNo);
+	public int countReview(SearchVO searchVO) {
+		return reviewDAO.countReview(searchVO);
 	}
 	@Override
 	public int insertReview(ReviewVO reviewVO) {
