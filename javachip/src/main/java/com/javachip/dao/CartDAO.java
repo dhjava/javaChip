@@ -19,6 +19,9 @@ public class CartDAO {
 	public List<CartVO> selectCartByUno(int uNo) {
 		return sqlSession.selectList(namespace+".selectCartByUno", uNo);
 	}
+	public int countUserCart(int uNo) {
+		return sqlSession.selectOne(namespace+".countUserCart", uNo);
+	}
 	public int totalPrice(int uNo) {
 		return sqlSession.selectOne(namespace+".totalPrice", uNo);
 	}

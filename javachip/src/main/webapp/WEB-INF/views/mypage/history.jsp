@@ -52,7 +52,7 @@
                                     <th class="shoping__product">구매정보</th>
                                     <th>결제금액</th>
                                     <th>상세조회</th>
-                                    <!-- <th>배송정보</th> -->
+                                    <th>배송정보</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,11 +65,20 @@
 	                                        ${list.oTotalPrice}
 	                                    </td>
 	                                    <td class="shoping__cart__quantity" style="width:8%;">
-	                                    	<input type="button" value="조회" onclick="location.href='hdetail.do?oNo=${list.oNo}'">
+	                                    	<input type="button" class="btn" value="상세조회" onclick="location.href='hdetail.do?oNo=${list.oNo}'">
 	                                    </td>
-	                                    <!-- <td class="shoping__cart__quantity" style="width:8%;">
-	                                    	<input type="button" value="조회" onclick="location.href='shop-details.jsp'">
-	                                    </td> -->
+	                                    <td class="shoping__cart__quantity" style="width:8%;">
+		                                    <c:choose>
+			                                    <c:when test="${empty list.oTrackNo or list.oTrackNo eq ''}">
+			                                    	<input type="button" class="btn" value="배송조회"
+			                                    		onclick="alert('배송 준비 중입니다.')">
+			                                    </c:when>
+			                                    <c:otherwise>
+			                                    	<input type="button" class="btn" value="배송조회"
+			                                    		onclick="window.open('https://trace.cjlogistics.com/web/detail.jsp?slipno=${list.oTrackNo}')">
+			                                    </c:otherwise>
+		                                    </c:choose>
+	                                    </td>
 	                                </tr>
                             	</c:forEach>
                             </tbody>

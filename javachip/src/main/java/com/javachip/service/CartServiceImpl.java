@@ -46,4 +46,8 @@ public class CartServiceImpl implements CartService {
 	public CartVO selectCartForOrder(int cNo) {
 		return cartDAO.selectCartForOrder(cNo);
 	}
+	@Override
+	public int countUserCart(int uNo) {
+		return cartDAO.countUserCart(uNo);
+	}
 }
