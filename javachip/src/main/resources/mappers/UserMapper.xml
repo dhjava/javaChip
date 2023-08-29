@@ -133,12 +133,10 @@
 		   AND uName = #{uName}
 	</select>
 	
-	<select id="pwFindCheck" resultType="int">
-		SELECT count(*)
+	<select id="idCheck" resultType="userVO">
+		SELECT *
 		  FROM user
-		 WHERE uMail = #{uMail}
-		   AND uId = #{uId}
-		   AND uName = #{uName}
+		 WHERE uId = #{uId}
 	</select>
 	
 <!-- =============================== mypage 관련 쿼리 ==================================== -->

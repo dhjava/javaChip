@@ -2,6 +2,8 @@ package com.javachip.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Service;
 
 import com.javachip.vo.AdminSearchVO;
@@ -15,7 +17,8 @@ public interface UserService {
 	int insert(UserVO vo);
 	int insertBiz(UserVO vo);
 	UserVO idFind(UserVO vo);
-	UserVO pwFind(UserVO vo);
+	public void sendEmail(UserVO vo, String div) throws Exception;	//이메일발송
+	public void pwFind(HttpServletResponse res, UserVO vo) throws Exception;	//비밀번호찾기
 	
 	// mypage 관련
 	UserVO infoCheck(int uNo);

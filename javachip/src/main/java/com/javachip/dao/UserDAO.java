@@ -41,6 +41,10 @@ public class UserDAO {
 		return sqlSession.selectOne(namespace+".pwFind", vo);
 	}
 	
+	public UserVO idCheck(String uId) throws Exception{
+		return sqlSession.selectOne(namespace+".idCheck", uId);
+	}
+	
 	// mypage 관련
 	public UserVO infoCheck(int uNo){
 		return sqlSession.selectOne(namespace+".infoCheck", uNo);

@@ -10,9 +10,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javachip.service.MailSendService;
@@ -198,32 +198,12 @@ public class UserController {
 	
 	// 비밀번호 찾기
 	@RequestMapping(value="/pwFind.do",method=RequestMethod.GET)
-	public String pwFind() {
+	public String pwFind() throws Exception {
 		return "member/pwFind";
 	}
 	
 	@RequestMapping(value="/pwFind.do", method=RequestMethod.POST)
-	public String pwFind(UserVO vo,Model model) throws Exception{
-		
-		UserVO user = us.pwFind(vo);
-		
-		if(user != null) { 
-			model.addAttribute("check", 0);
-			System.out.println("아이디 확인 O");
-		} else { 
-			model.addAttribute("check", 1);
-			System.out.println("비밀번호 확인 X");
-		}
-		
-		return "member/pwFind";
-		}
-	
-	@ResponseBody
-	@RequestMapping(value="/emailAuth.do")
-	public String emailAuth( @RequestParam(value= "uId_email",  required=false) String uId_email) {
-		
-		System.out.println("임시 비밀번호 전송");
-		System.out.println("emailAuth="+uId_email);
-		return mailService.joinmail(uId_email);
+	public void pwFind(@ModelAttribute UserVO vo, HttpServletResponse res) throws Exception {
+		us.pwFind(res, vo);
 	}
 }
