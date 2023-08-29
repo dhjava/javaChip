@@ -160,38 +160,37 @@
 			<div class="blog__sidebar__item">
 				<h4>쇼핑정보</h4>
 				<ul>
-				<li>주문목록/배송조회</li>
-				<li>취소/반품/교환 내역</li>
-				<li>찜 리스트</li>
+					<li><a href="history.do">주문목록/배송조회</a></li>
+					<li>취소/반품/교환 내역</li>
+					<li><a href="cart.do">장바구니</a></li>
 				</ul>
 			</div>
 			<div class="blog__sidebar__item">
 				<h4>혜택관리</h4>
 				<ul>
-				<li>포인트</li>
+					<li><a href="mileage.do">적립금</a></li>
 				</ul>
 			</div>	
 			<div class="blog__sidebar__item">		
 				<h4>회원정보</h4>
 				<ul>
-				<li>회원정보 수정</li>
-				<li>회원 탈퇴</li>
-				<li>배송지 관리</li>
+					<li><a href="myinfo.do">회원정보 수정</a></li>
+					<li><a href="goodbye.do">회원 탈퇴</a></li>
+					<li><a href="<%= request.getContextPath() %>/shop/addressList.do">배송지 관리</a></li>
 				</ul>
 			</div>
 			<div class="blog__sidebar__item">	
 				<h4>나의 게시글</h4>
 				<ul>
-				<li>상품문의</li>
-				<li>상품후기</li>
+					<li><a href="myqna.do">문의내역</a></li>
+					<li><a href="myreview.do">상품후기</a></li>
 				</ul>
 			</div>	
-	
 		</div>
 		<div class="main mypage">
 			<div class="profile mypage">
 				<div class="uName mypage">
-					홍길동 님
+					${login.uName} 님
 				</div>
 				<div>
 					<input class="btn mModify mypage" type="button" onclick="location.href='myinfo.do'" value="회원정보 수정">
@@ -203,36 +202,36 @@
 								포인트
 							</th>
 							<td>
-								0 P
+								<a href='mileage.do'>${mileage} P</a>
 							</td>
 						</tr>
 						<tr>
 							<th>
-								찜 리스트
+								장바구니
 							</th>
 							<td>
-								1 건
+								<a href='cart.do'>${cart} 건</a>
 							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<div class="btn inform mypage">
-				<div>
+			<div class="btn inform mypage" style="cursor:default;">
+				<div onClick="location.href='history.do'" style="cursor:pointer;">
 					주문/배송<br>
-					<div class= "iCircle">
+					<div class="iCircle">
 						<i class="material-icons">&#xf1cc;</i>
 					</div>
 				</div>
-				<div>
+				<div onClick="location.href=''" style="cursor:pointer;">
 					정기배송
-					<div class= "iCircle">
+					<div class="iCircle">
 						<i class="material-icons">&#xe558;</i>
 					</div>
 				</div>
-				<div>
+				<div onClick="location.href='myboard.do'" style="cursor:pointer;">
 					나의 게시글
-					<div class= "iCircle">
+					<div class="iCircle">
 						<i class="material-icons">&#xf1c3;</i>
 					</div>
 				</div>

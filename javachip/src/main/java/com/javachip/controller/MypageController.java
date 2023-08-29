@@ -208,7 +208,21 @@ public class MypageController {
 	
 	
 	@RequestMapping(value="/main.do")
-	public String main() {
+	public String main(
+			HttpServletRequest req,
+			Model model
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		int mileage = ms.selectTotalMileage(uNo);
+		int cart = cs.countUserCart(uNo);
+		
+		model.addAttribute("mileage", mileage);
+		model.addAttribute("cart", cart);
 		return "mypage/main";
 	}
 	
