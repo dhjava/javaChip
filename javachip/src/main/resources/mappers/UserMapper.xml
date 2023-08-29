@@ -214,7 +214,7 @@
 	<select id="selectBizUserOneByuNoByAdmin" resultType="userVO" parameterType="int">
 		SELECT * FROM user
 		where uStatus = 'B'
-		and uNo = #{uNo}0
+		and uNo = #{uNo}
 	</select>
 	
 	<!-- 관리자 블랙리스트 세부 목록 -->
@@ -246,16 +246,30 @@
 	</select>
 	
 	<!-- 일반회원경고횟수추가 -->
-	<update id="stopUser" parameterType="int">
+	<update id="AlertUser" parameterType="int">
 		update user
 		set uAlertNum = uAlertNum + 1
 		where uNo = #{uNo}
 	</update>
 	
-	<!-- 정지해제 -->
-	<update id="CancleStopUser" parameterType="UserVO">
+	<!-- 정지 해제 -->
+	<update id="NonStopUser" parameterType="UserVO">
 		update user
-		set uAlertNum = uAlertNum - 1
+		set uStatus = 'N'
 		where uNo = #{uNo}
+	</update>
+	
+	<!-- 유저 정지 -->
+	<update id="stopUser" parameterType="int">
+	update user
+	set uStatus = 'Y'
+	where uNo = #{uNo}
+	</update>
+	
+	<!-- 사업자용 대기 해제 -->
+	<update id="cancleWait" parameterType="int">
+	update user
+	set uStatus = 'B'
+	where uNo = #{uNo}
 	</update>
 </mapper>

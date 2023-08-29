@@ -15,8 +15,8 @@ public class AddressDAO {
 	
 	private static final String namespace = "com.javachip.mapper.addressMapper";
 	
-    public AddressVO addressSelect(int uId) {
-        return sqlSession.selectOne(namespace+".addressSelect", uId);
+    public AddressVO addressSelect(int uNo) {
+        return sqlSession.selectOne(namespace+".addressSelect", uNo);
     }
 	
 	public int addressSaved(AddressVO vo) {
