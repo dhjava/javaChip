@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -283,6 +284,8 @@ public class ShopController {
 			HttpServletRequest req
 		,	Model model
 		,	String[] selCartList
+		,	SearchVO searchVO
+		
 			) {
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
@@ -295,8 +298,17 @@ public class ShopController {
 		System.out.println(selCartList);
 		
 		// 주소 목록 출력
-		AddressVO addvo = as.addressSelect(uNo);
-		System.out.println("Addr1:"+addvo.getAddr1());
+		searchVO.setuNo(uNo);
+		List<AddressVO> addvo = as.addressSelect(searchVO);
+		System.out.println(addvo);
+		
+		//1.리스트 중에서 하나 꺼내 출력
+		for(int i = 0; i < addvo.size(); i++) {
+			
+		}
+		//2. sql 나눠서 onclick으로 두개 나눠 ajax
+		
+		
 		
 		// 마일리지 조회
 		int totalMileage = 0;
@@ -413,5 +425,12 @@ public class ShopController {
 		return "shop/addressPopup";
 	}
 	
+	//체크박스 시 주문자 정보와 동일한 기능
+	@ResponseBody
+	@RequestMapping(value="/")
+	public String same() {
+		return "shop/addressPopup";
+	}
 	
+
 }

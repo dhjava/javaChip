@@ -29,6 +29,28 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     
 <title>JavaChip|배송지 관리</title>
+
+<script>
+	var isChecked = false;
+	
+	function same(){
+		var checkbox = document.getElementById("sameInfo");
+		
+		if(!isChecked){
+			$.ajax({
+				url : "same.do",
+				type : "post",
+				date : 
+			});
+			
+			isChecked = true;
+		}else{
+			
+			isChecked = false;
+		}
+	}
+
+</script>
 </head>
 <body>
 <section class="checkout spad" style="padding-top: 20px;">
@@ -65,18 +87,23 @@
         </div>
         <div class="checkout__form">
         	<form name="addressSaved" id="addressSaved" method="post" action="addressSaved.do">
+        	<input type="hidden" value="${addvo.addno }" />
+        	<input type="hidden" value="${addvo.uno }" />
 				<h4>배송지 관리</h4>
 				<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
 			    	<p>배송지 목록</p>
-		    		<select name="sort" id="sort">
-		    			<option value="${addList.aNo}" id="add_main">기본 배송지</option>
-		    			<option value="${addList.aNo}" id="add_sub1">추가 배송지1</option>
-		    			<option value="${addList.aNo}" id="add_sub2">추가 배송지2</option>
-		    		</select>
+		    		<select name="sort" id="sort" name="add_sort">
+		    			<option value="add_main" id="add_main" 
+		    			<c:if test="${param.add_sort eq 'add_main'}">selected</c:if>>기본 배송지</option>
+		    			<option value="add_sub1" id="add_sub1"
+		    			<c:if test="${param.add_sort eq 'add_sub1'}">selected</c:if>>추가 배송지1</option>
+					</select>
 					<button type="submit" class="btn btn-outline-primary" id="addSaving" style=margin-left:20px;>저장/수정</button>
 				</div>
 		    	<div class="col-lg-10 col-md-6">
-		    		<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;<input type="checkbox" id="sameInfo" class="sameInfoCheck"/></p>
+		    		<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;
+		    		<input type="checkbox" id="sameInfo" class="sameInfoCheck" onclick="same()" />
+		    		</p>
 		            <div class="row">
 		                <div class="col-lg-6">
 		                    <div class="checkout__input">
