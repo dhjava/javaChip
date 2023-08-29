@@ -294,6 +294,10 @@ public class ShopController {
 		System.out.println("uNo::"+uNo);
 		System.out.println(selCartList);
 		
+		// 주소 목록 출력
+		AddressVO addvo = as.addressSelect(uNo);
+		System.out.println("Addr1:"+addvo.getAddr1());
+		
 		// 마일리지 조회
 		int totalMileage = 0;
 		if(ms.selectTotalMileage(uNo) != 0) {
@@ -316,6 +320,7 @@ public class ShopController {
 		// 모델로 전달
 		model.addAttribute("totalMileage", totalMileage);
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("addvo", addvo);
 		
 		return "shop/checkout";
 	}
@@ -337,6 +342,7 @@ public class ShopController {
 		
 		System.out.println("total::"+total);
 		int totalPrice = Integer.parseInt(total);
+		
 		
 		Order_VO ov = new Order_VO();
 		ov.setuNo(uNo);
@@ -399,12 +405,9 @@ public class ShopController {
 	
 	// 배송지 팝업
 	@RequestMapping(value="/addressPopup.do")
-    public String addressSelect(@PathVariable int uId, Model model) {
-        AddressVO addVO = as.addressSelect(uId);
-        model.addAttribute("addVO", addVO);
-        
-        return "shop/addressPopup";
-    }
+    public String addressSelect() {
+		return "shop/addressPopup";
+	}
 	
 	
 }
