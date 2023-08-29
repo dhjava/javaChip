@@ -23,8 +23,8 @@ public class ReviewDAO {
 	public List<ReviewVO> selectReview(SearchVO searchVO) {
 		return sqlSession.selectList(namespace+".selectReview", searchVO);
 	}
-	public int countUserReview(int uNo) {
-		return sqlSession.selectOne(namespace+".countUserReview", uNo);
+	public int countReview(SearchVO searchVO) {
+		return sqlSession.selectOne(namespace+".countReview", searchVO);
 	}
 	public int insertReview(ReviewVO reviewVO) {
 		return sqlSession.insert(namespace+".insertReview", reviewVO);

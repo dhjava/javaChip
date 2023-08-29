@@ -39,7 +39,7 @@
 		        </c:forEach>
 		    </table>
 		    <div style="text-align:center;">
-		        <button>작성한 QnA 더보기</button>
+		        <button onClick="location.href='myqna.do'">작성한 QnA 더보기</button>
 		    </div><br>
 	    </div>
 	</section>
@@ -64,7 +64,7 @@
 		        </c:forEach>
 		    </table>
 		    <div style="text-align:center;">
-		        <button>작성한 후기 더보기</button>
+		        <button onClick="location.href='myreview.do'">작성한 후기 더보기</button>
 		    </div><br>
 	    </div>
 	</section>

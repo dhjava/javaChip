@@ -176,7 +176,7 @@
 		SET delYN = 'Y'
 		WHERE qNo = #{qNo}
 	</update>
-	<select id="totalQna" resultType="int">
+	<select id="totalQna" resultType="int" parameterType="SearchVO">
 		SELECT COUNT(*) AS cnt FROM Qna
 		WHERE delYN='N'
 		<include refid="qSearch" />
