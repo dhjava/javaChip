@@ -331,6 +331,7 @@ public class ShopController {
 		,	String total
 		,	String[] cNo
 		,	Model model
+		,	AddressVO addressVO
 			) {
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
@@ -400,6 +401,9 @@ public class ShopController {
 			System.out.println("주문 에러");
 			return "shop/checkout";
 		}
+		
+		//배송시 전달사항 업데이트
+		int comment = as.updateComment(addressVO);
 		return "redirect:/";
 	}
 	
