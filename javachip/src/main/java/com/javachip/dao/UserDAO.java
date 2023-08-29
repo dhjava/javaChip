@@ -107,13 +107,24 @@ public class UserDAO {
 		return sqlSession.selectOne(namespace+".selectBlacklistOneByuNoByAdmin", uNo);
 	}
 	
+	//경고 1회추가
+	public int AlertUser(int uNo)
+	{
+		return sqlSession.update(namespace+".AlertUser", uNo);
+	}
+	//유저 정지
 	public int stopUser(int uNo)
 	{
 		return sqlSession.update(namespace+".stopUser", uNo);
 	}
-	
-	public int CancleStopUser(UserVO vo)
+	// 유저 정지 해제
+	public int NonStopUser(int uNo)
 	{
-		return sqlSession.update(namespace+".CancleStopUser", vo);
+		return sqlSession.update(namespace+".NonStopUser", uNo);
+	}
+	//사업자 대기 해제
+	public int cancleWait(int uNo)
+	{
+		return sqlSession.update(namespace+".cancleWait", uNo);
 	}
 }

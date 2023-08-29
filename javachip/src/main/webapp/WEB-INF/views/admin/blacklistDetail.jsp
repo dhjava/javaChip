@@ -4,7 +4,6 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script src="<%= request.getContextPath()%>/js/jquery-3.6.3.min.js"></script>
 <script>
 	function AlertUser()
 	{
@@ -31,6 +30,57 @@
 			}
 		});
 	}
+	
+	function StopUser(){
+		$.ajax
+		({
+			url : "StopUser.do",
+			type : "POST",
+			data: "uNo="+$("#uNo").text(),
+			success : function(data)
+			{
+				
+				if(data > 0)
+				{
+					alert("해당 유저가 정지되었습니다.");
+				}
+				else
+				{
+					alert("업데이트 실패")
+				}
+			},
+			error : function(data)
+			{
+				alert("그냥 실패!");
+			}
+		});
+	}
+	
+	function NonStopUser(){
+		$.ajax
+		({
+			url : "NonStopUser.do",
+			type : "POST",
+			data: "uNo="+$("#uNo").text(),
+			success : function(data)
+			{
+				
+				if(data > 0)
+				{
+					alert("해당 유저가 정지 해제 되었습니다.");
+				}
+				else
+				{
+					alert("업데이트 실패")
+				}
+			},
+			error : function(data)
+			{
+				alert("그냥 실패!");
+			}
+		});
+	}
+
 
 </script>
 </head>
@@ -89,7 +139,9 @@
 		<br>
 				<h4><b>블랙리스트 정보</b></h4>
 				<br>
-				<button onclick="AlertUser()">경고</button>&nbsp;
+				<button class="btn btn-dark" onclick="AlertUser()">경고</button>&nbsp;
+				<button class="btn btn-dark" onclick="StopUser()">정지</button>&nbsp;
+				<button class="btn btn-dark" onclick="NonStopUser()">정지해제</button>&nbsp;
 				<br>
 				<br>
 	<table border="1" style="width:99%;">
@@ -122,24 +174,13 @@
 			</td>
 		</tr>
 		<tr>
-			<th rowspan="3">
+			<th>
 				주소
 			</th>
-			<th>
-				우편 번호
-			</th>
-			<td colspan="2">
-				000-000
-			</td>
-		</tr>
-		<tr>
 			<td colspan="3">
-				${vo.uAdd }
-			</td>
-		</tr>
-		<tr>
-			<td colspan="3">
-				000동000호
+				${vo.uAdd1 }
+				${vo.uAdd2 }
+				${vo.uAdd3 }
 			</td>
 		</tr>
 		<tr>	
