@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
-<% int uNo = (int) request.getAttribute("uNo"); %>
+<% int uNo = (int)request.getAttribute("uNo"); %>
 	<script>
 		function doCheckoutFn() {
 			var orderCart = [];

@@ -18,10 +18,17 @@ public class Order_DetailServiceImpl implements Order_DetailService {
 	public List<Order_DetailVO> selectOrderDetail(int oNo) {
 		return order_detailDAO.selectOrderDetail(oNo);
 	}
-
 	@Override
 	public int insertOrderDetail(Order_DetailVO order_detailVO) {
 		return order_detailDAO.insertOrderDetail(order_detailVO);
+	}
+	@Override
+	public List<Order_DetailVO> selectUserRegularProduct(int uNo) {
+		return order_detailDAO.selectUserRegularProduct(uNo);
+	}
+	@Override
+	public List<Order_DetailVO> selectAllUserRegularProduct() {
+		return order_detailDAO.selectAllUserRegularProduct();
 	}
 
 }

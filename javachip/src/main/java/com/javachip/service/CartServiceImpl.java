@@ -50,4 +50,8 @@ public class CartServiceImpl implements CartService {
 	public int countUserCart(int uNo) {
 		return cartDAO.countUserCart(uNo);
 	}
+	@Override
+	public int deleteRegCart(int uNo) {
+		return cartDAO.deleteRegCart(uNo);
+	}
 }

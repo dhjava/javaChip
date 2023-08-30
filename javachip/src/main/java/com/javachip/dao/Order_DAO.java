@@ -35,6 +35,9 @@ public class Order_DAO {
 	public int updateOrderStatus(Order_VO order_VO) {
 		return sqlSession.update(namespace+".updateOrderStatus", order_VO);
 	}
+	public Order_VO selectUserRegularOrder(int oNo) {
+		return sqlSession.selectOne(namespace+".selectUserRegularOrder", oNo);
+	}
 	
 	//관리자용 메소드
 	//검색, 페이징 포함한 주문내역 전체 리스트
