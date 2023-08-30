@@ -43,4 +43,7 @@ public class CartDAO {
 	public CartVO selectCartForOrder(int cNo) {
 		return sqlSession.selectOne(namespace+".selectCartForOrder", cNo);
 	}
+	public int deleteRegCart(int uNo) {
+		return sqlSession.delete(namespace+".deleteRegCart", uNo);
+	}
 }

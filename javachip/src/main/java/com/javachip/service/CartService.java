@@ -17,4 +17,5 @@ public interface CartService {
 	int updateCart(CartVO cartVO);
 	int checkDupCart(CartVO cartVO);
 	CartVO selectCartForOrder(int cNo);
+	int deleteRegCart(int uNo);
 }

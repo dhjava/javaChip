@@ -4,12 +4,18 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.javachip.mapper.order_Mapper">
-
 	<!-- 사용자의 주문 조회 -->
 	<select id="selectUserOrder" parameterType="int" resultType="Order_VO">
 		SELECT *
 		  FROM order_
 		 WHERE uNo = #{uNo}
+	</select>
+	
+	<!-- 정기배송 주문 조회 -->
+	<select id="selectUserRegularOrder" parameterType="int" resultType="Order_VO">
+		SELECT *
+		  FROM order_
+		 WHERE oNo = #{oNo}
 	</select>
 	
 	<!-- 사용자 주문 총합 -->
@@ -42,6 +48,7 @@
 			  FROM order_
 		</selectKey>
 	</insert>
+	
 	
 	<!-- 수령인 정보 수정 -->
 	<update id="updateOrderReceiver" parameterType="Order_VO">

@@ -166,17 +166,17 @@
                             </div>
                         </div>
                     	<input type="hidden" name="pNo" id="pNo" value="${pv.pNo}">
-                        <a href="javascript:addCartFn()" class="primary-btn">장바구니에 추가</a>
-                        <a href="javascript:buyNowFn()" class="primary-btn" style="background-color:#DD5555">바로 구매</a>
+                    	<c:choose>
+                    		<c:when test="${pv.pType eq 'G'}">
+		                        <a href="javascript:buyNowFn()" class="primary-btn">구독 신청</a>
+                    		</c:when>
+                    		<c:otherwise>
+		                        <a href="javascript:addCartFn()" class="primary-btn">장바구니에 추가</a>
+		                        <a href="javascript:buyNowFn()" class="primary-btn" style="background-color:#DD5555">바로 구매</a>
+                    		</c:otherwise>
+                    	</c:choose>
                         <ul>
                             <li><b>판매상태</b> <span>재고 있음</span></li>
-                            <li><span style="float:left;"><b>옵션</b></span>
-                            	<select>
-                            		<option>커피 원두 에티오피아산 100g</option>
-                            		<option>200g</option>
-                            		<option>500g</option>
-                            	</select><br><br><br>
-                            </li>
                             <li><b>배송정보</b> <span>평균 1일 소요 <samp>배송비 무료</samp></span></li>
                             <li><b>공유하기</b>
                                 <div class="share">
