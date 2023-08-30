@@ -405,16 +405,27 @@ public class ShopController {
 	}
 	
 	// 배송지 팝업
-	@RequestMapping(value="/addressPopup.do")
-    public String addressSelect() {
+	@RequestMapping(value="/addressPopup.do", method=RequestMethod.GET)
+    public String addressPopup(Model model, AddressVO addressVO, HttpServletRequest req)
+	{
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		
+		int uNo = loginVO.getuNo();
+	    AddressVO addvo = as.addressSelect(uNo);
+	    model.addAttribute("addvo", addvo);
+		
 		return "shop/addressPopup";
 	}
 	
 	//체크박스 시 주문자 정보와 동일한 기능
 	@ResponseBody
-	@RequestMapping(value="/")
+	@RequestMapping(value="/same.do")
 	public String same() {
-		return "shop/addressPopup";
+		return "shop/same";
 	}
 	
 	//기본페이지 불러오기

@@ -86,13 +86,13 @@
 	              // 결제 내용 DB로 보내기 (order_테이블, 기존 장바구니는 cStatus 'O'로 변경)
 	              alert("결제 성공");
 	              $("#usePoint").attr("disabled","disabled");
-	              $("#total").attr("value",$("#getTotal").text());
+	              $("#total").attr("value",moneyToNum($("#getTotal").text()));
 	              $("#checkoutFrm").submit();
 	          } else {
 	              // 결제 실패 시 로직
 	              alert("결제 실패. 잠시 후 다시 시도해주세요");
 	              $("#usePoint").attr("disabled","disabled");
-	              $("#total").attr("value",$("#getTotal").text());
+	              $("#total").attr("value",moneyToNum($("#getTotal").text()));
 	              $("#checkoutFrm").submit();
 	          }
 	      });
@@ -132,38 +132,7 @@
 	            }
 	        });
 	    }
-	    /* $(document).ready(function() {
-	        $("#sort").change(function() {
-	            var selectedValue = $(this).val();
-
-	            // 주소 목록을 받아온다고 가정
-	            var addvoList = [
-	                { aName: "Name1", addr1: "Addr1_1", addr2: "Addr2_1", addr3: "Addr3_1", aPhone: "Phone1", aMail: "Mail1" },
-	                { aName: "Name2", addr1: "Addr1_2", addr2: "Addr2_2", addr3: "Addr3_2", aPhone: "Phone2", aMail: "Mail2" }
-	                // ... 추가 주소 객체들 ...
-	            ];
-
-	            // 여기에 선택된 값에 따라서 input 요소들의 값을 채우는 로직을 추가합니다.
-	            if (selectedValue === "main") {
-	                // 기본 배송지에 대한 처리
-	                var defaultAddress = addvoList[0]; // 첫 번째 주소 객체를 기본 배송지로 가정
-	                fillAddressInputs(defaultAddress);
-	            } else if (selectedValue === "sub1") {
-	                // 추가 배송지1에 대한 처리
-	                var additionalAddress = addvoList[1]; // 두 번째 주소 객체를 추가 배송지로 가정
-	                fillAddressInputs(additionalAddress);
-	            }
-	        });
-	    });
-
-	    function fillAddressInputs(address) {
-	        $("#oName").val(address.aName);
-	        $("#oAdd1").val(address.addr1);
-	        $("#oAdd2").val(address.addr2);
-	        $("#oAdd3").val(address.addr3);
-	        $("#oPhone").val(address.aPhone);
-	        $("#oMail").val(address.aMail);
-	    } */
+	    
 	</script>
 	
     <!-- Breadcrumb Section Begin -->
