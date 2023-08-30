@@ -31,35 +31,27 @@
 				  <tr>
 				    <th class="tg-m9t7">상품 사진</th>
 				    <th class="tg-m9t7">상품명</th>
-				    <th class="tg-m9t7">상품 종류</th>
 				    <th class="tg-m9t7">결제 금액</th>
 				    <th class="tg-m9t7">결제 방법</th>
 				    <th class="tg-m9t7">결제 주기</th>
-				    <th class="tg-m9t7">다음 결제일</th>
+				    <th class="tg-m9t7">신청일</th>
 				    <th class="tg-m9t7">정기 배송<br>변경/취소</th>
 				  </tr>
 				</thead>
 				<tbody>
-				  <tr style = "height : 100px">
-				    <td class="tg-9wq8">(사진)</td>
-				    <td class="tg-9wq8">아라비아 원두</td>
-				    <td class="tg-9wq8">250g</td>
-				    <td class="tg-9wq8">25,000원</td>
-				    <td class="tg-9wq8">신용카드</td>
-				    <td class="tg-9wq8">1개월</td>
-				    <td class="tg-9wq8">2023.07.13</td>
-				    <td class="tg-9wq8">변경 / 취소</td>
-				  </tr>
-				  <tr style = "height : 100px">
-				    <td class="tg-9wq8">(사진)</td>
-				    <td class="tg-9wq8">에티오피아 원두</td>
-				    <td class="tg-9wq8">500g</td>
-				    <td class="tg-9wq8">45,000원</td>
-				    <td class="tg-9wq8">네이버페이</td>
-				    <td class="tg-9wq8">2주</td>
-				    <td class="tg-9wq8">2023.07.18</td>
-				    <td class="tg-9wq8">변경 / 취소</td>
-				  </tr>
+					<c:forEach items="${regularList}" var="regular">
+						<c:if test="${regular.oStatus eq 'O'}">
+						  <tr style = "height : 100px">
+						    <td class="tg-9wq8">(사진)</td>
+						    <td class="tg-9wq8">${regular.pName}</td>
+						    <td class="tg-9wq8">${regular.pPrice}</td>
+						    <td class="tg-9wq8">신용카드</td>
+						    <td class="tg-9wq8">1개월</td>
+						    <td class="tg-9wq8">${regular.oDate.substring(0,10)}</td>
+						    <td class="tg-9wq8">취소</td>
+						  </tr>
+						</c:if>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -69,49 +61,41 @@
 <section class = "subadd">
     <div class = "container">
     	<span> • 과거 정기배송 이력</span>
-    	<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-top:20px">
-		  <div class="btn-group me-2" role="group" aria-label="First group">
-		    <button type="button" class="btn btn-outline-primary">1주일</button>
-		    <button type="button" class="btn btn-outline-primary">1개월</button>
-		    <button type="button" class="btn btn-outline-primary">3개월</button>
-		    <button type="button" class="btn btn-outline-primary">1년</button>
-		  </div>
-		</div>
 		<div class = "shoping__cart__table" style="margin-top:30px;">
 	        <table>
 				<thead>
 				  <tr>
 				    <th class="tg-m9t7">상품 사진</th>
 				    <th class="tg-m9t7">상품명</th>
-				    <th class="tg-m9t7">상품 종류</th>
 				    <th class="tg-m9t7">결제 금액</th>
 				    <th class="tg-m9t7">결제 방법</th>
 				    <th class="tg-m9t7">결제 주기</th>
 				    <th class="tg-m9t7">마지막 결제일</th>
-				    <th class="tg-m9t7">정기 배송<br>재개 신청</th>
+				    <th class="tg-m9t7">배송 이력</th>
 				  </tr>
 				</thead>
 				<tbody>
-				  <tr style = "height : 100px">
-				    <td class="tg-9wq8">(사진)</td>
-				    <td class="tg-9wq8">아라비아 원두</td>
-				    <td class="tg-9wq8">250g</td>
-				    <td class="tg-9wq8">25,000원</td>
-				    <td class="tg-9wq8">신용카드</td>
-				    <td class="tg-9wq8">1개월</td>
-				    <td class="tg-9wq8">2023.06.12</td>
-				    <td class="tg-9wq8">신청</td>
-				  </tr>
-				  <tr style = "height : 100px">
-				    <td class="tg-9wq8">(사진)</td>
-				    <td class="tg-9wq8">에티오피아 원두</td>
-				    <td class="tg-9wq8">500g</td>
-				    <td class="tg-9wq8">45,000원</td>
-				    <td class="tg-9wq8">네이버페이</td>
-				    <td class="tg-9wq8">2주</td>
-				    <td class="tg-9wq8">2023.03.01</td>
-				    <td class="tg-9wq8">신청</td>
-				  </tr>
+					<c:forEach items="${regularList}" var="regular">
+						<c:if test="${regular.oStatus ne 'O'}">
+						  <tr style = "height : 100px">
+						    <td class="tg-9wq8">(사진)</td>
+						    <td class="tg-9wq8">${regular.pName}</td>
+						    <td class="tg-9wq8">${regular.pPrice}</td>
+						    <td class="tg-9wq8">신용카드</td>
+						    <td class="tg-9wq8">1개월</td>
+						    <td class="tg-9wq8">${regular.oDate.substring(0,10)}</td>
+						    <c:if test="${regular.oStatus eq 'R'}">
+							    <td class="tg-9wq8">배송 조회</td>
+						    </c:if>
+						    <c:if test="${regular.oStatus eq 'C'}">
+							    <td class="tg-9wq8">취소</td>
+						    </c:if>
+						    <c:if test="${regular.oStatus eq 'E'}">
+							    <td class="tg-9wq8">배송 완료</td>
+						    </c:if>
+						  </tr>
+						</c:if>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>

@@ -10,10 +10,18 @@ public class Order_DetailVO {
 	private String pName;
 	private String pPrice;
 	
+	private int uNo;
+	private int addNo;
+	private String oPay;
+	private int oTrackNo;
+	private String oDate;
+	private String oStatus;
+	
 	@Override
 	public String toString() {
 		return "Order_DetailVO [dNo=" + dNo + ", oNo=" + oNo + ", pNo=" + pNo + ", dCount=" + dCount + ", pName="
-				+ pName + ", pPrice=" + pPrice + "]";
+				+ pName + ", pPrice=" + pPrice + ", uNo=" + uNo + ", addNo=" + addNo + ", oPay=" + oPay + ", oTrackNo="
+				+ oTrackNo + ", oDate=" + oDate + ", oStatus=" + oStatus + "]";
 	}
 	
 	public int getdNo() {
@@ -51,5 +59,53 @@ public class Order_DetailVO {
 	}
 	public void setpPrice(String pPrice) {
 		this.pPrice = pPrice;
+	}
+
+	public int getAddNo() {
+		return addNo;
+	}
+
+	public void setAddNo(int addNo) {
+		this.addNo = addNo;
+	}
+
+	public int getoTrackNo() {
+		return oTrackNo;
+	}
+
+	public void setoTrackNo(int oTrackNo) {
+		this.oTrackNo = oTrackNo;
+	}
+
+	public String getoDate() {
+		return oDate;
+	}
+
+	public void setoDate(String oDate) {
+		this.oDate = oDate;
+	}
+
+	public int getuNo() {
+		return uNo;
+	}
+
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
+	}
+
+	public String getoPay() {
+		return oPay;
+	}
+
+	public void setoPay(String oPay) {
+		this.oPay = oPay;
+	}
+
+	public String getoStatus() {
+		return oStatus;
+	}
+
+	public void setoStatus(String oStatus) {
+		this.oStatus = oStatus;
 	}
 }

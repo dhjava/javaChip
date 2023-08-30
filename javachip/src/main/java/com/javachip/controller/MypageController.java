@@ -1,5 +1,6 @@
 package com.javachip.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,16 +61,17 @@ public class MypageController {
 		if(loginVO==null) {
 			return "redirect:/member/login.do";
 		}
+		int uNo = loginVO.getuNo();
 		System.out.println("loginVO::"+loginVO);
 		
+		// 정기배송 장바구니 삭제
+		cs.deleteRegCart(uNo);
+		
 		// 장바구니 조회
-		int uNo = loginVO.getuNo();
 		System.out.println("uNo::"+uNo);
 		List<CartVO> cartList = cs.selectCartByUno(uNo);
 		System.out.println(cartList);
 		
-		// 정기배송 장바구니 삭제
-		cs.deleteRegCart(uNo);
 		
 		// 모델로 전달
 		model.addAttribute("cartList", cartList);
@@ -347,19 +349,35 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/regular.do")
-	public String regular() {
+	public String regular(
+			HttpServletRequest req
+		,	Model model
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		
+		List<Order_DetailVO> odvo = ods.selectUserRegularProduct(uNo);
+		
+		model.addAttribute("regularList", odvo);
 		return "mypage/regular";
 	}
 	
 	// 매월 첫째 주 월요일 실행
 	@Scheduled(cron="0 0 23 1-7 * MON")
 	public void regularOrder() {
-		/* 
-		 * List<Order_DetailVO> rOrderDetail = ods.selectAllUserRegularProduct();
-		 * for(Order_DetailVO items : rOrderDetail) { Order_VO ov =
-		 * os.selectUserRegularOrder(items.getoNo());
-		 * 
-		 * }
-		 */
+		/*
+		List<Order_DetailVO> rOrderDetail = ods.selectAllUserRegularProduct();
+		for(Order_DetailVO items : rOrderDetail) {
+			Order_VO ov = os.selectUserRegularOrder(items.getoNo());
+			ov.setoStatus("R");
+			os.insertOrder(ov);
+			items.setoNo(ov.getoNo());
+			ods.insertOrderDetail(items);
+		}
+		*/
 	}
 }
