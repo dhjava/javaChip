@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -288,17 +289,12 @@ public class ShopController {
 		System.out.println(selCartList);
 		
 		// 주소 목록 출력
-		searchVO.setuNo(uNo);
-		List<AddressVO> addvo = as.addressSelect(searchVO);
+		AddressVO addvo = as.addressSelect(uNo);
 		System.out.println(addvo);
 		
 		//1.리스트 중에서 하나 꺼내 출력
-		for(int i = 0; i < addvo.size(); i++) {
-			
-		}
+		
 		//2. sql 나눠서 onclick으로 두개 나눠 ajax
-		
-		
 		
 		// 마일리지 조회
 		int totalMileage = 0;
@@ -421,5 +417,22 @@ public class ShopController {
 		return "shop/addressPopup";
 	}
 	
-
+	//기본페이지 불러오기
+	@ResponseBody
+	@RequestMapping(value="/selectAddress.do")
+	public ResponseEntity<?> selectAddress(@RequestParam("selectedSort") String selectedSort,
+			@RequestParam int uNo, Model model)
+	{
+		
+		AddressVO addvo;
+		System.out.println(uNo);
+		
+		if (selectedSort.equals("main")) {
+			addvo = as.addressSelect(uNo);
+		} else {
+			addvo = as.addressSelectSub(uNo);
+		}
+		
+		return ResponseEntity.ok(addvo);
+	}
 }

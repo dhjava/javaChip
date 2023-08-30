@@ -14,10 +14,11 @@ public class AddressServiceImpl implements AddressService{
 	@Autowired
 	private AddressDAO addressDAO;
 	
+	//메인 배송지 조회
 	@Override
-	public List<AddressVO> addressSelect(SearchVO searchVO) {
+	public AddressVO addressSelect(int uNo) {
 		
-		return addressDAO.addressSelect(searchVO);
+		return addressDAO.addressSelect(uNo);
 	}
 	
 	@Override
@@ -30,5 +31,12 @@ public class AddressServiceImpl implements AddressService{
 	public int updateComment(AddressVO addressVO) {
 		// TODO Auto-generated method stub
 		return addressDAO.updateComment(addressVO);
+	}
+
+	//추가 배송지 조회
+	@Override
+	public AddressVO addressSelectSub(int uNo) {
+		// TODO Auto-generated method stub
+		return addressDAO.addressSelectSub(uNo);
 	}
 }

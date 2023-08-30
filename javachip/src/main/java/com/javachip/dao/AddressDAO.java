@@ -16,8 +16,9 @@ public class AddressDAO {
 	
 	private static final String namespace = "com.javachip.mapper.addressMapper";
 	
-    public List<AddressVO> addressSelect(SearchVO searchVO) {
-        return sqlSession.selectList(namespace+".addressSelect", searchVO);
+	//메인배송지 조회
+    public AddressVO addressSelect(int uNo) {
+        return sqlSession.selectOne(namespace+".addressSelect", uNo);
     }
 	
 	public int addressSaved(AddressVO vo) {
@@ -28,5 +29,11 @@ public class AddressDAO {
 	public int updateComment(AddressVO addressVO)
 	{
 		return sqlSession.update(namespace+".updateComment", addressVO);
+	}
+	
+	//추가배송지 조회
+	public AddressVO addressSelectSub(int uNo)
+	{
+		return sqlSession.selectOne(namespace+".addressSelectSub", uNo);
 	}
 }
