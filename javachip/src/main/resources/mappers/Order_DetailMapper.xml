@@ -14,6 +14,26 @@
 		 WHERE oNo = #{oNo}
 	</select>
 	
+	<!-- 유저의 주문 중에서 정기배송 상품 조회 -->
+	<select id="selectUserRegularProduct" parameterType="int" resultType="Order_DetailVO">
+		SELECT *
+		     , (SELECT pName FROM product WHERE order_detail.pNo = product.pNo) as pName
+		     , (SELECT pPrice FROM product WHERE order_detail.pNo = product.pNo) as pPrice
+		  FROM order_detail
+		 WHERE oNo = (SELECT oNo from order_ WHERE order_.uNo = #{uNo})
+		   AND (SELECT pType FROM product WHERE order_detail.pNo = product.pNo) = 'G'
+		   AND (SELECT oStatus FROM order_) = 'O'
+	</select>
+	
+	<!-- 모든 주문에서 정기배송 상품 조회 -->
+	<select id="selectAllUserRegularProduct" resultType="Order_DetailVO">
+		SELECT *
+		     , (SELECT pName FROM product WHERE order_detail.pNo = product.pNo) as pName
+		     , (SELECT pPrice FROM product WHERE order_detail.pNo = product.pNo) as pPrice
+		  FROM order_detail
+		 WHERE (SELECT pType FROM product WHERE order_detail.pNo = product.pNo) = 'G'
+	</select>
+	
 	<!-- 주문 상세 정보 등록 -->
 	<insert id="insertOrderDetail" parameterType="Order_DetailVO">
 		INSERT INTO

@@ -14,6 +14,7 @@ public interface Order_Service {
 	int countUserOrder(int uNo);
 	int insertOrder(Order_VO order_VO);
 	int updateOrderReceiver(Order_VO order_VO);
+	Order_VO selectUserRegularOrder(int oNo);
 	
 	// 관리자
 	List<Order_VO> selectOrderForAdmin();

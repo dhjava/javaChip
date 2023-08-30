@@ -45,6 +45,10 @@ public class Order_ServiceImpl implements Order_Service {
 		return order_DAO.updateOrderStatus(order_VO);
 	}
 
+	@Override
+	public Order_VO selectUserRegularOrder(int oNo) {
+		return order_DAO.selectUserRegularOrder(oNo);
+	}
 	
 	//==========================관리자용 메소드
 	//검색, 페이징 포함한 주문내역 전체 리스트

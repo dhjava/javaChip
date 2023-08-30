@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,8 +67,9 @@ public class MypageController {
 		System.out.println("uNo::"+uNo);
 		List<CartVO> cartList = cs.selectCartByUno(uNo);
 		System.out.println(cartList);
-		// 상품 정보 조회
 		
+		// 정기배송 장바구니 삭제
+		cs.deleteRegCart(uNo);
 		
 		// 모델로 전달
 		model.addAttribute("cartList", cartList);
@@ -347,5 +349,17 @@ public class MypageController {
 	@RequestMapping(value="/regular.do")
 	public String regular() {
 		return "mypage/regular";
+	}
+	
+	// 매월 첫째 주 월요일 실행
+	@Scheduled(cron="0 0 23 1-7 * MON")
+	public void regularOrder() {
+		/* 
+		 * List<Order_DetailVO> rOrderDetail = ods.selectAllUserRegularProduct();
+		 * for(Order_DetailVO items : rOrderDetail) { Order_VO ov =
+		 * os.selectUserRegularOrder(items.getoNo());
+		 * 
+		 * }
+		 */
 	}
 }

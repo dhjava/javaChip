@@ -22,5 +22,10 @@ public class Order_DetailDAO {
 	public int insertOrderDetail(Order_DetailVO order_detailVO) {
 		return sqlSession.insert(namespace+".insertOrderDetail", order_detailVO);
 	}
-	
+	public List<Order_DetailVO> selectUserRegularProduct(int uNo) {
+		return sqlSession.selectList(namespace+".selectUserRegularProduct", uNo);
+	}
+	public List<Order_DetailVO> selectAllUserRegularProduct() {
+		return sqlSession.selectList(namespace+".selectAllUserRegularProduct");
+	}
 }

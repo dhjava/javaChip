@@ -262,6 +262,7 @@
                                 <ul>
                                 	<c:forEach items="${orderList}" var="cart">
 	                                    <li>${cart.pName}<span class="calPrice" id="calPrice">${cart.pPrice*cart.cCount}</span></li>
+	                                    <input type="hidden" id="cNo" name="cNo" value="${cart.cNo}">
                                 	</c:forEach>
 	                                <li>할인 <span id="discount" style="color:#DD2222;">0원</span></li>
                                 </ul>

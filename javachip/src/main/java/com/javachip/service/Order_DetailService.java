@@ -10,4 +10,6 @@ import com.javachip.vo.Order_DetailVO;
 public interface Order_DetailService {
 	List<Order_DetailVO> selectOrderDetail(int oNo);
 	int insertOrderDetail(Order_DetailVO order_detailVO);
+	List<Order_DetailVO> selectUserRegularProduct(int uNo);
+	List<Order_DetailVO> selectAllUserRegularProduct();
 }

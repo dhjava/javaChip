@@ -250,8 +250,6 @@ public class ShopController {
 				return;
 			}
 		}
-		int totalMileage = ms.selectTotalMileage(uNo);
-		System.out.println("totalMileage::"+totalMileage);
 		
 		CartVO cv = new CartVO();
 		cv.setuNo(uNo);
@@ -264,14 +262,6 @@ public class ShopController {
 			return;
 		}
 		int cNo = cv.getcNo();
-		
-		/*
-		 * List<CartVO> orderList = new ArrayList<CartVO>(); 
-		 * CartVO order = cs.selectCartForOrder(cNo);
-		 * orderList.add(order);
-		 * model.addAttribute("totalMileage", totalMileage);
-		 * model.addAttribute("orderList", orderList);
-		 */
 		
 		pw.append("<form id='buyNow' method='get' action='checkout.do'>"
 				+ "<input type='text' name='selCartList' value='"+cNo+"'>"
@@ -314,7 +304,6 @@ public class ShopController {
 		System.out.println("totalMileage::"+totalMileage);
 		
 		// 선택한 장바구니 모두 조회
-		
 		List<CartVO> orderList = new ArrayList<CartVO>();
 		for(String items : selCartList) {
 			System.out.println(items);
