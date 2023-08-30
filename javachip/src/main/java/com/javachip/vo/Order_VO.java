@@ -11,11 +11,13 @@ public class Order_VO {
 	private String oDate;
 	private String uId;
 	private String pName;
+	private String pPrice;
 	
 	@Override
 	public String toString() {
-		return "Order_VO [oNo=" + oNo + ", uNo=" + uNo + ", oTrackNo=" + oTrackNo + ", oTotalPrice=" + oTotalPrice + ", oPay=" + oPay
-				+ ", oStatus=" + oStatus + ", oDate=" + oDate + ", uId=" + uId + ", pName=" + pName + ", addNo=" + addNo + "]";
+		return "Order_VO [oNo=" + oNo + ", uNo=" + uNo + ", addNo=" + addNo + ", oTrackNo=" + oTrackNo
+				+ ", oTotalPrice=" + oTotalPrice + ", oPay=" + oPay + ", oStatus=" + oStatus + ", oDate=" + oDate
+				+ ", uId=" + uId + ", pName=" + pName + ", pPrice=" + pPrice + "]";
 	}
 	public int getoNo() {
 		return oNo;
@@ -79,6 +81,12 @@ public class Order_VO {
 
 	public void setpName(String pName) {
 		this.pName = pName;
+	}
+	public String getpPrice() {
+		return pPrice;
+	}
+	public void setpPrice(String pPrice) {
+		this.pPrice = pPrice;
 	}
 	
 	
