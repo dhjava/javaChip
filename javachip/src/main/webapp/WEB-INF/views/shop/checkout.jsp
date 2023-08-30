@@ -4,7 +4,7 @@
 <%@ include file="../include/nav.jsp" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.javachip.vo.CartVO" %>
+<%@ page import="com.javachip.vo.*" %>
 	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 	<script>
 		// 금액 ,+원
@@ -104,28 +104,34 @@
             var option = "width = 1000, height = 850, top = 100, left = 200, location = no"
             window.open(url, name, option);
         }
-	    
-	    
-	    $(document).ready(function() {
-        $("#sort").change(function() {
-            var selectedValue = $(this).val();
 
-            // 여기에 선택된 값에 따라서 input 요소들의 값을 채우는 로직을 추가합니다.
-            if (selectedValue === "main") {
-                // 기본 배송지에 대한 처리
-                $("#oName").val("${addvo.aName}");
-                $("#oAdd1").val("${addvo.addr1}");
-                $("#oAdd2").val("${addvo.addr2}");
-                $("#oAdd3").val("${addvo.addr3}");
-                $("#oPhone").val("${addvo.aPhone}");
-                $("#oMail").val("${addvo.aMail}");
-            } else if (selectedValue === "sub1") {
-                // 추가 배송지1에 대한 처리
-                // 다른 값들을 필요에 따라 변경
-            }
-        });
-    });
-	    
+	    function handleSortChange() {
+	        var selectedValue = $("#sort").val();
+	        var uNo = $("#uNo").val(); 
+	        
+	        // 선택된 값 서버로 전달
+	        $.ajax({
+	            url: "selectAddress.do",
+	            type: "POST",
+	            data: { selectedSort: selectedValue, uNo: uNo },
+	            success: function(response) {
+	                
+	            	console.log(response);
+
+	            	$("#oName").val(response.aName);
+	                $("#oAdd1").val(response.addr1);
+	                $("#oAdd2").val(response.addr2);
+	                $("#oAdd3").val(response.addr3);
+	                $("#oPhone").val(response.aPhone);
+	                $("#oMail").val(response.aMail);
+	                
+	                alert("변경이 완료되었습니다!");
+	            },
+	            error: function(error) {
+	                console.log("에러 발생:", error);
+	            }
+	        });
+	    }
 	    /* $(document).ready(function() {
 	        $("#sort").change(function() {
 	            var selectedValue = $(this).val();
@@ -188,12 +194,11 @@
                     	<div class="col-lg-7">
 	                    	<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
 		                    	<p>배송지 목록</p>
-		                    	<select id="sort" name="sort">
-					    			<option value="main" id="main" 
-					    			<c:if test="${param.sort eq 'main'}">selected</c:if>>기본 배송지</option>
-					    			<option value="sub1" id="sub1"
-					    			<c:if test="${param.sort eq 'sub1'}">selected</c:if>>추가 배송지1</option>
-					    		</select>								
+		                    	<select id="sort" name="sort" onchange="handleSortChange()">
+									<option value="main" id="main" ${param.sort eq 'main' ? 'selected' : ''}>기본 배송지</option>
+									<option value="sub1" id="sub1" ${param.sort eq 'sub1' ? 'selected' : ''}>추가 배송지1</option>
+								</select>
+								<input type="hidden" id="uNo" value="${addvo.uNo }">								
 					    		<button type="button" class="btn btn-outline-primary" style=margin-left:20px; onclick="addressPopup()">배송지 관리</button>
 	                    	</div>
 	                    	<div class="col-lg-10 col-md-6">
