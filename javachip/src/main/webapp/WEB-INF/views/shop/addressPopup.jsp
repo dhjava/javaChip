@@ -40,7 +40,10 @@
 			$.ajax({
 				url : "same.do",
 				type : "post",
-				date : 
+				data : {uNo : uNo},
+				success : function(data){
+					
+				}
 			});
 			
 			isChecked = true;
@@ -50,6 +53,33 @@
 		}
 	}
 
+	function handleSortChange() {
+        var selectedValue = $("#sort").val();
+        var uNo = $("#uNo").val(); 
+        
+        // 선택된 값 서버로 전달
+        $.ajax({
+            url: "selectAddress.do",
+            type: "POST",
+            data: { selectedSort: selectedValue, uNo: uNo },
+            success: function(response) {
+                
+            	console.log(response);
+
+            	$("#oName").val(response.aName);
+                $("#oAdd1").val(response.addr1);
+                $("#oAdd2").val(response.addr2);
+                $("#oAdd3").val(response.addr3);
+                $("#oPhone").val(response.aPhone);
+                $("#oMail").val(response.aMail);
+                
+                alert("변경이 완료되었습니다!");
+            },
+            error: function(error) {
+                console.log("에러 발생:", error);
+            }
+        });
+    }
 </script>
 </head>
 <body>
@@ -86,18 +116,17 @@
              </div>
         </div>
         <div class="checkout__form">
-        	<form name="addressSaved" id="addressSaved" method="post" action="addressSaved.do">
-        	<input type="hidden" value="${addvo.addno }" />
-        	<input type="hidden" value="${addvo.uno }" />
+        	<form name="addressPopup" id="addressPopup" method="post" action="addressPopup.do">
+        	<input type="hidden" value="${addvo.addNo }" />
+        	<input type="hidden" value="${addvo.uNo }" />
 				<h4>배송지 관리</h4>
 				<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
 			    	<p>배송지 목록</p>
-		    		<select name="sort" id="sort" name="add_sort">
-		    			<option value="add_main" id="add_main" 
-		    			<c:if test="${param.add_sort eq 'add_main'}">selected</c:if>>기본 배송지</option>
-		    			<option value="add_sub1" id="add_sub1"
-		    			<c:if test="${param.add_sort eq 'add_sub1'}">selected</c:if>>추가 배송지1</option>
+		    		<select id="sort" name="sort" onchange="handleSortChange()">
+						<option value="main" id="main" ${param.sort eq 'main' ? 'selected' : ''}>기본 배송지</option>
+						<option value="sub1" id="sub1" ${param.sort eq 'sub1' ? 'selected' : ''}>추가 배송지1</option>
 					</select>
+					<input type="hidden" id="uNo" value="${addvo.uNo }">
 					<button type="submit" class="btn btn-outline-primary" id="addSaving" style=margin-left:20px;>저장/수정</button>
 				</div>
 		    	<div class="col-lg-10 col-md-6">
@@ -108,28 +137,31 @@
 		                <div class="col-lg-6">
 		                    <div class="checkout__input">
 		                        <p>성명<span>*</span></p>
-		                        <input type="text" name="aName" id="aName" required>
+		                        <input type="text" name="aName" id="aName" value="${addvo.aName }" >
 		                    </div>
 		                </div>
 		            </div>
 		            <div class="checkout__input">
 		                <p>주소<span>*</span></p>
-		                <input type="text" id="aAdd1" name="aAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" value="${add.aName}" required>
+		                <input type="text" id="aAdd1" name="aAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;"
+		                 value="${addvo.addr1}">
 		                <button type="button" class="btn btn-outline-primary" onclick="sample7_execDaumPostcode()">우편번호</button>
-		                <input type="text" id="aAdd2" name="aAdd2" placeholder="주소" class="checkout__input__add" required>
-		                <input type="text" id="aAdd3" name="aAdd3" placeholder="나머지 주소" class="checkout__input__add" required>
+		                <input type="text" id="aAdd2" name="aAdd2" 
+		                value="${addvo.addr2 }" class="checkout__input__add" required>
+		                <input type="text" id="aAdd3" name="aAdd3" 
+		                value="${addvo.addr3 }" class="checkout__input__add" required>
 		            </div>
 		            <div class="row">
 		                <div class="col-lg-6">
 		                    <div class="checkout__input">
 		                        <p>전화번호<span>*</span></p>
-		                        <input type="text" name="aPhone" id="aPhone" required>
+		                        <input type="text" name="aPhone" id="aPhone" value="${addvo.aPhone }">
 		                    </div>
 		                </div>
 		                <div class="col-lg-6">
 		                    <div class="checkout__input">
 		                        <p>이메일<span>*</span></p>
-		                        <input type="text" name="aMail" id="aMail" required>
+		                        <input type="text" name="aMail" id="aMail" value="${addvo.aMail }">
 		                    </div>
 		                </div>
 		            </div>
@@ -154,26 +186,6 @@
     <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 	<script>
-	$(document).ready(function() {
-	    $("#sameInfo").change(function() {
-	        if ($(this).is(":checked")) {
-	            $("#aName").val($("#uName").val());
-	            $("#aAdd1").val($("#uAdd1").val());
-	            $("#aAdd2").val($("#uAdd2").val());
-	            $("#aAdd3").val($("#uAdd3").val());
-	            $("#aPhone").val($("#uPhone").val());
-	            $("#aMail").val($("#uMail").val());
-	        } else {
-	            $("#aName").val("");
-	            $("#aAdd1").val("");
-	            $("#aAdd2").val("");
-	            $("#aAdd3").val("");
-	            $("#aPhone").val("");
-	            $("#aMail").val("");
-	        }
-		});
-	});
-	
 
 $("#addSaving").click( function() {
      $('#addressSaved').submit();
@@ -181,6 +193,6 @@ $("#addSaving").click( function() {
          window.close();
       }, 100);
   });
-});
+	
 	</script>
 </html>
