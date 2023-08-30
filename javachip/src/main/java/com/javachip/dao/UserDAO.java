@@ -54,8 +54,8 @@ public class UserDAO {
 		return sqlSession.update(namespace+".infoUpdate", vo);
 	}
 	
-	public int byebye(UserVO vo) {
-		return sqlSession.delete(namespace+".byebye", vo);
+	public int goodbye(UserVO vo) {
+		return sqlSession.delete(namespace+".goodbye", vo);
 	}
 	
 	//admin용========================================================

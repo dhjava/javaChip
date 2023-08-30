@@ -23,14 +23,14 @@ public class HomeController {
 	
 	// info
 	// 회사 소개
-	@RequestMapping(value="/intro.do")
+	@RequestMapping(value="/info/intro.do")
 	public String intro() {
 		
 		return "/info/intro";
 	}
 	
 	// 회사 연락
-	@RequestMapping(value="/contact.do")
+	@RequestMapping(value="/info/contact.do")
 	public String contact() {
 		
 		return "/info/contact";

@@ -136,7 +136,7 @@ public class MypageController {
 		String newPass = vo.getuPw();
 		
 		if(oldPass.equals(newPass)) {
-			us.byebye(vo);
+			us.goodbye(vo);
 			ra.addFlashAttribute("result", "removeOK");
 			session.invalidate();
 			return "redirect:/";
@@ -249,7 +249,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/myinfo.do")
-	public String myinfo(HttpServletRequest req,Model model,int uNo){
+	public String myinfo(HttpServletRequest req,Model model){
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO==null) {

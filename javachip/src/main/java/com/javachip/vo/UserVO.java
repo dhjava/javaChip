@@ -10,6 +10,7 @@ public class UserVO {
 	private String uPhone;
 	private String uStatus;
 	private String uBisno;
+	private String uBisName;
 	private String uAdd1;
 	private String uAdd2;
 	private String uAdd3;
@@ -69,6 +70,12 @@ public class UserVO {
 	public void setuBisno(String uBisno) {
 		this.uBisno = uBisno;
 	}
+	public String getuBisName() {
+		return uBisName;
+	}
+	public void setuBisName(String uBisName) {
+		this.uBisName = uBisName;
+	}
 	public String getuAdd1() {
 		return uAdd1;
 	}
@@ -103,9 +110,10 @@ public class UserVO {
 	public String toString() {
 		return "UserVO [uNo=" + uNo + ", uId=" + uId + ", uPw=" + uPw + ", uName=" + uName + ", uJoin=" + uJoin
 				+ ", uRetire=" + uRetire + ", uPhone=" + uPhone + ", uStatus=" + uStatus + ", uBisno=" + uBisno
-				+ ", uAdd1=" + uAdd1 + ", uAdd2=" + uAdd2 + ", uAdd3=" + uAdd3 + ", uMail=" + uMail + ", uAlertNum="
-				+ uAlertNum + "]";
+				+ ", uBisName=" + uBisName + ", uAdd1=" + uAdd1 + ", uAdd2=" + uAdd2 + ", uAdd3=" + uAdd3 + ", uMail="
+				+ uMail + ", uAlertNum=" + uAlertNum + "]";
 	}
+	
 	
 	
 }
