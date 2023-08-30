@@ -158,13 +158,20 @@
                         <h3>${pv.pName}</h3>
                         <div class="product__details__price">${pv.pPrice}원</div>
                         <p>${pv.pNote}</p>
-                        <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty">
-                                    <input type="text" name="cCount" id="cCount" value="1"  oninput="this.value=this.value.replace(/[^0-9]/g,'');">
-                                </div>
-                            </div>
-                        </div>
+                        <c:choose>
+            				<c:when test="${pv.pType eq 'G'}">
+            					<input type="hidden" name="cCount" id="cCount" value="1">
+            				</c:when>
+            				<c:otherwise>
+		                        <div class="product__details__quantity">
+		                            <div class="quantity">
+		                                <div class="pro-qty">
+		                                    	<input type="text" name="cCount" id="cCount" value="1"  oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+		                                </div>
+		                            </div>
+		                        </div>
+               				</c:otherwise>
+               			</c:choose>
                     	<input type="hidden" name="pNo" id="pNo" value="${pv.pNo}">
                     	<c:choose>
                     		<c:when test="${pv.pType eq 'G'}">

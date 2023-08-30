@@ -78,7 +78,7 @@
 		DELETE
 		  FROM cart
 		 WHERE uNo = #{uNo}
-		   AND (SELECT pType FROM product WHERE cart.pNo = product.pNo) != 'G'
+		   AND (SELECT pType FROM product WHERE cart.pNo = product.pNo) = 'G'
 	</delete>
 	
 	<!-- 장바구니 전체 삭제 -->
