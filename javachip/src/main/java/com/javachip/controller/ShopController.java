@@ -5,7 +5,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -428,16 +430,38 @@ public class ShopController {
 	
 	//체크박스 시 주문자 정보와 동일한 기능
 	@ResponseBody
-	@RequestMapping(value="/same.do")
-	public String same() {
-		return "shop/same";
+	@RequestMapping(value = "/same.do", method = RequestMethod.POST)
+	public ResponseEntity<Map<String, Object>> same(@RequestParam int uNo, HttpServletRequest req) {
+	    HttpSession session = req.getSession();
+	    UserVO loginVO = (UserVO) session.getAttribute("login");
+
+	    UserVO userVO = new UserVO();
+	    userVO.setuNo(loginVO.getuNo());
+	    userVO.setuAdd1(loginVO.getuAdd1());
+	    userVO.setuAdd2(loginVO.getuAdd2());
+	    userVO.setuAdd3(loginVO.getuAdd3());
+	    userVO.setuMail(loginVO.getuMail());
+	    userVO.setuName(loginVO.getuName());
+	    userVO.setuPhone(loginVO.getuPhone());
+
+	    as.SamePerson(uNo);
+
+	    Map<String, Object> responseData = new HashMap<>();
+	    responseData.put("aName", userVO.getuName());
+	    responseData.put("addr1", userVO.getuAdd1());
+	    responseData.put("addr2", userVO.getuAdd2());
+	    responseData.put("addr3", userVO.getuAdd3());
+	    responseData.put("aPhone", userVO.getuPhone());
+	    responseData.put("aMail", userVO.getuMail());
+
+	    return ResponseEntity.ok(responseData);
 	}
 	
 	//기본페이지 불러오기
 	@ResponseBody
 	@RequestMapping(value="/selectAddress.do")
 	public ResponseEntity<?> selectAddress(@RequestParam("selectedSort") String selectedSort,
-			@RequestParam int uNo, Model model)
+			@RequestParam int uNo)
 	{
 		
 		AddressVO addvo;

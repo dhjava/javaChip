@@ -35,17 +35,26 @@
 	
 	function same(){
 		var checkbox = document.getElementById("sameInfo");
+		var uNo = $("#uNo").val();
 		
 		if(!isChecked){
 			$.ajax({
 				url : "same.do",
-				type : "post",
+				type : "POST",
 				data : {uNo : uNo},
-				success : function(data){
-					
+				success: function(data) {
+				    console.log(data);
+
+				    $("#aName").val(data.aName);
+				    $("#aAdd1").val(data.addr1);
+				    $("#aAdd2").val(data.addr2);
+				    $("#aAdd3").val(data.addr3);
+				    $("#aPhone").val(data.aPhone);
+				    $("#aMail").val(data.aMail);
+
+				    alert("변경이 완료되었습니다!");
 				}
 			});
-			
 			isChecked = true;
 		}else{
 			
@@ -66,12 +75,12 @@
                 
             	console.log(response);
 
-            	$("#oName").val(response.aName);
-                $("#oAdd1").val(response.addr1);
-                $("#oAdd2").val(response.addr2);
-                $("#oAdd3").val(response.addr3);
-                $("#oPhone").val(response.aPhone);
-                $("#oMail").val(response.aMail);
+            	$("#aName").val(response.aName);
+                $("#aAdd1").val(response.addr1);
+                $("#aAdd2").val(response.addr2);
+                $("#aAdd3").val(response.addr3);
+                $("#aPhone").val(response.aPhone);
+                $("#aMail").val(response.aMail);
                 
                 alert("변경이 완료되었습니다!");
             },
