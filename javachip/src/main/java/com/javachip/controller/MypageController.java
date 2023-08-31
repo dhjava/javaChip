@@ -369,15 +369,14 @@ public class MypageController {
 	// 매월 첫째 주 월요일 실행
 	@Scheduled(cron="0 0 23 1-7 * MON")
 	public void regularOrder() {
-		/*
 		List<Order_DetailVO> rOrderDetail = ods.selectAllUserRegularProduct();
 		for(Order_DetailVO items : rOrderDetail) {
 			Order_VO ov = os.selectUserRegularOrder(items.getoNo());
-			ov.setoStatus("R");
+			ov.setoStatus("W");
 			os.insertOrder(ov);
 			items.setoNo(ov.getoNo());
 			ods.insertOrderDetail(items);
 		}
-		*/
+		System.out.println("Scheduled Complete!");
 	}
 }

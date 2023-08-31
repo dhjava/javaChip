@@ -84,13 +84,13 @@
 						    <td class="tg-9wq8">신용카드</td>
 						    <td class="tg-9wq8">1개월</td>
 						    <td class="tg-9wq8">${regular.oDate.substring(0,10)}</td>
-						    <c:if test="${regular.oStatus eq 'R'}">
+						    <c:if test="${regular.oStatus eq 'W'}">
 							    <td class="tg-9wq8">배송 조회</td>
 						    </c:if>
-						    <c:if test="${regular.oStatus eq 'C'}">
+						    <c:if test="${regular.oStatus eq 'X'}">
 							    <td class="tg-9wq8">취소</td>
 						    </c:if>
-						    <c:if test="${regular.oStatus eq 'E'}">
+						    <c:if test="${regular.oStatus eq 'D'}">
 							    <td class="tg-9wq8">배송 완료</td>
 						    </c:if>
 						  </tr>

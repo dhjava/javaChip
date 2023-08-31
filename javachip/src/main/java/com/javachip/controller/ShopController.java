@@ -244,6 +244,10 @@ public class ShopController {
 		// 장바구니에 존재하는 지 검사
 		List<CartVO> cart = cs.selectCartByUno(uNo);
 		for(CartVO items : cart) {
+			
+			// 정기배송 상품은 비우기
+			cs.deleteRegCart(uNo);
+			
 			if(items.getpNo() == pNo) {
 				pw.append("<script>alert('이미 장바구니에 있는 상품입니다.');location.href='"+req.getContextPath()+"/mypage/cart.do';</script>");
 				pw.flush();
@@ -346,6 +350,7 @@ public class ShopController {
 		ov.setuNo(uNo);
 		ov.setoTotalPrice(totalPrice);
 		ov.setoPay("C");
+		ov.setoStatus("O");
 		System.out.println(ov);
 		
 		int result = os.insertOrder(ov);
