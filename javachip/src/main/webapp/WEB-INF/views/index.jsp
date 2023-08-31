@@ -25,13 +25,10 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    모든 항목
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="검색어를 입력하세요">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                            <form method="get" action="<%=request.getContextPath() %>/shop/grid.do">
+                            	<input type="hidden" name="searchType" value="pName">
+                                <input type="text" name="searchValue" placeholder="무엇이 필요하신가요?">
+                                <button type="submit" class="site-btn">검색</button>
                             </form>
                         </div>
                         
