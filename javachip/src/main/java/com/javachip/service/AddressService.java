@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.javachip.vo.AddressVO;
 import com.javachip.vo.SearchVO;
+import com.javachip.vo.UserVO;
 
 @Service
 public interface AddressService {
@@ -17,4 +18,7 @@ public interface AddressService {
 	int updateComment(AddressVO addressVO);
 	//추가 배송지 조회
 	AddressVO addressSelectSub(int uNo);
+	
+	//주문자 정보와 동일
+	UserVO SamePerson(int uNo);
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.javachip.dao.AddressDAO;
 import com.javachip.vo.AddressVO;
 import com.javachip.vo.SearchVO;
+import com.javachip.vo.UserVO;
 
 @Repository
 public class AddressServiceImpl implements AddressService{
@@ -38,5 +39,11 @@ public class AddressServiceImpl implements AddressService{
 	public AddressVO addressSelectSub(int uNo) {
 		// TODO Auto-generated method stub
 		return addressDAO.addressSelectSub(uNo);
+	}
+
+	@Override
+	public UserVO SamePerson(int uNo) {
+		// TODO Auto-generated method stub
+		return addressDAO.SamePerson(uNo);
 	}
 }

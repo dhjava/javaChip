@@ -94,6 +94,7 @@ public class UserVO {
 	public void setuAdd3(String uAdd3) {
 		this.uAdd3 = uAdd3;
 	}
+	
 	public String getuMail() {
 		return uMail;
 	}

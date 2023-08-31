@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.javachip.vo.AddressVO;
 import com.javachip.vo.SearchVO;
+import com.javachip.vo.UserVO;
 
 @Repository
 public class AddressDAO {
@@ -35,5 +36,10 @@ public class AddressDAO {
 	public AddressVO addressSelectSub(int uNo)
 	{
 		return sqlSession.selectOne(namespace+".addressSelectSub", uNo);
+	}
+	
+	//주문자 정보와 동일
+	public UserVO SamePerson(int uNo) {
+		return sqlSession.selectOne(namespace+".SamePerson", uNo);
 	}
 }
