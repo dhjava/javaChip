@@ -372,7 +372,7 @@ public class MypageController {
 		List<Order_DetailVO> rOrderDetail = ods.selectAllUserRegularProduct();
 		for(Order_DetailVO items : rOrderDetail) {
 			Order_VO ov = os.selectUserRegularOrder(items.getoNo());
-			ov.setoStatus("R");
+			ov.setoStatus("W");
 			os.insertOrder(ov);
 			items.setoNo(ov.getoNo());
 			ods.insertOrderDetail(items);
