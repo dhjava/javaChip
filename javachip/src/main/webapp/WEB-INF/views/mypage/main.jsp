@@ -161,7 +161,7 @@
 				<h4>쇼핑정보</h4>
 				<ul>
 					<li><a href="history.do">주문목록/배송조회</a></li>
-					<li>취소/반품/교환 내역</li>
+					<li><a href="regular.do">정기배송 상품 조회</a></li>
 					<li><a href="cart.do">장바구니</a></li>
 				</ul>
 			</div>
@@ -223,7 +223,7 @@
 						<i class="material-icons">&#xf1cc;</i>
 					</div>
 				</div>
-				<div onClick="location.href=''" style="cursor:pointer;">
+				<div onClick="location.href='regular.do'" style="cursor:pointer;">
 					정기배송
 					<div class="iCircle">
 						<i class="material-icons">&#xe558;</i>
