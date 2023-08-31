@@ -366,6 +366,24 @@ public class MypageController {
 		return "mypage/regular";
 	}
 	
+	@RequestMapping(value="/cancelRegular.do")
+	@ResponseBody
+	public int cancelRegular(
+			int oNo
+		,	HttpServletRequest req
+		,	Model model
+			) {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return 0;
+		}
+		Order_VO ov = os.selectUserRegularOrder(oNo);
+		ov.setoStatus("X");
+		int result = os.updateOrderStatus(ov);
+		return result;
+	}
+	
 	// 매월 첫째 주 월요일 실행
 	@Scheduled(cron="0 0 23 1-7 * MON")
 	public void regularOrder() {
