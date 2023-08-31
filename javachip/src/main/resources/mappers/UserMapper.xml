@@ -9,7 +9,6 @@
 		SELECT *
 		  FROM user
 		 WHERE uId = #{uId}
-		   AND uPw = #{uPw}
 		   AND uRetire = "N"
 	</select>
 	
@@ -160,10 +159,10 @@
 		 WHERE uNo = #{uNo}
 	</update>
 	
+	
 	<delete id = "goodbye" parameterType="userVO">
 		DELETE FROM user
 		 WHERE uId = #{uId}
-		   AND uPw = #{uPw}
 	</delete>
 
 	
