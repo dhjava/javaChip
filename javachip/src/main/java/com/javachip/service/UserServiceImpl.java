@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.javachip.dao.UserDAO;
@@ -19,6 +20,9 @@ public class UserServiceImpl implements UserService {
 	// member 페이지
 	@Autowired
 	private UserDAO userDAO;
+	// BCrypt 암호화
+	@Autowired
+	BCryptPasswordEncoder pe;
 	
 	@Override
 	public UserVO selectUserByLogin(UserVO vo) {
@@ -137,8 +141,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int goodbye(UserVO vo) {
-		return userDAO.goodbye(vo);
+	public void goodbye(String uId) throws Exception{
+		userDAO.goodbye(uId);
 	}
 	
 	

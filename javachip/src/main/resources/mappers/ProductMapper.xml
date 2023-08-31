@@ -8,7 +8,7 @@
 	<!-- 조건절 -->
 	<sql id="search">
 		<if test='searchType != null and searchType.equals("pName")'>
-		   AND title like concat('%', #{searchValue}, '%')
+		   AND pName like concat('%', #{searchValue}, '%')
 		</if>
 		<if test='searchType != null and searchType.equals("pType")'>
 		   AND pType = #{searchValue}

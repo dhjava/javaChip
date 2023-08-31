@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,19 +30,19 @@ public class UserController {
 	private UserService us;
 	@Autowired
 	private MileageService ms;
-	
-	// 이메일 서비스 불러오기
 	@Autowired
-	private MailSendService mailService;
+	BCryptPasswordEncoder pe; // BCrypt 암호화
 	
-	@RequestMapping(value="/login.do")
+	@RequestMapping(value="/login.do", method = RequestMethod.GET)
 	public String login() {
 		return "member/login";
 	}
 	
 	// 로그인 컨트롤
-	@RequestMapping(value="/loginAction.do")
+	@RequestMapping(value="/login.do", method = RequestMethod.POST)
 	public void login(UserVO vo,HttpServletRequest req, HttpServletResponse res) throws IOException {
+		String uPw = "";
+		String encodePw = "";
 		
 		HttpSession session = req.getSession();
 		
@@ -51,23 +52,37 @@ public class UserController {
 		PrintWriter pw = res.getWriter();
 		
 		if(loginVO != null) {
+			uPw = vo.getuPw();
+			encodePw = loginVO.getuPw();
 			//login할 회원이 데이터베이스에 존재
-			System.out.println("회원존재");
-			session.setAttribute("login", loginVO);
-			String uStatus = loginVO.getuStatus();
+			System.out.println(uPw);
+			System.out.println(encodePw);
 			
-			if(uStatus.equals("W")) {
-				System.out.println("가입 대기 회원");
-				session.invalidate();
-				pw.append("<script>alert('가입 대기 중인 회원입니다.\\n가입 승인 후 로그인 가능합니다."
-						+ "\\n(승인 기간 : 가입일에서 최대 1주일)\\n\\n"
-						+ "문의사항은 javachip0703@gmail.com으로 보내주세요.');location.href='"
-						+req.getContextPath()+"/member/login.do';</script>");
-			}else{
-			pw.append("<script>alert('로그인에 성공했습니다.\\n\\n회원 이름 : " + loginVO.getuName()
-					+ "\\n경고 횟수 : "+ loginVO.getuAlertNum() + "');location.href='"+req.getContextPath()+"/';</script>");
+			if(true == pe.matches(uPw, encodePw)) {
+				System.out.println("회원존재");
+				
+				loginVO.setuPw("");  
+				session.setAttribute("login", loginVO);
+				String uStatus = loginVO.getuStatus();
+				
+				if(uStatus.equals("W")) {
+					System.out.println("가입 대기 회원");
+					session.invalidate();
+					pw.append("<script>alert('가입 대기 중인 회원입니다.\\n가입 승인 후 로그인 가능합니다."
+							+ "\\n(승인 기간 : 가입일에서 최대 1주일)\\n\\n"
+							+ "문의사항은 javachip0703@gmail.com으로 보내주세요.');location.href='"
+							+req.getContextPath()+"/member/login.do';</script>");
+				}else{
+				pw.append("<script>alert('로그인에 성공했습니다.\\n\\n회원 이름 : " + loginVO.getuName()
+						+ "\\n경고 횟수 : "+ loginVO.getuAlertNum() + "');location.href='"+req.getContextPath()+"/';</script>");
+				}
+			}else {
+				System.out.println("회원존재 X_A");
+				pw.append("<script>alert('존재하지 않는 아이디나 비밀번호입니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");
 			}
 		}else{
+			System.out.println(uPw);
+			System.out.println(encodePw);
 			//login할 회원이 데이터베이스에 존재 X
 			System.out.println("회원존재 X");
 			pw.append("<script>alert('존재하지 않는 아이디나 비밀번호입니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");
@@ -116,9 +131,14 @@ public class UserController {
 	
 	@RequestMapping(value="/join.do",method=RequestMethod.POST)
 	public String join(UserVO vo) {
+		String uPw = "";
+		String encodePw = "";
+		
+		uPw = vo.getuPw();
+		encodePw = pe.encode(uPw);
+		vo.setuPw(encodePw);
 		int result = us.insert(vo);
 		if(result>0) {
-			
 			System.out.println("회원가입 성공");
 			
 			// 신규 가입 적립금
@@ -147,6 +167,13 @@ public class UserController {
 		int result = us.insertBiz(vo);
 		
 		if(result>0) {
+			String uPw = "";
+			String encodePw = "";
+			
+			uPw = vo.getuPw();
+			encodePw = pe.encode(uPw);
+			vo.setuPw(encodePw);
+			
 			System.out.println("회원가입 성공");
 			
 			// 신규 가입 적립금
