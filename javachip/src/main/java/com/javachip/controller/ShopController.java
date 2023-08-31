@@ -428,6 +428,16 @@ public class ShopController {
 		return "shop/addressPopup";
 	}
 	
+	//배송지 팝업
+	@ResponseBody
+	@RequestMapping(value="/addressPopup.do", method=RequestMethod.POST)
+	public int addressPopup(AddressVO addressVO) {
+		int result = as.updateAddress(addressVO);
+		System.out.println(addressVO);
+		
+		return result;
+	}
+	
 	//체크박스 시 주문자 정보와 동일한 기능
 	@ResponseBody
 	@RequestMapping(value = "/same.do", method = RequestMethod.POST)

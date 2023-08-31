@@ -41,9 +41,18 @@ public class AddressServiceImpl implements AddressService{
 		return addressDAO.addressSelectSub(uNo);
 	}
 
+	//주문자 정보와 동일
 	@Override
 	public UserVO SamePerson(int uNo) {
 		// TODO Auto-generated method stub
 		return addressDAO.SamePerson(uNo);
+	}
+
+	
+	//배송지 /수정저장
+	@Override
+	public int updateAddress(AddressVO addressVO) {
+		// TODO Auto-generated method stub
+		return addressDAO.updateAddress(addressVO);
 	}
 }
