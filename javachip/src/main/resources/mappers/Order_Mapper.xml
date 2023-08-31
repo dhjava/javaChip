@@ -40,7 +40,7 @@
 			,0
 			,#{oTotalPrice}
 			,#{oPay}
-			,'O'
+			,#{oStatus}
 			,#{addNo}
 		)
 		<selectKey order="AFTER" keyProperty="oNo" resultType="int">
