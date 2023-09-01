@@ -23,7 +23,8 @@ public interface UserService {
 	// mypage 관련
 	UserVO infoCheck(int uNo);
 	int infoUpdate(UserVO vo);
-	public void goodbye(String uId) throws Exception;
+	//회원탈퇴
+	public int goodbye(int uNo);
 	
 	//admin용========================================================
 	List<UserVO>list(AdminSearchVO AdminSearchVO);	//관리자 전체 회원 목록(검색기능추가)
