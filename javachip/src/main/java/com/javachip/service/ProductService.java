@@ -20,6 +20,7 @@ public interface ProductService {
 	int outputProduct(ProductVO productVO);
 	int updateProduct(ProductVO productVO);
 	int deleteProduct(int pNo);
+	List<ProductVO> selectIndexProduct();
 	
 	//관리자 메소드
 	//관리자용 상품 리스트(검색기능,메인 페이지)
