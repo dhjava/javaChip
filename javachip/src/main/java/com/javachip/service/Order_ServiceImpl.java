@@ -64,4 +64,11 @@ public class Order_ServiceImpl implements Order_Service {
 		return order_DAO.OrderTotal(AdminSearchVO);
 	}
 
+	//주문 선택삭제
+	@Override
+	public void deleteProduct(String oNo) {
+		order_DAO.deleteProduct(oNo);
+		
+	}
+
 }

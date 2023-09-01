@@ -26,4 +26,6 @@ public interface Order_Service {
 	List<Order_VO> list(AdminSearchVO AdminSearchVO);
 	//페이징 위한 주문 전체 목록 개수
 	int OrderTotal(AdminSearchVO AdminSearchVO);
+	//주문 선택삭제
+	public void deleteProduct(String oNo);
 }

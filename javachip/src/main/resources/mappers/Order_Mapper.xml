@@ -100,4 +100,11 @@
 		WHERE 1 = 1
 		<include refid="findOrder" />
 	</select>
+	
+	<!-- 주문 삭제 -->
+	<update id="deleteProduct">
+		update Order_
+		set oStatus = 'Y'
+		where oNo = #{oNo}
+	</update>
 </mapper>

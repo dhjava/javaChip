@@ -90,9 +90,11 @@
 						  <c:if test="${param.pType eq 'G'}">selected</c:if>>정기배송</option>
 						</select><br><br><br>
                         상품명 :<br><input class="form-control"  type="text" id="pName" name="pName" placeholder="상품명" ><br>
-                        가격 :<br><input class="form-control"  type="text" id="pPrice" name="pPrice" placeholder="개당 가격"><br>
+                        가격 :<br><input class="form-control"  type="text" id="pPrice" name="pPrice" placeholder="개당 가격"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');"><br>
                         상품설명 :<br><textarea class="form-control" rows="4" id="pNote" name="pNote" placeholder="상품설명"></textarea><br>
-                        입고수 :<br><input class="form-control"  type="text" id="pInput" name="pInput" placeholder="입고 수량"><br>
+                        입고수 :<br><input class="form-control"  type="text" id="pInput" name="pInput" placeholder="입고 수량"
+                        oninput="this.value=this.value.replace(/[^0-9]/g,'');"><br>
                         사진 첨부 :<br>
                         <div class="input-group mb-3">
 						  <div class="custom-file">

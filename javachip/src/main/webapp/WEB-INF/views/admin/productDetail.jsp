@@ -116,11 +116,13 @@
                             상품명 :<br>
                             <input class="form-control" type="text" id="pName" name="pName" value="${vo.pName}" ><br>
                             가격 :<br>
-                            <input class="form-control" type="text" id="pPrice" name="pPrice" value="${vo.pPrice}" ><br>
+                            <input class="form-control" type="text" id="pPrice" name="pPrice" value="${vo.pPrice}" 
+                            oninput="this.value=this.value.replace(/[^0-9]/g,'');"><br>
                             상품설명 :<br>
                             <textarea class="form-control" rows="4" id="pNote" name="pNote">${vo.pNote}</textarea><br>
                             입고수 :<br>
-                            <input class="form-control" type="text" id="pInput" name="pInput" value="${vo.pInput}" ><br>
+                            <input class="form-control" type="text" id="pInput" name="pInput" value="${vo.pInput}" 
+                            oninput="this.value=this.value.replace(/[^0-9]/g,'');"><br>
                         <div class="input-group mb-3">
 						  <div class="custom-file">
 						    <input type="file" name="uploadFile">

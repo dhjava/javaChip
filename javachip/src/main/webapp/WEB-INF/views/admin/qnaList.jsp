@@ -7,7 +7,62 @@
 
 <% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <!-- 메인 작성 영역 -->
+<script type="text/javascript">
+$(function(){
+	var chkObj = document.getElementsByName("RowCheck");
+	var rowCnt = chkObj.length;
+	
+	$("input[name='allCheck']").click(function(){
+		var chk_listArr = $("input[name='RowCheck']");
+		for(var i = 0; i < chk_listArr.length; i++){
+			chk_listArr[i].checked = this.checked;
+		}
+	});
+	$("input[name='RowCheck']").click(function(){
+		if($("input[name='RowCheck']:checked").length == rowCnt){
+			$("input[name='allCheck']")[0].checked = true;
+		}
+		else{
+			$("input[name='allCheck']")[0].checked = false;
+		}
+	});
+});
 
+function deleteValue(){
+	var valueArr = new Array();
+	var list = $("input[name='RowCheck']");
+	for(var i = 0; i < list.length; i++){
+		if(list[i].checked){
+			valueArr.push(list[i].value);
+		}
+	}
+	if(valueArr.length == 0){
+		alert("선택된 글이 없습니다.");
+	}
+	else{
+		var chk = confirm("정말 삭제하시겠습니까?");
+		
+		$.ajax({
+			url : "qnaDelete.do",
+			type : "POST",
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(jdata){
+				if(jdata = 1){
+					alert("삭제성공");
+					location.replace("/controller/admin/qnaList.do")
+				}
+				else{
+					alert("삭제실패");
+				}
+			}
+		});
+	}
+}
+
+ </script>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -79,12 +134,15 @@
 				</div>
 				<table border="1" class="tableAdmin qna admin">
 					<tr>
-						<th><input type="checkbox"></th><th>번호</th><th>제목</th><th>작성일</th><th>상태</th>
+						<th><input type="checkbox" name="allCheck" id="allCheck"></th>
+						<th>번호</th><th>제목</th><th>작성일</th><th>상태</th>
 					</tr>
 					<c:forEach items="${list}" var="qna">
 					<tr>
 						
-						<td><input type="checkbox"></td>
+						<td><input type="checkbox" name="RowCheck" th:value="${qna.qNo}"
+							class="RowCheck"
+							data-nNo="${qna.qNo }" value="${qna.qNo }"></td>
 						<td>${qna.qNo }</td>
 						<td><a href="<%=request.getContextPath()%>/help/qnaView.do?qNo=${qna.qNo}">${qna.qTitle }</a></td>
 						<td>

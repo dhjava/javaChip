@@ -52,4 +52,9 @@ public class Order_DAO {
 		value = sqlSession.selectOne("com.javachip.mapper.order_Mapper.OrderTotal", AdminSearchVO);
 		return value;
 	}
+	
+	//주문삭제
+	public void deleteProduct(String oNo) {
+		sqlSession.update(namespace+".deleteProduct", oNo);
+	}
 }
