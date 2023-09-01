@@ -46,49 +46,7 @@ function qnaWriteFn() {
 	});
 	
 }
-/*
-function productFindFn(searchType,searchValue) {
-	
-	let formData = $("#searchFrm").serialize();
-	
-	$.ajax({
-		url:"productSearch.do",
-		type:"get",
-		data:formData,
-		success:function(data) {
-		var htmlStr = ""
-		var list = data.list;
-		var pm = data.pm;
-			
-		var urlStr = "";
-		
-		
-		if(list != '') {
-			for(let i=0; i < list.length ;i++) {
-				htmlStr += "<tr>";
-				htmlStr += "<td style='width : 15%'>" + (i + 1) + "</td>";
-				htmlStr += "<td style='width : 15%'><div class='img pInfo'>상품 이미지</div></td>";
-				htmlStr += "<td style='width : 20%; text-align: left'>" + list[i].pName + "</td>";
-				htmlStr += "<td style='width : 25%;'>" + list[i].pType + "</td>";
-				htmlStr += "<td style='width : 15%'><input name='pNoRadio' type='radio' value='" + list[i].pNo + "'></td>";
-				htmlStr += "</tr>";
-			}
-		}else{
-			htmlStr = "상품 정보가 없습니다.";
-			
-		}
-		$("#pTable").html(htmlStr);
-			
-		}
-		,
-		error:function() {
-			
-		alert("실패");
-		}
-		
-	});
-}
-*/
+
 function searchProductFn() {
 	let searchType = $("#qpSearchType").val();
 	let searchValue = $("#qpSearchValue").val();
@@ -192,7 +150,6 @@ function productCallFn(curPage,searchType,searchValue) {
 	
 }
 	
-
 
 
 </script>
