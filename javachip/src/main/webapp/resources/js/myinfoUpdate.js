@@ -1,11 +1,15 @@
 $.getScript( '//code.jquery.com/jquery-latest.min.js' );
 
-
+function pwUpdate(){
+    var url = "pwUpdate.do";
+    var name = "비밀번호 변경";
+    var option = "width = 800, height = 600, location = no"
+    window.open(url, name, option);
+}
 
 function checks() {
 	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 	var getCheck= RegExp(/^[a-zA-Z0-9]{4,16}$/);
-	var getPw= RegExp(/^[a-zA-Z0-9`~!@@#$%^&*|₩₩₩'₩";:₩/?]{8,20}$/);
 	var getName= RegExp(/^[가-힣]+$/);
 
 
@@ -16,27 +20,12 @@ function checks() {
 	  return false;
 	}
 
-	//비밀번호
-	if(!getPw.test($("#uPw").val())) {
-	alert("형식에 맞춰서 PW를 입력해주세요.");
-	$("#uPw").focus();
-	return false;
-	}
-
 	//아이디랑 비밀번호랑 같은지
 	if ($("#uId").val()==($("#uPw").val())) {
 	alert("ID와 비밀번호가 동일하게 입력될 수 없습니다.");
 	$("#uPw").val("");
 	$("#uPw").focus();
   }
-
-	//비밀번호 똑같은지
-	if($("#uPw").val() != ($("#uPwc").val())){ 
-	alert("동일한 비밀번호를 입력해주세요.");
-	$("#uPwc").val("");
-	$("#uPwc").focus();
-	return false;
-   }
 
 	//이메일 유효성 검사
 	if(!getMail.test($("#uMail").val())){
@@ -63,7 +52,6 @@ function checks() {
 }
 
 var checkIdFlag = false; // id 입력양식에 대한 입력여부 값을 가지는 변수
-var checkPasswordFlag = false;
 var checkNameFlag = false;
 var checkPhoneFlag = false;
 var checkMailFlag = false;
@@ -73,8 +61,6 @@ function checkFn(obj){
 		$(obj).next(".msg").text("필수입력입니다.").css("color","red");
 		if($(obj).attr("name") == "uId"){
 			checkIdFlag = false;
-		}else if($(obj).attr("name") == "uPw"){
-			checkPasswordFlag = false;
 		}else if($(obj).attr("name") == "uName"){
 			checkNameFlag = false;
 		}else if($(obj).attr("name") == "uPhone"){
@@ -106,9 +92,7 @@ function checkFn(obj){
 			// id의 값이 존재하는 경우
 			$(obj).next(".msg").text("");
 			
-			if($(obj).attr("name") == "uPw"){
-				checkPasswordFlag = false;
-			}else if($(obj).attr("name") == "uName"){
+			if($(obj).attr("name") == "uName"){
 				checkNameFlag = false;
 			}else if($(obj).attr("name") == "uPhone"){
 				checkPhoneFlag = false;
@@ -119,7 +103,7 @@ function checkFn(obj){
 	}
 }
 function submitFn(){
-	if(checkIdFlag && checkPasswordFlag && checkNameFlag && checkPhoneFlag && checkMailFlag){
+	if(checkIdFlag && checkNameFlag && checkPhoneFlag && checkMailFlag){
 		// 선택 불가한 select 값 form에 전송하기위해 disabled 값 제거
 		$("form").submit();
 	}
@@ -176,7 +160,3 @@ $(document).ready(function() {
 		else $("#agree_all").prop("checked", true); 
 	});
 });
-
-function inputActive()  {
-	$('#uPw').attr('readonly', false);
-  }

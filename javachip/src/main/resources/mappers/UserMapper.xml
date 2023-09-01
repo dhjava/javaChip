@@ -148,8 +148,7 @@
 	<!--  -->
 	<update id = "infoUpdate" parameterType="userVO">
 		UPDATE user
-		   SET uPw = #{uPw}
-			  ,uName = #{uName}
+		   SET uName = #{uName}
 			  ,uPhone = #{uPhone}
 			  ,uBisno = #{uBisno}
 			  ,uAdd1 = #{uAdd1}
@@ -159,7 +158,12 @@
 		 WHERE uNo = #{uNo}
 	</update>
 	
-	<!--  -->
+	<update id = "pwUpdate" parameterType="userVO">
+		UPDATE user
+		   SET uPw = #{uPw}
+		 WHERE uNo = #{uNo}
+	</update>
+
 	<update id = "goodbye" parameterType="userVO">
 		update user
 		set uRetire = 'Y'

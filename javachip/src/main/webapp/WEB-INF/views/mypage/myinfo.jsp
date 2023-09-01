@@ -26,14 +26,10 @@
                 <h4>회원정보 수정</h4>
                 <form action="myinfoUpdate.do" method="post" onsubmit="return checks()">
                     <div class="join__input"><!-- PK에서 가져오기 -->
+                    	<p>비밀번호 변경</p>
+                        	<button type="button" class="btn btn-outline-secondary" onclick="pwUpdate()" style="margin-bottom:20px;">비밀번호 변경</button>
                     	<p>아이디<span>*</span></p>
                         	<input type="text" class="join__input__short" id="uId" name="uId" value="${login.uId}" readonly/>
-                    	<p>비밀번호<span>*</span>&nbsp;&nbsp;<span style="font-size:10pt; color:silver;">대/소문자, 숫자, 특수기호 최소 8자에서 최대 20자</span></p>
-                        	<input type="password" class="join__input__short" id="uPw" name="uPw" onblur="checkFn(this)" value="${login.uPw}" readonly/>
-                        	<button type="button" class="btn btn-outline-secondary" onclick="inputActive()">비밀번호 변경</button>
-                        	<div class="msg"></div>
-                        <p>비밀번호 확인<span>*</span>&nbsp;&nbsp;<span style="font-size:10pt; color:silver;">위와 같은 비밀번호를 입력하셔야 정보 수정이 완료됩니다.</span></p>
-                        	<input type="password" class="join__input__short" id="uPwc" name="uPwc">
                         <p>성명<span>*</span></p>
                         	<input type="text" class="join__input__short" id="uName" name="uName" onblur="checkFn(this)" value="${login.uName}" readonly/>
                         	<div class="msg"></div>
@@ -61,7 +57,7 @@
                    	</div>
 					<div class="join__submit">
 						<input type="submit" class="btn btn-primary" value="정보 수정">
-						<input type="reset" class="btn btn-outline-secondary" value="취소">
+						<input type="button" class="btn btn-outline-secondary" value="취소" onClick="history.go(-1)"/>
 					</div>
                 </form>
             </div>
