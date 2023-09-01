@@ -112,38 +112,52 @@
             <div class="row">
                 <div class="categories__slider owl-carousel">
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-1.jpg">
-                            <h5><a href="shop/grid.do?searchType=pType&searchValue=A">원두</a></h5>
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-1.jpg"
+                        	onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=A'"
+                        	style="cursor:pointer;">
+                            <h5><a>원두</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-2.jpg">
-                            <h5><a href="shop/grid.do?searchType=pType&searchValue=B">생두</a></h5>
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-2.jpg"
+							onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=B'"
+                        	style="cursor:pointer;">
+                            <h5><a>생두</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-3.jpg">
-                            <h5><a href="shop/grid.do?searchType=pType&searchValue=C">드립백</a></h5>
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-3.jpg"
+							onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=C'"
+                        	style="cursor:pointer;">
+                            <h5><a>드립백</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-4.jpg">
-                            <h5><a href="shop/grid.do?searchType=pType&searchValue=D">캡슐</a></h5>
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-4.jpg"
+	                        onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=D'"
+	                        style="cursor:pointer;">
+                            <h5><a>캡슐</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop/grid.do?searchType=pType&searchValue=E">도매</a></h5>
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg"
+	                        onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=E'"
+	                        style="cursor:pointer;">
+                            <h5><a>도매</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop/grid.do?searchType=pType&searchValue=F">커피용품</a></h5>
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg"
+	                        onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=F'"
+	                        style="cursor:pointer;">
+                            <h5><a>커피용품</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop/grid.do?searchType=pType&searchValue=G">정기배송</a></h5>
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg"
+	                        onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=G'"
+	                        style="cursor:pointer;">
+                            <h5><a>정기배송</a></h5>
                         </div>
                     </div>
                 </div>
@@ -177,8 +191,14 @@
             <c:forEach items="${indexList}" var="index">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix type${index.pType}">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="resources/img/featured/feature-1.jpg"
-                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;" >
+                    	<c:if test="${empty index.aChangeName}">
+	                        <div class="featured__item__pic set-bg" data-setbg="resources/img/categories/cat-5.jpg"
+	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;" >
+                    	</c:if>
+                    	<c:if test="${not empty index.aChangeName}">
+	                        <div class="featured__item__pic set-bg" data-setbg="resources/upload/${index.aChangeName}"
+	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;" >
+                    	</c:if>
                        	<c:if test="${index.pType ne 'G'}">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="javascript:addCartFn(${index.pNo})"><i class="fa fa-shopping-cart"></i></a></li>
@@ -222,7 +242,7 @@
     <!-- Banner End -->
 
     <!-- Latest Product Section Begin -->
-    <section class="latest-product spad">
+    <section class="latest-product spad" style="margin-bottom:80px;">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6">
@@ -233,7 +253,12 @@
                             <c:forEach items="${newList}" var="newer" begin="1" end="3" step="1">
                                 <a href="shop/details.do?pNo=${newer.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
+                                    <c:if test="${empty newer.aChangeName}">
                                         <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                    </c:if>
+                                    <c:if test="${not empty newer.aChangeName}">
+                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                    </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>${newer.pName}</h6>
@@ -241,7 +266,7 @@
                                     </div>
                                 </a>
                             </c:forEach>
-                            <c:if test="${empty newer}">
+                            <c:if test="${empty newList}">
 				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
 				            		상품 준비 중입니다.
 				            	</div>
@@ -251,7 +276,12 @@
                             <c:forEach items="${newList}" var="newer" begin="4" end="6" step="1">
                                 <a href="shop/details.do?pNo=${newer.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
+                                    <c:if test="${empty newer.aChangeName}">
                                         <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                    </c:if>
+                                    <c:if test="${not empty newer.aChangeName}">
+                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                    </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>${newer.pName}</h6>
@@ -259,7 +289,7 @@
                                     </div>
                                 </a>
                             </c:forEach>
-                            <c:if test="${empty newer}">
+                            <c:if test="${empty newList}">
 				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
 				            		상품 준비 중입니다.
 				            	</div>
@@ -276,7 +306,12 @@
                             <c:forEach items="${indexList}" var="pop" begin="1" end="3" step="1">
                                 <a href="shop/details.do?pNo=${pop.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
+                                    <c:if test="${empty pop.aChangeName}">
                                         <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                    </c:if>
+                                    <c:if test="${not empty pop.aChangeName}">
+                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                    </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>${pop.pName}</h6>
@@ -284,7 +319,7 @@
                                     </div>
                                 </a>
                             </c:forEach>
-                            <c:if test="${empty pop}">
+                            <c:if test="${empty indexList}">
 				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
 				            		상품 준비 중입니다.
 				            	</div>
@@ -294,7 +329,12 @@
                             <c:forEach items="${indexList}" var="pop" begin="4" end="6" step="1">
                                 <a href="shop/details.do?pNo=${pop.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
+                                    <c:if test="${empty pop.aChangeName}">
                                         <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                    </c:if>
+                                    <c:if test="${not empty pop.aChangeName}">
+                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                    </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>${pop.pName}</h6>
@@ -302,7 +342,7 @@
                                     </div>
                                 </a>
                             </c:forEach>
-                            <c:if test="${empty pop}">
+                            <c:if test="${empty indexList}">
 				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
 				            		상품 준비 중입니다.
 				            	</div>
@@ -319,7 +359,12 @@
                             <c:forEach items="${randomList}" var="rand" begin="1" end="3" step="1">
                                 <a href="shop/details.do?pNo=${rand.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
+                                    <c:if test="${empty rand.aChangeName}">
                                         <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                    </c:if>
+                                    <c:if test="${not empty rand.aChangeName}">
+                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                    </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>${rand.pName}</h6>
@@ -327,7 +372,7 @@
                                     </div>
                                 </a>
                             </c:forEach>
-                            <c:if test="${empty rand}">
+                            <c:if test="${empty randomList}">
 				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
 				            		상품 준비 중입니다.
 				            	</div>
@@ -337,7 +382,12 @@
                             <c:forEach items="${randomList}" var="rand" begin="4" end="6" step="1">
                                 <a href="shop/details.do?pNo=${rand.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
+                                    <c:if test="${empty rand.aChangeName}">
                                         <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                    </c:if>
+                                    <c:if test="${not empty rand.aChangeName}">
+                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                    </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
                                         <h6>${rand.pName}</h6>
@@ -345,7 +395,7 @@
                                     </div>
                                 </a>
                             </c:forEach>
-                            <c:if test="${empty rand}">
+                            <c:if test="${empty randomList}">
 				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
 				            		상품 준비 중입니다.
 				            	</div>
