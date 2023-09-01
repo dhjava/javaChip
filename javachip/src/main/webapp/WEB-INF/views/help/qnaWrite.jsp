@@ -5,16 +5,33 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/qna.css" type="text/css"/>
 
 <script src="<%=request.getContextPath() %>/resources/js/qna.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/smarteditor2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script>
+	let oEditor = [];
+	
+	smartEditor = function() {
+		console.log("Naver SmartEditor");
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditor,
+			elPlaceHolder: "qContents",
+			sSkinURI: "<%=request.getContextPath() %>/resources/smarteditor2/SmartEditor2Skin.html",
+			fCreator: "createSEditor2"
+		});
+	}
+	
+	$(document). ready(function() {
+		smartEditor()
+	});
+</script>
 <script>
 function qnaWriteFn() {
-
-	var formData = $("#submitFrm").serialize();
-	var qContents = $("#qContents").html();
+	let formData = $("#submitFrm").serialize();
+	let qContents = $("#qContents").val();
 	
 	$.ajax({
 		url:"qnaWrite.do",
 		type:"post",
-		data:formData+"&qContents=" + qContents,
+		data:formData,
 		dataType:"json",
 		success:function(data) {
 			alert(data.result);
@@ -29,9 +46,10 @@ function qnaWriteFn() {
 	});
 	
 }
-
-function productFindFn() {
-	var formData = $("#searchFrm").serialize();
+/*
+function productFindFn(searchType,searchValue) {
+	
+	let formData = $("#searchFrm").serialize();
 	
 	$.ajax({
 		url:"productSearch.do",
@@ -42,6 +60,9 @@ function productFindFn() {
 		var list = data.list;
 		var pm = data.pm;
 			
+		var urlStr = "";
+		
+		
 		if(list != '') {
 			for(let i=0; i < list.length ;i++) {
 				htmlStr += "<tr>";
@@ -56,11 +77,10 @@ function productFindFn() {
 			htmlStr = "상품 정보가 없습니다.";
 			
 		}
+		$("#pTable").html(htmlStr);
 			
-			$("#pTable").html(htmlStr);
-			
-		
-		},
+		}
+		,
 		error:function() {
 			
 		alert("실패");
@@ -68,15 +88,113 @@ function productFindFn() {
 		
 	});
 }
+*/
+function searchProductFn() {
+	let searchType = $("#qpSearchType").val();
+	let searchValue = $("#qpSearchValue").val();
+	// productFindFn(페이지번호,검색유형,검색값);
+	productCallFn(1,searchType,searchValue);	
+}
 
-function qnaUploadFn() {
-	var formData = $("#inputGroupFile02");
+
+function productCallFn(curPage,searchType,searchValue) {
 	
-	if(formData.files.length == 0) {
-		return;
-	}
+	
+	$.ajax({
+		url:"productSearch.do",
+		type:"get",
+		data:{	
+				"page": curPage,
+				"searchType": searchType,
+				"searchValue": searchValue
+			},
+		success:function(data) {
+		var htmlStr = ""
+		var list = data.list;
+		var pm = data.pm;
+			
+		var urlStr = "";
+		
+		if(list != '') {
+			for(let i=0; i < list.length ;i++) {
+				htmlStr += "<tr>";
+				htmlStr += "<td style='width : 15%'>" + (pm.totalCount - pm.seqNo + i + 1) + "</td>";
+				htmlStr += "<td style='width : 15%'><div class='img pInfo'>상품 이미지</div></td>";
+				htmlStr += "<td style='width : 20%; text-align: left'>" + list[i].pName + "</td>";
+				htmlStr += "<td style='width : 25%;'>" + list[i].pType + "</td>";
+				htmlStr += "<td style='width : 15%'><input name='pNoRadio' type='radio' value='" + list[i].pNo + "'></td>";
+				htmlStr += "</tr>";
+			}
+		}else{
+			htmlStr = "상품 정보가 없습니다.";
+			
+		}
+			
+		$("#pTable").html(htmlStr);
+		
+		
+		if(pm.prev) {
+			urlStr += "<a class='page' href='javascript:productCallFn(" + (pm.startPage - 1) + "," + searchType + "," + searchValue +");'> &#9664;</a>";
+		}
+		if(pm.startPage == 0) {
+			urlStr += "<b>1<b>";
+		}else {
+			for(var i=pm.startPage; i <= pm.endPage; i++) {
+				if( i == pm.searchVO.page){
+					urlStr += " <b>"+ i +"</b> "
+				}else {
+				urlStr += "<a class='page' href='javascript:productCallFn(" + i + "," + searchType + "," + searchValue +");'> " + i + " </a>";				
+				}
+			}
+		}
+		
+		if(pm.next && pm.endPage > 0) {
+			urlStr += "<a class='page' href='javascript:productCallFn(" + (pm.endPage + 1) + "," + searchType + "," + searchValue +");'>" + " &#9654;</a>";
+		}
+		
+		$("#pPaging").html(urlStr);
+		
+		},
+		error:function() {
+			
+		alert("상품 정보를 불러올 수 없습니다.");
+		}
+		
+	});
+}
+	
+	// qna 이미지 업로드
+	function qnaUploadFn() {
+	var formData = new FormData($("#fileSubmitFrm")[0]);	// from에 작성된 모든것을 보낸다.
+
+	$.ajax({
+		url:"fileupload.do",
+		type:"post",
+		data:formData,
+		cache: false,
+		contentType : false,	// false 로 선언 시 content-type 헤더가 multipart/form-data로 전송되게 함
+		processData : false,	// false로 선언 시 formData를 string으로 변환하지 않음
+		success:function(data) {
+			if(data == "") {
+				
+			}else {
+			var img = "<div><img src='" + "<%=request.getContextPath()%>" + "/resources/upload/" + data + "'></div>";
+				
+			$("#qContents").prepend(img);
+			}
+			
+		},
+		error:function() {
+			alert("파일업로드에 실패했습니다.");
+		}
+	});
+	
 	
 }
+	
+
+
+
 </script>
 	<!-- Breadcrumb Section Begin -->
 	<section class="breadcrumb-section set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/breadcrumb.jpg">
@@ -99,6 +217,7 @@ function qnaUploadFn() {
 		<div class="container">
 			<div class="write-form">
 				<div class="d-flex flex-column bd-highlight mb-3">
+				<a href="editer.do">테스트</a>
 				<form id="submitFrm" method="post">
 						<div class="p-2 bd-highlight">
 							<h4><b>Qna 글쓰기</b></h4>
@@ -126,22 +245,24 @@ function qnaUploadFn() {
 						<p>제목<p>
 						<input type="text" name="qTitle" id="qTitle" class="form-control" aria-label="subject" placeholder="제목을 입력하세요.">
 					</div>
-					<div class="p-2 bd-highlight" style="text-align:right">
-						<p>비밀글  <input type="checkbox" name="secretCheck" id="secretCheck" value="Y"/> </p>
-					</div>
-					<div class="p-2 bd-highlight">
-						<div class="form-control textbox" id="qContents" contentEditable="true">
+					<div class="p-2 bd-highlight" style="display:flex;">
+						<div style="margin-right: auto;">
+							<label class="btn btn-outline-secondary" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">이미지 업로드</label>
+						</div>
+						<div>
+							<p>비밀글  <input type="checkbox" name="secretCheck" id="secretCheck" value="Y"/> </p>
 						</div>
 					</div>
+					<div class="p-2 bd-highlight">
+							<textarea name="qContents" id="qContents" style="width:100%; min-height:500px;"></textarea>
+					</div>
 				</form>
-					
-						<div class="input-group mb-1">
-								<div class="custom-file">
-								<form id="fileSubmitFrm" method="post" enctype="multipart/form-data">
-									<input type="file" class="custom-file-input" id="inputGroupFile02">
-									<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-								</form>
-								</div>
+						<div class="input-group mb-1" id="smarteditor">
+							<div class="custom-file">
+							<form id="fileSubmitFrm" method="post" enctype="multipart/form-data">
+								<input style="display:none"type="file" accept="image/png,image/jpeg,image/gif" multiple="multiple" class="custom-file-input" id="inputGroupFile02" name="uploadFile" onchange="qnaUploadFn()">
+							</form>
+							</div>
 						</div>
 					</div>
 					<div class="p-2 bd-highlight" align="center">
@@ -150,7 +271,6 @@ function qnaUploadFn() {
 					</div>
 				</div>	
 			</div>
-		</div>
 		<div id="pSelectContainer" class="modalHidden">
 			<div class="pSelectBox">
 				<div class="p-2 bd-highlight">
@@ -158,16 +278,16 @@ function qnaUploadFn() {
 				</div>
 				<div class="pSelectContent">
 					<div class="board-search" style="width:70%; float: left">
-						<form id="searchFrm" class="d-flex justify-content-center">
+						<form id="searchFrm" class="d-flex justify-content-center" onsubmit="return false;">
 			 				<div class="input-group">
-								<select name="searchType">
+								<select name="searchType" id="qpSearchType">
 									<option value="all">전체</option>
 									<option value="name">상품명</option>
 									<option value="type">종류</option>
 								</select>
-								<input type="text" name="SearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
+								<input type="text" name="SearchValue" id="qpSearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
 								<div class="input-group-append">
-									<button type="button" class="btn btn-secondary mb-4" onclick="productFindFn()">검색하기</button>
+									<button type="button" class="btn btn-secondary mb-4" onclick="searchProductFn()">검색하기</button>
 								</div>
 							</div>
 						</form>
@@ -187,8 +307,7 @@ function qnaUploadFn() {
 					</table>
 					</div>
 				</div>
-				<div style="text-align:center;">
-					◀ 1 2 3 4 5 6 7 8 9 10 ▶
+				<div style="text-align:center;" id="pPaging">
 				</div><br>
 				<div class="p-2 bd-highlight" align="center">
 					<button class="btn btn-dark" type="button" style="margin-right:20px;" onclick="sendPnoFn();">등록</button>

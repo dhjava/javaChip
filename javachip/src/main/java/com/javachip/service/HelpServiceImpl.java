@@ -71,6 +71,8 @@ public class HelpServiceImpl implements HelpService {
 	@Override
 	public List<ProductVO> selectProductList(SearchVO searchVO) {
 		
+		searchVO.setStartNum( (searchVO.getPage()-1)*searchVO.getPerPageNum() );
+		
 		return helpDAO.selectProductList(searchVO);
 	}
 	
@@ -81,7 +83,7 @@ public class HelpServiceImpl implements HelpService {
 		
 		return helpDAO.selectQnaList(searchVO);
 	}
-	
+
 	@Override
 	public QnaVO selectOneByQno(int qNo) {
 		

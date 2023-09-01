@@ -3,8 +3,26 @@
 <%@ include file="../include/nav.jsp" %>
 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/qna.css" type="text/css"/>
-
+<script type="text/javascript" src="<%=request.getContextPath() %>/resources/smarteditor2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script src="<%=request.getContextPath() %>/resources/js/qna.js"></script>
+
+<script>
+	let oEditor = [];
+	
+	smartEditor = function() {
+		console.log("Naver SmartEditor");
+		nhn.husky.EZCreator.createInIFrame({
+			oAppRef: oEditor,
+			elPlaceHolder: "qAnswer",
+			sSkinURI: "<%=request.getContextPath() %>/resources/smarteditor2/SmartEditor2Skin.html",
+			fCreator: "createSEditor2"
+		});
+	}
+	
+	$(document). ready(function() {
+		smartEditor()
+	});
+</script>
 <script>
 function qnaAnswerFn() {
 
@@ -14,7 +32,7 @@ function qnaAnswerFn() {
 		$.ajax({
 			url:"qnaAnswer.do",
 			type:"post",
-			data:formData+"&qAnswer=" + qAnswer,
+			data:formData,
 			dataType:"json",
 			success:function(data) {
 				alert(data.result);
@@ -72,7 +90,7 @@ function qnaAnswerFn() {
 							<tr style="height:120px;">
 								<td style="vertical-align:middle;">문의 상품</td>
 								<td style="vertical-align:middle; text-align:center; width:20%">(사진)</td>
-								<td>${qnaVO.pNo}</td>
+								<td>상품 명 :${qnaVO.pName}</td>
 							</tr>
 						</c:if>
 							<tr style="font-color:gray; font-size:10pt;">
@@ -87,7 +105,7 @@ function qnaAnswerFn() {
 						<p>비밀글  <input type="checkbox" value="${qnaVO.secretYN}" <c:if test="${qnaVO.secretYN eq 'Y'}">checked</c:if> disabled /></p>
 					</div>
 					<div class="p-2 bd-highlight">
-						<div class="form-control textbox" id="qAnswer" contentEditable="true" >
+						<textarea name="qAnswer" id="qAnswer" style="width:100%; min-height:500px;"></textarea>
 						</div>
 					</div>
 					<div class="p-2 bd-highlight">
