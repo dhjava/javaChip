@@ -422,7 +422,7 @@ public class ShopController {
 		int result = os.insertOrder(ov);
 		int oNo = ov.getoNo();
 		
-		if(result == 0) {
+		if(result == 1) {
 			
 			// 구매한 장바구니를 주문 상세로
 			for(String items : cNo) {
