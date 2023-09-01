@@ -246,21 +246,19 @@ function productCallFn(curPage,searchType,searchValue) {
 						<input type="text" name="qTitle" id="qTitle" class="form-control" aria-label="subject" placeholder="제목을 입력하세요.">
 					</div>
 					<div class="p-2 bd-highlight" style="display:flex;">
-						<div style="margin-right: auto;">
-							<label class="btn btn-outline-secondary" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">이미지 업로드</label>
-						</div>
 						<div>
 							<p>비밀글  <input type="checkbox" name="secretCheck" id="secretCheck" value="Y"/> </p>
 						</div>
 					</div>
-					<div class="p-2 bd-highlight">
+					<div class="p-2 bd-highlight" id="smarteditor">
 							<textarea name="qContents" id="qContents" style="width:100%; min-height:500px;"></textarea>
 					</div>
 				</form>
-						<div class="input-group mb-1" id="smarteditor">
+						<div class="input-group mb-1">
 							<div class="custom-file">
 							<form id="fileSubmitFrm" method="post" enctype="multipart/form-data">
 								<input style="display:none"type="file" accept="image/png,image/jpeg,image/gif" multiple="multiple" class="custom-file-input" id="inputGroupFile02" name="uploadFile" onchange="qnaUploadFn()">
+								<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
 							</form>
 							</div>
 						</div>

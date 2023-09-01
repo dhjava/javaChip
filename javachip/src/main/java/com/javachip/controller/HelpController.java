@@ -2,7 +2,9 @@ package com.javachip.controller;
 
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +25,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import com.javachip.service.HelpService;
 import com.javachip.service.ProductService;
 import com.javachip.vo.NoticeVO;
 import com.javachip.vo.PageMaker;
+import com.javachip.vo.PattachVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.SearchVO;
@@ -597,4 +604,31 @@ public class HelpController {
 		return "";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/displayFile.do", method = RequestMethod.GET)
+	public ResponseEntity<byte[]> displayFile(int down, PattachVO pattachVO, HttpServletRequest req) throws Exception {
+		
+		InputStream inStream = null;
+		ResponseEntity<byte[]> entity = null;
+		
+		
+		String fileName = pattachVO.getaOriginName();
+		
+		try{
+			// 확장자 확인
+			String formatName = fileName.substring(fileName.lastIndexOf(".")+1); 
+			//미디어 타입 확인
+			
+			// 헤더 객체 생성
+			HttpHeaders headers = new HttpHeaders();	
+			
+		
+			
+			
+			
+		}catch(Exception e) {
+			
+		}
+		return entity;
+	}
 }
