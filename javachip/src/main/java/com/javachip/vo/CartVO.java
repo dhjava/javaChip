@@ -12,7 +12,7 @@ public class CartVO {
 	
 	@Override
 	public String toString() {
-		return "CartVO [cNo=" + cNo + ", pNo=" + pNo + ", uNo=" + uNo + ", cCount=" + cCount + "pName=" + pName
+		return "CartVO [cNo=" + cNo + ", pNo=" + pNo + ", uNo=" + uNo + ", cCount=" + cCount + ", pName=" + pName
 				+ ", pPrice=" + pPrice + "]";
 	}
 	public int getcNo() {
