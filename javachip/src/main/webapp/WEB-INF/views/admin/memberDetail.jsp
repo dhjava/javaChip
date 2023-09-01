@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
+<%@ page import ="com.javachip.vo.*" %> 
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
+<% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <!-- 메인 작성 영역 -->
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -206,12 +208,6 @@
 				번호
 			</th>
 			<th>
-				상품 이름
-			</th>
-			<th>
-				구매 날짜
-			</th>
-			<th>
 				환불 날짜
 			</th>
 			<th>
@@ -221,49 +217,50 @@
 				환불 사유
 			</th>
 		</tr>
+		<c:forEach items="${reflist }" var="reflist">
 		<tr>
 			<td>
-				1
+				${reflist.refNo }
 			</td>
 			<td>
-				커피1
+				${reflist.refDate }
 			</td>
 			<td>
-				2023-02-22
+				<c:if test="${reflist.refStatus eq 'N' }">
+					환불 대기
+				</c:if>
+				<c:if test="${reflist.refStatus eq 'Y' }">
+					환불 완료
+				</c:if>
 			</td>
 			<td>
-				2023-02-25
-			</td>
-			<td>
-				환불 완료
-			</td>
-			<td>
-				잘못된 상품
+				${reflist.refReason }
 			</td>
 		</tr>
+		</c:forEach>
 		<tr>
-			<td>
-				2
-			</td>
-			<td>
-				커피2
-			</td>
-			<td>
-				2023-03-22
-			</td>
-			<td>
-				2023-03-22
-			</td>
-			<td>
-				환불 완료
-			</td>
-			<td>
-				상품 변경
-			</td>
-		</tr>
-		<tr>
-			<td colspan="6"><div class="admin_pagination" style="text-align:center;">
-			◀ 1 2 3 4 5 6 7 8 9 10 ▶</div></td>
+			<td colspan="6" style="text-align:center;">
+<% 
+if (pm.isPrev()) { %>
+    <a href="<%=request.getContextPath()%>/admin/memberDetail.do?uNo=${vo.uNo}&page=<%=pm.getStartPage()-1%>">◀</a>
+<%
+}
+%>
+
+<% 
+for (int i = pm.getStartPage(); i <= pm.getEndPage(); i++) { %>
+    <a href="<%=request.getContextPath()%>/admin/memberDetail.do?uNo=${vo.uNo}&page=<%=i%>"><%=i %></a>
+<%	
+}
+%>
+
+<% 
+if (pm.isNext() && pm.getEndPage() > 0) { %>
+    <a href="<%=request.getContextPath()%>/admin/memberDetail.do?uNo=${vo.uNo}&page=<%=pm.getEndPage()+1%>">▶</a>
+<%
+}
+%>
+</td>
 		</tr>
 	</table>
 	<br>
