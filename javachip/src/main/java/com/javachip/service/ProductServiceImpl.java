@@ -52,6 +52,10 @@ public class ProductServiceImpl implements ProductService {
 	public int deleteProduct(int pNo) {
 		return productDAO.deleteProduct(pNo);
 	}
+	@Override
+	public java.util.List<ProductVO> selectIndexProduct() {
+		return productDAO.selectIndexProduct();
+	}
 	
 	//관리자용 메소드
 	//상품리스트(검색기능, 메인 페이지)

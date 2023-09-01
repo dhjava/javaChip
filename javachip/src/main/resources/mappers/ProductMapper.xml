@@ -16,14 +16,17 @@
 	</sql>
 	
 	<sql id="sort">
-		<if test='sort.equals("new")'>
+		<if test='sort != null and sort.equals("new")'>
 		 ORDER BY pDate DESC
 		</if>
-		<if test='sort.equals("pop")'>
+		<if test='sort != null and sort.equals("pop")'>
 		 ORDER BY pOutput DESC
 		</if>
-		<if test='sort.equals("price")'>
+		<if test='sort != null and sort.equals("price")'>
 		 ORDER BY pPrice DESC
+		</if>
+		<if test='sort != null and sort.equals("random")'>
+		 ORDER BY RAND()
 		</if>
 	</sql>
 	
@@ -31,7 +34,7 @@
 	<select id="selectAllProduct" resultType="ProductVO" parameterType="SearchVO">
 		SELECT *
 		  FROM product
-		 WHERE 1=1
+		 WHERE delYN = 'N'
 		<include refid="search" />
 		<include refid="sort" />
 		 LIMIT #{startNum}, #{perPageNum}
@@ -40,8 +43,18 @@
 	<select id="totalProduct" resultType="int" parameterType="SearchVO">
 		SELECT COUNT(*)
 		  FROM product
-		 WHERE 1=1
+		 WHERE delYN = 'N'
 		<include refid="search" />
+	</select>
+	
+	<!-- 메인 페이지용 판매량 높고 판매중인 상품만 메인으로 -->
+	<select id="selectIndexProduct" resultType="ProductVO">
+		SELECT *
+		  FROM product
+		 WHERE delYN = 'N'
+		   AND pStock > 0
+		 ORDER BY pOutput DESC
+		 LIMIT 16
 	</select>
 	
 	<!-- 상품 조회 -->
@@ -61,6 +74,7 @@
 			,pInput
 			,pOutput
 			,pStock
+			,delYN
 		) VALUES (
 			 #{pType}
 			,#{pName}
@@ -68,6 +82,7 @@
 			,#{pInput}
 			,0
 			,#{pInput}
+			,'N'
 		)
 		<selectKey order="AFTER" keyProperty="pNo" resultType="int">
 			SELECT MAX(pNo)
@@ -101,7 +116,7 @@
 		 WHERE pNo = #{pNo}
 	</update>
 		
-	<!-- 상품 삭제 -->
+	<!-- 상품 DB에서 삭제 -->
 	<delete id="deleteProduct" parameterType="int">
 		DELETE
 		  FROM product

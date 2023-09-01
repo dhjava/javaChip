@@ -1,6 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="./include/header.jsp" %>
+<script>
+	//금액 ,+원
+	function moneyFn(str) {
+		return str.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',')+"원"
+	}
+	
+	function moneyToNum(str) {
+		var newStr = str.toString().replace(',' ,'');
+		return newStr.toString().replace('원' ,'');
+	}
+	
+	function addCartFn(pNo) {
+		$.ajax({
+			url:"shop/addCart.do",
+			type:"post",
+			data:{
+				pNo: pNo,
+				cCount: 1
+			},
+			success:function(data) {
+				if(data == 1) {
+					if(confirm("장바구니에 추가되었습니다. 장바구니로 이동하시겠습니까?")) {
+						location.href="mypage/cart.do";
+					}
+				}else if(data == 2) {
+					if(confirm("이미 장바구니에 있는 상품입니다. 장바구니로 이동하시겠습니까?")) {
+						location.href="mypage/cart.do";
+					}
+				}else if(data == -1) {
+					alert("로그인이 필요한 서비스입니다.");
+					location.href="member/login.do";
+				}else {
+					alert("오류가 발생했습니다.");
+				}
+			},
+			error:function(){
+				alert("오류가 발생했습니다.");
+			}
+		});
+	}
+	
+	$(document).ready(function() {
+		$(".money").each(function() {
+			var price = $(this).text();
+			$(this).text(moneyFn(price));
+		});
+	}); 
+</script>
     <!-- Hero Section Begin -->
     <section class="hero">
         <div class="container">
@@ -12,20 +60,21 @@
                             <span>상품목록</span>
                         </div>
                         <ul>
-                            <li><a href="shop/grid.do">원두</a></li>
-                            <li><a href="shop/grid.do">생두</a></li>
-                            <li><a href="shop/grid.do">드립백</a></li>
-                            <li><a href="shop/grid.do">캡슐</a></li>
-                            <li><a href="shop/grid.do">도매</a></li>
-                            <li><a href="shop/grid.do">커피용품</a></li>
-                            <li><a href="shop/grid.do">정기배송</a></li>
+                            <li><a href="shop/grid.do">전체</a></li>
+                            <li><a href="shop/grid.do?searchType=pType&searchValue=A">원두</a></li>
+                            <li><a href="shop/grid.do?searchType=pType&searchValue=B">생두</a></li>
+                            <li><a href="shop/grid.do?searchType=pType&searchValue=C">드립백</a></li>
+                            <li><a href="shop/grid.do?searchType=pType&searchValue=D">캡슐</a></li>
+                            <li><a href="shop/grid.do?searchType=pType&searchValue=E">도매</a></li>
+                            <li><a href="shop/grid.do?searchType=pType&searchValue=F">커피용품</a></li>
+                            <li><a href="shop/grid.do?searchType=pType&searchValue=G">정기배송</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form method="get" action="<%=request.getContextPath() %>/shop/grid.do">
+                            <form method="get" action="shop/grid.do">
                             	<input type="hidden" name="searchType" value="pName">
                                 <input type="text" name="searchValue" placeholder="무엇이 필요하신가요?">
                                 <button type="submit" class="site-btn">검색</button>
@@ -43,12 +92,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="hero__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/hero/roasted_bean.jpg">
+                    <div class="hero__item set-bg" data-setbg="resources/img/hero/roasted_bean.jpg">
                         <div class="hero__text">
                             <span>Roasted Bean</span>
                             <h2>커피 원두 <br />100% 직수입</h2>
                             <p>신선한 커피 원두를 구매하시면 바로 배송해드립니다.</p>
-                            <a href="shop-details.jsp" class="primary-btn">지금 구매하기</a>
+                            <a href="shop/grid.do?searchType=pType&searchValue=A" class="primary-btn">지금 구매하기</a>
                         </div>
                     </div>
                 </div>
@@ -64,37 +113,37 @@
                 <div class="categories__slider owl-carousel">
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-1.jpg">
-                            <h5><a href="shop/grid.do">원두</a></h5>
+                            <h5><a href="shop/grid.do?searchType=pType&searchValue=A">원두</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-2.jpg">
-                            <h5><a href="shop/grid.do">생두</a></h5>
+                            <h5><a href="shop/grid.do?searchType=pType&searchValue=B">생두</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-3.jpg">
-                            <h5><a href="shop/grid.do">드립백</a></h5>
+                            <h5><a href="shop/grid.do?searchType=pType&searchValue=C">드립백</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-4.jpg">
-                            <h5><a href="shop/grid.do">캡슐</a></h5>
+                            <h5><a href="shop/grid.do?searchType=pType&searchValue=D">캡슐</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop/grid.do">도매</a></h5>
+                            <h5><a href="shop/grid.do?searchType=pType&searchValue=E">도매</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop/grid.do">커피용품</a></h5>
+                            <h5><a href="shop/grid.do?searchType=pType&searchValue=F">커피용품</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
-                            <h5><a href="shop/grid.do">정기배송</a></h5>
+                            <h5><a href="shop/grid.do?searchType=pType&searchValue=G">정기배송</a></h5>
                         </div>
                     </div>
                 </div>
@@ -114,135 +163,35 @@
                     <div class="featured__controls">
                         <ul>
                             <li class="active" data-filter="*">All</li>
-                            <li data-filter=".oranges">Oranges</li>
-                            <li data-filter=".fresh-meat">Fresh Meat</li>
-                            <li data-filter=".vegetables">Vegetables</li>
-                            <li data-filter=".fastfood">Fastfood</li>
+                            <li data-filter=".typeA">원두</li>
+                            <li data-filter=".typeB">생두</li>
+                            <li data-filter=".typeC">드립백</li>
+                            <li data-filter=".typeD">캡슐</li>
+                            <li data-filter=".typeE">도매</li>
+                            <li data-filter=".typeF">커피용품</li>
+                            <li data-filter=".typeG">정기배송</li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="row featured__filter">
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+            <c:forEach items="${indexList}" var="index">
+                <div class="col-lg-3 col-md-4 col-sm-6 mix type${index.pType}">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/featured/feature-1.jpg" >
+                        <div class="featured__item__pic set-bg" data-setbg="resources/img/featured/feature-1.jpg" >
+                       	<c:if test="${index.pType ne 'G'}">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="mypage-cart.jsp"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="javascript:addCartFn(${index.pNo})"><i class="fa fa-shopping-cart"></i></a></li>
                             </ul>
+                       	</c:if>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">에티오피아 원두</a></h6>
-                            <h5>&#8361;20,000</h5>
+                            <h6><a href="#">${index.pName}</a></h6>
+                            <h5 class="money">${index.pPrice}</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/featured/feature-2.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">에티오피아 원두</a></h6>
-                            <h5>&#8361;20,000</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/featured/feature-3.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">에티오피아 원두</a></h6>
-                            <h5>&#8361;20,000</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/featured/feature-4.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">에티오피아 원두</a></h6>
-                            <h5>&#8361;20,000</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/featured/feature-5.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">에티오피아 원두</a></h6>
-                            <h5>&#8361;20,000</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/featured/feature-6.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">에티오피아 원두</a></h6>
-                            <h5>&#8361;20,000</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/featured/feature-7.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">에티오피아 원두</a></h6>
-                            <h5>&#8361;20,000</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-                    <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/featured/feature-8.jpg">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="#">에티오피아 원두</a></h6>
-                            <h5>&#8361;20,000</h5>
-                        </div>
-                    </div>
-                </div>
+            </c:forEach>
             </div>
         </div>
     </section>
@@ -276,62 +225,30 @@
                         <h4>신상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                            <c:forEach items="${newList}" var="newer" begin="1" end="3" step="1">
+                                <a href="shop/details.do?pNo=${newer.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
+                                        <h6>${newer.pName}</h6>
+                                        <span class="money">${newer.pPrice}</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
+                            </c:forEach>
                             </div>
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                            <c:forEach items="${newList}" var="newer" begin="4" end="6" step="1">
+                                <a href="shop/details.do?pNo=${newer.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
+                                        <h6>${newer.pName}</h6>
+                                        <span class="money">${newer.pPrice}</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
+                            </c:forEach>
                             </div>
                         </div>
                     </div>
@@ -341,127 +258,63 @@
                         <h4>많이 판매된 상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                            <c:forEach items="${indexList}" var="pop" begin="1" end="3" step="1">
+                                <a href="shop/details.do?pNo=${pop.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
+                                        <h6>${pop.pName}</h6>
+                                        <span class="money">${pop.pPrice}</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
+                            </c:forEach>
                             </div>
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                            <c:forEach items="${indexList}" var="pop" begin="4" end="6" step="1">
+                                <a href="shop/details.do?pNo=${pop.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
+                                        <h6>${pop.pName}</h6>
+                                        <span class="money">${pop.pPrice}</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
+                            </c:forEach>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
                     <div class="latest-product__text">
-                        <h4>리뷰 많은 상품</h4>
+                        <h4>추천 상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                            <c:forEach items="${randomList}" var="rand" begin="1" end="3" step="1">
+                                <a href="shop/details.do?pNo=${rand.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
+                                        <h6>${rand.pName}</h6>
+                                        <span class="money">${rand.pPrice}</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
+                            </c:forEach>
                             </div>
                             <div class="latest-prdouct__slider__item">
-                                <a href="#" class="latest-product__item">
+                            <c:forEach items="${randomList}" var="rand" begin="4" end="6" step="1">
+                                <a href="shop/details.do?pNo=${rand.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
                                     </div>
                                     <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
+                                        <h6>${rand.pName}</h6>
+                                        <span class="money">${rand.pPrice}</span>
                                     </div>
                                 </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-2.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
-                                <a href="#" class="latest-product__item">
-                                    <div class="latest-product__item__pic">
-                                        <img src="<%=request.getContextPath() %>/resources/img/latest-product/lp-3.jpg" alt="">
-                                    </div>
-                                    <div class="latest-product__item__text">
-                                        <h6>에티오피아 원두</h6>
-                                        <span>&#8361;20,000</span>
-                                    </div>
-                                </a>
+                            </c:forEach>
                             </div>
                         </div>
                     </div>

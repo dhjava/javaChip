@@ -47,6 +47,9 @@ public class ProductDAO {
 	public int deleteProduct(int pNo) {
 		return sqlSession.delete(namespace+".deleteProduct", pNo);
 	}
+	public List<ProductVO> selectIndexProduct() {
+		return sqlSession.selectList(namespace+".selectIndexProduct");
+	}
 	
 	// 관리자용 메소드
 	// 관리자용 검색기능(메인)
