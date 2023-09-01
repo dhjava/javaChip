@@ -40,7 +40,6 @@ public class UserController {
 	// 로그인 컨트롤
 	@RequestMapping(value="/login.do", method = RequestMethod.POST)
 	public void login(UserVO vo,HttpServletRequest req, HttpServletResponse res) throws IOException {
-		String uPw = "";
 		String encodePw = "";
 		
 		HttpSession session = req.getSession();
@@ -51,11 +50,10 @@ public class UserController {
 		PrintWriter pw = res.getWriter();
 		
 		if(loginVO != null) {
-			uPw = vo.getuPw();
 			encodePw = loginVO.getuPw();
 			//login할 회원이 데이터베이스에 존재
-			
-			if(true == pe.matches(uPw, encodePw)) {
+			System.out.println("입력한 번호 : " + vo.getuPw());
+			if(true == pe.matches(vo.getuPw(), encodePw)) {
 				System.out.println("회원존재");
 				
 				loginVO.setuPw("");  
@@ -73,7 +71,8 @@ public class UserController {
 				pw.append("<script>alert('로그인에 성공했습니다.\\n\\n회원 이름 : " + loginVO.getuName()
 						+ "\\n경고 횟수 : "+ loginVO.getuAlertNum() + "');location.href='"+req.getContextPath()+"/';</script>");
 				}
-			}else if(uPw == vo.getuPw()) {
+			}else if(loginVO.getuPw().equals(vo.getuPw())) {
+				System.out.println(loginVO.getuPw());
 				System.out.println("임시 비밀번호 로그인");
 				session.setAttribute("login", loginVO);
 				pw.append("<script>alert('임시 비밀번호로 로그인 하셨습니다.\\n회원 정보 수정 페이지에서 비밀번호를 변경해주세요.');location.href='"+req.getContextPath()+"/mypage/myinfo.do';</script>");
