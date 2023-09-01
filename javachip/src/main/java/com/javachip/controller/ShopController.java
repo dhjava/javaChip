@@ -27,6 +27,7 @@ import com.javachip.service.HelpService;
 import com.javachip.service.MileageService;
 import com.javachip.service.Order_DetailService;
 import com.javachip.service.Order_Service;
+import com.javachip.service.PattachService;
 import com.javachip.service.ProductService;
 import com.javachip.service.ReviewService;
 import com.javachip.service.UserService;
@@ -36,6 +37,7 @@ import com.javachip.vo.MileageVO;
 import com.javachip.vo.Order_DetailVO;
 import com.javachip.vo.Order_VO;
 import com.javachip.vo.PageMaker;
+import com.javachip.vo.PattachVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.QnaVO;
 import com.javachip.vo.ReviewVO;
@@ -58,6 +60,8 @@ public class ShopController {
 	private MileageService ms;
 	@Autowired
 	private ProductService ps;
+	@Autowired
+	private PattachService pas;
 	@Autowired
 	private ReviewService rs;
 	@Autowired
@@ -98,6 +102,7 @@ public class ShopController {
 		pm.setSearchVO(searchVO);
 		pm.setTotalCount(cnt);
 		List<ProductVO> productList = ps.selectAllProduct(searchVO);
+		
 		model.addAttribute("productList", productList);
 		model.addAttribute("pm", pm);
 		

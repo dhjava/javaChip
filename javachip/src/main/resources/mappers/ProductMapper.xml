@@ -36,6 +36,7 @@
 	<!-- 전체 상품 조회 -->
 	<select id="selectAllProduct" resultType="ProductVO" parameterType="SearchVO">
 		SELECT *
+		     , (SELECT aChangeName FROM pattach WHERE product.pNo = pattach.pNo) 
 		  FROM product
 		 WHERE delYN = 'N'
 		<include refid="search" />
