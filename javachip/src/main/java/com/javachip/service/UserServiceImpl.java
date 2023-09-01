@@ -141,8 +141,8 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public int goodbye(int uNo){
-		return userDAO.goodbye(uNo);
+	public void goodbye(String uId) throws Exception{
+		userDAO.goodbye(uId);
 	}
 	
 	

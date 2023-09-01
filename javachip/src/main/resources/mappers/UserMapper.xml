@@ -159,12 +159,11 @@
 		 WHERE uNo = #{uNo}
 	</update>
 	
-	<!--  -->
-	<update id = "goodbye" parameterType="userVO">
-		update user
-		set uRetire = 'Y'
-		 WHERE uNo = #{uNo}
-	</update>
+	
+	<delete id = "goodbye" parameterType="userVO">
+		DELETE FROM user
+		 WHERE uId = #{uId}
+	</delete>
 
 	
 <!-- ===============================관리자용 sql 쿼리 모음================================ -->
