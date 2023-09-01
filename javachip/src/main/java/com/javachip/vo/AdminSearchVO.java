@@ -8,6 +8,7 @@ public class AdminSearchVO extends AdminCriteria
 	private String searchType;			//관리자 공지사항 검색
 	private String searchValue;			//관리자 공지사항 검색
 	private String searchType_qna;		//관리자 Qna 검색
+	private int uNo;
 	
 	//=================================유저검색
 	public String getAdminSearchUserType() {
@@ -54,4 +55,11 @@ public class AdminSearchVO extends AdminCriteria
 	{
 		this.searchType_qna = searchType_qna;
 	}
+	public int getuNo() {
+		return uNo;
+	}
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
+	}
+	
 }

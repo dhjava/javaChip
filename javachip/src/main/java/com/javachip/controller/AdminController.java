@@ -22,6 +22,7 @@ import com.javachip.service.HelpService;
 import com.javachip.service.Order_Service;
 import com.javachip.service.PattachService;
 import com.javachip.service.ProductService;
+import com.javachip.service.RefundService;
 import com.javachip.service.UserService;
 import com.javachip.vo.AdminPageMaker;
 import com.javachip.vo.AdminSearchVO;
@@ -30,6 +31,7 @@ import com.javachip.vo.Order_VO;
 import com.javachip.vo.PattachVO;
 import com.javachip.vo.ProductVO;
 import com.javachip.vo.QnaVO;
+import com.javachip.vo.RefundVO;
 import com.javachip.vo.UserVO;
 
 @Controller
@@ -53,6 +55,9 @@ public class AdminController
 	
 	@Autowired
 	private PattachService pas;
+	
+	@Autowired
+	private RefundService rs;
 	
 	@RequestMapping(value="/qnaList.do")
 	public String qnaList(Model model, AdminSearchVO AdminSearchVO)
@@ -197,10 +202,25 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/memberDetail.do")
-	public String memberDetail(int uNo, Model model)
+	public String memberDetail(int uNo, Model model, AdminSearchVO adminSearchVO)
 	{
 		UserVO vo = us.selectUserOneByuNoByAdmin(uNo);
 		model.addAttribute("vo", vo);
+		
+		int cnt = rs.RefundTotal(adminSearchVO);
+		pm.setAdminSearchVO(adminSearchVO);
+		pm.setnTotalCount(cnt);
+		
+		if(adminSearchVO.getPage() > 1) 
+		{
+			adminSearchVO.setsNum((adminSearchVO.getPage() - 1) * adminSearchVO.getPerPageNum());
+		}
+		
+		List<RefundVO> reflist = rs.selectRefund(adminSearchVO);
+		model.addAttribute("reflist", reflist);
+		model.addAttribute("pm", pm);
+		
+		
 		return "admin/memberDetail";
 	}
 	
@@ -223,11 +243,25 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/bizmemberDetail.do")
-	public String bizmemberDetail(int uNo, Model model)
+	public String bizmemberDetail(int uNo, Model model, AdminSearchVO adminSearchVO)
 	{
 		UserVO bisvo = us.selectBizUserOneByuNoByAdmin(uNo);
 		model.addAttribute("vo", bisvo);
 		System.out.println(bisvo);
+		
+		int cnt = rs.RefundTotal(adminSearchVO);
+		pm.setAdminSearchVO(adminSearchVO);
+		pm.setnTotalCount(cnt);
+		
+		if(adminSearchVO.getPage() > 1) 
+		{
+			adminSearchVO.setsNum((adminSearchVO.getPage() - 1) * adminSearchVO.getPerPageNum());
+		}
+		
+		List<RefundVO> reflist = rs.selectRefund(adminSearchVO);
+		model.addAttribute("reflist", reflist);
+		model.addAttribute("pm", pm);
+		
 		return "admin/bizmemberDetail";
 	}
 	
@@ -250,10 +284,24 @@ public class AdminController
 	}
 	
 	@RequestMapping(value="/blacklistDetail.do")
-	public String blacklistDetail(int uNo, Model model)
+	public String blacklistDetail(int uNo, Model model, AdminSearchVO adminSearchVO)
 	{
 		UserVO blacklist = us.selectBlacklistOneByuNoByAdmin(uNo);
 		model.addAttribute("vo", blacklist);
+		
+		int cnt = rs.RefundTotal(adminSearchVO);
+		pm.setAdminSearchVO(adminSearchVO);
+		pm.setnTotalCount(cnt);
+		
+		if(adminSearchVO.getPage() > 1) 
+		{
+			adminSearchVO.setsNum((adminSearchVO.getPage() - 1) * adminSearchVO.getPerPageNum());
+		}
+		
+		List<RefundVO> reflist = rs.selectRefund(adminSearchVO);
+		model.addAttribute("reflist", reflist);
+		model.addAttribute("pm", pm);
+		
 		return "admin/blacklistDetail";
 	}
 	
