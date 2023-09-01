@@ -13,6 +13,9 @@
 		<if test='searchType != null and searchType.equals("pType")'>
 		   AND pType = #{searchValue}
 		</if>
+		<if test='searchType != null and searchType.equals("grid")'>
+		   AND pType != 'E'
+		</if>
 	</sql>
 	
 	<sql id="sort">
@@ -52,6 +55,7 @@
 		SELECT *
 		  FROM product
 		 WHERE delYN = 'N'
+		   AND pType != 'E'
 		   AND pStock > 0
 		 ORDER BY pOutput DESC
 		 LIMIT 16

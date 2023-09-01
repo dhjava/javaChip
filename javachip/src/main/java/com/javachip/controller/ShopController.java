@@ -1,7 +1,5 @@
 package com.javachip.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,6 +29,7 @@ import com.javachip.service.Order_DetailService;
 import com.javachip.service.Order_Service;
 import com.javachip.service.ProductService;
 import com.javachip.service.ReviewService;
+import com.javachip.service.UserService;
 import com.javachip.vo.AddressVO;
 import com.javachip.vo.CartVO;
 import com.javachip.vo.MileageVO;
@@ -48,6 +46,8 @@ import com.javachip.vo.UserVO;
 @RequestMapping(value="/shop")
 public class ShopController {
 	
+	@Autowired
+	private UserService us;
 	@Autowired
 	private CartService cs;
 	@Autowired
@@ -69,15 +69,29 @@ public class ShopController {
 	
 	@RequestMapping(value="/grid.do")
 	public String grid(
-			Model model
+			HttpServletRequest req
+		,	Model model
 		,	SearchVO searchVO
 		) {
+		// 사업자 도매
+		if(searchVO.getSearchType() != null && searchVO.getSearchValue() != null) {
+			if(searchVO.getSearchType().equals("pType") && searchVO.getSearchValue().equals("E")) {
+				HttpSession session = req.getSession();
+				UserVO loginVO = (UserVO)session.getAttribute("login");
+				if(loginVO==null) {
+					return "redirect:/member/login.do";
+				}// 유저 선택 필요
+				if(!loginVO.getuStatus().equals("B")) {
+					return "redirect:wholesale.do";
+				}
+			}
+		}
+		if(searchVO.getSearchType() == null) {
+			searchVO.setSearchType("grid");
+		}
 		int cnt = ps.totalProduct(searchVO); // 총 상품 개수
 		searchVO.setPerPageNum(12);			 // 페이지 당 상품 개수
 		searchVO.calcStart();				 // 쿼리용 계산함수
-		//System.out.println("totalProduct::"+cnt);
-		//System.out.println("page::"+searchVO.getPage());
-		//System.out.println("startNum::"+searchVO.getStartNum());
 		if(searchVO.getSort() == null || searchVO.getSort().equals("")) {
 			searchVO.setSort("new");
 		}
@@ -86,7 +100,43 @@ public class ShopController {
 		List<ProductVO> productList = ps.selectAllProduct(searchVO);
 		model.addAttribute("productList", productList);
 		model.addAttribute("pm", pm);
+		
 		return "shop/grid";
+	}
+	
+	@RequestMapping(value="/wholesale.do")
+	public void wholesale(
+			HttpServletRequest req
+		,	HttpServletResponse res
+		,	Model model
+			) throws IOException {
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+		
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			pw.append("<script>alert('사업자 회원 계정으로 로그인이 필요한 서비스입니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");
+			pw.flush();
+			return;
+		} // 유저 선택 필요
+		if(!loginVO.getuStatus().equals("B")) {
+			String str = "<script>"
+					+ "alert('사업자 회원 전용 상품입니다.');"
+					+ "location.href='grid.do';"
+					+ "</script>";
+			pw.append(str);
+			pw.flush();
+			return;
+		}else {
+			String str = "<script>"
+					+ "location.href='grid.do?searchType=pType&searchValue=E';"
+					+ "</script>";
+			pw.append(str);
+			pw.flush();
+			return;
+		}
+		
 	}
 	
 	@RequestMapping(value="/details.do")
@@ -98,6 +148,15 @@ public class ShopController {
 		ProductVO pv = ps.selectOneProduct(pNo);
 		System.out.println(pv);
 		
+		// 도매 상품은 사업자만
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(pv.getpType().equals("E")) {
+			if(loginVO == null || !loginVO.getuStatus().equals("B")) {
+				return "redirect:wholesale.do";
+			}
+		}
+		
 		// searchVO 설정 고정
 		SearchVO searchVO = new SearchVO();
 		searchVO.setSearchType("pNo");
@@ -107,8 +166,6 @@ public class ShopController {
 		List<ReviewVO> reviewList = rs.selectReview(searchVO);
 		
 		boolean canReview = false;
-		HttpSession session = req.getSession();
-		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO!=null) {
 			int uNo = loginVO.getuNo();
 			List<Order_VO> orderList = os.selectUserOrder(uNo);
@@ -333,6 +390,7 @@ public class ShopController {
 		,	String point
 		,	String total
 		,	String[] cNo
+		,	String addNo
 		,	Model model
 		,	AddressVO addressVO
 			) {
@@ -346,13 +404,14 @@ public class ShopController {
 		
 		System.out.println("total::"+total);
 		int totalPrice = Integer.parseInt(total);
-		
+		int oAdd = Integer.parseInt(addNo);
 		
 		Order_VO ov = new Order_VO();
 		ov.setuNo(uNo);
 		ov.setoTotalPrice(totalPrice);
 		ov.setoPay("C");
 		ov.setoStatus("O");
+		ov.setAddNo(oAdd);
 		System.out.println(ov);
 		
 		int result = os.insertOrder(ov);
