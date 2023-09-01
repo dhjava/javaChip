@@ -40,33 +40,33 @@
 				<tr>
 					<td>작성자</td>
 					<td colspan="2">
-						<c:if test="${qna.uStatus eq 'A'}">	
+						<c:if test="${qnaVO.uStatus eq 'A'}">	
 						관리자
 						</c:if>
-						<c:if test="${qna.uStatus ne 'A'}">	
-						${qna.uName}
+						<c:if test="${qnaVO.uStatus ne 'A'}">	
+						${qnaVO.uName}
 						</c:if>
 					</td>
 				</tr>
-			<c:if test="${qnaVo.qType eq 'P'}">
+			<c:if test="${qnaVO.qType eq 'P'}">
 				<tr style="height:120px;">
 					<td style="vertical-align:middle;">문의 상품</td>
 					<td style="vertical-align:middle; text-align:center; width:20%">(사진)</td>
-					<td>${qnaVO.pNo}</td>
+					<td>상품 명 :${qnaVO.pName}</td>
 				</tr>
 			</c:if>
 				<tr style="font-color:gray; font-size:10pt;">
-					<td colspan="2">작성일  ${qnaVO.qDate}</td>
+					<td colspan="3">작성일  ${qnaVO.qDate}</td>
 				</tr>
 				<tr>
 					<td colspan="3" style="white-space:pre-line; height:200px;">${qnaVO.qContents}</td>
 				</tr>	
 			<c:if test="${not empty qnaVO.qAnswer}">
 				<tr>	
-					<td colspan="2">[답변]</td>
+					<td colspan="4">[답변]</td>
 				</tr>
 				<tr>	
-					<td colspan="2">작성일  ${qnaVO.qAnswerDate}</td>
+					<td colspan="4">작성일  ${qnaVO.qAnswerDate}</td>
 				</tr>
 				<tr style="">
 					<td colspan="3" style="white-space:pre-line; height:200px;">${qnaVO.qAnswer}</td>
@@ -75,7 +75,11 @@
 				<tr>
 					<td colspan="3">
 						<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qna.do'">목록으로</button>	
-						<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qnaAnswer.do?qNo=${qnaVO.qNo}'">답변하기</button>
+						<c:if test="${empty qnaVO.qAnswer }">
+							<c:if test="${ login.uStatus eq 'A'}">
+							<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qnaAnswer.do?qNo=${qnaVO.qNo}'">답변하기</button>
+							</c:if>
+						</c:if>
 						<button type="button" class="btn btn-outline-danger" onclick="qnaDelFn();">삭제하기</button>
 						<form name="delFrm" method="post" action="qnaDelete.do">
 							<input type="hidden" name="qNo" value="${qnaVO.qNo}">
