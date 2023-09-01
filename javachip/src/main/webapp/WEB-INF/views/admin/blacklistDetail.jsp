@@ -144,6 +144,7 @@
 				<button class="btn btn-dark" onclick="NonStopUser()">정지해제</button>&nbsp;
 				<br>
 				<br>
+	<input type="hidden" value="${vo.uNo }">
 	<table border="1" style="width:99%;">
 		<tr>
 			<th>
@@ -196,99 +197,6 @@
 			<td>
 				${vo.uStatus }
 			</td>
-		</tr>
-	</table>
-	<br>
-	구매 리스트
-	<table border="1" style="width:99%;">
-		<tr>
-			<th>
-				번호
-			</th>
-			<th>
-				상품 이름
-			</th>
-			<th>
-				구매 날짜
-			</th>
-			<th>
-				상품 상태
-			</th>
-			<th>
-				금액
-			</th>
-		</tr>
-		<tr>
-			<td>
-				1
-			</td>
-			<td>
-				커피1
-			</td>
-			<td>
-				2023-00-00
-			</td>
-			<td>
-				배달 완료
-			</td>
-			<td>
-				10000
-			</td>
-		</tr>
-		<tr>
-			<td>
-				2
-			</td>
-			<td>
-				커피1
-			</td>
-			<td>
-				2023-00-00
-			</td>
-			<td>
-				배달 완료
-			</td>
-			<td>
-				10000
-			</td>
-		</tr>
-		<tr>
-			<td>
-				3
-			</td>
-			<td>
-				커피1
-			</td>
-			<td>
-				2023-00-00
-			</td>
-			<td>
-				배달 완료
-			</td>
-			<td>
-				10000
-			</td>
-		</tr>
-		<tr>
-			<td>
-				4
-			</td>
-			<td>
-				커피1
-			</td>
-			<td>
-				2023-00-00
-			</td>
-			<td>
-				배달 완료
-			</td>
-			<td>
-				10000
-			</td>
-		</tr>
-		<tr>
-			<td colspan="5"><div class="admin_pagination" style="text-align:center;">
-			◀ 1 2 3 4 5 6 7 8 9 10 ▶</div></td>
 		</tr>
 	</table>
 	<br>

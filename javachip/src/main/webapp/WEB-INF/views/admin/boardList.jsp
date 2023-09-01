@@ -192,68 +192,9 @@ for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++)
 <div class="delBtn">
 	<button type="submit" class="btn btn-dark" onclick="deleteValue();">선택 삭제</button>
 	<a class="btn btn-dark" href="<%=request.getContextPath() %>/help/noticeWrite.do">글쓰기</a>
-<!-- 	<script>
-        document.getElementById('selectAll').addEventListener('change', function () {
-            var checkboxes = document.getElementsByClassName('checkbox');
-            for (var i = 0; i < checkboxes.length; i++) {
-                checkboxes[i].checked = this.checked;
-            }
-        });
-    </script> -->
-<!-- 	<script>
-	$(".selectDelete_btn").click(function(){
-		var confirm_val = confirm("정말 삭제하시겠습니까?");
 
-		if(confirm_val) {
-			var checkArr = new Array();
-			
-			$("input[class='chBox']:checked").each(function(){
-			checkArr.push($(this).attr("data-nNo"));
-		});
-	
-			$.ajax({
-				url : "boardDelete.do",
-				type : "post",
-				data : { chbox : checkArr },
-				success : function(result){
-					if(result == 1){
-						location.href = "boardList.do";
-					}else{
-						alert("삭제실패");
-					}
-				}
-			});
-		}
-	});
-</script> -->
 </div>
 <br>
-<%-- <div class="delete">
-	<button type="button" class="delete_btn" data-nNo="${Notice.nNo }">삭제</button>
-	<script>
-	 $(".delete_btn").click(function(){
-			var confirm_val = confirm("정말 삭제하시겠습니까?");
-		
-			if(confirm_val) {
-				var checkArr = new Array();
-				
-				checkArr.push($(this).attr("data-nNo"));
-		              
-					$.ajax({
-						url : "boardDelete.do",
-						type : "post",
-						data : { chbox : checkArr },
-						success : function(result){
-							if(result == 1) {            
-								location.href = "/admin/boardList.do";
-							} else {
-								alert("삭제 실패");
-							}
-						}
-					});
-				} 
-			});
-</script>--%>
 </div> 
 	</div>
 	</div>

@@ -304,7 +304,7 @@ public class AdminController
 		return result+"";
 	}
 	
-	//선택삭제
+	//공지사항선택삭제
 	@ResponseBody
 	@RequestMapping(value="/boardDelete.do")
 	public String boardDelete(HttpServletRequest request)
@@ -320,7 +320,38 @@ public class AdminController
 			}
 
 		return "redirect:/admin/boardList";
-
+	}
+	
+	//QnA선택삭제
+	@ResponseBody
+	@RequestMapping(value="/qnaDelete.do")
+	public String qnaDelete(HttpServletRequest request)
+	{
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		
+		int size = ajaxMsg.length;
+		
+		for(int i = 0; i < size; i++)
+		{
+			hs.deleteQnaByAdmin(ajaxMsg[i]);
+		}
+		return "redirect:/admin/qnaList";
+	}
+	
+	//주문 선택삭제
+	@ResponseBody
+	@RequestMapping(value="/deleteProduct.do")
+	public String deleteProduct(HttpServletRequest request)
+	{
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		
+		int size = ajaxMsg.length;
+		
+		for(int i = 0; i < size; i++)
+		{
+			os.deleteProduct(ajaxMsg[i]);
+		}
+		return "redirect:/admin/deliveryList";
 	}
 	
 	@RequestMapping(value="/productList.do")

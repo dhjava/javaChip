@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+z<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <%@ page import ="com.javachip.vo.*" %> 
@@ -6,6 +6,62 @@
 <% AdminPageMaker pm =  (AdminPageMaker)request.getAttribute("pm"); %>
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
+<script type="text/javascript">
+$(function(){
+	var chkObj = document.getElementsByName("RowCheck");
+	var rowCnt = chkObj.length;
+	
+	$("input[name='allCheck']").click(function(){
+		var chk_listArr = $("input[name='RowCheck']");
+		for(var i = 0; i < chk_listArr.length; i++){
+			chk_listArr[i].checked = this.checked;
+		}
+	});
+	$("input[name='RowCheck']").click(function(){
+		if($("input[name='RowCheck']:checked").length == rowCnt){
+			$("input[name='allCheck']")[0].checked = true;
+		}
+		else{
+			$("input[name='allCheck']")[0].checked = false;
+		}
+	});
+});
+
+function deleteValue(){
+	var valueArr = new Array();
+	var list = $("input[name='RowCheck']");
+	for(var i = 0; i < list.length; i++){
+		if(list[i].checked){
+			valueArr.push(list[i].value);
+		}
+	}
+	if(valueArr.length == 0){
+		alert("선택된 글이 없습니다.");
+	}
+	else{
+		var chk = confirm("정말 삭제하시겠습니까?");
+		
+		$.ajax({
+			url : "deleteProduct.do",
+			type : "POST",
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success : function(jdata){
+				if(jdata = 1){
+					alert("삭제성공");
+					location.replace("/controller/admin/deliveryList.do")
+				}
+				else{
+					alert("삭제실패");
+				}
+			}
+		});
+	}
+}
+
+ </script>
 </head>
 <body>
 	<!-- Breadcrumb Section Begin -->
@@ -76,10 +132,20 @@
 				</div>
 				<table border="1" class="tableAdmin qna admin">
 					<tr>
-						<th>번호</th><th>상품명</th><th>구매자 아이디</th><th>총 가격</th><th>상태</th>
+						<th>
+							<div class="allCheck">
+								<input type="checkbox" name="allCheck" id="allCheck" />
+							</div>
+						</th>
+						<th>번호</th><th>상품명</th><th>구매자 아이디</th><th>총 가격</th><th>송장번호</th>
 					</tr>
 					<c:forEach items="${list }" var="Order">
 					<tr>
+						<td>
+						<input type="checkbox" name="RowCheck" th:value="${Order.oNo}"
+							class="RowCheck"
+							data-nNo="${Order.oNo }" value="${Order.oNo }">
+						</td>
 						<td>
 							${Order.oNo }
 						</td>
@@ -93,12 +159,7 @@
 							${Order.oTotalPrice }
 						</td>
 						<td>
-							<c:if test="${Order.oStatus eq 'd' }">
-								배송완료
-							</c:if>
-							<c:if test="${Order.oStatus eq 'Y' }">
-								배송대기
-							</c:if>
+							${Order.oTrackNo }
 						</td>
 					</tr>
 					</c:forEach>	
@@ -127,7 +188,9 @@ for(int i = pm.getStartPage() ; i<=pm.getEndPage(); i++)
 }
 %>
 </div>
-
+<div class="delBtn">
+	<button type="submit" class="btn btn-dark" onclick="deleteValue();">주문 선택 삭제</button>
+</div>
 		</div>
 	</div>
 	</section>
