@@ -114,7 +114,6 @@
                                 <c:if test="${empty login}">
                                 <a href="<%=request.getContextPath() %>/member/login.do">로그인</a>
                                 <a href="<%=request.getContextPath() %>/member/joinSelect.do">회원가입</a>
-                                <a href="<%=request.getContextPath() %>/admin/main.do">관리자페이지</a>
 								</c:if>
 									
 								<c:if test="${ not empty login}">
