@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping(value="/error")
 public class ExceptionController {
 	// Exception test
 	@RequestMapping(value="/notGet", method= RequestMethod.POST)
@@ -31,7 +32,7 @@ public class ExceptionController {
 	}
 	
 	// error 처리
-	@RequestMapping(value="/error/{statusCode}", method= RequestMethod.GET)
+	@RequestMapping(value="/{statusCode}", method= RequestMethod.GET)
 	public String errorPage(@PathVariable String statusCode) {
 		return "error/"+statusCode;
 	}
