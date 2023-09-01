@@ -118,6 +118,7 @@
 	                
 	            	console.log(response);
 
+	            	$("#addNo").val(response.addNo);
 	            	$("#oName").val(response.aName);
 	                $("#oAdd1").val(response.addr1);
 	                $("#oAdd2").val(response.addr2);
@@ -168,6 +169,7 @@
 									<option value="sub1" id="sub1" ${param.sort eq 'sub1' ? 'selected' : ''}>추가 배송지1</option>
 								</select>
 								<input type="hidden" id="uNo" value="${addvo.uNo }">								
+								<input type="hidden" id="addNo" name="addNo" value="${addvo.addNo }">								
 					    		<button type="button" class="btn btn-outline-primary" style=margin-left:20px; onclick="addressPopup()">배송지 관리</button>
 	                    	</div>
 	                    	<div class="col-lg-10 col-md-6">

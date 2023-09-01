@@ -42,4 +42,9 @@ public class AddressDAO {
 	public UserVO SamePerson(int uNo) {
 		return sqlSession.selectOne(namespace+".SamePerson", uNo);
 	}
+	
+	//배송지 저장,수정
+	public int updateAddress(AddressVO addressVO) {
+		return sqlSession.update(namespace+".updateAddress", addressVO);
+	}
 }

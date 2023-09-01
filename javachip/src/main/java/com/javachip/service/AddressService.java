@@ -21,4 +21,7 @@ public interface AddressService {
 	
 	//주문자 정보와 동일
 	UserVO SamePerson(int uNo);
+	
+	//배송지 저장/수정
+	int updateAddress(AddressVO addressVO);
 }

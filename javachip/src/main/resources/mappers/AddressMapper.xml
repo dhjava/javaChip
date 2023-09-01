@@ -73,4 +73,19 @@
 			addr a ON u.uNo = a.uNo
 		WHERE u.uNo = #{uNo} and a.aStatus = 'A'
 	</select>
+	
+	<!-- 배송지 저장/수정 -->
+	<update id="updateAddress" parameterType="addressVO">
+		update addr
+		set aName = #{aName}
+		,   Addr1 = #{Addr1}
+		,   Addr2 = #{Addr2}
+		,   Addr3 = #{Addr3}
+		,   aPhone = #{aPhone}
+		,   aMail = #{aMail}
+		,   aComment = #{aComment}
+		,   aStatus = #{aStatus}
+		where uNo = #{uNo}
+		and addNo = #{addNo}
+	</update>
 </mapper>

@@ -31,6 +31,7 @@
 <title>JavaChip|배송지 관리</title>
 
 <script>
+	//주문자 주소
 	var isChecked = false;
 	
 	function same(){
@@ -62,6 +63,7 @@
 		}
 	}
 
+	//선택된 주소
 	function handleSortChange() {
         var selectedValue = $("#sort").val();
         var uNo = $("#uNo").val(); 
@@ -89,6 +91,51 @@
             }
         });
     }
+	
+	$(document).ready(function() {
+	    // 주소 수정/저장
+	    $("#saveAddressButton").click(function() {
+	        var addNo = $("#addNo").val();
+	        var uNo = $("#uNo").val();
+	        var aStatus = $("#aStatus").val();
+	        var aName = $("#aName").val();
+	        var aAdd1 = $("#aAdd1").val();
+	        var aAdd2 = $("#aAdd2").val();
+	        var aAdd3 = $("#aAdd3").val();
+	        var aPhone = $("#aPhone").val();
+	        var aMail = $("#aMail").val();
+	        var aComment = $("#aComment").val();
+	        
+	        $.ajax({
+	            url: "addressPopup.do",
+	            type: "POST",
+	            data: {
+	            	addNo: addNo,
+	            	uNo: uNo,
+	            	aStatus: aStatus,
+	                aName: aName,
+	                Addr1: aAdd1,
+	                Addr2: aAdd2,
+	                Addr3: aAdd3,
+	                aPhone: aPhone,
+	                aMail: aMail,
+	                aComment: aComment
+	            },
+	            success: function(data) {
+	                console.log(data);
+	                if(data > 0) {
+	                    alert("변경 완료");
+	                    window.close();
+	                } else {
+	                    console.log("에러 발생");
+	                }
+	            },
+	            error: function() {
+	                console.log("에러 발생");
+	            }
+	        });
+	    });
+	});
 </script>
 </head>
 <body>
@@ -126,8 +173,9 @@
         </div>
         <div class="checkout__form">
         	<form name="addressPopup" id="addressPopup" method="post" action="addressPopup.do">
-        	<input type="hidden" value="${addvo.addNo }" />
-        	<input type="hidden" value="${addvo.uNo }" />
+        	<input type="hidden" id="addNo" name="addNo" value="${addvo.addNo }" />
+        	<input type="hidden" id="aStatus" name="aStatus" value="${addvo.aStatus }">
+        	
 				<h4>배송지 관리</h4>
 				<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>
 			    	<p>배송지 목록</p>
@@ -136,7 +184,7 @@
 						<option value="sub1" id="sub1" ${param.sort eq 'sub1' ? 'selected' : ''}>추가 배송지1</option>
 					</select>
 					<input type="hidden" id="uNo" value="${addvo.uNo }">
-					<button type="submit" class="btn btn-outline-primary" id="addSaving" style=margin-left:20px;>저장/수정</button>
+					<button type="button" class="btn btn-outline-primary" id="saveAddressButton" style="margin-left: 20px;">저장/수정</button>
 				</div>
 		    	<div class="col-lg-10 col-md-6">
 		    		<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;
@@ -152,12 +200,12 @@
 		            </div>
 		            <div class="checkout__input">
 		                <p>주소<span>*</span></p>
-		                <input type="text" id="aAdd1" name="aAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;"
+		                <input type="text" id="aAdd1" name="addr1" placeholder="우편번호" class="checkout__input__add" style="width:150px;"
 		                 value="${addvo.addr1}">
 		                <button type="button" class="btn btn-outline-primary" onclick="sample7_execDaumPostcode()">우편번호</button>
-		                <input type="text" id="aAdd2" name="aAdd2" 
+		                <input type="text" id="aAdd2" name="addr2" 
 		                value="${addvo.addr2 }" class="checkout__input__add" required>
-		                <input type="text" id="aAdd3" name="aAdd3" 
+		                <input type="text" id="aAdd3" name="addr3" 
 		                value="${addvo.addr3 }" class="checkout__input__add" required>
 		            </div>
 		            <div class="row">
@@ -176,7 +224,7 @@
 		            </div>
 		            <div class="checkout__input">
 		                <p>배송 시 전달사항</p>
-		                <input type="text"
+		                <input id="aComment" type="text"
 		                    placeholder="전달사항을 입력해주세요. (선택사항)">
 		            </div>
 		        </div>
@@ -195,13 +243,13 @@
     <script src="http://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script src="<%=request.getContextPath() %>/resources/js/addressapi.js"></script>
 	<script>
-
+/* 
 $("#addSaving").click( function() {
      $('#addressSaved').submit();
      setTimeout(function() {   
          window.close();
       }, 100);
   });
-	
+	 */
 	</script>
 </html>
