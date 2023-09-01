@@ -1,9 +1,12 @@
 package com.javachip.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,29 +126,36 @@ public class MypageController {
 	// ajax end
 	
 	@RequestMapping(value="/goodbye.do", method=RequestMethod.GET)
-	public String goodbye() {
+	public String goodbye(HttpServletRequest req, Model model) {
+
+		HttpSession session = req.getSession();
+		// 로그인 여부 확인
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		if(loginVO==null) {
+			return "redirect:/member/login.do";
+		}
+		int uNo = loginVO.getuNo();
+		System.out.println("loginVO::"+loginVO);
+		
 		return "mypage/goodbye";
 	}
 	
 	@RequestMapping(value="/goodbye.do", method=RequestMethod.POST)
-	public String goodbye(UserVO vo, RedirectAttributes ra, HttpServletRequest req) throws Exception{
-		System.out.println("removePOST");
-		
+	public void goodbye(HttpServletRequest req, Model model,
+			UserVO userVO, RedirectAttributes ra, HttpServletResponse res) throws Exception{
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
 		HttpSession session = req.getSession();
-		UserVO user = (UserVO)session.getAttribute("user");
+		// 로그인 여부 확인
+		UserVO loginVO = (UserVO)session.getAttribute("login");
 		
-		String oldPass = user.getuPw();
-		String newPass = vo.getuPw();
+		int uNo = loginVO.getuNo();
+
+		us.goodbye(uNo);
 		
-		if(oldPass.equals(newPass)) {
-			us.goodbye(vo);
-			ra.addFlashAttribute("result", "removeOK");
-			session.invalidate();
-			return "redirect:/";
-		} else {
-			ra.addFlashAttribute("result", "removeFalse");
-			return "redirect:/mypage/goodbye";
-		}
+		session.invalidate();
+		pw.append("<script>alert('회원탈퇴가 완료되었습니다.');location.href='"+req.getContextPath()+"/';</script>");
+		pw.flush();
 	}
 	
 	@RequestMapping(value="/history.do")
