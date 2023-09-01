@@ -119,7 +119,10 @@
                             <input class="form-control" type="text" id="pPrice" name="pPrice" value="${vo.pPrice}" 
                             oninput="this.value=this.value.replace(/[^0-9]/g,'');"><br>
                             상품설명 :<br>
-                            <textarea class="form-control" rows="4" id="pNote" name="pNote">${vo.pNote}</textarea><br>
+                            <textarea class="form-control" rows="4" id="pNote" name="pNote" value="${vo.pNote }">
+                            ${vo.pNote}</textarea><br>
+                            상품상세설명 :<br><textarea class="form-control" rows="4" id="pDtail" name="pDtail"
+                            value="${vo.pDetail }" placeholder="상품설명">${vo.pDetail }</textarea><br>
                             입고수 :<br>
                             <input class="form-control" type="text" id="pInput" name="pInput" value="${vo.pInput}" 
                             oninput="this.value=this.value.replace(/[^0-9]/g,'');"><br>
