@@ -21,17 +21,18 @@ public class HomeController {
 	// 메인페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
-		// 인기순
+		// 인기순 정렬(별도 쿼리)
 		List<ProductVO> indexList = ps.selectIndexProduct();
+		
+		// 도매 제외 + 정렬
 		SearchVO sv = new SearchVO();
+		sv.setSearchType("grid");
 		
 		// 신상
 		sv.setSort("new");
 		List<ProductVO> newList = ps.selectAllProduct(sv);
 		
-		// 랜덤 추천(도매 제외)
-		sv.setSearchType("pType");
-		sv.setSearchValue("E");
+		// 랜덤 추천
 		sv.setSort("random");
 		List<ProductVO> randomList = ps.selectAllProduct(sv);
 		model.addAttribute("indexList", indexList);

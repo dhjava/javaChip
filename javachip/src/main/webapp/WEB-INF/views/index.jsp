@@ -112,37 +112,37 @@
             <div class="row">
                 <div class="categories__slider owl-carousel">
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-1.jpg">
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-1.jpg">
                             <h5><a href="shop/grid.do?searchType=pType&searchValue=A">원두</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-2.jpg">
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-2.jpg">
                             <h5><a href="shop/grid.do?searchType=pType&searchValue=B">생두</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-3.jpg">
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-3.jpg">
                             <h5><a href="shop/grid.do?searchType=pType&searchValue=C">드립백</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-4.jpg">
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-4.jpg">
                             <h5><a href="shop/grid.do?searchType=pType&searchValue=D">캡슐</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg">
                             <h5><a href="shop/grid.do?searchType=pType&searchValue=E">도매</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg">
                             <h5><a href="shop/grid.do?searchType=pType&searchValue=F">커피용품</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="<%=request.getContextPath() %>/resources/img/categories/cat-5.jpg">
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg">
                             <h5><a href="shop/grid.do?searchType=pType&searchValue=G">정기배송</a></h5>
                         </div>
                     </div>
@@ -167,7 +167,6 @@
                             <li data-filter=".typeB">생두</li>
                             <li data-filter=".typeC">드립백</li>
                             <li data-filter=".typeD">캡슐</li>
-                            <li data-filter=".typeE">도매</li>
                             <li data-filter=".typeF">커피용품</li>
                             <li data-filter=".typeG">정기배송</li>
                         </ul>
@@ -178,7 +177,8 @@
             <c:forEach items="${indexList}" var="index">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix type${index.pType}">
                     <div class="featured__item">
-                        <div class="featured__item__pic set-bg" data-setbg="resources/img/featured/feature-1.jpg" >
+                        <div class="featured__item__pic set-bg" data-setbg="resources/img/featured/feature-1.jpg"
+                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;" >
                        	<c:if test="${index.pType ne 'G'}">
                             <ul class="featured__item__pic__hover">
                                 <li><a href="javascript:addCartFn(${index.pNo})"><i class="fa fa-shopping-cart"></i></a></li>
@@ -186,12 +186,17 @@
                        	</c:if>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#">${index.pName}</a></h6>
+                            <h6><a href="shop/details.do?pNo=${index.pNo}">${index.pName}</a></h6>
                             <h5 class="money">${index.pPrice}</h5>
                         </div>
                     </div>
                 </div>
             </c:forEach>
+            <c:if test="${empty indexList}">
+            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
+            		상품 준비 중입니다.
+            	</div>
+            </c:if>
             </div>
         </div>
     </section>
@@ -203,12 +208,12 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="<%=request.getContextPath() %>/resources/img/banner/banner-1.jpg" alt="">
+                        <img src="resources/img/banner/banner-1.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="banner__pic">
-                        <img src="<%=request.getContextPath() %>/resources/img/banner/banner-2.jpg" alt="">
+                        <img src="resources/img/banner/banner-2.jpg" alt="">
                     </div>
                 </div>
             </div>
@@ -236,6 +241,11 @@
                                     </div>
                                 </a>
                             </c:forEach>
+                            <c:if test="${empty newer}">
+				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
+				            		상품 준비 중입니다.
+				            	</div>
+				            </c:if>
                             </div>
                             <div class="latest-prdouct__slider__item">
                             <c:forEach items="${newList}" var="newer" begin="4" end="6" step="1">
@@ -249,6 +259,11 @@
                                     </div>
                                 </a>
                             </c:forEach>
+                            <c:if test="${empty newer}">
+				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
+				            		상품 준비 중입니다.
+				            	</div>
+				            </c:if>
                             </div>
                         </div>
                     </div>
@@ -269,6 +284,11 @@
                                     </div>
                                 </a>
                             </c:forEach>
+                            <c:if test="${empty pop}">
+				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
+				            		상품 준비 중입니다.
+				            	</div>
+				            </c:if>
                             </div>
                             <div class="latest-prdouct__slider__item">
                             <c:forEach items="${indexList}" var="pop" begin="4" end="6" step="1">
@@ -282,6 +302,11 @@
                                     </div>
                                 </a>
                             </c:forEach>
+                            <c:if test="${empty pop}">
+				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
+				            		상품 준비 중입니다.
+				            	</div>
+				            </c:if>
                             </div>
                         </div>
                     </div>
@@ -302,6 +327,11 @@
                                     </div>
                                 </a>
                             </c:forEach>
+                            <c:if test="${empty rand}">
+				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
+				            		상품 준비 중입니다.
+				            	</div>
+				            </c:if>
                             </div>
                             <div class="latest-prdouct__slider__item">
                             <c:forEach items="${randomList}" var="rand" begin="4" end="6" step="1">
@@ -315,6 +345,11 @@
                                     </div>
                                 </a>
                             </c:forEach>
+                            <c:if test="${empty rand}">
+				            	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
+				            		상품 준비 중입니다.
+				            	</div>
+				            </c:if>
                             </div>
                         </div>
                     </div>
