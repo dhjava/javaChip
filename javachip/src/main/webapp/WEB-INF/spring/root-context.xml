@@ -8,10 +8,10 @@
 	
 		<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://127.0.0.1:3306/javachip?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC" />
-		<property name="username" value="root" />
-		<property name="password" value="1234" />
-	</bean>	
+		<property name="url" value="jdbc:mysql://jjezen.cafe24.com:3307/fullstack_2_team_b?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC" />
+		<property name="username" value="fullstack_2_team_b_user" />
+		<property name="password" value="!fullstack_2_team_b_1234" />
+		</bean>	
 	
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
