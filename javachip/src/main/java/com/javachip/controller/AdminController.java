@@ -442,7 +442,7 @@ public class AdminController
 			int newProductNo = productVO.getpNo();
 			
 			String realPath = req.getSession().getServletContext().getRealPath("/resources/upload");
-			String path = "C:\\Users\\502-8\\git\\javaChip\\javachip\\src\\main\\webapp\\resources\\attach";
+			
 
 			File dir = new File(realPath);
 			if (!dir.exists()) {
@@ -491,7 +491,8 @@ public class AdminController
 			int newProductNo = productVO.getpNo(); 
 
 			String realPath = req.getSession().getServletContext().getRealPath("/resources/upload");
-			String path = "C:\\Users\\502-8\\git\\javaChip\\javachip\\src\\main\\webapp\\resources\\attach";
+			System.out.println(realPath);
+			
 
 			File dir = new File(realPath);
 			if (!dir.exists()) {
