@@ -6,7 +6,9 @@ var checkContentsFlag = false;
 var submitFlag = false;
 
 // help write submit
-function helpSubmitFn() {
+function noticeSubmitFn() {
+	oEditor.getById["nContents"].exec("UPDATE_CONTENTS_FIELD",[]);
+	let nContents = $("#nContents").val();
 	
 	// Notice 제목이 입력되지 않았을 때
 	if($("#nTitle").val() == "") {
@@ -17,10 +19,10 @@ function helpSubmitFn() {
 			return;
 		}else
 	// Notice 내용이 입력되지 않았을 때
-	if($("#nContents").val() == "") {
+	if(nContents == "") {
 			checkContentsFlag = false;
 			alert("내용을 입력해주세요.");
-			$("#nContents").focus();
+			oEditor.getById["nContents"].exec("FOCUS");
 			
 			return;
 		}else
@@ -37,6 +39,7 @@ function helpSubmitFn() {
 	
 	if(submitFlag) {
 		$("form").submit();
+		noticeWriteFn();
 	}
 	
 }

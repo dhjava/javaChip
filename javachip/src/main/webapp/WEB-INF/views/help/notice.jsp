@@ -68,15 +68,22 @@
 				</c:if>
 				<c:if test="${pm.startPage != 0}">
 					<c:forEach var="cnt" begin="${pm.startPage}" end="${pm.endPage}">
-						<a href="notice.do?page=${cnt}
-						<c:if test="${not empty param.searchValue}">
-							&${param.searchType}&${param.searchValue}
-						</c:if>
-						">${cnt}</a>&nbsp;
+						<c:choose>
+							<c:when test="${cnt == pm.searchVO.page}">
+								<b> ${cnt} </b>
+							</c:when>
+							<c:otherwise>
+								<a href="notice.do?page=${cnt}
+								<c:if test="${not empty param.searchValue}">
+									&${param.searchType}&${param.searchValue}
+								</c:if>
+								">${cnt}</a>&nbsp;
+							</c:otherwise>
+						</c:choose>		
 					</c:forEach>
 				</c:if>
 				<c:if test="${pm.startPage == 0}">
-					1
+					<b> 1 </b>
 				</c:if>
 				<c:if test="${pageMaker.isNext() && pm.endPage>0}">	
 					<a href="notice.do?page=${pm.endPage()+1}

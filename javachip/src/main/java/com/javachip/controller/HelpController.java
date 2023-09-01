@@ -1,6 +1,5 @@
 package com.javachip.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,15 +15,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.fasterxml.jackson.databind.jsonFormatVisitors.JsonObjectFormatVisitor;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.javachip.service.HelpService;
 import com.javachip.service.ProductService;
 import com.javachip.vo.NoticeVO;
@@ -44,6 +39,11 @@ public class HelpController {
 	
 	@Autowired(required = false)
 	private PageMaker pageMaker;
+	
+	@RequestMapping(value="/editer.do", method = RequestMethod.GET)
+	public String Editer() {
+		return "help/editer";
+	}
 	
 	// faq
 	@RequestMapping(value="/faq.do", method = RequestMethod.GET)
@@ -96,38 +96,42 @@ public class HelpController {
 		return "help/noticeWrite";
 	}
 	
+	@ResponseBody
 	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
-	
-	public String noticeWriteAction(NoticeVO noticeVO, HttpServletResponse res , HttpServletRequest req) throws IOException {
-		
-		// 글 출력
-		res.setContentType("text/html;charset=UTF-8");
-		PrintWriter pw = res.getWriter();
+	public Map<String,Object> noticeWriteAction(NoticeVO noticeVO, HttpServletRequest req) throws IOException {
 				
 		// 로그인 확인
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
-		
-		String path="";
-		if( loginVO == null || !loginVO.getuStatus().equals("A")) {
-			pw.append("<script>alert('관리자 로그인 후 이용하실 수 있습니다.');location.href='../member/login.do'</script>");
-			pw.flush();
-			path="redirect:../member/login.do";
-		}else {
-			
+		String result = "";	
+		String path = "";	
+		if(loginVO.getuStatus().equals("A")) {
+			// 로그인 유저번호 등록
 			noticeVO.setuNo( loginVO.getuNo() );
 			
-			int result = helpService.insertNotice(noticeVO);
-			if( result != 1 ) {
-				pw.append("<script>alert('게시글 등록을 실패하였습니다.');location.href='qna.do';</script>");
-				pw.flush();
-				path="redirect:notice.do";
-			}else {
-				path="redirect:noticeView.do?nNo=" + noticeVO.getnNo();
-			}
+			// insertNotice 실행
+			helpService.insertNotice(noticeVO);
+			
+			System.out.println("uNo :: " + loginVO.getuNo());
+			System.out.println("notice 내용 :: " + noticeVO.getnContents());
+			// ajax에 보낼 No 등록
+			
+			result = "게시글을 등록하였습니다";
+			path = "noticeView.do?nNo=" + noticeVO.getnNo();
+			
+		}else {
+			result = "관리자 로그인 후 이용이 가능합니다.";
+			path = "notice.do";
+			// path = "../member/login.do";
 		}
-
-		return path;
+		
+		// Map에 값 담기
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("result", result);
+		map.put("path", path);
+		
+		return map;
 	}
 	
 	@RequestMapping(value="/noticeView.do", method = RequestMethod.GET)
@@ -141,6 +145,7 @@ public class HelpController {
 		
 		return "help/noticeView";
 	}
+	
 	@RequestMapping(value="/noticeModify.do", method = RequestMethod.GET)
 	public String noticeModify(int nNo,Model model,HttpServletResponse res , HttpServletRequest req) throws IOException {
 		// 글 출력
@@ -174,40 +179,49 @@ public class HelpController {
 			
 		return path;
 	}
+	
+	@ResponseBody
 	@RequestMapping(value="/noticeModify.do", method = RequestMethod.POST)
-	public String noticeModifyAction(HttpServletResponse res,HttpServletRequest req, NoticeVO noticeVO) throws IOException {
-		
-		// 글 출력
-		res.setContentType("text/html;charset=UTF-8");
-		PrintWriter pw = res.getWriter();
-		
-		String path="";
+	public Map<String,Object> noticeModifyAction(HttpServletResponse res,HttpServletRequest req, NoticeVO noticeVO) throws IOException {
 		
 		// 로그인 확인
-		HttpSession session = req.getSession();
-		UserVO loginVO = (UserVO)session.getAttribute("login");	
-		
-		// 게시글 변경여부 확인 : 변경시 로그인 유저의 유저번호로 바꿈.
-		NoticeVO originNoticeVO = helpService.selectOneByNno(noticeVO.getnNo());
-		if( originNoticeVO.getnTitle().equals(noticeVO.getnTitle()) && originNoticeVO.getnContents().equals(noticeVO.getnContents()) ) {
-
-		}else {
-
-			noticeVO.setuNo(loginVO.getuNo());
-		}
-		
-		int result = helpService.modifyNotice(noticeVO);
-		
-		if(result > 0) {
-			// 수정 성공
-			path="redirect:noticeView.do?nNo=" + noticeVO.getnNo();
-		}else {
-			pw.append("<script>alert('글 수정이 실패하였습니다.');history.back();</script>");
-			pw.flush();
-			path="redirect:noticeView.do?nNo=" + noticeVO.getnNo();
-		}
+				HttpSession session = req.getSession();
+				UserVO loginVO = (UserVO)session.getAttribute("login");
+				String result = "";	
+				String path = "";	
+				if(noticeVO.getuNo() == loginVO.getuNo()) {
+					// 로그인 유저번호 등록
+					noticeVO.setuNo( loginVO.getuNo() );
+					
+					// modifyNotice 실행
+					int sResult = helpService.modifyNotice(noticeVO);
+					
+					System.out.println("uNo :: " + loginVO.getuNo());
+					System.out.println("notice 내용 :: " + noticeVO.getnContents());
+					// ajax에 보낼 No 등록
+					
+					if( sResult > 0 ) {
+						
+					result = "게시글을 등록하였습니다";
+					path = "noticeView.do?nNo=" + noticeVO.getnNo();
+					}else {
+						result = "게시글을 등록에 실패했습니다";
+						path = "notice.do";
+					}
+					
+				}else {
+					result = "게시글 작성자만 수정이 가능합니다.";
+					path = "notice.do";
+					// path = "../member/login.do";
+				}
 				
-		return path;
+				// Map에 값 담기
+				Map<String, Object> map = new HashMap<String, Object>();
+				
+				map.put("result", result);
+				map.put("path", path);
+				
+				return map;
 	}
 	@RequestMapping(value="/noticeDelete.do", method = RequestMethod.POST)
 	public String noticeDelete(int nNo, HttpServletResponse res, HttpServletRequest req) throws IOException {
@@ -304,6 +318,7 @@ public class HelpController {
 	public Map<String,Object> productSearch(SearchVO searchVO) {
 		
 		
+		System.out.println(searchVO.getPage());
 		// 전체개수 확인
 		int cnt = helpService.totalProduct(searchVO);
 		
@@ -324,18 +339,13 @@ public class HelpController {
 		System.out.println("StartPage ::" + pageMaker.getStartPage());
 		System.out.println("EndPage ::" + pageMaker.getEndPage());
 		
-		
-		
 		return map;
 		
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/qnaWrite.do", method = RequestMethod.POST)
-	public String qnaWriteAction(QnaVO qnaVO, HttpServletRequest req) {
-		
-		// Jackson
-		JsonObject jsonObj = new JsonObject();
+	public Map<String,Object> qnaWriteAction(QnaVO qnaVO, HttpServletRequest req) {
 		
 		// 로그인 확인
 		HttpSession session = req.getSession();
@@ -345,7 +355,7 @@ public class HelpController {
 		String path = "";	
 		if(loginVO == null) {
 			result = "로그인 후 이용이 가능합니다.";
-			path = "../member/login.do";
+			path = "qna.do";
 		}else {
 			// 로그인 유저번호 등록
 			qnaVO.setuNo( loginVO.getuNo() );
@@ -354,22 +364,27 @@ public class HelpController {
 			if( "Y".equals(secretCheck) ) {			
 				qnaVO.setSecretYN("Y");
 			}
+
+			
 			// insertQnA 실행
 			helpService.insertQna(qnaVO);
 			
 			System.out.println("uNo :: " + loginVO.getuNo());
+			System.out.println("qna 내용 :: " + qnaVO.getqContents());
 			// ajax에 보낼 aNo 등록
 			
 			result = "게시글을 등록하였습니다";
 			path = "qnaView.do?qNo=" + qnaVO.getqNo();
 		}
 		
-		jsonObj.addProperty("result",result);
-		jsonObj.addProperty("path",path);
+		// Map에 값 담기
+		Map<String, Object> map = new HashMap<String, Object>();
 		
-		System.out.println(jsonObj.toString());
+		map.put("result", result);
+		map.put("path", path);
 		
-		return jsonObj.toString();
+		
+		return map;
 	}
 	@RequestMapping(value="/qnaView.do", method = RequestMethod.GET)
 	public String qnaView(int qNo, Model model, HttpServletRequest req, HttpServletResponse res) throws IOException {
@@ -381,10 +396,6 @@ public class HelpController {
 		// 로그인 확인
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
-		
-		// 글 출력
-		res.setContentType("text/html;charset=UTF-8");
-		PrintWriter pw = res.getWriter();
 		
 		// 비밀글 설정이 켜져있다면,
 		if(qnaVO.getSecretYN().equals("Y")) {
@@ -462,10 +473,7 @@ public class HelpController {
 	
 	@ResponseBody
 	@RequestMapping(value="/qnaAnswer.do", method = RequestMethod.POST)
-	public String qnaAnswerAction(String secretCheck, QnaVO qnaVO, HttpServletRequest req) {
-		
-		// Jackson
-			JsonObject jsonObj = new JsonObject();
+	public Map<String,Object> qnaAnswerAction(String secretCheck, QnaVO qnaVO, HttpServletRequest req) {
 			
 			// 로그인 확인
 			HttpSession session = req.getSession();
@@ -488,27 +496,24 @@ public class HelpController {
 				path = "javascript:history.back()";
 			}
 			
-			jsonObj.addProperty("result",result);
-			jsonObj.addProperty("path",path);
 			
-			System.out.println(jsonObj.toString());
+			// Map에 값 담기
+			Map<String, Object> map = new HashMap<String, Object>();
 			
-			return jsonObj.toString();
+			map.put("result", result);
+			map.put("path", path);
+			
+			
+			return map;
 	}
 	
-	@RequestMapping(value="/fileupload.do", method = RequestMethod.GET)
-	public String fileupload() {
-			
-		return "help/qnaWrite";
-	}
-	
-	
-	@RequestMapping(value="/fileupload.do", method = RequestMethod.POST)
-	public String fileupload( MultipartFile uploadFile, HttpServletRequest req) throws Exception {
-		String realPath = req.getSession().getServletContext().getRealPath("/resources/upload");
-		System.out.println("realPath::::"+realPath);
+	@ResponseBody
+	@RequestMapping(value="/singleImageUpload.do", method = RequestMethod.POST)
+	public String singleImageUpload( MultipartFile uploadFile, HttpServletRequest req, String callback_func, String callback) throws Exception {
 		
-		String path = "../../resources/upload";
+		String realPath  = req.getSession().getServletContext().getRealPath("/resources/upload");
+			   realPath += "/smarteditor/";
+		System.out.println("realPath::::"+realPath);
 		
 		File dir = new File(realPath);
 		// 디렉토리 존재여부에 따라 디렉토리 생성
@@ -516,32 +521,80 @@ public class HelpController {
 			dir.mkdir();
 		}
 		
-		if(!uploadFile.getOriginalFilename().isEmpty()) {
-			
-			String fileName = uploadFile.getOriginalFilename();
-			// etc에 파일 확장자값 넣기
-			// "."으로 배열을 나누고 etc에  맨마지막 배열(배열은 0부터 길이는 1부터 세므로, -1) 값(파일확장자)을 넣는다.
-			String fileNameArray[] = fileName.split("\\.");
-			String etc = fileNameArray[fileNameArray.length-1];
-			
-			long timeMilis = System.currentTimeMillis();
-			// substring(startIndex,endIndex) : startIndex부터 endIndex이전에 끊는다.
-			// ex) index ->substring(1,3) : nd
-			// fileName.length()-etc.length()-1 : 파일전체명 - 확장자길이 - "."
-			String newFileName = fileName.substring(0,fileName.length()-etc.length()-1) + timeMilis + "." + etc;
-			
-			// trnasferTo(File file) :: 파일의 저장
-			uploadFile.transferTo(new File(realPath,newFileName));
-			
-			return newFileName;
+		String file_result = "";
+		
+		// 파일이 비었는지 체크
+		if(uploadFile != null && !uploadFile.isEmpty()) {
+			// 파일이름이 비었는지 체크
+			if(!uploadFile.getOriginalFilename().isEmpty()) {
+				// 파일이 이미지파일인지 체크
+				if(uploadFile.getContentType().toLowerCase().startsWith("image/")) {
+					
+					String fileName = uploadFile.getOriginalFilename();
+					// etc에 파일 확장자값 넣기
+					// "."으로 배열을 나누고 etc에  맨마지막 배열(배열은 0부터 길이는 1부터 세므로, -1) 값(파일확장자)을 넣는다.
+					String fileNameArray[] = fileName.split("\\.");
+					String etc = fileNameArray[fileNameArray.length-1];
+					
+					long timeMilis = System.currentTimeMillis();
+					// substring(startIndex,endIndex) : startIndex부터 endIndex이전에 끊는다.
+					// ex) index ->substring(1,3) : nd
+					// fileName.length()-etc.length()-1 : 파일전체명 - 확장자길이 - "."
+					String newFileName = fileName.substring(0,fileName.length()-etc.length()-1) + timeMilis + "." + etc;
+					
+					// trnasferTo(File file) :: 파일의 저장
+					uploadFile.transferTo(new File(realPath + newFileName));
+					
+					file_result += "&bNewLine=true&sFileName=" + uploadFile.getOriginalFilename() + "sFileURL=/img/smarteditor/" + newFileName;
+							
+				}
+			}else {
+				file_result += "&errstr=error";
+			}
+		}else {
+			file_result += "&errstr=error";
 		}
 		
-		return "redirect:/";
+		return "redirect:" + callback + "?callback_func=" + callback_func + file_result;
+	}
+	@ResponseBody
+	@RequestMapping(value="/fileupload.do", method = RequestMethod.POST)
+	public String fileupload( MultipartFile uploadFile, HttpServletRequest req) throws Exception {
+		
+		String realPath = req.getSession().getServletContext().getRealPath("/resources/upload");
+		System.out.println("realPath::::"+realPath);
+		
+		File dir = new File(realPath);
+		// 디렉토리 존재여부에 따라 디렉토리 생성
+		if(!dir.exists()) {
+			dir.mkdir();
+		}
+		
+		
+		if(uploadFile != null && !uploadFile.isEmpty()) {
+			
+			if(!uploadFile.getOriginalFilename().isEmpty()) {
+				
+				String fileName = uploadFile.getOriginalFilename();
+				// etc에 파일 확장자값 넣기
+				// "."으로 배열을 나누고 etc에  맨마지막 배열(배열은 0부터 길이는 1부터 세므로, -1) 값(파일확장자)을 넣는다.
+				String fileNameArray[] = fileName.split("\\.");
+				String etc = fileNameArray[fileNameArray.length-1];
+				
+				long timeMilis = System.currentTimeMillis();
+				// substring(startIndex,endIndex) : startIndex부터 endIndex이전에 끊는다.
+				// ex) index ->substring(1,3) : nd
+				// fileName.length()-etc.length()-1 : 파일전체명 - 확장자길이 - "."
+				String newFileName = fileName.substring(0,fileName.length()-etc.length()-1) + timeMilis + "." + etc;
+				
+				// trnasferTo(File file) :: 파일의 저장
+				uploadFile.transferTo(new File(realPath,newFileName));
+				
+				return newFileName;
+			}
+		}
+		
+		return "";
 	}
 	
-	@RequestMapping(value="/fileload.do", method = RequestMethod.POST)
-	public String fileload() {
-		
-		return "redirect:/";
-	}
 }

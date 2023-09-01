@@ -32,7 +32,6 @@ public interface HelpService {
 	
 	QnaVO selectOneByQno(int qNo);
 	
-	
 	List<QnaVO> selectNearQno(int qNo);
 	
 	int deleteQna(int qNo);

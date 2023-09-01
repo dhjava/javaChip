@@ -46,6 +46,7 @@ public class HelpDAO {
 	}
 	
 	public int insertQna(QnaVO qnaVO) {
+		
 		return sqlSession.insert("com.javachip.mapper.helpMapper.insertQna", qnaVO);
 	}
 	
@@ -79,7 +80,6 @@ public class HelpDAO {
 	public int AnswerQna(QnaVO qnaVO) {
 		return sqlSession.insert("com.javachip.mapper.helpMapper.answerQna", qnaVO);
 	}
-	
 	
 	//====================================관리자 메소드====================================
 	//관리자용 공지사항 검색/페이징 전체 리스트를 위한 메소드(메인)

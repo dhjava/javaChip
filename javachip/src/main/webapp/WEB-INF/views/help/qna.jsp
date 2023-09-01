@@ -84,15 +84,22 @@
 				</c:if>
 				<c:if test="${pm.startPage != 0}">
 					<c:forEach var="cnt" begin="${pm.startPage}" end="${ pm.endPage}">
-						<a href="qna.do?page=${cnt}
-						<c:if test="${not empty param.searchValue}">
-						&${param.searchType}&${param.searchValue}
-						</c:if>
-						">${cnt}</a>&nbsp;
+						<c:choose>
+							<c:when test="${cnt == pm.searchVO.page}">
+								<b> ${cnt} </b>
+							</c:when>
+							<c:otherwise>
+								<a href="qna.do?page=${cnt}
+								<c:if test="${not empty param.searchValue}">
+								&${param.searchType}&${param.searchValue}
+								</c:if>
+								">${cnt}</a>&nbsp;
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</c:if>
 				<c:if test="${pm.startPage == 0}">
-					1
+					<b> 1 </b>
 				</c:if>
 				<c:if test="${pageMaker.isNext() && pm.endPage>0}">	
 					<a href="qna.do?page=${pm.endPage()+1}
@@ -105,12 +112,12 @@
 		<div class="board-search" style="width:40%; margin:0 auto;">
 			<form class="d-flex justify-content-center">
  				<div class="input-group mb-4">
-					<select name="searchType">
+					<select name="searchType" id="qpSearchType">
 						<option value="title" <c:if test="${param.searchType eq 'title'}">selected</c:if>>제목</option>
 						<option value="content" <c:if test="${param.searchType eq 'content'}">selected</c:if>>내용</option>
 						<option value="tnc" <c:if test="${param.searchType eq 'tnc'}">selected</c:if>>제목+내용</option>
 					</select>
-					<input type="text" name="SearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" size="30" value="${param.searchValue}">
+					<input type="text" name="SearchValue"  id="qpSearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2" size="30" value="${param.searchValue}">
 					<div class="input-group-append">
 					<button type="submit" class="btn btn-secondary mb-4">검색하기</button>
 				</div>

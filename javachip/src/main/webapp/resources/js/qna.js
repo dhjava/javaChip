@@ -7,6 +7,9 @@ var submitFlag = false;
 
 // help qna write submit
 function qnaSubmitFn() {
+	oEditor.getById["qContents"].exec("UPDATE_CONTENTS_FIELD",[]);
+	let qContents = $("#qContents").val();
+	
 	// QnA 제목이 입력되지 않았을 때
 	if($("#qTitle").val() == "") {
 			checkTitleFlag = false;
@@ -16,10 +19,10 @@ function qnaSubmitFn() {
 			return;
 		}else
 	// QnA 내용이 입력되지 않았을 때
-	if($("#qContents").text() == "") {
+	if(qContents == "") {
 			checkContentsFlag = false;
 			alert("내용을 입력해주세요.");
-			$("#qContents").focus();
+			oEditor.getById["qContents"].exec("FOCUS");
 			
 			return;
 		}else
@@ -61,6 +64,9 @@ function qnaSubmitFn() {
 }
 
 function qnaAnswerSubmitFn() {
+	oEditor.getById["qAnswer"].exec("UPDATE_CONTENTS_FIELD",[]);
+	let qAnswer = $("#qAnswer").val();
+	
 	// QnA 제목이 입력되지 않았을 때
 	if($("#qTitle").val() == "") {
 			checkTitleFlag = false;
@@ -70,10 +76,10 @@ function qnaAnswerSubmitFn() {
 			return;
 		}else
 	// QnA 내용이 입력되지 않았을 때
-	if($("#qAnswer").text() == "") {
+	if(qAnswer == "") {
 			checkContentsFlag = false;
 			alert("내용을 입력해주세요.");
-			$("#qAnswer").focus();
+			oEditor.getById["qAnswer"].exec("FOCUS");
 			
 			return;
 		}else
@@ -158,10 +164,10 @@ function selectPNoFn(){
 		// pNo가 선택되었을 때,
 			htmlTag += "<div class='pContainer pInfo'>"
 			htmlTag += "<div class='img pInfo'>"
-			htmlTag += " 상품 이미지"
+			htmlTag += "상품 이미지"
 			htmlTag += "</div>"
-			htmlTag += "<div>"
-			htmlTag += " 상품 명 : " + $("#posOption").attr("label");
+			htmlTag += "<div class='pInfo'>"
+			htmlTag += "상품 명 : " + $("#posOption").attr("label");
 			htmlTag += "</div>"
 			htmlTag += "</div>"
 		}
@@ -187,7 +193,7 @@ function pNoSelectWrapOutFn(){
 
 // qna select 창
 function openSelectBoxFn() {
-	productFindFn();
+	productCallFn();
 	$("#pSelectContainer").removeClass("modalHidden");
 }
 
@@ -209,7 +215,7 @@ function helpResetFn() {
 // Pno 자식창에서 값보내기
 function sendPnoFn() {
 	let radioVal = $("input[name='pNoRadio']").val();
-	if( radioVal == null && reaionVal.equals("") ) {
+	if( radioVal == null && radioVal.equals("") ) {
 		alert("상품을 선택하세요.");
 		return;
 	}else {

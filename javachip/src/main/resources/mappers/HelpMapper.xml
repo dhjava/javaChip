@@ -14,13 +14,7 @@
 		</if>
 		<if test='searchType != null and searchType.equals("tnc")'>
 			AND qTitle like concat('%',#{searchValue},'%')
-			AND qContents like concat('%',#{searchValue},'%')
-		</if>
-		<if test='searchType != null and searchType.equals("pNo")'>
-			AND pNo = #{searchValue}
-		</if>
-		<if test='searchType != null and searchType.equals("uNo")'>
-			AND uNo = #{searchValue}
+			OR qContents like concat('%',#{searchValue},'%')
 		</if>
 	</sql>
 	<sql id="nSearch">
@@ -32,13 +26,13 @@
 		</if>
 		<if test='searchType != null and searchType.equals("tnc")'>
 			AND nTitle like concat('%',#{searchValue},'%')
-			AND nContents like concat('%',#{searchValue},'%')
+			OR nContents like concat('%',#{searchValue},'%')
 		</if>
 	</sql>
 	<sql id="pSearch">
 		<if test='searchType != null and searchType.equals("all")'>
 			AND pName like concat('%',#{searchValue},'%')
-			AND pType like concat('%',#{searchValue},'%') 
+			OR pType like concat('%',#{searchValue},'%') 
 		</if>
 		<if test='searchType != null and searchType.equals("name")'>
 			AND pName like concat('%',#{searchValue},'%')
@@ -65,6 +59,7 @@
 		WHERE delYN = 'N'
 		<include refid ="nSearch"/>
 		ORDER BY nNo DESC
+		LIMIT #{startNum},#{perPageNum}
 	</select>
 	
 	<select id="selectOneByNno" resultType="noticeVO" parameterType="int">
@@ -159,6 +154,12 @@
 		FROM User 
 		WHERE uNo = Qna.uNo 
 		) AS uStatus
+		<!-- pNo로부터 pName을 가져온다. -->
+		,(SELECT
+			pName
+			FROM Product
+			WHERE pNo=qna.pNo
+		) AS pName
 		FROM Qna
 		WHERE delYN = 'N'
 		AND qNo = #{qNo}
@@ -176,7 +177,7 @@
 		SET delYN = 'Y'
 		WHERE qNo = #{qNo}
 	</update>
-	<select id="totalQna" resultType="int" parameterType="SearchVO">
+	<select id="totalQna" resultType="int">
 		SELECT COUNT(*) AS cnt FROM Qna
 		WHERE delYN='N'
 		<include refid="qSearch" />
@@ -186,6 +187,7 @@
 		SELECT COUNT(*) AS cnt FROM Product
 		WHERE 1=1
 		<include refid="pSearch" />
+		
 	</select>
 	
 	<update id="answerQna" parameterType="qnaVO">
