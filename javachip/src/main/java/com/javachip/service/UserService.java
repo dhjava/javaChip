@@ -23,7 +23,7 @@ public interface UserService {
 	// mypage 관련
 	UserVO infoCheck(int uNo);
 	int infoUpdate(UserVO vo);
-	//회원탈퇴
+	int pwUpdate(UserVO vo);
 	public int goodbye(int uNo);
 	
 	//admin용========================================================

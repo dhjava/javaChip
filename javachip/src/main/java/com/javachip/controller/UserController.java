@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.javachip.service.MailSendService;
 import com.javachip.service.MileageService;
 import com.javachip.service.UserService;
 import com.javachip.vo.MileageVO;
@@ -55,8 +54,6 @@ public class UserController {
 			uPw = vo.getuPw();
 			encodePw = loginVO.getuPw();
 			//login할 회원이 데이터베이스에 존재
-			System.out.println(uPw);
-			System.out.println(encodePw);
 			
 			if(true == pe.matches(uPw, encodePw)) {
 				System.out.println("회원존재");
@@ -76,13 +73,15 @@ public class UserController {
 				pw.append("<script>alert('로그인에 성공했습니다.\\n\\n회원 이름 : " + loginVO.getuName()
 						+ "\\n경고 횟수 : "+ loginVO.getuAlertNum() + "');location.href='"+req.getContextPath()+"/';</script>");
 				}
+			}else if(uPw == vo.getuPw()) {
+				System.out.println("임시 비밀번호 로그인");
+				session.setAttribute("login", loginVO);
+				pw.append("<script>alert('임시 비밀번호로 로그인 하셨습니다.\\n회원 정보 수정 페이지에서 비밀번호를 변경해주세요.');location.href='"+req.getContextPath()+"/mypage/myinfo.do';</script>");
 			}else {
 				System.out.println("회원존재 X_A");
 				pw.append("<script>alert('존재하지 않는 아이디나 비밀번호입니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");
 			}
 		}else{
-			System.out.println(uPw);
-			System.out.println(encodePw);
 			//login할 회원이 데이터베이스에 존재 X
 			System.out.println("회원존재 X");
 			pw.append("<script>alert('존재하지 않는 아이디나 비밀번호입니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");

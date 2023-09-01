@@ -141,6 +141,11 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
+	public int pwUpdate(UserVO vo){
+		return userDAO.pwUpdate(vo);
+	}
+
+	@Override
 	public int goodbye(int uNo){
 		return userDAO.goodbye(uNo);
 	}

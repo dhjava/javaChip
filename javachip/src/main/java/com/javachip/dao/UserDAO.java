@@ -54,6 +54,10 @@ public class UserDAO {
 		return sqlSession.update(namespace+".infoUpdate", vo);
 	}
 	
+	public int pwUpdate(UserVO vo){
+		return sqlSession.update(namespace+".pwUpdate", vo);
+	}
+	
 	public int goodbye(int uNo) {
 		return sqlSession.update(namespace+".goodbye", uNo);
 	}

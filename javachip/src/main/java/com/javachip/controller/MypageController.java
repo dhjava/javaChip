@@ -2,7 +2,6 @@ package com.javachip.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +55,8 @@ public class MypageController {
 	private ReviewService rs;
 	@Autowired
 	private PageMaker pm;
+	@Autowired
+	BCryptPasswordEncoder pe;
 	
 	@RequestMapping(value="/cart.do", method=RequestMethod.GET)
 	public String cart(HttpServletRequest req, Model model) {
@@ -271,7 +273,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/myinfoUpdate.do")
-	public String myinfoUpdate(HttpServletRequest req,UserVO vo,Model model) throws Exception{
+	public String myinfoUpdate(HttpServletRequest req,UserVO vo) throws Exception{
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		if(loginVO==null) {
@@ -281,8 +283,36 @@ public class MypageController {
 		vo.setuNo(uNo);
 		System.out.println(vo);
 		us.infoUpdate(vo);
-		model.addAttribute("vo",vo);
 		return "redirect:myinfo.do";
+	}
+
+		
+	@RequestMapping(value="/pwUpdate.do", method=RequestMethod.GET)
+	public String pwUpdate(){
+		return "mypage/pwUpdate";
+	}
+	
+	@RequestMapping(value="/pwUpdate.do", method=RequestMethod.POST)
+	public void pwUpdate(HttpServletRequest req, UserVO vo, HttpServletResponse res) throws IOException {
+		HttpSession session = req.getSession();
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		
+		int uNo = loginVO.getuNo();
+		vo.setuNo(uNo);
+		
+		String uPw = "";
+		String encodePw = "";
+		
+		uPw = vo.getuPw();
+		encodePw = pe.encode(uPw);
+		
+		vo.setuPw(encodePw);
+		us.pwUpdate(vo);
+		
+		res.setContentType("text/html;charset=UTF-8");
+		PrintWriter pw = res.getWriter();
+		
+		pw.append("<script>alert('비밀번호가 변경되었습니다!');window.close();</script>");
 	}
 	
 	@RequestMapping(value="/myboard.do")
