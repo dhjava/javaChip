@@ -1,4 +1,4 @@
-z<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <%@ include file="../include/nav.jsp" %>
 <%@ page import ="com.javachip.vo.*" %> 
@@ -159,7 +159,16 @@ function deleteValue(){
 							${Order.oTotalPrice }
 						</td>
 						<td>
-							${Order.oTrackNo }
+							<c:choose>
+	                              <c:when test="${empty Order.oTrackNo or Order.oTrackNo eq ''}">
+	                              	<input type="button" class="btn" value="배송조회"
+	                              		onclick="alert('배송 준비 중입니다.')">
+	                              </c:when>
+	                              <c:otherwise>
+	                              	<input type="button" class="btn" value="배송조회"
+	                              		onclick="window.open('https://trace.cjlogistics.com/web/detail.jsp?slipno=${list.oTrackNo}')">
+	                              </c:otherwise>
+                             </c:choose>
 						</td>
 					</tr>
 					</c:forEach>	

@@ -83,7 +83,7 @@
 	<select id="selectByAdmin" resultType="Order_VO" parameterType="AdminSearchVO">
 			SELECT o.*, u.uId, p.pName
 				FROM Order_ o
-				LEFT JOIN Cart c ON o.cNo = c.cNo
+				LEFT JOIN Order_Detail c ON o.oNo = c.oNo
 				LEFT JOIN Product p ON c.pNo = p.pNo
 				LEFT JOIN User u ON o.uNo = u.uNo
 				WHERE 1 = 1
