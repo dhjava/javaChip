@@ -93,6 +93,7 @@
                         가격 :<br><input class="form-control"  type="text" id="pPrice" name="pPrice" placeholder="개당 가격"
                         oninput="this.value=this.value.replace(/[^0-9]/g,'');"><br>
                         상품설명 :<br><textarea class="form-control" rows="4" id="pNote" name="pNote" placeholder="상품설명"></textarea><br>
+                        상품상세설명 :<br><textarea class="form-control" rows="4" id="pDtail" name="pDtail" placeholder="상품설명"></textarea><br>
                         입고수 :<br><input class="form-control"  type="text" id="pInput" name="pInput" placeholder="입고 수량"
                         oninput="this.value=this.value.replace(/[^0-9]/g,'');"><br>
                         사진 첨부 :<br>
