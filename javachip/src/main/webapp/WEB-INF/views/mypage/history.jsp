@@ -59,23 +59,50 @@
                             	<c:forEach items="${orderList}" var="list">
 	                                <tr>
 	                                    <td class="shoping__cart__item">
-	                                        <h5><a href="hdetail.do?oNo=${list.oNo}">${list.oDate.substring(0,10)} 주문</a></h5>
+                                        	<a href="hdetail.do?oNo=${list.oNo}">
+	                                    		<c:if test="${empty list.aChangeName}">
+			                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
+			                                    </c:if>
+			                                    <c:if test="${not empty list.aChangeName}">
+			                                        <img src="<%= request.getContextPath() %>/resources/upload/${list.aChangeName}" alt="">
+			                                    </c:if>
+		                                        <h5>
+	                                        		${list.pName}
+			                                        <c:if test="${list.oCount > 1}">
+			                                        	외 ${list.oCount}건
+			                                        </c:if>
+				                                </h5>
+		                                	</a>
 	                                    </td>
 	                                    <td class="shoping__cart__price">
 	                                        ${list.oTotalPrice}
 	                                    </td>
-	                                    <td class="shoping__cart__quantity" style="width:8%;">
-	                                    	<input type="button" class="btn" value="상세조회" onclick="location.href='hdetail.do?oNo=${list.oNo}'">
+	                                    <td class="shoping__cart__quantity" style="width:10%;">
+	                                    	<input type="button" class="btn" value="상세조회"
+	                                    	 style="background-color:#EFEFEF"
+	                                    	 onclick="location.href='hdetail.do?oNo=${list.oNo}'">
 	                                    </td>
-	                                    <td class="shoping__cart__quantity" style="width:8%;">
+	                                    <td class="shoping__cart__quantity" style="width:10%;">
 		                                    <c:choose>
-			                                    <c:when test="${empty list.oTrackNo or list.oTrackNo eq ''}">
-			                                    	<input type="button" class="btn" value="배송조회"
-			                                    		onclick="alert('배송 준비 중입니다.')">
+			                                    <c:when test="${list.oStatus eq 'O' and list.oTrackNo eq 0}">
+			                                    	<input type="button" class="btn" value="상품 준비 중"
+			                                    		style="cursor:default;">
 			                                    </c:when>
-			                                    <c:otherwise>
+			                                    <c:when test="${list.oStatus eq 'W'}">
 			                                    	<input type="button" class="btn" value="배송조회"
 			                                    		onclick="window.open('https://trace.cjlogistics.com/web/detail.jsp?slipno=${list.oTrackNo}')">
+			                                    </c:when>
+			                                    <c:when test="${list.oStatus eq 'X'}">
+			                                    	<input type="button" class="btn" value="주문 취소"
+			                                    		style="cursor:default;">
+			                                    </c:when>
+			                                    <c:when test="${list.oStatus eq 'D'}">
+			                                    	<input type="button" class="btn" value="배송 완료"
+			                                    		style="cursor:default;">
+			                                    </c:when>
+			                                    <c:otherwise>
+			                                    	<input type="button" class="btn" value="반려된 주문"
+			                                    		style="cursor:default;">
 			                                    </c:otherwise>
 		                                    </c:choose>
 	                                    </td>

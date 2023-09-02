@@ -238,7 +238,12 @@
 		                                	<td><input type="checkbox" name="chkCart" id="chkNo${cart.cNo}" value="${cart.cNo}"></td>
 		                                    <td class="shoping__cart__item">
 		                                    	<a href="<%= request.getContextPath() %>/shop/details.do?pNo=${cart.pNo}" target="_blank" rel="noreferer">
+		                                    <c:if test="${empty cart.aChangeName}">
 			                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
+		                                    </c:if>
+		                                    <c:if test="${not empty cart.aChangeName}">
+			                                        <img src="<%= request.getContextPath() %>/resources/upload/${cart.aChangeName}" alt="">
+		                                    </c:if>
 			                                        <h5>${cart.pName}</h5>
 		                                    	</a>
 		                                    </td>

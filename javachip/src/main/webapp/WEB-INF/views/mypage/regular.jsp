@@ -147,6 +147,9 @@
 						    <c:if test="${regular.oStatus eq 'D'}">
 							    <td class="tg-9wq8">배송 완료</td>
 						    </c:if>
+						    <c:if test="${regular.oStatus eq 'Y'}">
+							    <td class="tg-9wq8">반려된 주문</td>
+						    </c:if>
 						  </tr>
 						</c:if>
 					</c:forEach>

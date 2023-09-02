@@ -106,9 +106,16 @@
                     <c:forEach items="${productList}" var="list">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
+                            <c:if test="${empty list.aChangeName}">
                                 <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/img/product/product-1.jpg"
                                 	 onclick="location.href ='details.do?pNo=${list.pNo}'" style="cursor:pointer;">
                                 </div>
+                            </c:if>
+                            <c:if test="${not empty list.aChangeName}">
+                                <div class="product__item__pic set-bg" data-setbg="<%= request.getContextPath() %>/resources/upload/${list.aChangeName}"
+                                	 onclick="location.href ='details.do?pNo=${list.pNo}'" style="cursor:pointer;">
+                                </div>
+                            </c:if>
                                 <div class="product__item__text">
                                     <h6><a href="details.do?pNo=${list.pNo}">${list.pName}</a></h6>
                                     <h5>${list.pPrice}원</h5>

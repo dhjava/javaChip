@@ -9,11 +9,12 @@ public class CartVO {
 	// 외래키
 	private String pName;
 	private int pPrice;
+	private String aChangeName;
 	
 	@Override
 	public String toString() {
 		return "CartVO [cNo=" + cNo + ", pNo=" + pNo + ", uNo=" + uNo + ", cCount=" + cCount + ", pName=" + pName
-				+ ", pPrice=" + pPrice + "]";
+				+ ", pPrice=" + pPrice + ", aChangeName=" + aChangeName + "]";
 	}
 	public int getcNo() {
 		return cNo;
@@ -50,5 +51,11 @@ public class CartVO {
 	}
 	public void setpPrice(int pPrice) {
 		this.pPrice = pPrice;
+	}
+	public String getaChangeName() {
+		return aChangeName;
+	}
+	public void setaChangeName(String aChangeName) {
+		this.aChangeName = aChangeName;
 	}
 }

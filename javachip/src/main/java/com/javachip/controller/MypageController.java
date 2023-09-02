@@ -186,7 +186,7 @@ public class MypageController {
 		int cnt = os.countUserOrder(uNo);
 		System.out.println("uNo::"+uNo);
 		System.out.println("cnt::"+cnt);
-		
+		searchVO.calcStart();
 		pm.setSearchVO(searchVO);
 		pm.setTotalCount(cnt);
 		

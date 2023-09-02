@@ -9,15 +9,19 @@ public class Order_VO {
 	private String oPay;
 	private String oStatus;
 	private String oDate;
+	
 	private String uId;
 	private String pName;
 	private String pPrice;
+	private String aChangeName;
+	private int oCount;
 	
 	@Override
 	public String toString() {
 		return "Order_VO [oNo=" + oNo + ", uNo=" + uNo + ", addNo=" + addNo + ", oTrackNo=" + oTrackNo
 				+ ", oTotalPrice=" + oTotalPrice + ", oPay=" + oPay + ", oStatus=" + oStatus + ", oDate=" + oDate
-				+ ", uId=" + uId + ", pName=" + pName + ", pPrice=" + pPrice + "]";
+				+ ", uId=" + uId + ", pName=" + pName + ", pPrice=" + pPrice + ", aChangeName=" + aChangeName
+				+ ", oCount=" + oCount + "]";
 	}
 	public int getoNo() {
 		return oNo;
@@ -87,6 +91,18 @@ public class Order_VO {
 	}
 	public void setpPrice(String pPrice) {
 		this.pPrice = pPrice;
+	}
+	public String getaChangeName() {
+		return aChangeName;
+	}
+	public void setaChangeName(String aChangeName) {
+		this.aChangeName = aChangeName;
+	}
+	public int getoCount() {
+		return oCount;
+	}
+	public void setoCount(int oCount) {
+		this.oCount = oCount;
 	}
 	
 	
