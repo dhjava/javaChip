@@ -162,16 +162,14 @@ public class UserController {
 	
 	@RequestMapping(value="/joinBiz.do",method=RequestMethod.POST)
 	public String joinBiz(UserVO vo) {
-		int result = us.insertBiz(vo);
+		String uPw = "";
+		String encodePw = "";
 		
+		uPw = vo.getuPw();
+		encodePw = pe.encode(uPw);
+		vo.setuPw(encodePw);
+		int result = us.insertBiz(vo);
 		if(result>0) {
-			String uPw = "";
-			String encodePw = "";
-			
-			uPw = vo.getuPw();
-			encodePw = pe.encode(uPw);
-			vo.setuPw(encodePw);
-			
 			System.out.println("회원가입 성공");
 			
 			// 신규 가입 적립금

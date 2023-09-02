@@ -91,6 +91,7 @@
 			,uPhone
 			,uStatus
 			,uBisno
+			,uBisName
 			,uAdd1
 			,uAdd2
 			,uAdd3
@@ -105,6 +106,7 @@
 			,#{uPhone}
 			,"W"
 			,#{uBisno}
+			,#{uBisName}
 			,#{uAdd1}
 			,#{uAdd2}
 			,#{uAdd3}
