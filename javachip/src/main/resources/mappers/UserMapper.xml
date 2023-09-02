@@ -194,8 +194,7 @@
 	<!-- 관리자 사업자회원 전체 목록 -->
 	<select id="selectBizUserByAdmin" resultType="userVO" parameterType="AdminSearchVO">
 		SELECT * FROM user
-		where uStatus ='B' 
-		   OR uStatus ='W'
+		where uStatus ='B' or uStatus= 'W'
 		<include refid="findUser" />
 		order by uNo asc limit #{sNum},#{perPageNum}
 	</select>
@@ -218,7 +217,7 @@
 	<!-- 관리자 사업자회원 세부 목록 -->
 	<select id="selectBizUserOneByuNoByAdmin" resultType="userVO" parameterType="int">
 		SELECT * FROM user
-		where uStatus = 'B'
+		where uStatus = 'B' or uStatus = 'W'
 		and uNo = #{uNo}
 	</select>
 	
