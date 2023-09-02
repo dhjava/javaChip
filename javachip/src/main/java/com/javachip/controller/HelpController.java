@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 import com.javachip.service.HelpService;
+import com.javachip.service.PattachService;
 import com.javachip.service.ProductService;
 import com.javachip.vo.NoticeVO;
 import com.javachip.vo.PageMaker;
@@ -46,6 +47,9 @@ public class HelpController {
 	
 	@Autowired(required = false)
 	private PageMaker pageMaker;
+	
+	@Autowired(required = false)
+	private PattachService pattachService;
 	
 	@RequestMapping(value="/editer.do", method = RequestMethod.GET)
 	public String Editer() {
@@ -400,6 +404,12 @@ public class HelpController {
 		QnaVO qnaVO = helpService.selectOneByQno(qNo);
 		List<QnaVO> nearQnaList = helpService.selectNearQno(qNo);
 		
+		// qna 상품 번호가 있다면 상품번호로 파일검색
+		int qnaPno = qnaVO.getpNo();
+		if(qnaPno != 0) {
+			PattachVO pattachVO = pattachService.selectPattach(qnaPno);
+			model.addAttribute("pattachVO",pattachVO);
+		}
 		// 로그인 확인
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
@@ -407,12 +417,18 @@ public class HelpController {
 		// 비밀글 설정이 켜져있다면,
 		if(qnaVO.getSecretYN().equals("Y")) {
 			// 작성자 체크
-			if(loginVO.getuNo() == qnaVO.getuNo() || loginVO.getuStatus().equals("A")){
-				
-
-			}else {
-				
+			if(loginVO == null) {
 				return "help/secret";
+				
+			}else {
+				if( qnaVO.getuNo() == loginVO.getuNo() || ("A").equals(loginVO.getuStatus())){
+					
+					
+				}else {
+					
+					return "help/secret";
+				}
+				
 			}
 			
 		}

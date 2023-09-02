@@ -143,7 +143,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/goodbye.do", method=RequestMethod.POST)
-	public void goodbye(HttpServletRequest req, Model model,
+	public String goodbye(HttpServletRequest req, Model model,
 			UserVO userVO, RedirectAttributes ra, HttpServletResponse res) throws Exception{
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = res.getWriter();
@@ -152,12 +152,21 @@ public class MypageController {
 		UserVO loginVO = (UserVO)session.getAttribute("login");
 		
 		int uNo = loginVO.getuNo();
-
-		us.goodbye(uNo);
+		userVO.setuNo(uNo);
+//		System.out.println("userVO:"+userVO);
 		
-		session.invalidate();
-		pw.append("<script>alert('회원탈퇴가 완료되었습니다.');location.href='"+req.getContextPath()+"/';</script>");
-		pw.flush();
+		String oldPass = loginVO.getuPw();
+		String newPass = userVO.getuPw();
+		
+		if(oldPass.equals(newPass)) {
+			us.goodbye(uNo);
+			ra.addFlashAttribute("result", "removeOK");
+			session.invalidate();
+			return "redirect:/";
+		}else {
+			ra.addFlashAttribute("result", "removeFalse");
+			return "redirect:/mypage/goodbye";
+		}
 	}
 	
 	@RequestMapping(value="/history.do")
