@@ -10,6 +10,7 @@
 		SELECT *
 		     , (SELECT pName FROM product WHERE cart.pNo = product.pNo) as pName
 		     , (SELECT pPrice FROM product WHERE cart.pNo = product.pNo) as pPrice
+		     , (SELECT aChangeName FROM pattach WHERE cart.pNo = pattach.pNo) as aChangeName
 		  FROM cart
 		 WHERE uNo = #{uNo}
 	</select>

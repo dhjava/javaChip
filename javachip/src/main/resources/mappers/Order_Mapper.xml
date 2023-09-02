@@ -7,8 +7,14 @@
 	<!-- 사용자의 주문 조회 -->
 	<select id="selectUserOrder" parameterType="int" resultType="Order_VO">
 		SELECT *
-		  FROM order_
-		 WHERE uNo = #{uNo}
+		     , (SELECT aChangeName FROM pattach WHERE pNo = d.pNo) AS aChangeName
+		     , (SELECT pName FROM product WHERE pNo = d.pNo) AS pName
+		     , COUNT(d.pNo)-1 AS oCount
+		  FROM order_ o
+		  JOIN order_detail d
+		    ON o.oNo = d.oNo
+		 WHERE o.uNo = #{uNo}
+		 GROUP BY o.oNo
 	</select>
 	
 	<!-- 정기배송 주문 조회 -->
