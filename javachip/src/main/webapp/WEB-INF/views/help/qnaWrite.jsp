@@ -77,7 +77,12 @@ function productCallFn(curPage,searchType,searchValue) {
 			for(let i=0; i < list.length ;i++) {
 				htmlStr += "<tr>";
 				htmlStr += "<td style='width : 15%'>" + (pm.totalCount - pm.seqNo + i + 1) + "</td>";
-				htmlStr += "<td style='width : 15%'><div class='img pInfo'>상품 이미지</div></td>";
+				if(pattachVO.aChangeName) {
+				htmlStr += "<td style='width : 15%'><div class='img pInfo'><img src='" + request.getContextPath() + "/resources/upload/" + pattachVO.aChangeName + "' style='width: 100%; height: 100%;'></div></td>";
+				}else {
+				htmlStr += "<td style='width : 15%'><div class='img pInfo'>상품 이미지</div></td>";	
+				}
+				
 				htmlStr += "<td style='width : 20%; text-align: left'>" + list[i].pName + "</td>";
 				htmlStr += "<td style='width : 25%;'>" + list[i].pType + "</td>";
 				htmlStr += "<td style='width : 15%'><input name='pNoRadio' type='radio' value='" + list[i].pNo + "'></td>";
