@@ -68,7 +68,14 @@
                             <c:forEach items="${orderDetail}" var="list">
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
+                                    	<c:if test="${empty list.aChangeName}">
+		                                    <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg"
+		                                    style="width: auto; height: auto; max-width: 270px; max-height: 270px;" alt="">
+		                                </c:if>
+		                                <c:if test="${not empty list.aChangeName}">
+		                                    <img src="<%= request.getContextPath() %>/resources/upload/${regular.aChangeName}"
+		                                    style="width: auto; height: auto; max-width: 270px; max-height: 270px;" alt="">
+		                                </c:if>
                                         <h5>${list.pName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
