@@ -254,8 +254,8 @@
 						</textarea>
 					</div>
 					<div class="join__submit">
-						<input type="submit" class="btn btn-primary" value="회원가입">
-						<input type="reset" class="btn btn-outline-secondary" value="취소">
+						<input type="submit" class="btn btn-primary" id="joinBtn" value="회원가입" disabled/>
+						<input type="button" class="btn btn-outline-secondary" onClick="history.go(-1)" value="취소" >
 					</div>
                 </form>
             </div>

@@ -24,4 +24,8 @@ public interface AddressService {
 	
 	//배송지 저장/수정
 	int updateAddress(AddressVO addressVO);
+	
+	int insertAddress(AddressVO addressVO);
+	
+	int countAdd(int uNo);
 }

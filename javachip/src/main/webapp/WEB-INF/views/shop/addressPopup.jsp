@@ -68,6 +68,11 @@
         var selectedValue = $("#sort").val();
         var uNo = $("#uNo").val(); 
         
+        if(selectedValue==main) {
+        	$("#aStatus").val("A");
+        }else {
+        	$("#aStatus").val("B");
+        }
         // 선택된 값 서버로 전달
         $.ajax({
             url: "selectAddress.do",
@@ -93,6 +98,7 @@
     }
 	
 	$(document).ready(function() {
+       	$("#aStatus").val("A");
 	    // 주소 수정/저장
 	    $("#saveAddressButton").click(function() {
 	        var addNo = $("#addNo").val();
@@ -110,7 +116,6 @@
 	            url: "addressPopup.do",
 	            type: "POST",
 	            data: {
-	            	addNo: addNo,
 	            	uNo: uNo,
 	            	aStatus: aStatus,
 	                aName: aName,
@@ -122,6 +127,7 @@
 	                aComment: aComment
 	            },
 	            success: function(data) {
+	            	alert("성공");
 	                console.log(data);
 	                if(data > 0) {
 	                    alert("변경 완료");
@@ -131,6 +137,7 @@
 	                }
 	            },
 	            error: function() {
+	            	alert("실패");
 	                console.log("에러 발생");
 	            }
 	        });
@@ -174,7 +181,7 @@
         <div class="checkout__form">
         	<form name="addressPopup" id="addressPopup" method="post" action="addressPopup.do">
         	<input type="hidden" id="addNo" name="addNo" value="${addvo.addNo }" />
-        	<input type="hidden" id="aStatus" name="aStatus" value="${addvo.aStatus }">
+        	<input type="hidden" id="aStatus" name="aStatus" >
         	
 				<h4>배송지 관리</h4>
 				<div class="col-lg-10 col-md-6" id="address_list" style=margin-bottom:20px;>

@@ -499,10 +499,27 @@ public class ShopController {
 	//배송지 팝업
 	@ResponseBody
 	@RequestMapping(value="/addressPopup.do", method=RequestMethod.POST)
-	public int addressPopup(AddressVO addressVO) {
-		int result = as.updateAddress(addressVO);
-		System.out.println(addressVO);
-		
+	public int addressPopup(AddressVO addressVO, HttpServletRequest req) {
+		System.out.println("성공1");
+		HttpSession session = req.getSession();
+		System.out.println("성공2");
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		System.out.println("성공3");
+		int result = 0;
+		int uNo = loginVO.getuNo();
+		System.out.println("성공4");
+		System.out.println(uNo);
+		if(as.countAdd(uNo) == 0) {
+			addressVO.setaStatus("A");
+			result = as.insertAddress(addressVO);
+		}else if(as.countAdd(uNo) == 1) {
+			addressVO.setaStatus("B");
+			result = as.insertAddress(addressVO);
+		}else {
+			result = as.updateAddress(addressVO);
+		}
+		System.out.println("av::"+addressVO);
+		System.out.println(result);
 		return result;
 	}
 	

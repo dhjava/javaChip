@@ -96,7 +96,7 @@ function deleteValue(){
 				<ul>
 				<li>
 					<a href="<%=request.getContextPath() %>/admin/memberList.do">일반회원조회</a><br>
-					<a href="<%=request.getContextPath() %>/admin/bizmemberList.do">관리자회원조회</a><br>
+					<a href="<%=request.getContextPath() %>/admin/bizmemberList.do">사업자회원조회</a><br>
 					<a href="<%=request.getContextPath() %>/admin/blackList.do">블랙리스트조회</a>
 				</li>
 				</ul>

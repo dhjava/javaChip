@@ -55,4 +55,16 @@ public class AddressServiceImpl implements AddressService{
 		// TODO Auto-generated method stub
 		return addressDAO.updateAddress(addressVO);
 	}
+
+	@Override
+	public int insertAddress(AddressVO addressVO) {
+		// TODO Auto-generated method stub
+		return addressDAO.insertAddress(addressVO);
+	}
+
+	@Override
+	public int countAdd(int uNo) {
+		// TODO Auto-generated method stub
+		return addressDAO.countAdd(uNo);
+	}
 }
