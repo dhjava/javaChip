@@ -77,7 +77,7 @@ public class ShopController {
 		,	Model model
 		,	SearchVO searchVO
 		) {
-		// 사업자 도매
+		// 사업자 도매 - 관리자와 사업자
 		if(searchVO.getSearchType() != null && searchVO.getSearchValue() != null) {
 			if(searchVO.getSearchType().equals("pType") && searchVO.getSearchValue().equals("E")) {
 				HttpSession session = req.getSession();
@@ -86,7 +86,9 @@ public class ShopController {
 					return "redirect:/member/login.do";
 				}// 유저 선택 필요
 				if(!loginVO.getuStatus().equals("B")) {
-					return "redirect:wholesale.do";
+					if(!loginVO.getuStatus().equals("A")) {
+						return "redirect:wholesale.do";
+					}
 				}
 			}
 		}
@@ -126,13 +128,15 @@ public class ShopController {
 			return;
 		} // 유저 선택 필요
 		if(!loginVO.getuStatus().equals("B")) {
-			String str = "<script>"
-					+ "alert('사업자 회원 전용 상품입니다.');"
-					+ "location.href='grid.do';"
-					+ "</script>";
-			pw.append(str);
-			pw.flush();
-			return;
+			if(!loginVO.getuStatus().equals("A")) {
+				String str = "<script>"
+						+ "alert('사업자 회원 전용 상품입니다.');"
+						+ "location.href='grid.do';"
+						+ "</script>";
+				pw.append(str);
+				pw.flush();
+				return;
+			}
 		}else {
 			String str = "<script>"
 					+ "location.href='grid.do?searchType=pType&searchValue=E';"
