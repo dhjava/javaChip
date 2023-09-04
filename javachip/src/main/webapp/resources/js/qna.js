@@ -154,7 +154,8 @@ function selectQTypeFn(){
 }
 
 function selectPNoFn(){	
-	var htmlTag = "";	
+	var htmlTag = "";
+	let pImgHtml= $("input[name='pNoRadio']:checked").parent().parent().children().eq(1).children().html();
 	// 상품 QnA일때,
 	if ( $("#qType option:selected").val() == "P" ) {
 		// pNo가 선택되지 않았을 때,
@@ -164,7 +165,6 @@ function selectPNoFn(){
 		// pNo가 선택되었을 때,
 			htmlTag += "<div class='pContainer pInfo'>"
 			htmlTag += "<div class='img pInfo'>"
-			htmlTag += "상품 이미지"
 			htmlTag += "</div>"
 			htmlTag += "<div class='pInfo'>"
 			htmlTag += "상품 명 : " + $("#posOption").attr("label");
@@ -175,7 +175,8 @@ function selectPNoFn(){
 	}else{
 		htmlTag = "";
 	}
-		return $("#pInfo").html(htmlTag);
+		$("#pInfo").html(htmlTag);
+		$(".img.pInfo").html(pImgHtml);
 }
 
 window.onload = selectQTypeFn;

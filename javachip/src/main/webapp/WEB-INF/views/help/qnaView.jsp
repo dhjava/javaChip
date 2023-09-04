@@ -54,7 +54,7 @@
 					
 					<td style="vertical-align:middle; text-align:center; width:20%">
 					<c:if test="${not empty pavo}">
-							<img src="<%=request.getContextPath()%>/resources/upload/${pattachVO.aChangeName}" style='width: 100%; height: 100%;'>
+							<img src="<%=request.getContextPath()%>/resources/upload/${pattachVO.aChangeName}" style='width: 100%; height: 100%;' alt='${qnaVO.pName}'>
 					</c:if>
 					</td>
 					<td>상품 명 :${qnaVO.pName}</td>
