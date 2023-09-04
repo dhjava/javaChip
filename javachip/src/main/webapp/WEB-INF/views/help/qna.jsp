@@ -33,6 +33,7 @@
 					<td scope="col" style="width:56%">제목</td>
 					<td scope="col" style="width:17%">이름</td>
 					<td scope="col" style="width:17%">날짜</td>
+					<td scope="col" style="width:17%">답변</td>
 				</tr>
 				<fmt:formatDate value="<%=new java.util.Date()%>" type="DATE" pattern="yyyy.MM.dd" var="nowDate"/>
 				
@@ -67,6 +68,16 @@
 						</c:when>
 						<c:otherwise>
 							${boardDate}
+						</c:otherwise>
+						</c:choose>
+					</td>
+					<td>
+						<c:choose>
+						<c:when test="${ !empty qna.qAnswer}">
+							완료
+						</c:when>
+						<c:otherwise>
+							대기
 						</c:otherwise>
 						</c:choose>
 					</td>
