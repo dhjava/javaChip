@@ -88,4 +88,13 @@
 		where uNo = #{uNo}
 		and addNo = #{addNo}
 	</update>
+	
+	<insert id="insertAddress" parameterType="addressVO">
+		insert into addr(uNo,aStatus,aName,Addr1,Addr2,Addr3,aPhone,aMail,aComment)
+		values(#{uNo},#{aStatus},#{aName},#{Addr1},#{Addr2},#{Addr3},#{aPhone},#{aMail},#{aComment})
+	</insert>
+	
+	<select id="countAdd" parameterType="int" resultType="int">
+		select count(*) from addr where uNo = #{uNo}
+	</select>
 </mapper>
