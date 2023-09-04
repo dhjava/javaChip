@@ -328,7 +328,6 @@ public class HelpController {
 	@RequestMapping(value="/productSearch.do", method = RequestMethod.GET)
 	public Map<String,Object> productSearch(SearchVO searchVO) {
 		
-		
 		System.out.println(searchVO.getPage());
 		// 전체개수 확인
 		int cnt = helpService.totalProduct(searchVO);
@@ -339,7 +338,6 @@ public class HelpController {
 		pageMaker.setTotalCount(cnt);
 		
 		List<ProductVO> list = helpService.selectProductList(searchVO);
-		
 		
 		// Map에 값 담기
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -108,9 +108,13 @@
 	</insert>
 	
 	<select id="selectProductAll" resultType="productVO" parameterType="searchVO">
-		SELECT *
+		SELECT * 
+		, (SELECT aChangeName
+			FROM Pattach
+			WHERE pNo=Product.pNo
+		) AS aChangeName
 		FROM Product
-		WHERE 1 = 1
+		WHERE delYN = 'N'
 		<include refid="pSearch" />
 		ORDER BY pNo
 		LIMIT #{startNum},#{perPageNum}
@@ -123,14 +127,13 @@
 			CONCAT 
 			( SUBSTRING(uName,1,1),RPAD('',CHAR_LENGTH(uName)-1,'*') )
 			FROM User 
-			WHERE uNo=qna.uNo
+			WHERE uNo=Qna.uNo
 		)AS uName
 		
 		<!-- Name if문에 관리자 타입 조건걸기 위해 uStatus 선택 -->
-		,(
-		SELECT uStatus 
-		FROM User 
-		WHERE uNo = Qna.uNo 
+		,(SELECT uStatus 
+			FROM User 
+			WHERE uNo = Qna.uNo 
 		) AS uStatus
 		FROM QnA
 		WHERE delYN = 'N'
