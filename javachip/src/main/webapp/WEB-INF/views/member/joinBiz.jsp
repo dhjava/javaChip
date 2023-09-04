@@ -48,7 +48,7 @@
                         	<input type="text" class="join__input__email" name="uMail" id="uMail" onblur="checkFn(this)">
                         	<div class="msg"></div>
                         <p>상호명(법인명)<span>*</span></p>
-                        	<input type="text" class="join__input__short" id="uBisname" name="uBisname" onblur="checkFn(this)">
+                        	<input type="text" class="join__input__short" id="uBisName" name="uBisName" onblur="checkFn(this)">
                         	<div class="msg"></div>
                         <p>사업자 등록 번호<span>*</span></p>
                         <input type="text" class="join__input__short" name="uBisno" id="uBisno" onblur="checkFn(this)">
