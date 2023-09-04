@@ -89,7 +89,11 @@ function qnaAnswerFn() {
 						<c:if test="${qnaVO.qType eq 'P'}">
 							<tr style="height:120px;">
 								<td style="vertical-align:middle;">문의 상품</td>
-								<td style="vertical-align:middle; text-align:center; width:20%">(사진)</td>
+								<td style="vertical-align:middle; text-align:center; width:20%">
+							<c:if test="${not empty pattachVO}">
+								<img src="<%=request.getContextPath()%>/resources/upload/${pattachVO.aChangeName}" style='width: 100%; height: 100%;' alt='${qnaVO.pName}'>
+							</c:if>
+								</td>
 								<td>상품 명 :${qnaVO.pName}</td>
 							</tr>
 						</c:if>
