@@ -47,4 +47,10 @@ public class AddressDAO {
 	public int updateAddress(AddressVO addressVO) {
 		return sqlSession.update(namespace+".updateAddress", addressVO);
 	}
+	public int insertAddress(AddressVO addressVO) {
+		return sqlSession.insert(namespace+".insertAddress", addressVO);
+	}
+	public int countAdd(int uNo) {
+		return sqlSession.selectOne(namespace+".countAdd", uNo);
+	}
 }
