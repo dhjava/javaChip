@@ -346,10 +346,10 @@ public class AdminController
 	//상품삭제
 	@ResponseBody
 	@RequestMapping(value="/productDelete.do", method = RequestMethod.POST)
-	public String productDelete(int pNo) {
+	public int productDelete(int pNo) {
 		int result = 0;
 		result = ps.productDelete(pNo);
-		return result+"";
+		return result;
 	}
 	
 	//공지사항선택삭제
