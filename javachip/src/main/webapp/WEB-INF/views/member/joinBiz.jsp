@@ -52,7 +52,7 @@
                         	<div class="msg"></div>
                         <p>사업자 등록 번호<span>*</span></p>
                         <input type="text" class="join__input__short" name="uBisno" id="uBisno" onblur="checkFn(this)">
-                        <button type="button" class="btn btn-outline-secondary" onclick="checkBrn()">사업자 번호 인증</button>
+                        <button type="button" class="btn btn-outline-secondary" onclick="checkBrn()">사업자 번호 확인</button>
                         <div id="checkBrnMessage"></div>
                    		<p>※ 사업자 회원은 커피 판매점 등 관련 업종만 가입 가능하며 사업자등록증 및 신분증(주민등록증/운전면허증/여권 등) 사본을 메일로 제출해야 가입이 완료됩니다.</p>
                    		<p>메일 주소 : javachip0703@gmail.com</p>
@@ -264,8 +264,8 @@
 						</textarea>
 					</div>
 					<div class="join__submit">
-						<input type="submit" class="btn btn-primary" value="회원가입">
-						<input type="reset" class="btn btn-outline-secondary" value="취소">
+						<input type="submit" class="btn btn-primary" id="joinBtn" value="회원가입" disabled/>
+						<input type="button" class="btn btn-outline-secondary" onClick="history.go(-1)" value="취소">
 					</div>
                 </form>
             </div>
