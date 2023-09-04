@@ -84,7 +84,7 @@
 				</tr>
 				</c:forEach>
 			</table>
-		<div style="text-align:center;">
+		<div class="product__pagination" style="text-align:center;">
 				<jsp:useBean id="pageMaker" class="com.javachip.vo.PageMaker"/>
 				<c:if test="${pageMaker.isPrev()}">
 					<a href="qna.do?page=${pm.startPage-1}
@@ -97,20 +97,20 @@
 					<c:forEach var="cnt" begin="${pm.startPage}" end="${ pm.endPage}">
 						<c:choose>
 							<c:when test="${cnt == pm.searchVO.page}">
-								<b> ${cnt} </b>
+								<a class="cntPoint"> ${cnt} </a>
 							</c:when>
 							<c:otherwise>
 								<a href="qna.do?page=${cnt}
 								<c:if test="${not empty param.searchValue}">
 								&${param.searchType}&${param.searchValue}
 								</c:if>
-								">${cnt}</a>&nbsp;
+								">${cnt}</a>
 							</c:otherwise>
 						</c:choose>
 					</c:forEach>
 				</c:if>
 				<c:if test="${pm.startPage == 0}">
-					<b> 1 </b>
+					<a class="cntPoint"> 1 </a>
 				</c:if>
 				<c:if test="${pageMaker.isNext() && pm.endPage>0}">	
 					<a href="qna.do?page=${pm.endPage()+1}
