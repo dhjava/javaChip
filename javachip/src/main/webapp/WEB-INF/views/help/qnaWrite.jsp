@@ -77,14 +77,34 @@ function productCallFn(curPage,searchType,searchValue) {
 			for(let i=0; i < list.length ;i++) {
 				htmlStr += "<tr>";
 				htmlStr += "<td style='width : 15%'>" + (pm.totalCount - pm.seqNo + i + 1) + "</td>";
-				if(pattachVO.aChangeName) {
-				htmlStr += "<td style='width : 15%'><div class='img pInfo'><img src='" + request.getContextPath() + "/resources/upload/" + pattachVO.aChangeName + "' style='width: 100%; height: 100%;'></div></td>";
+				if(list[i].aChangeName != null) {
+				htmlStr += "<td style='width : 15%'><div class='pImg'><img src='<%=request.getContextPath()%>/resources/upload/" + list[i].aChangeName + "' style='width: 100%; height: 100%;' alt='"+ list[i].pName +"'></div></td>";
 				}else {
-				htmlStr += "<td style='width : 15%'><div class='img pInfo'>상품 이미지</div></td>";	
+				htmlStr += "<td style='width : 15%'><div class='pImg'>상품 이미지</div></td>";	
 				}
 				
 				htmlStr += "<td style='width : 20%; text-align: left'>" + list[i].pName + "</td>";
-				htmlStr += "<td style='width : 25%;'>" + list[i].pType + "</td>";
+				htmlStr += "<td style='width : 25%;'>";
+				+ list[i].pType 
+				switch(list[i].pType) {
+				case "A" : htmlStr += "원두";
+					break;
+				case "B" : htmlStr += "생두";
+					break;
+				case "C" : htmlStr += "드립백";
+					break;
+				case "D" : htmlStr += "캡슐";
+					break;
+				case "E" : htmlStr += "도매";
+					break;
+				case "F" : htmlStr += "커피용품";
+					break;
+				case "G" : htmlStr += "정기배송";
+					break;
+				default : htmlStr += "상품정보없음";
+				}
+				htmlStr += "</td>";
+				
 				htmlStr += "<td style='width : 15%'><input name='pNoRadio' type='radio' value='" + list[i].pNo + "'></td>";
 				htmlStr += "</tr>";
 			}
