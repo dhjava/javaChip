@@ -148,8 +148,14 @@
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
+                    <c:if test="${empty pv.aChangeName}">
                         <img class="product__details__pic__item--large"
                             src="<%= request.getContextPath() %>/resources/img/product/details/product-details-1.jpg" alt="">
+                    </c:if>
+                    <c:if test="${not empty pv.aChangeName}">
+                        <img class="product__details__pic__item--large"
+                            src="<%= request.getContextPath() %>/resources/upload/${pv.aChangeName}" alt="">
+                    </c:if>
                     </div>
                 </div>
             </div>

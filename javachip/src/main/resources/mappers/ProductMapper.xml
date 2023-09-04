@@ -36,7 +36,7 @@
 	<!-- 전체 상품 조회 -->
 	<select id="selectAllProduct" resultType="ProductVO" parameterType="SearchVO">
 		SELECT *
-		     , (SELECT aChangeName FROM pattach WHERE product.pNo = pattach.pNo) 
+		     , (SELECT aChangeName FROM pattach WHERE product.pNo = pattach.pNo) as aChangeName
 		  FROM product
 		 WHERE delYN = 'N'
 		<include refid="search" />
@@ -65,6 +65,7 @@
 	<!-- 상품 조회 -->
 	<select id="selectOneProduct" resultType="ProductVO" parameterType="int">
 		SELECT *
+		     , (SELECT aChangeName FROM pattach WHERE product.pNo = pattach.pNo) as aChangeName
 		  FROM product
 		 WHERE pNo = #{pNo}
 	</select>
