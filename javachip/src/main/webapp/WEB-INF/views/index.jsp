@@ -147,14 +147,14 @@
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg"
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-6.jpg"
 	                        onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=F'"
 	                        style="cursor:pointer;">
                             <h5><a>커피용품</a></h5>
                         </div>
                     </div>
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-5.jpg"
+                        <div class="categories__item set-bg" data-setbg="resources/img/categories/cat-7.jpg"
 	                        onClick="javascript:location.href='shop/grid.do?searchType=pType&searchValue=G'"
 	                        style="cursor:pointer;">
                             <h5><a>정기배송</a></h5>
@@ -192,7 +192,7 @@
                 <div class="col-lg-3 col-md-4 col-sm-6 mix type${index.pType}">
                     <div class="featured__item">
                     	<c:if test="${empty index.aChangeName}">
-	                        <div class="featured__item__pic set-bg" data-setbg="resources/img/categories/cat-5.jpg"
+	                        <div class="featured__item__pic set-bg" data-setbg="resources/img/categories/cat-1.jpg"
 	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;" >
                     	</c:if>
                     	<c:if test="${not empty index.aChangeName}">
