@@ -4,14 +4,15 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/admin.css" type="text/css"/>
 <!-- 메인 작성 영역 -->
 <script>
+
 	function productDelete(){
 		
-		var pNo = $("#pNo").text();
-		
+		var pNo = $("#pNo").val();
+		console.log(pNo);
 		$.ajax({
 			url : "productDelete.do",
 			type : "POST",
-			data : { pNo: pNo },
+			data : "pNo="+pNo,
 			success : function(data)
 			{
 				
@@ -99,7 +100,7 @@
                 <form class="product__input" 
                 action="<%= request.getContextPath() %>/admin/productDetail.do" method="post" enctype="multipart/form-data">
                     <div class="product__details__text">
-                    	<input type="hidden" name="pNo" value="${vo.pNo}">
+                    	<input type="hidden" name="pNo" id="pNo" value="${vo.pNo}">
                     	<br><br>
                     	상품구분 :<br>
                     	<select class="custom-select" id="pType" name="pType">
@@ -121,7 +122,7 @@
                             상품설명 :<br>
                             <textarea class="form-control" rows="4" id="pNote" name="pNote" value="${vo.pNote }">
                             ${vo.pNote}</textarea><br>
-                            상품상세설명 :<br><textarea class="form-control" rows="4" id="pDtail" name="pDtail"
+                            상품상세설명 :<br><textarea class="form-control" rows="4" id="pDetail" name="pDetail"
                             value="${vo.pDetail }" placeholder="상품설명">${vo.pDetail }</textarea><br>
                             입고수 :<br>
                             <input class="form-control" type="text" id="pInput" name="pInput" value="${vo.pInput}" 
@@ -134,7 +135,7 @@
                         </div>
                     <button type="submit" class="btn btn-success">수정하기</button></form>
                     <br>
-                    <button type="submit" class="btn btn-dark" onclick="productDelete();">삭제하기</button>
+                    <button type="button" class="btn btn-dark" onclick="productDelete()">삭제하기</button>
                 </div>
             </div>
         </div>

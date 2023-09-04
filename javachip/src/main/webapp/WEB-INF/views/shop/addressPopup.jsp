@@ -183,7 +183,7 @@
 						<option value="main" id="main" ${param.sort eq 'main' ? 'selected' : ''}>기본 배송지</option>
 						<option value="sub1" id="sub1" ${param.sort eq 'sub1' ? 'selected' : ''}>추가 배송지1</option>
 					</select>
-					<input type="hidden" id="uNo" value="${addvo.uNo }">
+					<input type="hidden" id="uNo" value="${login.uNo }">
 					<button type="button" class="btn btn-outline-primary" id="saveAddressButton" style="margin-left: 20px;">저장/수정</button>
 				</div>
 		    	<div class="col-lg-10 col-md-6">

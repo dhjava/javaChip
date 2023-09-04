@@ -180,8 +180,8 @@
 	
 	<!-- 상품 새등록 -->
 	<insert id="insertProductByAdmin" parameterType="productVO">
-	INSERT INTO Product (pType, pName, pPrice, pInput, pOutput, pStock, pDate)
-		VALUES (#{pType}, #{pName}, #{pPrice}, #{pInput}, #{pOutput}, #{pInput}, NOW());
+	INSERT INTO Product (pType, pName, pPrice, pInput, pOutput, pStock, pDate, pDetail)
+		VALUES (#{pType}, #{pName}, #{pPrice}, #{pInput}, #{pOutput}, #{pInput}, NOW(), #{pDetail});
 		<selectKey order="AFTER" keyProperty="pNo" resultType="int">
 			SELECT MAX(pNo)
 			  FROM product

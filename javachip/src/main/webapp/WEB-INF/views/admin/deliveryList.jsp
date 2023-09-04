@@ -161,11 +161,11 @@ function deleteValue(){
 						<td>
 							<c:choose>
 	                              <c:when test="${empty Order.oTrackNo or Order.oTrackNo eq ''}">
-	                              	<input type="button" class="btn" value="배송조회"
+	                              	<input type="button" class="btn btn-dark" value="배송조회"
 	                              		onclick="alert('배송 준비 중입니다.')">
 	                              </c:when>
 	                              <c:otherwise>
-	                              	<input type="button" class="btn" value="배송조회"
+	                              	<input type="button" class="btn btn-dark" value="배송조회"
 	                              		onclick="window.open('https://trace.cjlogistics.com/web/detail.jsp?slipno=${list.oTrackNo}')">
 	                              </c:otherwise>
                              </c:choose>
