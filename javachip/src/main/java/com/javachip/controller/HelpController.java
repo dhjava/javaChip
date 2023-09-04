@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-
+import com.javachip.bean.ReplaceBoard;
 import com.javachip.service.HelpService;
 import com.javachip.service.PattachService;
 import com.javachip.service.ProductService;
@@ -50,6 +51,11 @@ public class HelpController {
 	
 	@Autowired(required = false)
 	private PattachService pattachService;
+	
+	@Bean
+	private ReplaceBoard replaceBoard() {
+		return new ReplaceBoard();
+	}
 	
 	@RequestMapping(value="/editer.do", method = RequestMethod.GET)
 	public String Editer() {
@@ -110,7 +116,9 @@ public class HelpController {
 	@ResponseBody
 	@RequestMapping(value="/noticeWrite.do", method = RequestMethod.POST)
 	public Map<String,Object> noticeWriteAction(NoticeVO noticeVO, HttpServletRequest req) throws IOException {
-				
+		
+		
+		
 		// 로그인 확인
 		HttpSession session = req.getSession();
 		UserVO loginVO = (UserVO)session.getAttribute("login");
@@ -129,6 +137,8 @@ public class HelpController {
 			
 			result = "게시글을 등록하였습니다";
 			path = "noticeView.do?nNo=" + noticeVO.getnNo();
+			
+			
 			
 		}else {
 			result = "관리자 로그인 후 이용이 가능합니다.";
@@ -150,6 +160,11 @@ public class HelpController {
 		
 		NoticeVO noticeVO = helpService.selectOneByNno(nNo);
 		List<NoticeVO> nearNoticeList = helpService.selectNearNno(nNo);
+		
+		// 필터링된 내용 변환
+		String rplCont = replaceBoard().toReplace(noticeVO.getnContents());
+		
+		noticeVO.setnContents(rplCont);
 		
 		model.addAttribute("noticeVO", noticeVO);
 		model.addAttribute("nearNoticeList", nearNoticeList);
@@ -180,6 +195,11 @@ public class HelpController {
 					path="redirect:../";
 				}else {
 					NoticeVO noticeVO = helpService.selectOneByNno(nNo);
+					
+					// 필터링된 내용 변환
+					String rplCont = replaceBoard().toReplace(noticeVO.getnContents());
+					
+					noticeVO.setnContents(rplCont);
 					
 					model.addAttribute("noticeVO", noticeVO);
 					
@@ -430,6 +450,18 @@ public class HelpController {
 			}
 			
 		}
+		// 필터링된 내용 변환
+		String rplCont = replaceBoard().toReplace(qnaVO.getqContents());
+		
+		qnaVO.setqContents(rplCont);
+		
+		if(("").equals(qnaVO.getqAnswer()) || qnaVO.getqAnswer() == null) {	
+			
+		}else {
+			
+			rplCont = replaceBoard().toReplace(qnaVO.getqAnswer());
+			qnaVO.setqAnswer(rplCont);
+		}
 		
 		model.addAttribute("qnaVO",qnaVO);
 		model.addAttribute("nearQnaList",nearQnaList);
@@ -487,6 +519,18 @@ public class HelpController {
 		
 		QnaVO qnaVO = helpService.selectOneByQno(qNo);
 		
+		// qna 상품 번호가 있다면 상품번호로 파일검색
+				int qnaPno = qnaVO.getpNo();
+				if(qnaPno != 0) {
+					PattachVO pattachVO = pattachService.selectPattach(qnaPno);
+					model.addAttribute("pattachVO",pattachVO);
+				}
+		
+		// 필터링된 내용 변환
+		String rplCont = replaceBoard().toReplace(qnaVO.getqContents());
+		
+		qnaVO.setqContents(rplCont);
+		
 		model.addAttribute("qnaVO",qnaVO);
 		
 		return "help/qnaAnswer";
@@ -526,57 +570,6 @@ public class HelpController {
 			
 			
 			return map;
-	}
-	
-	@ResponseBody
-	@RequestMapping(value="/singleImageUpload.do", method = RequestMethod.POST)
-	public String singleImageUpload( MultipartFile uploadFile, HttpServletRequest req, String callback_func, String callback) throws Exception {
-		
-		String realPath  = req.getSession().getServletContext().getRealPath("/resources/upload");
-			   realPath += "/smarteditor/";
-		System.out.println("realPath::::"+realPath);
-		
-		File dir = new File(realPath);
-		// 디렉토리 존재여부에 따라 디렉토리 생성
-		if(!dir.exists()) {
-			dir.mkdir();
-		}
-		
-		String file_result = "";
-		
-		// 파일이 비었는지 체크
-		if(uploadFile != null && !uploadFile.isEmpty()) {
-			// 파일이름이 비었는지 체크
-			if(!uploadFile.getOriginalFilename().isEmpty()) {
-				// 파일이 이미지파일인지 체크
-				if(uploadFile.getContentType().toLowerCase().startsWith("image/")) {
-					
-					String fileName = uploadFile.getOriginalFilename();
-					// etc에 파일 확장자값 넣기
-					// "."으로 배열을 나누고 etc에  맨마지막 배열(배열은 0부터 길이는 1부터 세므로, -1) 값(파일확장자)을 넣는다.
-					String fileNameArray[] = fileName.split("\\.");
-					String etc = fileNameArray[fileNameArray.length-1];
-					
-					long timeMilis = System.currentTimeMillis();
-					// substring(startIndex,endIndex) : startIndex부터 endIndex이전에 끊는다.
-					// ex) index ->substring(1,3) : nd
-					// fileName.length()-etc.length()-1 : 파일전체명 - 확장자길이 - "."
-					String newFileName = fileName.substring(0,fileName.length()-etc.length()-1) + timeMilis + "." + etc;
-					
-					// trnasferTo(File file) :: 파일의 저장
-					uploadFile.transferTo(new File(realPath + newFileName));
-					
-					file_result += "&bNewLine=true&sFileName=" + uploadFile.getOriginalFilename() + "sFileURL=/img/smarteditor/" + newFileName;
-							
-				}
-			}else {
-				file_result += "&errstr=error";
-			}
-		}else {
-			file_result += "&errstr=error";
-		}
-		
-		return "redirect:" + callback + "?callback_func=" + callback_func + file_result;
 	}
 	@ResponseBody
 	@RequestMapping(value="/fileupload.do", method = RequestMethod.POST)
