@@ -571,6 +571,7 @@ public class HelpController {
 			
 			return map;
 	}
+/*	
 	@ResponseBody
 	@RequestMapping(value="/fileupload.do", method = RequestMethod.POST)
 	public String fileupload( MultipartFile uploadFile, HttpServletRequest req) throws Exception {
@@ -638,4 +639,5 @@ public class HelpController {
 		}
 		return entity;
 	}
+*/	
 }

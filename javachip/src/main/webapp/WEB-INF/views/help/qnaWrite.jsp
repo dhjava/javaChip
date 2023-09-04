@@ -117,22 +117,22 @@ function productCallFn(curPage,searchType,searchValue) {
 		
 		
 		if(pm.prev) {
-			urlStr += "<a class='page' href='javascript:productCallFn(" + (pm.startPage - 1) + "," + searchType + "," + searchValue +");'> &#9664;</a>";
+			urlStr += "<a href='javascript:productCallFn(" + (pm.startPage - 1) + "," + searchType + "," + searchValue +");'> &#9664;</a>";
 		}
 		if(pm.startPage == 0) {
-			urlStr += "<b>1<b>";
+			urlStr += "<a class='cntPoint'>1<a>";
 		}else {
 			for(var i=pm.startPage; i <= pm.endPage; i++) {
 				if( i == pm.searchVO.page){
-					urlStr += " <b>"+ i +"</b> "
+					urlStr += " <a class='cntPoint'>"+ i +"</a> "
 				}else {
-				urlStr += "<a class='page' href='javascript:productCallFn(" + i + "," + searchType + "," + searchValue +");'> " + i + " </a>";				
+				urlStr += "<a href='javascript:productCallFn(" + i + "," + searchType + "," + searchValue +");'> " + i + " </a>";				
 				}
 			}
 		}
 		
 		if(pm.next && pm.endPage > 0) {
-			urlStr += "<a class='page' href='javascript:productCallFn(" + (pm.endPage + 1) + "," + searchType + "," + searchValue +");'>" + " &#9654;</a>";
+			urlStr += "<a href='javascript:productCallFn(" + (pm.endPage + 1) + "," + searchType + "," + searchValue +");'>" + " &#9654;</a>";
 		}
 		
 		$("#pPaging").html(urlStr);
@@ -287,7 +287,7 @@ function productCallFn(curPage,searchType,searchValue) {
 					</table>
 					</div>
 				</div>
-				<div style="text-align:center;" id="pPaging">
+				<div style="text-align:center;" id="pPaging" class="product__pagination">
 				</div><br>
 				<div class="p-2 bd-highlight" align="center">
 					<button class="btn btn-dark" type="button" style="margin-right:20px;" onclick="sendPnoFn();">등록</button>

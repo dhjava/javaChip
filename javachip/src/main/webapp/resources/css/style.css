@@ -762,12 +762,12 @@ ol {
 
 .categories__item h5 a {
 	font-size: 18px;
-	color: #efefef;
+	color: #1c1c1c;
 	font-weight: 700;
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	padding: 12px 0 10px;
-	background-color: rgba(200, 100, 15, 0.6);
+	background: #ffffff;
 	display: block;
 }
 
@@ -3604,6 +3604,14 @@ section.join.spad {
 
 .board-box a{
 	color:black;
+}
+
+.product__pagination a.cntPoint{
+	color:#fd7e14;
+}
+
+.product__pagination a.cntPoint:hover {
+	color: white;
 }
 
 /* 게시판 말줄임 */
