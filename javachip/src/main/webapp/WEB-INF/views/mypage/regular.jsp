@@ -45,7 +45,7 @@
 			$("#list").append("<tr><td colspan='7'>구독 중인 정기배송 상품이 없습니다.</td></tr>");
 		}
 		if($("#historyList").children().length == 0) {
-			$("#list").append("<tr><td colspan='7'>정기배송 관련 이력이 없습니다.</td></tr>");
+			$("#historyList").append("<tr><td colspan='7'>정기배송 관련 이력이 없습니다.</td></tr>");
 		}
 	});
 </script>
