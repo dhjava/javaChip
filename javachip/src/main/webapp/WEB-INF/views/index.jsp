@@ -193,11 +193,11 @@
                     <div class="featured__item">
                     	<c:if test="${empty index.aChangeName}">
 	                        <div class="featured__item__pic set-bg" data-setbg="resources/img/categories/cat-1.jpg"
-	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;" >
+	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;">
                     	</c:if>
                     	<c:if test="${not empty index.aChangeName}">
 	                        <div class="featured__item__pic set-bg" data-setbg="resources/upload/${index.aChangeName}"
-	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;" >
+	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;">
                     	</c:if>
                        	<c:if test="${index.pType ne 'G'}">
                             <ul class="featured__item__pic__hover">
@@ -254,10 +254,12 @@
                                 <a href="shop/details.do?pNo=${newer.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty newer.aChangeName}">
-                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty newer.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                        <img src="resources/upload/${newer.aChangeName}"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
@@ -277,10 +279,12 @@
                                 <a href="shop/details.do?pNo=${newer.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty newer.aChangeName}">
-                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty newer.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                        <img src="resources/upload/${newer.aChangeName}"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
@@ -307,10 +311,12 @@
                                 <a href="shop/details.do?pNo=${pop.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty pop.aChangeName}">
-                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty pop.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                        <img src="resources/upload/${newer.aChangeName}"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
@@ -330,10 +336,12 @@
                                 <a href="shop/details.do?pNo=${pop.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty pop.aChangeName}">
-                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty pop.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                        <img src="resources/upload/${newer.aChangeName}"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
@@ -360,10 +368,12 @@
                                 <a href="shop/details.do?pNo=${rand.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty rand.aChangeName}">
-                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty rand.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                        <img src="resources/upload/${newer.aChangeName}"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
                                     <div class="latest-product__item__text">
@@ -383,10 +393,12 @@
                                 <a href="shop/details.do?pNo=${rand.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty rand.aChangeName}">
-                                        <img src="resources/img/latest-product/lp-1.jpg" alt="">
+                                        <img src="resources/img/latest-product/lp-1.jpg"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty rand.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}" alt="">
+                                        <img src="resources/upload/${newer.aChangeName}"
+                                        style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
                                     <div class="latest-product__item__text">

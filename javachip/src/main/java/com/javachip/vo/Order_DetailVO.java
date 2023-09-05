@@ -16,12 +16,13 @@ public class Order_DetailVO {
 	private int oTrackNo;
 	private String oDate;
 	private String oStatus;
+	private String aChangeName;
 	
 	@Override
 	public String toString() {
 		return "Order_DetailVO [dNo=" + dNo + ", oNo=" + oNo + ", pNo=" + pNo + ", dCount=" + dCount + ", pName="
 				+ pName + ", pPrice=" + pPrice + ", uNo=" + uNo + ", addNo=" + addNo + ", oPay=" + oPay + ", oTrackNo="
-				+ oTrackNo + ", oDate=" + oDate + ", oStatus=" + oStatus + "]";
+				+ oTrackNo + ", oDate=" + oDate + ", oStatus=" + oStatus + ", aChangeName=" + aChangeName + "]";
 	}
 	
 	public int getdNo() {
@@ -107,5 +108,13 @@ public class Order_DetailVO {
 
 	public void setoStatus(String oStatus) {
 		this.oStatus = oStatus;
+	}
+
+	public String getaChangeName() {
+		return aChangeName;
+	}
+
+	public void setaChangeName(String aChangeName) {
+		this.aChangeName = aChangeName;
 	}
 }

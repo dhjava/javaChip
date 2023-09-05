@@ -61,10 +61,12 @@
 	                                    <td class="shoping__cart__item">
                                         	<a href="hdetail.do?oNo=${list.oNo}">
 	                                    		<c:if test="${empty list.aChangeName}">
-			                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
+			                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg"
+			                                        style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
 			                                    </c:if>
 			                                    <c:if test="${not empty list.aChangeName}">
-			                                        <img src="<%= request.getContextPath() %>/resources/upload/${list.aChangeName}" alt="">
+			                                        <img src="<%= request.getContextPath() %>/resources/upload/${list.aChangeName}"
+			                                        style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
 			                                    </c:if>
 		                                        <h5>
 	                                        		${list.pName}

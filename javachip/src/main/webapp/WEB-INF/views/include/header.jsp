@@ -133,7 +133,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt=""></a>
+                        	<a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -169,7 +169,12 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="<%=request.getContextPath() %>/mypage/cart.do"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                    	<c:if test="${empty login}">
+                            <li><a href="<%=request.getContextPath() %>/mypage/cart.do"><i class="fa fa-shopping-bag"></i></a></li>
+                    	</c:if>
+                    	<c:if test="${not empty login}">
+                            <li><a href="<%=request.getContextPath() %>/mypage/cart.do"><i class="fa fa-shopping-bag"></i> <span>${cntCart}</span></a></li>
+                    	</c:if>
                         </ul>
                     </div>
                 </div>
