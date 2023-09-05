@@ -259,7 +259,7 @@
 	<!-- 정지 해제 -->
 	<update id="NonStopUser" parameterType="UserVO">
 		update user
-		set uStatus = 'N'
+		set uStatus = CASE WHEN uBisno = '' THEN 'N' ELSE 'B' END
 		where uNo = #{uNo}
 	</update>
 	

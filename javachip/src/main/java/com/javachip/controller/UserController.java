@@ -67,6 +67,12 @@ public class UserController {
 							+ "\\n(승인 기간 : 가입일에서 최대 1주일)\\n\\n"
 							+ "문의사항은 javachip0703@gmail.com으로 보내주세요.');location.href='"
 							+req.getContextPath()+"/member/login.do';</script>");
+				}else if(uStatus.equals("Y")) {
+					System.out.println("정지 회원");
+					session.invalidate();
+					pw.append("<script>alert('정지된 계정입니다.\\n "
+							+ "자세한 정보는 javachip0703@gmail.com으로 문의해주세요.');location.href='"
+							+req.getContextPath()+"/member/login.do';</script>");
 				}else{
 				pw.append("<script>alert('로그인에 성공했습니다.\\n\\n회원 이름 : " + loginVO.getuName()
 						+ "\\n경고 횟수 : "+ loginVO.getuAlertNum() + "');location.href='"+req.getContextPath()+"/';</script>");
