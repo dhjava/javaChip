@@ -91,7 +91,7 @@ function checkFn(obj){
 		if($(obj).attr("name") == "uId"){
 			// id가 존재하는 경우 아이디 중복체크
 			$.ajax({
-				url:"/controller/member/checkId.do",
+				url:"checkId.do",
 				type:"post",
 				data:{uId:$(obj).val()},
 				success:function(data){
