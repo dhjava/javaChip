@@ -116,6 +116,7 @@
 	            url: "addressPopup.do",
 	            type: "POST",
 	            data: {
+	            	addNo: addNo,
 	            	uNo: uNo,
 	            	aStatus: aStatus,
 	                aName: aName,
@@ -127,18 +128,55 @@
 	                aComment: aComment
 	            },
 	            success: function(data) {
-	            	alert("성공");
 	                console.log(data);
 	                if(data > 0) {
-	                    alert("변경 완료");
+	                    alert("저장 성공");
 	                    window.close();
 	                } else {
-	                    console.log("에러 발생");
+	                	alert("저장 실패");
 	                }
 	            },
 	            error: function() {
-	            	alert("실패");
-	                console.log("에러 발생");
+	            	alert("에러발생");
+	            }
+	        });
+	    });
+	    $("#addAddressButton").click(function() {
+	        var uNo = $("#uNo").val();
+	        var aStatus = $("#aStatus").val();
+	        var aName = $("#aName").val();
+	        var aAdd1 = $("#aAdd1").val();
+	        var aAdd2 = $("#aAdd2").val();
+	        var aAdd3 = $("#aAdd3").val();
+	        var aPhone = $("#aPhone").val();
+	        var aMail = $("#aMail").val();
+	        var aComment = $("#aComment").val();
+	        
+	        $.ajax({
+	            url: "addressAddPopup.do",
+	            type: "POST",
+	            data: {
+	            	uNo: uNo,
+	            	aStatus: aStatus,
+	                aName: aName,
+	                Addr1: aAdd1,
+	                Addr2: aAdd2,
+	                Addr3: aAdd3,
+	                aPhone: aPhone,
+	                aMail: aMail,
+	                aComment: aComment
+	            },
+	            success: function(data) {
+	                console.log(data);
+	                if(data > 0) {
+	                    alert("등록 성공");
+	                    window.close();
+	                } else {
+	                	alert("배송지는 두개까지 추가가 가능합니다.");
+	                }
+	            },
+	            error: function() {
+	            	alert("에러발생");
 	            }
 	        });
 	    });
@@ -159,7 +197,7 @@
              </div>
              <div class="checkout__input">
                  <p>주소<span>*</span></p>
-                 <input type="text" id="uAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" value="${login.uAdd1 }">
+                 <input type="text" id="uAdd1" placeholder="우편번호" class="checkout__input__add" style="width:150px;" value="${login.uAdd1 }" >
                  <input type="text" id="uAdd2" placeholder="주소" class="checkout__input__add" value="${login.uAdd2 }">
                  <input type="text" id="uAdd3" placeholder="나머지 주소" class="checkout__input__add" value="${login.uAdd3 }">
              </div>
@@ -191,7 +229,8 @@
 						<option value="sub1" id="sub1" ${param.sort eq 'sub1' ? 'selected' : ''}>추가 배송지1</option>
 					</select>
 					<input type="hidden" id="uNo" value="${login.uNo }">
-					<button type="button" class="btn btn-outline-primary" id="saveAddressButton" style="margin-left: 20px;">저장/수정</button>
+					<button type="button" class="btn btn-outline-primary" id="saveAddressButton" style="margin-left: 20px;">저장</button>
+					<button type="button" class="btn btn-outline-primary" id="addAddressButton" style="margin-left: 20px;">추가</button>
 				</div>
 		    	<div class="col-lg-10 col-md-6">
 		    		<p>&nbsp;&nbsp;&nbsp;&nbsp;주문자 정보와 동일 &nbsp;&nbsp;

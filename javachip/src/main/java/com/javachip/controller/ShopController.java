@@ -500,15 +500,27 @@ public class ShopController {
 	@ResponseBody
 	@RequestMapping(value="/addressPopup.do", method=RequestMethod.POST)
 	public int addressPopup(AddressVO addressVO, HttpServletRequest req) {
-		System.out.println("성공1");
+		
 		HttpSession session = req.getSession();
-		System.out.println("성공2");
+		
 		UserVO loginVO = (UserVO)session.getAttribute("login");
-		System.out.println("성공3");
+		int uNo = loginVO.getuNo();
+		
+		int result = as.updateAddress(addressVO);
+		
+		return result;
+	}
+	@ResponseBody
+	@RequestMapping(value="/addressAddPopup.do", method=RequestMethod.POST)
+	public int addressAddPopup(AddressVO addressVO, HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+		
+		UserVO loginVO = (UserVO)session.getAttribute("login");
+		
 		int result = 0;
 		int uNo = loginVO.getuNo();
-		System.out.println("성공4");
-		System.out.println(uNo);
+		
 		if(as.countAdd(uNo) == 0) {
 			addressVO.setaStatus("A");
 			result = as.insertAddress(addressVO);
@@ -516,10 +528,8 @@ public class ShopController {
 			addressVO.setaStatus("B");
 			result = as.insertAddress(addressVO);
 		}else {
-			result = as.updateAddress(addressVO);
+			result = 0;
 		}
-		System.out.println("av::"+addressVO);
-		System.out.println(result);
 		return result;
 	}
 	

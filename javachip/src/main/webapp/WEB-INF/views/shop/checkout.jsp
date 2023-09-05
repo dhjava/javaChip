@@ -177,38 +177,37 @@
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>성명<span>*</span></p>
-	                                        <input type="text" name="oName" id="oName" value="${addvo.aName }">
+	                                        <input type="text" name="oName" id="oName" value="${addvo.aName }" readonly>
 	                                    </div>
 	                                </div>
 	                            </div>
 	                            <div class="checkout__input">
 	                                <p>주소<span>*</span></p>
 	                                <input type="text" id="oAdd1" name="oAdd1" 
-	                                value="${addvo.addr1 }" placeholder="우편번호" class="checkout__input__add" style="width:150px;">
-	                                <button type="button" class="btn btn-outline-primary" onclick="sample7_execDaumPostcode()">우편번호</button>
+	                                value="${addvo.addr1 }" placeholder="우편번호" class="checkout__input__add" style="width:150px;" readonly>
 	                                <input type="text" id="oAdd2" name="oAdd2"
-	                                value="${addvo.addr2 }" placeholder="주소" class="checkout__input__add">
+	                                value="${addvo.addr2 }" placeholder="주소" class="checkout__input__add" readonly>
 	                                <input type="text" id="oAdd3" name="oAdd3"
-	                                value="${addvo.addr3 }" placeholder="나머지 주소" class="checkout__input__add">
+	                                value="${addvo.addr3 }" placeholder="나머지 주소" class="checkout__input__add" readonly>
 	                            </div>
 	                            <div class="row">
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>전화번호<span>*</span></p>
-	                                        <input type="text" name="oPhone" id="oPhone" value="${addvo.aPhone }">
+	                                        <input type="text" name="oPhone" id="oPhone" value="${addvo.aPhone }" readonly>
 	                                    </div>
 	                                </div>
 	                                <div class="col-lg-6">
 	                                    <div class="checkout__input">
 	                                        <p>이메일<span>*</span></p>
-	                                        <input type="text" name="oMail" id="oMail" value="${addvo.aMail }">
+	                                        <input type="text" name="oMail" id="oMail" value="${addvo.aMail }" readonly>
 	                                    </div>
 	                                </div>
 	                            </div>
 	                            <div class="checkout__input">
 	                                <p>배송 시 전달사항</p>
 	                                <input type="text"
-	                                    placeholder="전달사항을 입력해주세요. (선택사항)">
+	                                    placeholder="배송지 관리에서 설정해주세요. (선택사항)" readonly>
 	                            </div>
 	                        </div>
                     	</div>
