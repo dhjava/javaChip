@@ -54,6 +54,7 @@
 	<!-- 메인 페이지용 판매량 높고 판매중인 상품만 메인으로 -->
 	<select id="selectIndexProduct" resultType="ProductVO">
 		SELECT *
+		     , (SELECT aChangeName FROM pattach WHERE product.pNo = pattach.pNo) as aChangeName
 		  FROM product
 		 WHERE delYN = 'N'
 		   AND pType != 'E'

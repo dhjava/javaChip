@@ -189,28 +189,32 @@
             </div>
             <div class="row featured__filter">
             <c:forEach items="${indexList}" var="index">
+           	<c:if test="${index.pType ne 'G'}">
                 <div class="col-lg-3 col-md-4 col-sm-6 mix type${index.pType}">
                     <div class="featured__item">
-                    	<c:if test="${empty index.aChangeName}">
-	                        <div class="featured__item__pic set-bg" data-setbg="resources/img/categories/cat-1.jpg"
-	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;">
-                    	</c:if>
-                    	<c:if test="${not empty index.aChangeName}">
-	                        <div class="featured__item__pic set-bg" data-setbg="resources/upload/${index.aChangeName}"
-	                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;">
-                    	</c:if>
-                       	<c:if test="${index.pType ne 'G'}">
-                            <ul class="featured__item__pic__hover">
-                                <li><a href="javascript:addCartFn(${index.pNo})"><i class="fa fa-shopping-cart"></i></a></li>
-                            </ul>
-                       	</c:if>
-                        </div>
-                        <div class="featured__item__text">
-                            <h6><a href="shop/details.do?pNo=${index.pNo}">${index.pName}</a></h6>
-                            <h5 class="money">${index.pPrice}</h5>
-                        </div>
+	                    	<c:if test="${empty index.aChangeName}">
+		                        <div class="featured__item__pic set-bg" data-setbg="resources/img/categories/cat-1.jpg"
+		                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;">
+		                            <ul class="featured__item__pic__hover">
+		                                <li><a href="javascript:addCartFn(${index.pNo})"><i class="fa fa-shopping-cart"></i></a></li>
+		                            </ul>
+		                        </div>
+	                    	</c:if>
+	                    	<c:if test="${not empty index.aChangeName}">
+		                        <div class="featured__item__pic set-bg" data-setbg="resources/upload/${index.aChangeName}"
+		                        	 onClick="javascript:location.href='shop/details.do?pNo=${index.pNo}'" style="cursor:pointer;">
+		                            <ul class="featured__item__pic__hover">
+		                                <li><a href="javascript:addCartFn(${index.pNo})"><i class="fa fa-shopping-cart"></i></a></li>
+		                            </ul>
+		                        </div>
+	                    	</c:if>
+	                        <div class="featured__item__text">
+	                            <h6><a href="shop/details.do?pNo=${index.pNo}">${index.pName}</a></h6>
+	                            <h5 class="money">${index.pPrice}</h5>
+	                        </div>
                     </div>
                 </div>
+            </c:if>
             </c:forEach>
             <c:if test="${empty indexList}">
             	<div style="height:200px; line-height:200px; width:100%; text-align:center;">
