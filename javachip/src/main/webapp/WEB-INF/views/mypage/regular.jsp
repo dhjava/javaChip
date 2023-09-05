@@ -89,7 +89,16 @@
 					<c:forEach items="${regularList}" var="regular">
 						<c:if test="${regular.oStatus eq 'O'}">
 						  <tr style = "height : 100px">
-						    <td class="tg-9wq8">(사진)</td>
+						    <td class="tg-9wq8">
+								<c:if test="${empty regular.aChangeName}">
+                                    <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg"
+                                    style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
+                                </c:if>
+                                <c:if test="${not empty regular.aChangeName}">
+                                    <img src="<%= request.getContextPath() %>/resources/upload/${regular.aChangeName}"
+                                    style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
+                                </c:if>
+                            </td>
 						    <td class="tg-9wq8">
 						    	<a href="hdetail.do?oNo=${regular.oNo}">${regular.pName}</a>
 						    	<input type="hidden" name="oNo" value="${regular.oNo}">
@@ -132,7 +141,16 @@
 					<c:forEach items="${regularList}" var="regular">
 						<c:if test="${regular.oStatus ne 'O'}">
 						  <tr style = "height : 100px">
-						    <td class="tg-9wq8">(사진)</td>
+						    <td class="tg-9wq8">
+								<c:if test="${empty regular.aChangeName}">
+                                    <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg"
+                                    style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
+                                </c:if>
+                                <c:if test="${not empty regular.aChangeName}">
+                                    <img src="<%= request.getContextPath() %>/resources/upload/${regular.aChangeName}"
+                                    style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
+                                </c:if>
+							</td>
 						    <td class="tg-9wq8">${regular.pName}</td>
 						    <td class="tg-9wq8"><span class="price">${regular.pPrice}</span></td>
 						    <td class="tg-9wq8">신용카드</td>

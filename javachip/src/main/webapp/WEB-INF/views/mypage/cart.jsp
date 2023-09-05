@@ -239,10 +239,12 @@
 		                                    <td class="shoping__cart__item">
 		                                    	<a href="<%= request.getContextPath() %>/shop/details.do?pNo=${cart.pNo}" target="_blank" rel="noreferer">
 		                                    <c:if test="${empty cart.aChangeName}">
-			                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg" alt="">
+			                                        <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg"
+			                                        style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
 		                                    </c:if>
 		                                    <c:if test="${not empty cart.aChangeName}">
-			                                        <img src="<%= request.getContextPath() %>/resources/upload/${cart.aChangeName}" alt="">
+			                                        <img src="<%= request.getContextPath() %>/resources/upload/${cart.aChangeName}"
+			                                        style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
 		                                    </c:if>
 			                                        <h5>${cart.pName}</h5>
 		                                    	</a>
@@ -254,7 +256,7 @@
 		                                        <div class="quantity">
 		                                            <div class="pro-qty">
 		                                                <input type="text" name="cCount" value="${cart.cCount}"
-		                                                oninput="this.value=this.value.replace(/[^0-9]/g,'');">
+		                                                oninput="this.value=this.value.replace(/[^0-9]/g,'');" readonly>
 		                                            </div>
 		                                        </div>
 		                                    </td>

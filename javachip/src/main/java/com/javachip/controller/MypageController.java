@@ -316,10 +316,12 @@ public class MypageController {
 		encodePw = pe.encode(uPw);
 		
 		vo.setuPw(encodePw);
-		us.pwUpdate(vo);
 		
+
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter pw = res.getWriter();
+		
+		us.pwUpdate(vo);
 		
 		pw.append("<script>alert('비밀번호가 변경되었습니다!');window.close();</script>");
 	}

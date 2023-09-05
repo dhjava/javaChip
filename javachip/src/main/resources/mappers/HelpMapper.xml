@@ -16,6 +16,13 @@
 			AND qTitle like concat('%',#{searchValue},'%')
 			OR qContents like concat('%',#{searchValue},'%')
 		</if>
+		<!-- 마이페이지용 검색 -->
+		<if test='searchType != null and searchType.equals("uNo")'>
+			AND uNo = #{searchValue}
+		</if>
+		<if test='searchType != null and searchType.equals("pNo")'>
+			AND pNo = #{searchValue}
+		</if>
 	</sql>
 	<sql id="nSearch">
 		<if test='searchType != null and searchType.equals("title")'>

@@ -133,7 +133,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt=""></a>
+                        	<a href="<%=request.getContextPath() %>/"><img src="<%=request.getContextPath() %>/resources/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -143,10 +143,10 @@
                             <li><a href="<%=request.getContextPath() %>/shop/grid.do">쇼핑몰</a></li>
                             <li><a href="<%=request.getContextPath() %>/mypage/main.do">마이페이지</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="<%=request.getContextPath() %>/shop/details.do">주문내역</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/mypage/history.do">주문내역</a></li>
                                     <li><a href="<%=request.getContextPath() %>/mypage/myinfo.do">회원정보수정</a></li>
-                                    <li><a href="<%=request.getContextPath() %>/mypage/main.do">적립금</a></li>
-                                    <li><a href="<%=request.getContextPath() %>/mypage/main.do">후기/QNA</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/mypage/mileage.do">적립금</a></li>
+                                    <li><a href="<%=request.getContextPath() %>/mypage/myqna.do">후기/QNA</a></li>
                                     <li><a href="<%=request.getContextPath() %>/mypage/regular.do">정기배송</a></li>
                                 </ul>
                             </li>
@@ -169,8 +169,12 @@
                 <div class="col-lg-3">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="<%=request.getContextPath() %>/mypage/cart.do"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                    	<c:if test="${empty login}">
+                            <li><a href="<%=request.getContextPath() %>/mypage/cart.do"><i class="fa fa-shopping-bag"></i></a></li>
+                    	</c:if>
+                    	<c:if test="${not empty login}">
+                            <li><a href="<%=request.getContextPath() %>/mypage/cart.do"><i class="fa fa-shopping-bag"></i> <span>${cntCart}</span></a></li>
+                    	</c:if>
                         </ul>
                     </div>
                 </div>

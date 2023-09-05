@@ -58,6 +58,11 @@ function checks() {
 		return false;
 	}
 
+	if(checkIdFlag = false){
+		alert("중복된 ID는 사용할 수 없습니다.");
+		return false;
+	}
+
 	alert("가입이 완료되었습니다!")
   return true;
 }
@@ -95,6 +100,7 @@ function checkFn(obj){
 						// 사용할 수 있는 id
 						$(obj).next(".msg").text("사용할 수 있는 ID 입니다.").css("color","green");
 						checkIdFlag = true;
+						$("#joinBtn").attr("disabled", false);
 					}else{
 						// 중복 id
 						$(obj).next(".msg").text("이미 존재하는 ID입니다.").css("color","red");

@@ -82,6 +82,7 @@ public class UserController {
 			}
 		}else{
 			//login할 회원이 데이터베이스에 존재 X
+			System.out.println(vo.getuPw());
 			System.out.println("회원존재 X");
 			pw.append("<script>alert('존재하지 않는 아이디나 비밀번호입니다.');location.href='"+req.getContextPath()+"/member/login.do';</script>");
 		}
