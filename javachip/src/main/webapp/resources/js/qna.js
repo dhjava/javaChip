@@ -38,7 +38,7 @@ function qnaSubmitFn() {
 			if($("#pNo").val() == 0) {
 				checkPNoFlag = false;
 				alert("질문하실 상품을 선택해주세요.");
-				 $("#pNo").focus();
+				location.href="#addQnaSelect";
 			}else {
 			// 상품QnA가 선택되고, 상품이 선택되었을 경우
 				checkPNoFlag = true;
