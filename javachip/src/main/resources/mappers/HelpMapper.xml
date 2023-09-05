@@ -30,15 +30,8 @@
 		</if>
 	</sql>
 	<sql id="pSearch">
-		<if test='searchType != null and searchType.equals("all")'>
-			AND pName like concat('%',#{searchValue},'%')
-			OR pType like concat('%',#{searchValue},'%') 
-		</if>
 		<if test='searchType != null and searchType.equals("name")'>
 			AND pName like concat('%',#{searchValue},'%')
-		</if>
-		<if test='searchType != null and searchType.equals("type")'>
-			AND pType like concat('%',#{searchValue},'%')
 		</if>
 	</sql>
 	<!-- 공지사항 -->

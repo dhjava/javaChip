@@ -204,7 +204,7 @@ function closeSelectBoxFn() {
 
 // 게시글 취소 재확인 문구
 function helpResetFn() {
-	if( confirm("작성된 게시글을 취소하시겠습니까?") ) {
+	if( confirm("작성하고있는 게시글을 취소하시겠습니까?") ) {
 		//true
 		location.href="qna.do";
 	}else {

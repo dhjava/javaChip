@@ -236,14 +236,6 @@ function productCallFn(curPage,searchType,searchValue) {
 							<textarea name="qContents" id="qContents" style="width:100%; min-height:500px;"></textarea>
 					</div>
 				</form>
-						<div class="input-group mb-1">
-							<div class="custom-file">
-							<form id="fileSubmitFrm" method="post" enctype="multipart/form-data">
-								<input style="display:none"type="file" accept="image/png,image/jpeg,image/gif" multiple="multiple" class="custom-file-input" id="inputGroupFile02" name="uploadFile" onchange="qnaUploadFn()">
-								<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-							</form>
-							</div>
-						</div>
 					</div>
 					<div class="p-2 bd-highlight" align="center">
 						<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="helpResetFn">취소하기</button>
@@ -261,9 +253,7 @@ function productCallFn(curPage,searchType,searchValue) {
 						<form id="searchFrm" class="d-flex justify-content-center" onsubmit="return false;">
 			 				<div class="input-group">
 								<select name="searchType" id="qpSearchType">
-									<option value="all">전체</option>
 									<option value="name">상품명</option>
-									<option value="type">종류</option>
 								</select>
 								<input type="text" name="SearchValue" id="qpSearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
 								<div class="input-group-append">
