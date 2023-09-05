@@ -202,7 +202,7 @@
 	<!-- 블랙리스트회원 전체 목록 -->
 	<select id="selectBlakListByAdmin" resultType="userVO" parameterType="AdminSearchVO">
 		SELECT * FROM user
-		where uAlertNum > 0
+		where (uAlertNum > 0 or uStatus = 'Y')
 		<include refid="findUser" />
 		order by uAlertNum desc limit #{sNum},#{perPageNum}
 	</select>
@@ -224,7 +224,7 @@
 	<!-- 관리자 블랙리스트 세부 목록 -->
 	<select id="selectBlacklistOneByuNoByAdmin" resultType="userVO" parameterType="int">
 		SELECT * FROM user
-		where uAlertNum > 0
+		where (uAlertNum > 0 or uStatus = 'Y')
 		and uNo = #{uNo}
 	</select>
 	
