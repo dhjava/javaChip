@@ -154,18 +154,17 @@ public class MypageController {
 		int uNo = loginVO.getuNo();
 		userVO.setuNo(uNo);
 //		System.out.println("userVO:"+userVO);
-		
-		String oldPass = loginVO.getuPw();
+		UserVO uv = us.infoCheck(uNo);
+		String oldPass = uv.getuPw();
 		String newPass = userVO.getuPw();
-		
-		if(oldPass.equals(newPass)) {
+		if(true == pe.matches(newPass, oldPass)) {
 			us.goodbye(uNo);
 			ra.addFlashAttribute("result", "removeOK");
 			session.invalidate();
 			return "redirect:/";
 		}else {
 			ra.addFlashAttribute("result", "removeFalse");
-			return "redirect:/mypage/goodbye";
+			return "redirect:/mypage/goodbye.do";
 		}
 	}
 	
