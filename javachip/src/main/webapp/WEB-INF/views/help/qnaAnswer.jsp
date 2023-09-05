@@ -68,7 +68,7 @@ function qnaAnswerFn() {
 	<section class="board-box spad">
 		<div class="container">
 			<div class="write-form">
-				<form id="submitFrm" method="post">
+				<form id="submitFrm" onsubmit="return false;">
 					<div class="d-flex flex-column bd-highlight mb-3">
 						<div class="p-2 bd-highlight">
 							<h4>Qna 답변</h4>
@@ -109,15 +109,8 @@ function qnaAnswerFn() {
 						<p>비밀글  <input type="checkbox" value="${qnaVO.secretYN}" <c:if test="${qnaVO.secretYN eq 'Y'}">checked</c:if> disabled /></p>
 					</div>
 					<div class="p-2 bd-highlight">
+						<div class="p-2 bd-highlight" id="smarteditor">
 						<textarea name="qAnswer" id="qAnswer" style="width:100%; min-height:500px;"></textarea>
-						</div>
-					</div>
-					<div class="p-2 bd-highlight">
-						<div class="input-group mb-1">
-							<div class="custom-file">
-								<input type="file" class="custom-file-input" id="inputGroupFile02">
-								<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-							</div>
 						</div>
 					</div>
 					<div class="p-2 bd-highlight" align="center">

@@ -200,7 +200,7 @@ function productCallFn(curPage,searchType,searchValue) {
 			<div class="write-form">
 				<div class="d-flex flex-column bd-highlight mb-3">
 				<a href="editer.do">테스트</a>
-				<form id="submitFrm" method="post">
+				<form id="submitFrm" onsubmit="return false;">
 						<div class="p-2 bd-highlight">
 							<h4><b>Qna 글쓰기</b></h4>
 						</div>
@@ -236,14 +236,6 @@ function productCallFn(curPage,searchType,searchValue) {
 							<textarea name="qContents" id="qContents" style="width:100%; min-height:500px;"></textarea>
 					</div>
 				</form>
-						<div class="input-group mb-1">
-							<div class="custom-file">
-							<form id="fileSubmitFrm" method="post" enctype="multipart/form-data">
-								<input style="display:none"type="file" accept="image/png,image/jpeg,image/gif" multiple="multiple" class="custom-file-input" id="inputGroupFile02" name="uploadFile" onchange="qnaUploadFn()">
-								<label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
-							</form>
-							</div>
-						</div>
 					</div>
 					<div class="p-2 bd-highlight" align="center">
 						<button type="button" class="btn btn-outline-secondary" style="margin-right:20px;" onclick="helpResetFn">취소하기</button>
@@ -258,12 +250,10 @@ function productCallFn(curPage,searchType,searchValue) {
 				</div>
 				<div class="pSelectContent">
 					<div class="board-search" style="width:70%; float: left">
-						<form id="searchFrm" class="d-flex justify-content-center" onsubmit="return false;">
+						<form id="searchFrm" class="d-flex justify-content-center" onsubmit="searchProductFn(); return false; ">
 			 				<div class="input-group">
 								<select name="searchType" id="qpSearchType">
-									<option value="all">전체</option>
 									<option value="name">상품명</option>
-									<option value="type">종류</option>
 								</select>
 								<input type="text" name="SearchValue" id="qpSearchValue" class="form-control" placeholder="내용을 입력하세요" aria-label="Recipient's username" aria-describedby="button-addon2">
 								<div class="input-group-append">
