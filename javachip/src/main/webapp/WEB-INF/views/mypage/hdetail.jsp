@@ -70,11 +70,11 @@
                                     <td class="shoping__cart__item">
                                     	<c:if test="${empty list.aChangeName}">
 		                                    <img src="<%= request.getContextPath() %>/resources/img/cart/cart-1.jpg"
-		                                    style="width: auto; height: auto; max-width: 270px; max-height: 270px;" alt="">
+		                                    style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
 		                                </c:if>
 		                                <c:if test="${not empty list.aChangeName}">
 		                                    <img src="<%= request.getContextPath() %>/resources/upload/${regular.aChangeName}"
-		                                    style="width: auto; height: auto; max-width: 270px; max-height: 270px;" alt="">
+		                                    style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
 		                                </c:if>
                                         <h5>${list.pName}</h5>
                                     </td>

@@ -15,6 +15,7 @@
 		    ON o.oNo = d.oNo
 		 WHERE o.uNo = #{uNo}
 		 GROUP BY o.oNo
+		 ORDER BY o.oDate DESC
 	</select>
 	
 	<!-- 정기배송 주문 조회 -->

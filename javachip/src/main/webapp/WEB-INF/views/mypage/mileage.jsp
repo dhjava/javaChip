@@ -45,7 +45,7 @@
                             		<td colspan="4">적립 및 사용내역이 없습니다.</td>
                             	</tr>
                             </c:if>
-                            <c:forEach items="${mileageList}" var="mileage">
+                            <c:forEach items="${mileageList}" var="mileage" begin="1" end="20" step="1">
                                 <tr>
                                     <c:choose>
 	                                    <c:when test="${mileage.mPlus > 0 and mileage.mMinus eq 0}">

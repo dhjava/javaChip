@@ -51,6 +51,7 @@
 			SELECT *
 			  FROM mileage
 			 WHERE uNo = #{uNo}
+			 ORDER BY mDate DESC
 		</select>
 	<!-- 마일리지 내역 조회 -->
 </mapper>

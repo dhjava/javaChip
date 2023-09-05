@@ -293,7 +293,7 @@
 											  	<c:forEach items="${qnaList}" var="qna">
 												    <tr>
 												      <td>${qna.qNo}</td>
-												      <td>${qna.qTitle}</td>
+												      <td><a href="<%= request.getContextPath() %>/help/qnaView.do?qNo=${qna.qNo}">${qna.qTitle}</a></td>
 												      <td>${qna.uName}</td>
 												      <td>${qna.qDate.substring(0,10)}</td>
 												    </tr>
