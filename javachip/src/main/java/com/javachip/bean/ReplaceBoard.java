@@ -24,6 +24,10 @@ public class ReplaceBoard {
 		returnStr = returnStr.replaceAll("&lt;i", "<i");
 		
 		returnStr = returnStr.replaceAll("&lt;/i&gt;", "</i>");
+		// <u>
+		returnStr = returnStr.replaceAll("&lt;u", "<u");
+		
+		returnStr = returnStr.replaceAll("&lt;/u&gt;", "</u>");
 		// <tbody>
 		returnStr = returnStr.replaceAll("&lt;tbody", "<tbody");
 		

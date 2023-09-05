@@ -19,7 +19,7 @@ function qnaSubmitFn() {
 			return;
 		}else
 	// QnA 내용이 입력되지 않았을 때
-	if(qContents == "") {
+	if("" == qContents|| null == qContents) {
 			checkContentsFlag = false;
 			alert("내용을 입력해주세요.");
 			oEditor.getById["qContents"].exec("FOCUS");
@@ -76,7 +76,7 @@ function qnaAnswerSubmitFn() {
 			return;
 		}else
 	// QnA 내용이 입력되지 않았을 때
-	if(qAnswer == "") {
+	if("" == qAnswer|| null == qAnswer) {
 			checkContentsFlag = false;
 			alert("내용을 입력해주세요.");
 			oEditor.getById["qAnswer"].exec("FOCUS");
