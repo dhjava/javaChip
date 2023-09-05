@@ -124,7 +124,7 @@
 					1
 				</c:if>
 				<c:if test="${qpm.isNext() && qpm.endPage>0}">	
-					<a href="main.do?qPage=${qpm.endPage()+1}">▶</a>
+					<a href="main.do?qPage=${qpm.endPage+1}">▶</a>
 				</c:if>
 						</td>
 					</tr>
