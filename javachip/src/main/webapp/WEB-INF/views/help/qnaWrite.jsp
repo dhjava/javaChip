@@ -200,7 +200,7 @@ function productCallFn(curPage,searchType,searchValue) {
 			<div class="write-form">
 				<div class="d-flex flex-column bd-highlight mb-3">
 				<a href="editer.do">테스트</a>
-				<form id="submitFrm" method="post">
+				<form id="submitFrm" onsubmit="return false;">
 						<div class="p-2 bd-highlight">
 							<h4><b>Qna 글쓰기</b></h4>
 						</div>
