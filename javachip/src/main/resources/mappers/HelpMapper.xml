@@ -20,6 +20,9 @@
 		<if test='searchType != null and searchType.equals("uNo")'>
 			AND uNo = #{searchValue}
 		</if>
+		<if test='searchType != null and searchType.equals("pNo")'>
+			AND pNo = #{searchValue}
+		</if>
 	</sql>
 	<sql id="nSearch">
 		<if test='searchType != null and searchType.equals("title")'>
