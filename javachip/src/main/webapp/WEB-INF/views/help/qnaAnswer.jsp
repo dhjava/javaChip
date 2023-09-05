@@ -80,6 +80,9 @@ function qnaAnswerFn() {
 								</td>
 								<td colspan="2">
 									${qnaVO.qTitle}
+									<c:if test="${qnaVO.secretYN eq 'Y'}">
+										<img style="display: inline-block;vertical-align:baseline" alt="비밀글" src="<%= request.getContextPath() %>/resources/img/board/lock_FILL1_wght400_GRAD0_opsz20.png">
+									</c:if>
 								</td>
 							</tr>
 							<tr>
