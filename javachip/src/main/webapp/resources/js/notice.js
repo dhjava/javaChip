@@ -19,7 +19,7 @@ function noticeSubmitFn() {
 			return;
 		}else
 	// Notice 내용이 입력되지 않았을 때
-	if(nContents == "") {
+	if("" == nContents || null == nContents) {
 			checkContentsFlag = false;
 			alert("내용을 입력해주세요.");
 			oEditor.getById["nContents"].exec("FOCUS");
