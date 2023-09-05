@@ -85,7 +85,9 @@
 							<button type="button" class="btn btn-secondary" style="margin-right:15px;" onclick="location.href='qnaAnswer.do?qNo=${qnaVO.qNo}'">답변하기</button>
 							</c:if>
 						</c:if>
+						<c:if test="${qnaVO.uNo eq login.uNo}">
 						<button type="button" class="btn btn-outline-danger" onclick="qnaDelFn();">삭제하기</button>
+						</c:if>
 						<form name="delFrm" method="post" action="qnaDelete.do">
 							<input type="hidden" name="qNo" value="${qnaVO.qNo}">
 							<input type="hidden" name="loginUno" value="${login.uNo}">
