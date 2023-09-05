@@ -250,7 +250,7 @@ function productCallFn(curPage,searchType,searchValue) {
 				</div>
 				<div class="pSelectContent">
 					<div class="board-search" style="width:70%; float: left">
-						<form id="searchFrm" class="d-flex justify-content-center" onsubmit="return false;">
+						<form id="searchFrm" class="d-flex justify-content-center" onsubmit="searchProductFn(); return false; ">
 			 				<div class="input-group">
 								<select name="searchType" id="qpSearchType">
 									<option value="name">상품명</option>

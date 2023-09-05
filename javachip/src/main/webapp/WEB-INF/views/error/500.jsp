@@ -7,7 +7,7 @@
 			<div class="errorPage">
 				<h1>500</h1><br>
 			
-				<h5>요청하신 페이지를 찾을 수 없습니다.<h5><br>
+				<h5>요청하신 페이지를 찾을 수 없습니다.</h5><br>
 				
 			</div>
 			<div class="p-2 bd-highlight" align="center">
