@@ -434,8 +434,8 @@ public class MypageController {
 		return result;
 	}
 	
-	// 매월 첫째 주 월요일 실행
-	@Scheduled(cron="0 0 23 1-7 * MON")
+	// 매월 첫째 주 수요일 9시 실행
+	@Scheduled(cron="0 0 9 1-7 * WED")
 	public void regularOrder() {
 		List<Order_DetailVO> rOrderDetail = ods.selectAllUserRegularProduct();
 		for(Order_DetailVO items : rOrderDetail) {
