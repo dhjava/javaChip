@@ -10,7 +10,7 @@
 			<div class="row">
 				<div class="col-lg-12 text-center">
 					<div class="breadcrumb__text">
-						<h2>공지사항</h2>
+						<h2>QnA</h2>
 						<div class="breadcrumb__option">
 							<a href="<%= request.getContextPath() %>/">Home</a>
 							<a href="#">고객센터</a>
