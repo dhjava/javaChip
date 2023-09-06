@@ -38,7 +38,6 @@ function noticeSubmitFn() {
 	}
 	
 	if(submitFlag) {
-		$("form").submit();
 		noticeWriteFn();
 	}
 	
