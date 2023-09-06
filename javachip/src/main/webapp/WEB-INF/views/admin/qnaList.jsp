@@ -149,12 +149,15 @@ function deleteValue(){
 						${qna.qDate }
 						</td>
 						<td>
-						<c:if test="${qna.qlevel ne 0 }">
-						답변완료
-						</c:if>
-						<c:if test="${qna.qlevel eq 0 }">
-						답변대기
-						</c:if></td>
+						<c:choose>
+						<c:when test="${ !empty qna.qAnswer}">
+							답변완료
+						</c:when>
+						<c:otherwise>
+							답변대기
+						</c:otherwise>
+						</c:choose>
+						</td>
 					</tr>
 					</c:forEach>
 				</table>

@@ -262,10 +262,10 @@
 		SELECT * FROM qna
 		where 1 = 1
 		<if test='searchType_qna != null and searchType_qna.equals("complete")'>
-			AND qlevel > 0
+			AND qAnswer is NOT NULL
 		</if>
 		<if test='searchType_qna != null and searchType_qna.equals("wait")'>
-			AND qlevel = 0
+			AND qAnswer is NULL
 		</if>
 		order by qNo desc limit #{sNum},#{perPageNum}
 	</select>
@@ -288,10 +288,10 @@
 		select count(*) as cnt from qna
 		where delYN = 'N'
 		<if test='searchType_qna != null and searchType_qna.equals("complete")'>
-			AND qlevel > 0
+			AND qAnswer is NOT NULL
 		</if>
 		<if test='searchType_qna != null and searchType_qna.equals("wait")'>
-			AND qlevel = 0
+			AND qAnswer is NULL
 		</if>
 	</select>
 	
