@@ -201,68 +201,7 @@
 	</table>
 	<br>
 	<br>
-	환불 리스트
-	<table border="1" style="width:99%;">
-		<tr>
-			<th>
-				번호
-			</th>
-			<th>
-				환불 날짜
-			</th>
-			<th>
-				환불 상태
-			</th>
-			<th>
-				환불 사유
-			</th>
-		</tr>
-		<c:forEach items="${reflist }" var="reflist">
-		<tr>
-			<td>
-				${reflist.refNo }
-			</td>
-			<td>
-				${reflist.refDate }
-			</td>
-			<td>
-				<c:if test="${reflist.refStatus eq 'N' }">
-					환불 대기
-				</c:if>
-				<c:if test="${reflist.refStatus eq 'Y' }">
-					환불 완료
-				</c:if>
-			</td>
-			<td>
-				${reflist.refReason }
-			</td>
-		</tr>
-		</c:forEach>
-		<tr>
-			<td colspan="6" style="text-align:center;">
-<% 
-if (pm.isPrev()) { %>
-    <a href="<%=request.getContextPath()%>/admin/memberDetail.do?uNo=${vo.uNo}&page=<%=pm.getStartPage()-1%>">◀</a>
-<%
-}
-%>
-
-<% 
-for (int i = pm.getStartPage(); i <= pm.getEndPage(); i++) { %>
-    <a href="<%=request.getContextPath()%>/admin/memberDetail.do?uNo=${vo.uNo}&page=<%=i%>"><%=i %></a>
-<%	
-}
-%>
-
-<% 
-if (pm.isNext() && pm.getEndPage() > 0) { %>
-    <a href="<%=request.getContextPath()%>/admin/memberDetail.do?uNo=${vo.uNo}&page=<%=pm.getEndPage()+1%>">▶</a>
-<%
-}
-%>
-</td>
-		</tr>
-	</table>
+	
 	<br>
 		</div>
 	</section>
