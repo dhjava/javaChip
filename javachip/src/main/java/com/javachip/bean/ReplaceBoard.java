@@ -20,6 +20,10 @@ public class ReplaceBoard {
 		returnStr = returnStr.replaceAll("&lt;b", "<b");
 		
 		returnStr = returnStr.replaceAll("&lt;/b&gt;", "</b>");
+		// <a>
+		returnStr = returnStr.replaceAll("&lt;a", "<a");
+		
+		returnStr = returnStr.replaceAll("&lt;/a&gt;", "</a>");
 		// <i>
 		returnStr = returnStr.replaceAll("&lt;i", "<i");
 		
