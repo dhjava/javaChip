@@ -202,7 +202,7 @@ function productCallFn(curPage,searchType,searchValue) {
 				<a href="editer.do">테스트</a>
 				<form id="submitFrm" onsubmit="return false;">
 						<div class="p-2 bd-highlight">
-							<h4><b>Qna 글쓰기</b></h4>
+							<h4><b>Qna 쓰기</b></h4>
 						</div>
 						<div class="p-2 bd-highlight">
 							<p>구분<p>
