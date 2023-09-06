@@ -76,7 +76,7 @@
 		                                    <img src="<%= request.getContextPath() %>/resources/upload/${regular.aChangeName}"
 		                                    style="width: auto; height: auto; max-width: 100px; max-height: 100px;" alt="">
 		                                </c:if>
-                                        <h5>${list.pName} 외 ${list.oCount}건</h5>
+                                        <h5>${list.pName}</h5>
                                     </td>
                                     <td class="shoping__cart__price">
                                         ${list.pPrice}
