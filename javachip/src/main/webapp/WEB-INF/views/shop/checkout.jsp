@@ -45,18 +45,20 @@
 				$("#point").attr("value", 0);
 				price = sum;
 			}else if(point > maxPoint) {
-				alert("사용 가능한 포인트를 초과하였습니다.");
 				if(point > parseInt(sum)) {
+					alert("결제하려는 금액보다 더 많은 포인트를 사용하실 수 없습니다.");
 					$("#usePoint").attr("value", sum);
 					$("#discount").text("-"+moneyFn(sum));
 					$("#point").attr("value", sum);
 					price = 0;
-				}else {
-					$("#usePoint").attr("value", maxPoint);
-					$("#discount").text("-"+moneyFn(maxPoint));
-					$("#point").attr("value", maxPoint);
-					price = parseInt(sum)-maxPoint;
+					$("#getTotal").text(moneyFn(price));
+					return;
 				}
+				alert("사용 가능한 포인트를 초과하였습니다.");
+				$("#usePoint").attr("value", maxPoint);
+				$("#discount").text("-"+moneyFn(maxPoint));
+				$("#point").attr("value", maxPoint);
+				price = parseInt(sum)-maxPoint;
 			}else if(point > parseInt(sum)) {
 				alert("결제하려는 금액보다 더 많은 포인트를 사용하실 수 없습니다.");
 				$("#usePoint").attr("value", sum);
