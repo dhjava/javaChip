@@ -44,18 +44,18 @@
 				$("#discount").empty();
 				$("#point").attr("value", 0);
 				price = sum;
-			}else if(point > maxPoint) {
-				alert("사용 가능한 포인트를 초과하였습니다.");
-				$("#usePoint").attr("value", maxPoint);
-				$("#discount").text("-"+moneyFn(maxPoint));
-				$("#point").attr("value", maxPoint);
-				price = parseInt(sum)-maxPoint;
 			}else if(point > parseInt(sum)) {
 				alert("결제하려는 금액보다 더 많은 포인트를 사용하실 수 없습니다.");
 				$("#usePoint").attr("value", sum);
 				$("#discount").text("-"+moneyFn(sum));
 				$("#point").attr("value", sum);
 				price = 0;
+			}else if(point > maxPoint) {
+				alert("사용 가능한 포인트를 초과하였습니다.");
+				$("#usePoint").attr("value", maxPoint);
+				$("#discount").text("-"+moneyFn(maxPoint));
+				$("#point").attr("value", maxPoint);
+				price = parseInt(sum)-maxPoint;
 			}else {
 				$("#discount").text("-"+moneyFn(point));
 				$("#point").attr("value", point);
@@ -68,6 +68,10 @@
 		IMP.init("imp06473501"); // 예: imp00000000
 		
 	    function requestPay() {
+			if($("#addNo").val() == null || $("#addNo").val() == "") {
+				alert("배송지를 선택해주세요");
+				return;
+			}
 	      // IMP.request_pay(param, callback) 결제창 호출
 	      IMP.request_pay({ // param
 	          pg: "html5_inicis",
@@ -133,7 +137,6 @@
 	            }
 	        });
 	    }
-	    
 	</script>
 	
     <!-- Breadcrumb Section Begin -->
