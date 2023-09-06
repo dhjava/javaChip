@@ -51,7 +51,7 @@ function deleteValue(){
 			success : function(jdata){
 				if(jdata = 1){
 					alert("삭제성공");
-					location.replace("/controller/admin/deliveryList.do")
+					location.href="<%= request.getContextPath() %>/admin/deliveryList.do";
 				}
 				else{
 					alert("삭제실패");

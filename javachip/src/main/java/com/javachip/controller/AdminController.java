@@ -360,14 +360,13 @@ public class AdminController
 
 		String[] ajaxMsg = request.getParameterValues("valueArr");
 		
-		
 		int size = ajaxMsg.length;
 			
 			for(int i = 0; i < size; i++) {
 				hs.deleteNoticeByAdmin(ajaxMsg[i]);
 			}
 
-		return "redirect:/admin/boardList";
+		return "redirect:"+request.getContextPath()+"/admin/boardList.do";
 	}
 	
 	//QnA선택삭제
@@ -383,7 +382,7 @@ public class AdminController
 		{
 			hs.deleteQnaByAdmin(ajaxMsg[i]);
 		}
-		return "redirect:/admin/qnaList";
+		return "redirect:"+request.getContextPath()+"/admin/qnaList.do";
 	}
 	
 	//주문 선택삭제
@@ -392,14 +391,15 @@ public class AdminController
 	public String deleteProduct(HttpServletRequest request)
 	{
 		String[] ajaxMsg = request.getParameterValues("valueArr");
+	
 		
 		int size = ajaxMsg.length;
-		
+		System.out.println(request.getContextPath());
 		for(int i = 0; i < size; i++)
 		{
 			os.deleteProduct(ajaxMsg[i]);
 		}
-		return "redirect:/admin/deliveryList";
+		return "redirect:deliveryList.do";
 	}
 	
 	@RequestMapping(value="/productList.do")
