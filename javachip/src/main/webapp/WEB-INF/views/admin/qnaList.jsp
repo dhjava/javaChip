@@ -52,7 +52,7 @@ function deleteValue(){
 			success : function(jdata){
 				if(jdata = 1){
 					alert("삭제성공");
-					location.replace("/controller/admin/qnaList.do")
+					location.href="<%= request.getContextPath() %>/admin/qnaList.do";
 				}
 				else{
 					alert("삭제실패");
