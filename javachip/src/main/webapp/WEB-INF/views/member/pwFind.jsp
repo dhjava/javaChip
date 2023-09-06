@@ -5,10 +5,10 @@
 		<h2>비밀번호 찾기</h2>
 		<div class="main login">
 			<br>
-			<input type="text" placeholder="이름" id="uName" name="uName" value="관리자"><br>
-			<input type="text" placeholder="아이디" id="uId" name="uId" value="admin"><br>
-			<input type="text" placeholder="이메일" id="uMail" name="uMail"  value="spaghetti0119@gmail.com"><br>
-			<input class="login btn"  type="button" id="findBtn" value="임시 비밀번호 전송">
+			<input type="text" placeholder="이름" id="uName" name="uName"/><br>
+			<input type="text" placeholder="아이디" id="uId" name="uId"/><br>
+			<input type="text" placeholder="이메일" id="uMail" name="uMail"/><br>
+			<input class="login btn"  type="button" id="findBtn" value="임시 비밀번호 전송"/>
 		</div>
 	</div>
 	<script type="text/javascript">

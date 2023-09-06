@@ -254,7 +254,7 @@
                         <h4>신상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                            <c:forEach items="${newList}" var="newer" begin="1" end="3" step="1">
+                            <c:forEach items="${newList}" var="newer" begin="0" end="2" step="1">
                                 <a href="shop/details.do?pNo=${newer.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty newer.aChangeName}">
@@ -279,7 +279,7 @@
 				            </c:if>
                             </div>
                             <div class="latest-prdouct__slider__item">
-                            <c:forEach items="${newList}" var="newer" begin="4" end="6" step="1">
+                            <c:forEach items="${newList}" var="newer" begin="3" end="5" step="1">
                                 <a href="shop/details.do?pNo=${newer.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty newer.aChangeName}">
@@ -311,7 +311,7 @@
                         <h4>많이 판매된 상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                            <c:forEach items="${indexList}" var="pop" begin="1" end="3" step="1">
+                            <c:forEach items="${indexList}" var="pop" begin="0" end="2" step="1">
                                 <a href="shop/details.do?pNo=${pop.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty pop.aChangeName}">
@@ -319,7 +319,7 @@
                                         style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty pop.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}"
+                                        <img src="resources/upload/${pop.aChangeName}"
                                         style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
@@ -344,7 +344,7 @@
                                         style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty pop.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}"
+                                        <img src="resources/upload/${pop.aChangeName}"
                                         style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
@@ -368,7 +368,7 @@
                         <h4>추천 상품</h4>
                         <div class="latest-product__slider owl-carousel">
                             <div class="latest-prdouct__slider__item">
-                            <c:forEach items="${randomList}" var="rand" begin="1" end="3" step="1">
+                            <c:forEach items="${randomList}" var="rand" begin="0" end="2" step="1">
                                 <a href="shop/details.do?pNo=${rand.pNo}" class="latest-product__item">
                                     <div class="latest-product__item__pic">
                                     <c:if test="${empty rand.aChangeName}">
@@ -376,7 +376,7 @@
                                         style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty rand.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}"
+                                        <img src="resources/upload/${rand.aChangeName}"
                                         style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
@@ -401,7 +401,7 @@
                                         style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     <c:if test="${not empty rand.aChangeName}">
-                                        <img src="resources/upload/${newer.aChangeName}"
+                                        <img src="resources/upload/${rand.aChangeName}"
                                         style="width: auto; height: auto; max-width: 110px; max-height: 110px;" alt="">
                                     </c:if>
                                     </div>
